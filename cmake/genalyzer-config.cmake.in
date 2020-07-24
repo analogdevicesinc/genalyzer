@@ -1,0 +1,9 @@
+get_filename_component(genalyzer_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+set(genalyzer_INCLUDE_DIRS "@CONFIG_INCLUDE_DIRS@")
+
+if (NOT TARGET genalyzer::genalyzer)
+        include("${genalyzer_CMAKE_DIR}/genalyzer-targets.cmake")
+endif()
+
+set(genalyzer_LIBRARIES genalyzer::genalyzer)
