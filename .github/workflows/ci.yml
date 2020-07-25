@@ -1,0 +1,31 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Get Dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y build-essential cmake python3-pip python3-setuptools lcov
+        sudo pip3 install -r requirements.txt
+
+    - name: Build
+      run: |
+        mkdir build && cd build
+        cmake ..
+        make
+
+    - name: Test
+      run: |
+        cd build
+        make test
+
+    - name: Coverage
+      run: |
+        coveralls -t ${{ secrets.CO_TOKEN }} --exclude tests --exclude CMakeFile
