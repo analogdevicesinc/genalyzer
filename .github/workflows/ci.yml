@@ -28,13 +28,4 @@ jobs:
 
     - name: Coverage
       run: |
-        cd build
-        #lcov --directory . --capture --output-file coverage.info
-        #lcov --remove coverage.info '*/tests/*' --output-file coverage.info
-        #lcov --list coverage.info
-        coveralls -t ${{ secrets.CO_TOKEN }} --exclude tests
-
-        #    - name: Coveralls
-        #      uses: coverallsapp/github-action@master
-        #      with:
-        #        github-token: ${{ secrets.GITHUB_TOKEN }}
+        coveralls -t ${{ secrets.CO_TOKEN }} --exclude tests --exclude CMakeFile
