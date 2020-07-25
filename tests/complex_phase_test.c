@@ -35,7 +35,7 @@ int main()
             q1[k] = cos(2*M_PI*f_c*t - phase_degrees*M_PI/180);
 
         }
-        phase_est = phase_difference_complex_double(i0, q0, i1, q1, LEN);
+        phase_est = phase_difference_cdouble(i0, q0, i1, q1, LEN);
         printf("Phase Estimation: %f (Truth: %f)\n",phase_est, phase_degrees);
 
         if (fabs(phase_degrees-phase_est) > TOL)
