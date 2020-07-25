@@ -12,7 +12,7 @@ jobs:
     - name: Get Dependencies
       run: |
         sudo apt update
-        sudo apt install -y build-essential cmake python3-pip
+        sudo apt install -y build-essential cmake python3-pip python3-setuptools lcov
         sudo pip3 install -r requirements.txt
 
     - name: Build
@@ -26,3 +26,15 @@ jobs:
         cd build
         make test
 
+    - name: Coverage
+      run: |
+        cd build
+        #lcov --directory . --capture --output-file coverage.info
+        #lcov --remove coverage.info '*/tests/*' --output-file coverage.info
+        #lcov --list coverage.info
+        coveralls -t ${{ secrets.CO_TOKEN }} --exclude tests
+
+        #    - name: Coveralls
+        #      uses: coverallsapp/github-action@master
+        #      with:
+        #        github-token: ${{ secrets.GITHUB_TOKEN }}

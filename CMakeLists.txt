@@ -19,6 +19,9 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   # CMakeLists.
   include(CTest)
 
+  # Add coverage flags
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall --coverage")
+
   # find_package(OpenBLAS REQUIRED)
 
   # Docs only available if this is the main app
