@@ -31,7 +31,8 @@ jobs:
       run: |
         coveralls -t ${{ secrets.CO_TOKEN }} --exclude tests --exclude CMakeFile
 
-    - name: lint
+    - name: Lint
       run: |
         rm -rf build || true
-        pre-commit run --all-files
+        pre-commit
+        git diff -U0 > log.txt && cat log.txt
