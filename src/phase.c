@@ -34,6 +34,10 @@
 #include <math.h>
 #include <stdint.h>
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 double phase_difference_cdouble(const double *chan0_i, const double *chan0_q,
                                 const double *chan1_i, const double *chan1_q,
                                 const uint16_t samples) {
