@@ -31,14 +31,41 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file genalyzer.h
- * @brief Public interface */
+#include <assert.h>
+#include <errno.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "genalyzer/genalyzer.h"
 
-#ifndef INCLUDE_GENALYZER_GENALYZER_H_
-#define INCLUDE_GENALYZER_GENALYZER_H_
+#define LEN 4096
+#define TOL 0.5
+#define SFDR_DBFS_TARGET 20.0
+#define MAX_IN 2048
 
-#include <genalyzer/phase.h>
-#include <genalyzer/spectrum.h>
-#include <genalyzer/version.h>
+int main() {
+  // Create two complex signals with different amplitudes
+  double i0[LEN];
+  double q0[LEN];
+  int k;
+  double t;
 
-#endif /* INCLUDE_GENALYZER_GENALYZER_H_ */
+  double f_c = 50;
+  double f_c2 = 10;
+  double f_s = 1000;
+  double sfdr_dBFS;
+  double scaler = pow(10.0, -SFDR_DBFS_TARGET / 20);
+
+  for (k = 0; k < LEN; k++) {
+    t = k / (f_s);
+    i0[k] = cos(2 * M_PI * f_c * t) + scaler * cos(2 * M_PI * f_c2 * t);
+    q0[k] = sin(2 * M_PI * f_c * t) + scaler * sin(2 * M_PI * f_c2 * t);
+  }
+  sfdr_dBFS = sfdr_cdouble(i0, q0, MAX_IN, LEN);
+
+  assert(fabs(sfdr_dBFS - SFDR_DBFS_TARGET) < TOL);
+  return 0;
+}

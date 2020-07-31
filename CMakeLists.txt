@@ -5,6 +5,8 @@ project(
   DESCRIPTION "Library of DSP functions for RF measurements"
   LANGUAGES C)
 
+set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries")
+
 # ############################ Dependencies ####################################
 # Only do these if this is the main project, and not if it is included through
 # add_subdirectory
