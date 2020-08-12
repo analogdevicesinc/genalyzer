@@ -3,3 +3,4 @@ sphinx_rtd_theme
 breathe
 cpp-coveralls
 pre-commit
+pytest

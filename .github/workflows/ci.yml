@@ -19,8 +19,9 @@ jobs:
     - name: Build
       run: |
         mkdir build && cd build
-        cmake ..
+        cmake .. -DWITH_PYTHON=ON
         make
+        sudo make install
 
     - name: Test
       run: |
