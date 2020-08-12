@@ -1,0 +1,132 @@
+#!/usr/bin/env python
+"""
+  BSD 3-Clause License
+
+  Copyright (c) 2020, Analog Devices, Inc.
+  All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright notice,
+     this list of conditions and the following disclaimer in the documentation
+     and/or other materials provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its
+     contributors may be used to endorse or promote products derived from
+     this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  POSSIBILITY OF SUCH DAMAGE.
+ """
+
+import sys
+import os
+from platform import system as _system
+from ctypes import CDLL as _cdll
+from ctypes.util import find_library
+
+if sys.version_info[0] < 3:
+    from distutils.core import setup
+    from distutils.command.install import install
+
+    config = dict()
+else:
+    from setuptools import setup
+    from setuptools.command.install import install
+
+    config = dict(long_description_content_type="text/markdown")
+
+DESCRIPTION = "Library of DSP functions for RF measurements"
+
+try:
+    with open("${CMAKE_CURRENT_SOURCE_DIR}/README.md", "r") as fh:
+        LONG_DESCRIPTION = fh.read()
+except:  # pylint: disable=W0702
+    LONG_DESCRIPTION = DESCRIPTION
+
+
+def find_recursive(folder, filename):
+    """ Find file recursively """
+    for root, _, files in os.walk(folder):
+        for file in files:
+            if file == filename:
+                return os.path.join(root, file)
+    return False
+
+
+class InstallWrapper(install):
+    """Before installing we check if the
+    genalyzer library is actually installed"""
+
+    def run(self):
+        self._check_genalyzer_installed()
+        # Run the standard PyPi copy
+        install.run(self)
+
+    @staticmethod
+    def _check_genalyzer_installed():
+        cross_compiling = "${CMAKE_CROSSCOMPILING}" == "TRUE"
+        if cross_compiling:
+            # When cross-compiling, we generally cannot dlopen
+            # the genalyzer shared lib from the build platform.
+            # Simply skip this check in that case.
+            return
+
+        if "Windows" in _system():
+            _genlib = "libgenalyzer.dll"
+        else:
+            # Non-windows, possibly Posix system
+            _genlib = "genalyzer"
+        try:
+
+            destdir = os.getenv("DESTDIR", "")
+            if destdir:
+                destdir = os.path.join("${CMAKE_BINARY_DIR}", destdir)
+                fulllibpath = find_recursive(destdir, "libgenalyzer.so")
+                _lib = _cdll(fulllibpath, use_errno=True, use_last_error=True)
+            else:
+                _lib = _cdll(find_library(_genlib), use_errno=True, use_last_error=True)
+            if not _lib._name:  # pylint: disable=W0212
+                raise OSError
+        except OSError:
+            msg = "The genalyzer library could not be found.\n\
+            genalyzer needs to be installed first before the python bindings.\n\
+            The latest release can be found on GitHub:\n\
+            https://github.com/analogdevicesinc/genalyzer/releases"
+            raise Exception(msg)
+
+
+config.update(
+    dict(
+        name="pygenalyzer",
+        version="${VERSION}",
+        maintainer="Analog Devices, Inc",
+        maintainer_email="travis.collins@analog.com",
+        description=DESCRIPTION,
+        long_description=LONG_DESCRIPTION,
+        url="https://github.com/analogdevicesinc/genalyzer",
+        py_modules=["genalyzer"],
+        cmdclass={"install": InstallWrapper},
+        classifiers=[
+            "Programming Language :: Python :: 3",
+            "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
+            "Operating System :: OS Independent",
+        ],
+    )
+)
+
+
+setup(**config)

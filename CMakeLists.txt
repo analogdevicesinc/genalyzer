@@ -52,6 +52,12 @@ if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME) AND BUILD_TESTING)
   add_subdirectory(tests)
 endif()
 
+# ############################# Bindings #######################################
+option(WITH_PYTHON "Build python bindings?" OFF)
+if (WITH_PYTHON)
+        add_subdirectory(bindings/python)
+endif()
+
 # ############################## Version #######################################
 configure_file(cmake/version.h.cmakein
                ${CMAKE_SOURCE_DIR}/include/genalyzer/version.h @ONLY)
