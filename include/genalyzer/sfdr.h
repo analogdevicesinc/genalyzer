@@ -36,8 +36,8 @@
  *
  */
 
-#ifndef INCLUDE_GENALYZER_SPECTRUM_H_
-#define INCLUDE_GENALYZER_SPECTRUM_H_
+#ifndef INCLUDE_GENALYZER_SFDR_H_
+#define INCLUDE_GENALYZER_SFDR_H_
 
 #include <math.h>
 #include <stdint.h>
@@ -55,7 +55,7 @@
  * @param samples Length of input arrays
  * @return SFDR in dBFS
  */
-void spectrum_cdouble(const double *real, const double *imag,
-                    const uint16_t max_input, const uint16_t samples, double *log_spectrum);
+double sfdr_cdouble(const double *real, const double *imag,
+                    const uint16_t max_input, const uint16_t samples);
 
-#endif /* INCLUDE_GENALYZER_SPECTRUM_H_ */
+#endif /* INCLUDE_GENALYZER_SFDR_H_ */

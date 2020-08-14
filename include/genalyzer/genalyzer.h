@@ -38,6 +38,7 @@
 #define INCLUDE_GENALYZER_GENALYZER_H_
 
 #include <genalyzer/phase.h>
+#include <genalyzer/sfdr.h>
 #include <genalyzer/spectrum.h>
 #include <genalyzer/version.h>
 
