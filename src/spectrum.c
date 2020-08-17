@@ -55,43 +55,8 @@ static double win_hanning(int j, int n) {
   return (w);
 }
 
-uint16_t find_peak_from_left(double *array, uint16_t start, uint16_t stop) {
-  uint16_t index;
-  bool found_valley = false;
-  uint16_t peak_indx = stop;
-
-  for (index = start; index < stop; index++) {
-    if (!found_valley)
-      found_valley = array[index] < array[index + 1];
-    else {
-      if (array[index] > array[index + 1]) {
-        peak_indx = index;
-        break;
-      }
-    }
-  }
-  return peak_indx;
-}
-
-uint16_t find_max(double *array, uint16_t len) {
-  uint16_t c, index;
-  double max;
-
-  max = array[0];
-  index = 0;
-
-  for (c = 1; c < len; c++) {
-    if (array[c] > max) {
-      index = c;
-      max = array[c];
-    }
-  }
-
-  return index;
-}
-
-double sfdr_cdouble(const double *real, const double *imag,
-                    const uint16_t max_input, const uint16_t samples) {
+void spectrum_cdouble(const double *real, const double *imag,
+                    const uint16_t max_input, const uint16_t samples, double *log_spectrum) {
   // Apply window
   // window = signal.kaiser(N, beta=38)
   // # x = multiply(x, window)
@@ -104,14 +69,13 @@ double sfdr_cdouble(const double *real, const double *imag,
   fftw_complex *in_c, *out;
   fftw_plan plan_forward;
   double sfdr_dBFS;
-  double *win, *abs_fft, *ampl, *ampl_shifted;
+  double *win, *lin_spectrum_noshift, *log_spectrum_noshift;
   int i;
   uint16_t fund_indx, peak_indx;
 
   win = (double *)fftw_malloc(sizeof(double) * samples);
-  abs_fft = (double *)fftw_malloc(sizeof(double) * samples);
-  ampl = (double *)fftw_malloc(sizeof(double) * samples);
-  ampl_shifted = (double *)fftw_malloc(sizeof(double) * samples);
+  lin_spectrum_noshift = (double *)fftw_malloc(sizeof(double) * samples);
+  log_spectrum_noshift = (double *)fftw_malloc(sizeof(double) * samples);
   in_c = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * samples);
   out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * (samples + 1));
 
@@ -122,7 +86,7 @@ double sfdr_cdouble(const double *real, const double *imag,
 
   // Apply window to data
   for (i = 0; i < samples; i++) {
-    in_c[i] = (real[i] * win[i] + I * imag[i] * win[i]) / 1;
+    in_c[i] = (real[i] * win[i] + I * *(imag+i) * win[i]) / 1;
   }
 
   // FFT data
@@ -131,50 +95,17 @@ double sfdr_cdouble(const double *real, const double *imag,
 
   // Normalize to dBFS
   for (i = 0; i < samples; ++i) {
-    abs_fft[i] = cabs(out[i] / samples);
-    ampl[i] = 20 * log10(abs_fft[i] / max_input);
+    lin_spectrum_noshift[i] = cabs(out[i] / samples);
+    log_spectrum_noshift[i] = 20 * log10(lin_spectrum_noshift[i] / max_input);
   }
 
   // Shift FFT
-  fftshift(ampl_shifted, ampl, sizeof(double) * samples);
-
-  // Find fundamental
-  fund_indx = find_max(ampl_shifted, samples);
-
-  // Traverse until we find peaks
-  peak_indx = 0;
-  uint16_t peaks_found = 0, max_peak_indx = 0;
-  double max_peak, peak;
-
-  while (peak_indx < (samples - 1)) {
-    peak_indx = find_peak_from_left(ampl_shifted, peak_indx, samples - 1);
-
-    if (fund_indx == peak_indx) continue;
-
-    peak = ampl_shifted[peak_indx];
-
-    if (peaks_found <= 0) {
-      peaks_found++;
-      max_peak = peak;
-      max_peak_indx = peak_indx;
-    } else {
-      peaks_found++;
-      if (peak > max_peak) {
-        max_peak = peak;
-        max_peak_indx = peak_indx;
-      }
-    }
-  }
-
-  sfdr_dBFS = ampl_shifted[fund_indx] - max_peak;
-
+  fftshift(log_spectrum, log_spectrum_noshift, sizeof(double) * samples);
+  
   // cleanup
   fftw_free(win);
-  fftw_free(abs_fft);
-  fftw_free(ampl);
-  fftw_free(ampl_shifted);
+  fftw_free(lin_spectrum_noshift);
+  fftw_free(log_spectrum_noshift);
   fftw_free(in_c);
   fftw_free(out);
-
-  return sfdr_dBFS;
 }
