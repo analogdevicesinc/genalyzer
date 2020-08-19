@@ -31,16 +31,31 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file genalyzer.h
- * @brief Public interface */
+/** @file phase.h
+ *  @brief Function prototypes for spectrum related functions.
+ *
+ */
 
-#ifndef INCLUDE_GENALYZER_GENALYZER_H_
-#define INCLUDE_GENALYZER_GENALYZER_H_
+#ifndef INCLUDE_GENALYZER_THD_H_
+#define INCLUDE_GENALYZER_THD_H_
 
-#include <genalyzer/phase.h>
-#include <genalyzer/sfdr.h>
-#include <genalyzer/thd.h>
-#include <genalyzer/spectrum.h>
-#include <genalyzer/version.h>
+#include <math.h>
+#include <stdint.h>
 
-#endif /* INCLUDE_GENALYZER_GENALYZER_H_ */
+/**
+ * @brief Calculate the Spurious-free dynamic range (SFDR) of a complex double
+ * precision signals.\n\n <b><a
+ * href="https://www.analog.com/media/en/training-seminars/tutorials/MT-003.pdf">MT-003
+ * Reference</a></b> :
+ *
+ * @param real Array of the inphase (i) component of input signal
+ * @param imag Array of the quadrature (q) component of input signal
+ * @param max_input Maximum possible value of input signal (Usually ADC code
+ * max)
+ * @param samples Length of input arrays
+ * @return SFDR in dBFS
+ */
+double thd_cdouble(const double *real, const double *imag,
+                    const uint16_t max_input, const uint16_t samples);
+
+#endif /* INCLUDE_GENALYZER_THD_H_ */

@@ -31,16 +31,57 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file genalyzer.h
- * @brief Public interface */
+#include <complex.h>
+#include <fftw3.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
 
-#ifndef INCLUDE_GENALYZER_GENALYZER_H_
-#define INCLUDE_GENALYZER_GENALYZER_H_
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+#define NOISE 0.001
 
-#include <genalyzer/phase.h>
-#include <genalyzer/sfdr.h>
-#include <genalyzer/thd.h>
-#include <genalyzer/spectrum.h>
-#include <genalyzer/version.h>
+double thd_cdouble(const double *real, const double *imag,
+                    const uint16_t max_input, const uint16_t samples) {
+  // Apply window
+  // window = signal.kaiser(N, beta=38)
+  // # x = multiply(x, window)
+  // in_c[cnt] = (real * win[cnt] + I * imag * win[cnt]) / 2048;
 
-#endif /* INCLUDE_GENALYZER_GENALYZER_H_ */
+  // Use FFT to get the amplitude of the spectrum
+  // ampl = 1 / N * absolute(fft(x))
+  // ampl = 20 * log10(ampl / ref + 10 ** -20)
+
+  double thd_dBFS, thd_num, thd_den;
+  int i;
+  uint16_t fund_indx, peak_indx;
+  uint16_t fhs_indx[6];
+  double fhs[6];
+
+  double *log_spectrum;
+  log_spectrum = (double *)fftw_malloc(sizeof(double) * samples);
+  spectrum_cdouble(real, imag, max_input, samples, log_spectrum);
+
+  // Find fundamental
+  fhs_indx[0] = find_max(log_spectrum, samples);
+  fhs[0] = log_spectrum[fhs_indx[0]];
+
+  // Find peaks
+  for (i = 1; i < 6; i++) {
+    fhs_indx[i] = find_peak(log_spectrum, samples, fhs_indx, i);
+    fhs[i] = log_spectrum[fhs_indx[i]];
+  }
+
+  // calculate THD
+  thd_num = 0;
+  for (i = 0; i < 5; i++)
+    thd_num = thd_num + pow(pow(10.0, fhs[i+1]/20.0), 2.0);
+  thd_dBFS = 20.0 * log10(sqrt(thd_num)/pow(10.0, fhs[0]/20.0));
+
+  // cleanup
+  free(log_spectrum);
+
+  return thd_dBFS;
+}
