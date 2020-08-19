@@ -78,39 +78,22 @@ uint16_t find_max(double *array, uint16_t len) {
   return index;
 }
 
-double sfdr_cdouble(const double *real, const double *imag,
-                    const uint16_t max_input, const uint16_t samples) {
-  // Apply window
-  // window = signal.kaiser(N, beta=38)
-  // # x = multiply(x, window)
-  // in_c[cnt] = (real * win[cnt] + I * imag * win[cnt]) / 2048;
-
-  // Use FFT to get the amplitude of the spectrum
-  // ampl = 1 / N * absolute(fft(x))
-  // ampl = 20 * log10(ampl / ref + 10 ** -20)
-
-  double sfdr_dBFS;
-  int i;
-  uint16_t fund_indx, peak_indx;
-
-  double *log_spectrum;
-  log_spectrum = (double *)fftw_malloc(sizeof(double) * samples);
-  spectrum_cdouble(real, imag, max_input, samples, log_spectrum);
-
-  // Find fundamental
-  fund_indx = find_max(log_spectrum, samples);
-
+uint16_t find_peak(double *array, uint16_t len, uint16_t *ig_indx, uint16_t ig_indx_len) {
   // Traverse until we find peaks
-  peak_indx = 0;
-  uint16_t peaks_found = 0, max_peak_indx = 0;
+  uint16_t peak_indx = 0, peaks_found = 0, max_peak_indx = 0;
   double max_peak, peak;
+  int i;
+  bool ignore;
 
-  while (peak_indx < (samples - 1)) {
-    peak_indx = find_peak_from_left(log_spectrum, peak_indx, samples - 1);
+  while (peak_indx < (len - 1)) {
+    peak_indx = find_peak_from_left(array, peak_indx, len - 1);
 
-    if (fund_indx == peak_indx) continue;
+    ignore = false;
+    for (i = 0; i < ig_indx_len; i++)
+      ignore = ignore || (ig_indx[i] == peak_indx);
+    if (ignore) continue;
 
-    peak = log_spectrum[peak_indx];
+    peak = array[peak_indx];
 
     if (peaks_found <= 0) {
       peaks_found++;
@@ -125,10 +108,37 @@ double sfdr_cdouble(const double *real, const double *imag,
     }
   }
 
-  sfdr_dBFS = log_spectrum[fund_indx] - max_peak;
+  return max_peak_indx;
+}
 
+double sfdr_cdouble(const double *real, const double *imag,
+                    const uint16_t max_input, const uint16_t samples) {
+  // Apply window
+  // window = signal.kaiser(N, beta=38)
+  // # x = multiply(x, window)
+  // in_c[cnt] = (real * win[cnt] + I * imag * win[cnt]) / 2048;
+
+  // Use FFT to get the amplitude of the spectrum
+  // ampl = 1 / N * absolute(fft(x))
+  // ampl = 20 * log10(ampl / ref + 10 ** -20)
+
+  double sfdr_dBFS;
+  int i;
+  uint16_t fund_indx, harm_indx;
+
+  double *log_spectrum;
+  log_spectrum = (double *)fftw_malloc(sizeof(double) * samples);
+  spectrum_cdouble(real, imag, max_input, samples, log_spectrum);
+
+  // Find fundamental
+  fund_indx = find_max(log_spectrum, samples);
+
+  // Find peak
+  harm_indx = find_peak(log_spectrum, samples, &fund_indx, 1);
+  sfdr_dBFS = log_spectrum[fund_indx] - log_spectrum[harm_indx];
+  
   // cleanup
-  fftw_free(log_spectrum);
+  free(log_spectrum);
 
   return sfdr_dBFS;
 }
