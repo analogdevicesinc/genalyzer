@@ -1,0 +1,271 @@
+============================= test session starts ==============================
+platform linux -- Python 3.8.8, pytest-6.2.4, py-1.10.0, pluggy-0.13.1
+rootdir: /home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests
+collected 39 items
+
+test_genalyzer.py ..............................FFFFFFFFF
+
+=================================== FAILURES ===================================
+_ test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625614869.txt] _
+
+filename = '/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625614869.txt'
+
+    @pytest.mark.parametrize('filename', test_rfft_input_files)
+    def test_rfft(filename):
+        with open(filename, 'r') as f:
+            config_dict = get_test_config(f)
+            c = genalyzer.config_tone_meas(config_dict)
+            awf = genalyzer.gen_tone(c)
+            qwf = genalyzer.quantize(c, awf)
+>           out_i, out_q = genalyzer.rfft(c, qwf)
+
+test_genalyzer.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <genalyzer.LP__Config object at 0x7f11ba0222c0>
+realqwf = [28622, 27101, 24688, 21461, 17527, 13015, ...]
+
+    def rfft(c: POINTER(_Config), realqwf: list):
+        out_i = POINTER(c_double)()
+        out_q = POINTER(c_double)()
+        realqwf_ptr = (c_int * len(realqwf))(*realqwf)
+        fft_size = c_uint(0)
+>       _rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+E       ctypes.ArgumentError: argument 3: <class 'TypeError'>: expected LP_c_double instance instead of pointer to LP_c_double
+
+../genalyzer.py:269: ArgumentError
+_ test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625605700.txt] _
+
+filename = '/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625605700.txt'
+
+    @pytest.mark.parametrize('filename', test_rfft_input_files)
+    def test_rfft(filename):
+        with open(filename, 'r') as f:
+            config_dict = get_test_config(f)
+            c = genalyzer.config_tone_meas(config_dict)
+            awf = genalyzer.gen_tone(c)
+            qwf = genalyzer.quantize(c, awf)
+>           out_i, out_q = genalyzer.rfft(c, qwf)
+
+test_genalyzer.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <genalyzer.LP__Config object at 0x7f11b91b3b40>
+realqwf = [524287, 524287, 524287, 524287, 524287, 524287, ...]
+
+    def rfft(c: POINTER(_Config), realqwf: list):
+        out_i = POINTER(c_double)()
+        out_q = POINTER(c_double)()
+        realqwf_ptr = (c_int * len(realqwf))(*realqwf)
+        fft_size = c_uint(0)
+>       _rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+E       ctypes.ArgumentError: argument 3: <class 'TypeError'>: expected LP_c_double instance instead of pointer to LP_c_double
+
+../genalyzer.py:269: ArgumentError
+_ test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625616208.txt] _
+
+filename = '/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625616208.txt'
+
+    @pytest.mark.parametrize('filename', test_rfft_input_files)
+    def test_rfft(filename):
+        with open(filename, 'r') as f:
+            config_dict = get_test_config(f)
+            c = genalyzer.config_tone_meas(config_dict)
+            awf = genalyzer.gen_tone(c)
+            qwf = genalyzer.quantize(c, awf)
+>           out_i, out_q = genalyzer.rfft(c, qwf)
+
+test_genalyzer.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <genalyzer.LP__Config object at 0x7f11ba0222c0>
+realqwf = [1268764, 1559958, 1824669, 2058402, 2257190, 2417657, ...]
+
+    def rfft(c: POINTER(_Config), realqwf: list):
+        out_i = POINTER(c_double)()
+        out_q = POINTER(c_double)()
+        realqwf_ptr = (c_int * len(realqwf))(*realqwf)
+        fft_size = c_uint(0)
+>       _rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+E       ctypes.ArgumentError: argument 3: <class 'TypeError'>: expected LP_c_double instance instead of pointer to LP_c_double
+
+../genalyzer.py:269: ArgumentError
+_ test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625604299.txt] _
+
+filename = '/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625604299.txt'
+
+    @pytest.mark.parametrize('filename', test_rfft_input_files)
+    def test_rfft(filename):
+        with open(filename, 'r') as f:
+            config_dict = get_test_config(f)
+            c = genalyzer.config_tone_meas(config_dict)
+            awf = genalyzer.gen_tone(c)
+            qwf = genalyzer.quantize(c, awf)
+>           out_i, out_q = genalyzer.rfft(c, qwf)
+
+test_genalyzer.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <genalyzer.LP__Config object at 0x7f11b91b3ac0>
+realqwf = [2528228, 2447195, 2346132, 2225863, 2087375, 1931801, ...]
+
+    def rfft(c: POINTER(_Config), realqwf: list):
+        out_i = POINTER(c_double)()
+        out_q = POINTER(c_double)()
+        realqwf_ptr = (c_int * len(realqwf))(*realqwf)
+        fft_size = c_uint(0)
+>       _rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+E       ctypes.ArgumentError: argument 3: <class 'TypeError'>: expected LP_c_double instance instead of pointer to LP_c_double
+
+../genalyzer.py:269: ArgumentError
+_ test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625607607.txt] _
+
+filename = '/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625607607.txt'
+
+    @pytest.mark.parametrize('filename', test_rfft_input_files)
+    def test_rfft(filename):
+        with open(filename, 'r') as f:
+            config_dict = get_test_config(f)
+            c = genalyzer.config_tone_meas(config_dict)
+            awf = genalyzer.gen_tone(c)
+            qwf = genalyzer.quantize(c, awf)
+>           out_i, out_q = genalyzer.rfft(c, qwf)
+
+test_genalyzer.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <genalyzer.LP__Config object at 0x7f11ba0222c0>
+realqwf = [4945, 6302, 7620, 8877, 10054, 11131, ...]
+
+    def rfft(c: POINTER(_Config), realqwf: list):
+        out_i = POINTER(c_double)()
+        out_q = POINTER(c_double)()
+        realqwf_ptr = (c_int * len(realqwf))(*realqwf)
+        fft_size = c_uint(0)
+>       _rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+E       ctypes.ArgumentError: argument 3: <class 'TypeError'>: expected LP_c_double instance instead of pointer to LP_c_double
+
+../genalyzer.py:269: ArgumentError
+_ test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625609505.txt] _
+
+filename = '/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625609505.txt'
+
+    @pytest.mark.parametrize('filename', test_rfft_input_files)
+    def test_rfft(filename):
+        with open(filename, 'r') as f:
+            config_dict = get_test_config(f)
+            c = genalyzer.config_tone_meas(config_dict)
+            awf = genalyzer.gen_tone(c)
+            qwf = genalyzer.quantize(c, awf)
+>           out_i, out_q = genalyzer.rfft(c, qwf)
+
+test_genalyzer.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <genalyzer.LP__Config object at 0x7f11b91b38c0>
+realqwf = [4194303, 4194303, 4194303, 4194303, 3535808, 2630383, ...]
+
+    def rfft(c: POINTER(_Config), realqwf: list):
+        out_i = POINTER(c_double)()
+        out_q = POINTER(c_double)()
+        realqwf_ptr = (c_int * len(realqwf))(*realqwf)
+        fft_size = c_uint(0)
+>       _rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+E       ctypes.ArgumentError: argument 3: <class 'TypeError'>: expected LP_c_double instance instead of pointer to LP_c_double
+
+../genalyzer.py:269: ArgumentError
+_ test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625602704.txt] _
+
+filename = '/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625602704.txt'
+
+    @pytest.mark.parametrize('filename', test_rfft_input_files)
+    def test_rfft(filename):
+        with open(filename, 'r') as f:
+            config_dict = get_test_config(f)
+            c = genalyzer.config_tone_meas(config_dict)
+            awf = genalyzer.gen_tone(c)
+            qwf = genalyzer.quantize(c, awf)
+>           out_i, out_q = genalyzer.rfft(c, qwf)
+
+test_genalyzer.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <genalyzer.LP__Config object at 0x7f11b8c5d140>
+realqwf = [1048575, 1048575, 1048575, 1048575, 1048575, 1048575, ...]
+
+    def rfft(c: POINTER(_Config), realqwf: list):
+        out_i = POINTER(c_double)()
+        out_q = POINTER(c_double)()
+        realqwf_ptr = (c_int * len(realqwf))(*realqwf)
+        fft_size = c_uint(0)
+>       _rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+E       ctypes.ArgumentError: argument 3: <class 'TypeError'>: expected LP_c_double instance instead of pointer to LP_c_double
+
+../genalyzer.py:269: ArgumentError
+_ test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625617511.txt] _
+
+filename = '/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625617511.txt'
+
+    @pytest.mark.parametrize('filename', test_rfft_input_files)
+    def test_rfft(filename):
+        with open(filename, 'r') as f:
+            config_dict = get_test_config(f)
+            c = genalyzer.config_tone_meas(config_dict)
+            awf = genalyzer.gen_tone(c)
+            qwf = genalyzer.quantize(c, awf)
+>           out_i, out_q = genalyzer.rfft(c, qwf)
+
+test_genalyzer.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <genalyzer.LP__Config object at 0x7f11ba0222c0>
+realqwf = [511, 511, 507, 402, 275, 133, ...]
+
+    def rfft(c: POINTER(_Config), realqwf: list):
+        out_i = POINTER(c_double)()
+        out_q = POINTER(c_double)()
+        realqwf_ptr = (c_int * len(realqwf))(*realqwf)
+        fft_size = c_uint(0)
+>       _rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+E       ctypes.ArgumentError: argument 3: <class 'TypeError'>: expected LP_c_double instance instead of pointer to LP_c_double
+
+../genalyzer.py:269: ArgumentError
+_ test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625519432.txt] _
+
+filename = '/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625519432.txt'
+
+    @pytest.mark.parametrize('filename', test_rfft_input_files)
+    def test_rfft(filename):
+        with open(filename, 'r') as f:
+            config_dict = get_test_config(f)
+            c = genalyzer.config_tone_meas(config_dict)
+            awf = genalyzer.gen_tone(c)
+            qwf = genalyzer.quantize(c, awf)
+>           out_i, out_q = genalyzer.rfft(c, qwf)
+
+test_genalyzer.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <genalyzer.LP__Config object at 0x7f11b8c5d1c0>
+realqwf = [2110, 2543, 2944, 3308, 3630, 3905, ...]
+
+    def rfft(c: POINTER(_Config), realqwf: list):
+        out_i = POINTER(c_double)()
+        out_q = POINTER(c_double)()
+        realqwf_ptr = (c_int * len(realqwf))(*realqwf)
+        fft_size = c_uint(0)
+>       _rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+E       ctypes.ArgumentError: argument 3: <class 'TypeError'>: expected LP_c_double instance instead of pointer to LP_c_double
+
+../genalyzer.py:269: ArgumentError
+=========================== short test summary info ============================
+FAILED test_genalyzer.py::test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625614869.txt]
+FAILED test_genalyzer.py::test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625605700.txt]
+FAILED test_genalyzer.py::test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625616208.txt]
+FAILED test_genalyzer.py::test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625604299.txt]
+FAILED test_genalyzer.py::test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625607607.txt]
+FAILED test_genalyzer.py::test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625609505.txt]
+FAILED test_genalyzer.py::test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625602704.txt]
+FAILED test_genalyzer.py::test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625617511.txt]
+FAILED test_genalyzer.py::test_rfft[/home/srikanth/genalyzer_sdg/swx_analysis_genalyzer/bindings/python/tests/../../../tests/test_vectors/test_rfft_input_1619625519432.txt]
+========================= 9 failed, 30 passed in 0.70s =========================
