@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt-get install -y cmake tar bzip2 gzip build-essential libfftw3-dev
+sudo apt-get install -y cmake tar bzip2 gzip build-essential libfftw3-dev python3-sphinx
 mkdir -p build
 cd build
 cmake ..
