@@ -9,3 +9,4 @@ sudo make -j4
 sudo make test
 sudo make install
 sudo ldconfig
+cd ..
