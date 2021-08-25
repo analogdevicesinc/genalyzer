@@ -31,8 +31,8 @@ jobs:
       - name: Install dependencies
         run: |
           bash ./.github/scripts/install_genalyzer.sh
-	  pwd
-	  ls
+          pwd
+          ls
       - name: Publish doc
         uses: peaceiris/actions-gh-pages@v3
         with:
