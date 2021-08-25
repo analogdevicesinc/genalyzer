@@ -33,6 +33,9 @@ jobs:
           bash ./.github/scripts/install_genalyzer.sh
           pwd
           ls
+          ls -la build/
+          ls -la build/doc
+          ls -la build/doc/sphinx	  
       - name: Publish doc
         uses: peaceiris/actions-gh-pages@v3
         with:

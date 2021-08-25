@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt-get install -y cmake tar bzip2 gzip build-essential libfftw3-dev python3-sphinx
+sudo apt-get install -y cmake tar bzip2 gzip build-essential libfftw3-dev python3-sphinx doxygen
 pip install sphinx_rtd_theme
 pip install breathe
 mkdir -p build
