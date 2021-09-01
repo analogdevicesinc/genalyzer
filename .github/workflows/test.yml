@@ -61,7 +61,11 @@ jobs:
           mkdir -p build
           cd build
           cmake ..
+          echo
+          echo
           echo here
+          echo
+          echo	  
           sudo make -j4
           sudo make test
           sudo make install
