@@ -3,7 +3,7 @@ name: CI Pushes
 on: [push, pull_request]
 
 jobs:
-  Doc:
+  UbuntuDoc:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
         run: |
           bash ./.github/scripts/install_genalyzer.sh
 
-  Deploy:
+  UbuntuDeploy:
     runs-on: ubuntu-latest
     needs: [Doc]
 
@@ -41,3 +41,26 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/doc/sphinx
+
+  MacOSDoc:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+
+      - name: Install dependencies
+        run: |
+          brew install cmake tar bzip2 gzip build-essential libfftw3-dev python3-sphinx doxygen
+	  pip3 install breathe sphinx_rtd_theme
+	  mkdir -p build
+	  cd build
+	  cmake ..
+	  sudo make -j4
+	  sudo make test
+	  sudo make install
+	  sudo ldconfig
+	  cd ..
