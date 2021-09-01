@@ -43,7 +43,7 @@ jobs:
           publish_dir: ./build/doc/sphinx
 
   MacOSDoc:
-    runs-on: [macos-latest,macos-11]
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v2
