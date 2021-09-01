@@ -19,7 +19,7 @@ jobs:
 
   UbuntuDeploy:
     runs-on: ubuntu-latest
-    needs: [Doc]
+    needs: [UbuntuDoc]
 
     steps:
       - uses: actions/checkout@v2
