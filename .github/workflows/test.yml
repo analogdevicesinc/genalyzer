@@ -67,6 +67,11 @@ jobs:
           echo
           echo	  
           sudo make -j4
+          echo
+          echo	  
+          echo "After make"
+          echo
+          echo	  
           sudo make test
           sudo make install
           sudo ldconfig
