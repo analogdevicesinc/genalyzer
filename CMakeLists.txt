@@ -17,7 +17,11 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
   include(CTest)
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14 -fext-numeric-literals")
+  if(APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14 -fext-numeric-literals")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14 -fext-numeric-literals")
+  endif()   
 
   find_package(Doxygen)
   find_package(Sphinx)
