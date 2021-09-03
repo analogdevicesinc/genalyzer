@@ -22,6 +22,10 @@
 
 #include <cgenalyzer.h>
 #include <errno.h>
+#ifdef __APPLE__
+#include <stdlib.h>
+#else
+#endif
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
@@ -57,7 +61,7 @@ static inline bool int64_arrays_equal(long int* a, long int* b, size_t arr_size,
 {
     bool result = true;
     for (int n = 0; n < arr_size; n++)
-        result &= (abs(a[n] - b[n]) <= tol) ? true : false;
+        result &= (labs(a[n] - b[n]) <= tol) ? true : false;
 
     return result;
 }
