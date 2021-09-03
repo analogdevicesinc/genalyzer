@@ -55,9 +55,6 @@ jobs:
       - name: Install dependencies
         run: |
           brew install cmake gnu-tar bzip2 gzip fftw doxygen
-          pip3 install sphinx
-          pip3 install breathe
-          pip3 install sphinx_rtd_theme
           mkdir -p build
           cd build
           cmake ..
