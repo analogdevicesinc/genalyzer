@@ -3,7 +3,7 @@
 #include <error.h>
 
 extern "C" {
-double metric(config c, void* input, const char* m_name, unsigned int* err_code)
+double metric(config c, const void* input, const char* m_name, unsigned int* err_code)
 {
     char m_names[16][10] = { "ABN", "FSNR", "nad", "noise",
         "NSD", "SFDR", "SINAD", "SNR",

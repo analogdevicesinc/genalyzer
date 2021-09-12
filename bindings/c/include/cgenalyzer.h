@@ -22,7 +22,7 @@
 
 #ifndef GENALYZER_CWRAPPER_H
 #define GENALYZER_CWRAPPER_H
-#include <complex.h>
+//#include <complex.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -202,7 +202,7 @@ double compute_metric(config c, fft_analysis_wrapper* obj, const double* fft_dat
    * @param input Input quantized real waveform
    * @param m_name Input name of the performance metric
    */
-double metric(config c, void* input, const char* m_name, unsigned int* error_code);
+double metric(config c, const void* input, const char* m_name, unsigned int* error_code);
 /**
    * @brief Compute DNL of the data-converter
    * @param c Configuration structure of test 
