@@ -1,71 +1,32 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Test Configuration &mdash; Genalyzer v0.0.1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> Genalyzer
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -73,18 +34,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="c/configs.html">Genalyzer Documentation</a></li>
@@ -93,76 +43,35 @@
 <li class="toctree-l1"><a class="reference internal" href="03_examples.html">Examples</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Genalyzer</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Test Configuration</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/02a_test_configuration.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="test-configuration">
-<h1>Test Configuration<a class="headerlink" href="#test-configuration" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="test-configuration">
+<h1>Test Configuration<a class="headerlink" href="#test-configuration" title="Permalink to this headline"></a></h1>
 <p>As indicated in the overall skelton C-script that interfaces with genalyzer, the first stage involves configuring an opaque struct that is provided to the users in order to describe the measurement scenario. Here, users can select between three <a href="#id1"><span class="problematic" id="id2">``</span></a>config_*_meas()’’ function calls in order to select between tone-, ramp- and noise-based performance metric calculations. The opaque struct maintains the state of the test scenario and is passed to the waveform generation and performance metric computation stages subsequently.</p>
-<div class="section" id="tone-based-test-configuration">
-<h2>Tone-based Test Configuration<a class="headerlink" href="#tone-based-test-configuration" title="Permalink to this headline">¶</a></h2>
+<section id="tone-based-test-configuration">
+<h2>Tone-based Test Configuration<a class="headerlink" href="#tone-based-test-configuration" title="Permalink to this headline"></a></h2>
 <p>In tone-based test configuration, <a href="#id3"><span class="problematic" id="id4">``</span></a>config_tone_meas()’’ allows users to indicate test settings such as, number of tones, their frequencies, phases, scales, whether real sinusoidal or complex-exponential waveforms are to be generated, the sample-rate, full-scale range of the converter, its resolution etc. Similarly, users can indicate whether the data that will be loaded in the second stage is time-series data or interleaved FFT samples. Moreover, in data-capture scenario i.e., when FFT data is provided to Genalyzer in the second step, the tone frequency, scale and phase information is not required. This test configuration is used for measurements such as SFDR, THD, TIL etc.</p>
 <p>An example of the <a href="#id5"><span class="problematic" id="id6">``</span></a>config_tone_meas()’’ function call is shown by the following example.</p>
 <div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">// configuration</span>
@@ -184,9 +93,9 @@
 <span class="w">                   </span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="ramp-based-test-configuration">
-<h2>Ramp-based Test Configuration<a class="headerlink" href="#ramp-based-test-configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="ramp-based-test-configuration">
+<h2>Ramp-based Test Configuration<a class="headerlink" href="#ramp-based-test-configuration" title="Permalink to this headline"></a></h2>
 <p>In ramp-based test configuration, <a href="#id7"><span class="problematic" id="id8">``</span></a>config_ramp_meas()’’ allows users to indicate test settings such as, the starting and ending values of the ramp waveform in addition to the full-scale range and the resolution of the data converter under test. This test configuration is primarily used in non-linearity based measurements.</p>
 <p>An example of the <a href="#id9"><span class="problematic" id="id10">``</span></a>config_ramp_meas()’’ function call is shown by the following example.</p>
 <div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">// configuration</span>
@@ -201,9 +110,9 @@
 <span class="w">                      </span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="noise-based-test-configuration">
-<h2>Noise-based Test Configuration<a class="headerlink" href="#noise-based-test-configuration" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="noise-based-test-configuration">
+<h2>Noise-based Test Configuration<a class="headerlink" href="#noise-based-test-configuration" title="Permalink to this headline"></a></h2>
 <p>In noise-based test configuration, <a href="#id11"><span class="problematic" id="id12">``</span></a>config_noise_meas()’’ allows users to indicate test settings such as, the noise power level in addition to the full-scale range and the resolution of the data converter under test. This test configuration is primarily used for computing noise spectral density.</p>
 <p>An example of the <a href="#id13"><span class="problematic" id="id14">``</span></a>config_noise_meas()’’ function call is shown by the following example.</p>
 <div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">// configuration</span>
@@ -220,51 +129,35 @@
 <span class="w">                    </span><span class="n">update_fshift</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Analog Devices, Inc..
-
-    </p>
+    <p>&#169; Copyright 2021, Analog Devices, Inc..</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
