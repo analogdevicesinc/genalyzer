@@ -146,7 +146,7 @@ void gen_ramp(config c, double** result, size_t* len);
    * @param awf Input waveform to quantize
    * @param result Output array of waveform quantized
    */
-void quantize(config c, double* awf, int32_t** result);
+void quantize(config c, const double* awf, int32_t** result);
 void quantize64(config c, double* awf, int64_t** result);
 /**
    * @brief Compute complex FFT of real waveform based on supplied configuration.

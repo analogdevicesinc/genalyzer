@@ -4,7 +4,7 @@
 #include <processes.hpp>
 
 extern "C" {
-void quantize(config c, double* awf, int32_t** result)
+void quantize(config c, const double* awf, int32_t** result)
 {
     an::int32_vector qwvf(c->npts);
     an::quantize(awf, c->npts, qwvf.data(), qwvf.size(), c->fsr, c->res, c->irnoise, c->cf, false, 1, {}, {});
