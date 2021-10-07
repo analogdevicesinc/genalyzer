@@ -14,6 +14,7 @@ _libgen = cdll(find_library(_libgen), use_errno=True, use_last_error=True)
 """
 _libgen = CDLL("libgenalyzer.so")
 
+
 class _Config(Structure):
     pass
 
@@ -138,12 +139,7 @@ _fft.argtypes = [
 
 _metric = _libgen.metric
 _metric.restype = c_double
-_metric.argtypes = [
-    POINTER(_Config),
-    c_void_p,
-    c_char_p,
-    POINTER(c_uint),
-]
+_metric.argtypes = [POINTER(_Config), c_void_p, c_char_p, POINTER(c_uint)]
 
 
 def config_tone_gen(d: dict) -> POINTER(_Config):
@@ -395,10 +391,20 @@ def fft(c: POINTER(_Config), qwf_i: list, qwf_q: list):
     out_q_list = list(out_q[0 : fft_size.value])
     return out_i_list, out_q_list
 
+
 def metric_t(c: POINTER(_Config), qwf: list, m_name: str):
     qwf_ptr = (c_int * len(qwf))(*qwf)
-    m_name_enc = m_name.encode('utf-8')
+    m_name_enc = m_name.encode("utf-8")
     r = c_double(0.0)
     err_code = c_uint(0)
     r = _metric(c, qwf_ptr, m_name_enc, err_code)
+    return r, err_code
+
+
+def metric_f(c: POINTER(_Config), fft: list, m_name: str):
+    fft_ptr = (c_double * len(fft))(*fft)
+    m_name_enc = m_name.encode("utf-8")
+    r = c_double(0.0)
+    err_code = c_uint(0)
+    r = _metric(c, fft_ptr, m_name_enc, err_code)
     return r, err_code
