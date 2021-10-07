@@ -31,11 +31,6 @@ jobs:
       - name: Install dependencies
         run: |
           bash ./.github/scripts/install_genalyzer.sh
-          pwd
-          ls
-          ls -la build/
-          ls -la build/doc
-          ls -la build/doc/sphinx	  
       - name: Publish doc
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -61,17 +56,7 @@ jobs:
           mkdir -p build
           cd build
           cmake ..
-          echo
-          echo
-          echo here
-          echo
-          echo	  
           sudo make -j4
-          echo
-          echo	  
-          echo "After make"
-          echo
-          echo	  
           sudo make test
           sudo make install
           sudo ldconfig

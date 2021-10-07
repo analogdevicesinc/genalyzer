@@ -1,8 +1,18 @@
 from typing import List
 from ctypes import *
+from platform import system as _system
+from ctypes.util import find_library
 
+"""
+if "Windows" in _system():
+    _libgen = "libgenalyzer.dll"
+else:
+    # Non-windows, possibly Posix system
+    _libgen = "genalyzer"
+
+_libgen = cdll(find_library(_libgen), use_errno=True, use_last_error=True)
+"""
 _libgen = CDLL("libgenalyzer.so")
-
 
 class _Config(Structure):
     pass
@@ -126,8 +136,27 @@ _fft.argtypes = [
     POINTER(c_uint),
 ]
 
+_metric = _libgen.metric
+_metric.restype = c_double
+_metric.argtypes = [
+    POINTER(_Config),
+    c_void_p,
+    c_char_p,
+    POINTER(c_uint),
+]
+
 
 def config_tone_gen(d: dict) -> POINTER(_Config):
+    """Configure tone generation for tone-based test: 
+    Required keys are
+    domain_wf
+    type_wf
+    nfft
+    navg
+    fs
+    fsr    
+    res
+    """
     c = POINTER(_Config)()
     domain_wf = c_uint(int(d["domain_wf"]))
     type_wf = c_uint(int(d["type_wf"]))
@@ -175,6 +204,16 @@ def config_tone_gen(d: dict) -> POINTER(_Config):
 
 
 def config_tone_meas(d: dict) -> POINTER(_Config):
+    """Configure measurement for tone-based test: 
+    Required keys are
+    domain_wf
+    type_wf
+    nfft
+    navg
+    fs
+    fsr    
+    res
+    """
     c = POINTER(_Config)()
     domain_wf = c_uint(int(d["domain_wf"]))
     type_wf = c_uint(int(d["type_wf"]))
@@ -244,6 +283,13 @@ def config_noise_meas(
 
 
 def config_ramp_nl_meas(d: dict) -> POINTER(_Config):
+    """Configure measurement for ramp-based test: 
+    Required keys are
+    npts
+    fs
+    fsr    
+    res
+    """
     c = POINTER(_Config)()
     npts = c_ulong(int(d["npts"]))
     fs = c_double(float(d["fs"]))
@@ -289,6 +335,9 @@ def config_tone_nl_meas(
 
 
 def gen_tone(c: POINTER(_Config)):
+    """Generate single-tone or multi-tone waveform:
+    Takes opaque struct returned by the corresponding config_* function call
+    """
     awf = POINTER(c_double)()
     npts = c_uint(0)
     _gen_tone(c, byref(awf), byref(npts))
@@ -296,6 +345,9 @@ def gen_tone(c: POINTER(_Config)):
 
 
 def gen_ramp(c: POINTER(_Config)):
+    """Generate ramp waveform:
+    Takes opaque struct returned by the corresponding config_* function call
+    """
     awf = POINTER(c_double)()
     npts = c_uint(0)
     _gen_ramp(c, byref(awf), byref(npts))
@@ -303,6 +355,10 @@ def gen_ramp(c: POINTER(_Config)):
 
 
 def quantize(c: POINTER(_Config), awf: list):
+    """Quantize single-tone or multi-tone waveform:
+    Arguments are opaque struct returned by the corresponding config_* function call, and 
+    analog waveform returned by the corresponding gen_* function call
+    """
     qwf = POINTER(c_int)()
     awf_ptr = (c_double * len(awf))(*awf)
     _quantize(c, awf_ptr, byref(qwf))
@@ -310,6 +366,10 @@ def quantize(c: POINTER(_Config), awf: list):
 
 
 def rfft(c: POINTER(_Config), realqwf: list):
+    """Compute FFT of a real waveform:
+    Arguments are opaque struct returned by the corresponding config_* function call, and 
+    quantized waveform 
+    """
     out_i = POINTER(c_double)()
     out_q = POINTER(c_double)()
     realqwf_ptr = (c_int * len(realqwf))(*realqwf)
@@ -321,6 +381,10 @@ def rfft(c: POINTER(_Config), realqwf: list):
 
 
 def fft(c: POINTER(_Config), qwf_i: list, qwf_q: list):
+    """Compute FFT of a complex waveform:
+    Arguments are opaque struct returned by the corresponding config_* function call, and 
+    quantized waveform 
+    """
     out_i = POINTER(c_double)()
     out_q = POINTER(c_double)()
     qwf_i_ptr = (c_int * len(qwf_i))(*qwf_i)
@@ -330,3 +394,11 @@ def fft(c: POINTER(_Config), qwf_i: list, qwf_q: list):
     out_i_list = list(out_i[0 : fft_size.value])
     out_q_list = list(out_q[0 : fft_size.value])
     return out_i_list, out_q_list
+
+def metric_t(c: POINTER(_Config), qwf: list, m_name: str):
+    qwf_ptr = (c_int * len(qwf))(*qwf)
+    m_name_enc = m_name.encode('utf-8')
+    r = c_double(0.0)
+    err_code = c_uint(0)
+    r = _metric(c, qwf_ptr, m_name_enc, err_code)
+    return r, err_code

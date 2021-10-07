@@ -93,3 +93,13 @@ def test_fft(filename):
         out_i, out_q = genalyzer.fft(c, qwf_i, qwf_q)
         assert len(out_i) != 0, "the list is non empty"
         assert len(out_q) != 0, "the list is non empty"
+
+@pytest.mark.parametrize("filename", test_quantize_files)
+def test_metric(filename):
+    with open(filename, "r") as f:
+        config_dict = get_test_config(f)
+        c = genalyzer.config_tone_gen(config_dict)
+        awf = genalyzer.gen_tone(c)
+        qwf = genalyzer.quantize(c, awf)
+        res, err_code = genalyzer.metric_t(c, qwf, "SFDR")
+        assert err_code != 22, "invalid argument"
