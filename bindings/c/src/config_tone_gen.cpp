@@ -31,7 +31,7 @@ void gn_config_tone_gen(gn_config_tone* c, meas_domain m_domain, waveform_type w
     // defaults
     c_p->irnoise = -200.0;
     c_p->cf = an::CodeFormat::TwosComplement;
-    c_p->win = an::WindowType::Rect;
+    c_p->win = an::WindowType::BlackmanHarris;
 
     *c = c_p;
 }
