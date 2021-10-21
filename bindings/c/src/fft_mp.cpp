@@ -6,7 +6,7 @@
 #include <processes.hpp>
 
 extern "C" {
-void fft_mp(config c, size_t* fft_m_size, size_t* fft_p_size, double* fft_m, double* fft_p, int32_t* qwf_i, size_t* qwf_i_size, int32_t* qwf_q, size_t* qwf_q_size)
+void fft_mp(gn_config c, size_t* fft_m_size, size_t* fft_p_size, double* fft_m, double* fft_p, int32_t* qwf_i, size_t* qwf_i_size, int32_t* qwf_q, size_t* qwf_q_size)
 {
     an::int32_vector qwvf_i(qwf_i, qwf_i + *qwf_i_size);
     an::int32_vector qwvf_q(qwf_q, qwf_q + *qwf_q_size);

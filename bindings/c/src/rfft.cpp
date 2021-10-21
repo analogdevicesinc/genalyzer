@@ -5,7 +5,7 @@
 #include <processes.hpp>
 
 extern "C" {
-void rfft(config c, int32_t* qwf, double** fft_cplx_re, double** fft_cplx_im, size_t* len)
+void gn_rfft(gn_config c, int32_t* qwf, double** fft_cplx_re, double** fft_cplx_im, size_t* len)
 {
     an::int32_vector qwvf(qwf, qwf + c->npts);
     an::cplx_vector fft_cplx(c->nfft / 2 + 1);

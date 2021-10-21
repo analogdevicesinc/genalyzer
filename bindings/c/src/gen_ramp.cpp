@@ -5,7 +5,7 @@
 #include <waveforms.hpp>
 
 extern "C" {
-void gen_ramp(config c, double** result, size_t* len)
+void gn_gen_ramp(gn_config c, double** result, size_t* len)
 {
     an::real_vector awvf(c->npts);
     an::ramp(awvf.data(), awvf.size(), c->ramp_start, c->ramp_stop, 0.0);

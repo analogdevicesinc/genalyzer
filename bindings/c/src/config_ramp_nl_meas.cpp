@@ -2,10 +2,10 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-void config_ramp_nl_meas(config* c, size_t npts, double sample_rate, double full_scale_range, int resolution, double start, double stop, double irnoise)
+void gn_config_ramp_nl_meas(gn_config* c, size_t npts, double sample_rate, double full_scale_range, int resolution, double start, double stop, double irnoise)
 {
-    config c_private;
-    c_private = (config)calloc(1, sizeof(*c_private));
+    gn_config c_private;
+    c_private = (gn_config)calloc(1, sizeof(*c_private));
 
     c_private->wf_type = RAMP;
     c_private->i_repr = I32;

@@ -19,12 +19,11 @@ int main(int argc, char* argv[])
     double fs = atof(extract_token(test_filename, "fs", &err_code));
     double fsr = atof(extract_token(test_filename, "fsr", &err_code));
     size_t npts = nfft;
-
-    double qwf[2 * npts];
-    config c = NULL;
+    
+    gn_config c = NULL;
 
     // configuration
-    config_tone_meas(&c,
+    gn_config_tone_meas(&c,
         domain_wf,
         type_wf,
         nfft, // FFT order
@@ -37,23 +36,18 @@ int main(int argc, char* argv[])
         true);
 
     // read quantized input waveform
-    read_file_to_array(test_filename, (void*)qwf, INT32);
-    int qwf_re[npts], qwf_im[npts];
-    deinterleave(qwf, 2 * npts, qwf_re, qwf_im, INT32);
-    /*
-  for (int i = 0; i < npts; i++)
-printf("%d\t%d\n", qwf_re[i], qwf_im[i]);
-  
-  // compute rfft
-  double *fft_op_re, *fft_op_im;  
-  size_t fft_size;
-  fft(c, qwf_re, qwf_im, &fft_op_re, &fft_op_im, &fft_size);
-  /*
-  for (int i = 0; i < fft_size; i++)
-  printf("%f\t%f\n", fft_op_re[i], fft_op_im[i]);*/
-
-    // compute metric
-    sfdr_val = metric(c, qwf, "SFDR", &err_code);
+    if (domain_wf) {
+      double in[2*nfft];
+      read_file_to_array(test_filename, (void*)in, DOUBLE);
+      sfdr_val = gn_metric(c, in, "SFDR", &err_code);
+      // assert(floats_almost_equal(sfdr_val, 9.53, 2));
+    }
+    else {
+      int in[2*nfft*navg];
+      read_file_to_array(test_filename, (void*)in, INT32);
+      sfdr_val = gn_metric(c, in, "SFDR", &err_code);
+      // assert(floats_almost_equal(sfdr_val, 9.53, 2));
+      }
 
     // compare
     printf("SFDR - %f\n", sfdr_val);

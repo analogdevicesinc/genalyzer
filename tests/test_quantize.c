@@ -36,8 +36,8 @@ int main(int argc, char* argv[])
     }
 
     // configuration
-    config c = NULL;
-    config_tone_gen(&c,
+    gn_config c = NULL;
+    gn_config_tone_gen(&c,
         domain_wf,
         type_wf,
         nfft, // FFT order
@@ -55,8 +55,8 @@ int main(int argc, char* argv[])
 
     // waveform generation
     size_t npts;
-    gen_tone(c, &awf, &npts);
-    quantize(c, awf, &qwf);
+    gn_gen_tone(c, &awf, &npts);
+    gn_quantize(c, awf, &qwf);
 
     // read reference waveform
     int* ref_qwf = (int*)calloc(npts, sizeof(int));

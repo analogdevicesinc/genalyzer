@@ -36,11 +36,11 @@ int main(int argc, char* argv[])
 
     size_t npts = 2 * nfft * navg;
     int ref_qwf_ip[npts], ref_qwf_ip_re[npts / 2], ref_qwf_ip_im[npts / 2];
-    double ref_fft_op[2 * nfft], ref_fft_op_re[nfft], ref_fft_op_im[nfft];
-    config c = NULL;
+    double ref_fft_op[npts], ref_fft_op_re[npts/2], ref_fft_op_im[npts/2];
+    gn_config c = NULL;
 
     // configuration
-    config_tone_meas(&c,
+    gn_config_tone_meas(&c,
         domain_wf,
         type_wf,
         nfft, // FFT order
@@ -63,9 +63,11 @@ int main(int argc, char* argv[])
     // compute rfft
     double *fft_op_re, *fft_op_im;
     size_t fft_size;
-    fft(c, ref_qwf_ip_re, ref_qwf_ip_im, &fft_op_re, &fft_op_im, &fft_size);
+    gn_fft(c, ref_qwf_ip_re, ref_qwf_ip_im, &fft_op_re, &fft_op_im, &fft_size);
 
     // compare
+    for (int i = 0; i < 10; i++)
+        printf("%f\t%f\n", ref_fft_op_re[i], fft_op_re[i]);
     assert(float_arrays_almost_equal(ref_fft_op_re, fft_op_re, nfft, 8));
     assert(float_arrays_almost_equal(ref_fft_op_im, fft_op_im, nfft, 8));
 

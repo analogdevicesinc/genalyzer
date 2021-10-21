@@ -19,10 +19,10 @@ int main(int argc, char* argv[])
     double stop = atof(extract_token(test_filename, "stop", &err_code));
 
     double ref_awf[npts];
-    config c = NULL;
+    gn_config c = NULL;
 
     // configuration
-    config_ramp_nl_meas(&c,
+    gn_config_ramp_nl_meas(&c,
         npts, // # of data points
         fs, // sample rate
         fsr, // full-scale range
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 
     // waveform generation
     size_t len;
-    gen_ramp(c, &awf, &len);
+    gn_gen_ramp(c, &awf, &len);
 
     // read reference waveform
     read_file_to_array(test_filename, (void*)ref_awf, DOUBLE);

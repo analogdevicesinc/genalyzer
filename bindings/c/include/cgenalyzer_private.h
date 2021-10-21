@@ -34,7 +34,7 @@ extern "C" {
 using namespace analysis;
 namespace an = ::analysis;
 
-struct config_s {
+struct gn_config_s {
     meas_domain md = TIME;
     waveform_type wf_type;
     int_repr i_repr;

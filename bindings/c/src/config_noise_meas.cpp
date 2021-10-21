@@ -2,10 +2,10 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-void config_noise_meas(config* c, waveform_type wf_type, size_t fft_order, int num_avgs, double sample_rate, double full_scale_range, int resolution, double noise_pwr_lvl, bool fsample_update, bool fdata_update, bool fshift_update)
+void gn_config_noise_meas(gn_config* c, waveform_type wf_type, size_t fft_order, int num_avgs, double sample_rate, double full_scale_range, int resolution, double noise_pwr_lvl, bool fsample_update, bool fdata_update, bool fshift_update)
 {
-    config c_private;
-    c_private = (config)calloc(1, sizeof(*c_private));
+    gn_config c_private;
+    c_private = (gn_config)calloc(1, sizeof(*c_private));
 
     c_private->wf_type = wf_type;
     c_private->nfft = fft_order;

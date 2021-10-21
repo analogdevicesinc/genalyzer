@@ -36,10 +36,10 @@ int main(int argc, char* argv[])
 
     size_t npts = 2 * nfft * navg;
     double ref_fft[2 * nfft], ref_fft_re[nfft], ref_fft_im[nfft];
-    config c = NULL;
+    gn_config c = NULL;
 
     // configuration
-    config_tone_meas(&c,
+    gn_config_tone_meas(&c,
         domain_wf,
         type_wf,
         nfft, // FFT order
@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
     read_file_to_array(test_filename, (void*)ref_fft, DOUBLE);
 
     // compute metric
-    sfdr_val = metric(c, ref_fft, "SFDR", &err_code);
+    sfdr_val = gn_metric(c, ref_fft, "SFDR", &err_code);
 
     // compare
     printf("SFDR - %f\n", sfdr_val);

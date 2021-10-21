@@ -6,7 +6,7 @@
 #include <processes.hpp>
 
 extern "C" {
-void rfft_norm(config c, size_t* fft_size, double* fft_cplx_re, double* fft_cplx_im, double* awf, size_t* awf_size)
+void gn_rfft_norm(gn_config c, size_t* fft_size, double* fft_cplx_re, double* fft_cplx_im, double* awf, size_t* awf_size)
 {
     an::cplx_vector fft_cplx(c->nfft / 2 + 1);
     an::rfft_norm(awf, *awf_size, fft_cplx.data(), fft_cplx.size(), c->navg, static_cast<an::diff_t>(c->nfft), c->win);

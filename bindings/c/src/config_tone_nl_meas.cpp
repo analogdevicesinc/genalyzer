@@ -3,10 +3,10 @@
 #include <cmath>
 
 extern "C" {
-void config_tone_nl_meas(config* c, waveform_type wf_type, size_t npts, double sample_rate, double full_scale_range, int resolution, double* tone_freq, double* tone_ampl, double* tone_phase, size_t num_tones)
+void gn_config_tone_nl_meas(gn_config* c, waveform_type wf_type, size_t npts, double sample_rate, double full_scale_range, int resolution, double* tone_freq, double* tone_ampl, double* tone_phase, size_t num_tones)
 {
-    config c_private;
-    c_private = (config)calloc(1, sizeof(*c_private));
+    gn_config c_private;
+    c_private = (gn_config)calloc(1, sizeof(*c_private));
 
     c_private->wf_type = wf_type;
     c_private->i_repr = I64;

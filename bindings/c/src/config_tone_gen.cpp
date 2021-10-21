@@ -2,10 +2,10 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-void config_tone_gen(config_tone* c, meas_domain m_domain, waveform_type wf_type, size_t fft_order, int num_avgs, double sample_rate, double full_scale_range, int resolution, double* tone_freq, double* tone_ampl, double* tone_phase, size_t num_tones, bool fsample_update, bool fdata_update, bool fshift_update)
+void gn_config_tone_gen(gn_config_tone* c, meas_domain m_domain, waveform_type wf_type, size_t fft_order, int num_avgs, double sample_rate, double full_scale_range, int resolution, double* tone_freq, double* tone_ampl, double* tone_phase, size_t num_tones, bool fsample_update, bool fdata_update, bool fshift_update)
 {
-    config c_p;
-    c_p = (config)calloc(1, sizeof(*c_p));
+    gn_config c_p;
+    c_p = (gn_config)calloc(1, sizeof(*c_p));
 
     c_p->md = m_domain;
     c_p->wf_type = wf_type;

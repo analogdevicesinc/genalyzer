@@ -2,7 +2,7 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-double compute_metric(config c, fft_analysis_wrapper* obj, const double* fft_data_re, const double* fft_data_im, const char* result_name)
+double gn_compute_metric(gn_config c, fft_analysis_wrapper* obj, const double* fft_data_re, const double* fft_data_im, const char* result_name)
 {
     an::fft_analysis2* fftobj;
     fftobj = reinterpret_cast<an::fft_analysis2*>(obj);

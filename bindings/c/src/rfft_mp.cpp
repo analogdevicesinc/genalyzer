@@ -6,7 +6,7 @@
 #include <processes.hpp>
 
 extern "C" {
-void rfft_mp(config c, size_t* fft_m_size, size_t* fft_p_size, double* fft_m, double* fft_p, int32_t* qwf, size_t* qwf_size)
+void gn_rfft_mp(gn_config c, size_t* fft_m_size, size_t* fft_p_size, double* fft_m, double* fft_p, int32_t* qwf, size_t* qwf_size)
 {
     an::int32_vector qwvf(qwf, qwf + *qwf_size);
 

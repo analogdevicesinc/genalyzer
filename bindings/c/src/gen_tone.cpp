@@ -5,7 +5,7 @@
 #include <waveforms.hpp>
 
 extern "C" {
-void gen_tone(config c, double** result, size_t* len)
+void gn_gen_tone(gn_config c, double** result, size_t* len)
 {
     std::vector<an::real_t> c_freq(c->freq, c->freq + c->n_tones);
     c_freq = an::coherent_freq(c->nfft, c->fs, c_freq);

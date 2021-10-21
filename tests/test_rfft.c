@@ -41,10 +41,10 @@ int main(int argc, char* argv[])
         npts = nfft * navg;
 
     int ref_qwf_ip[npts];
-    config c = NULL;
+    gn_config c = NULL;
 
     // configuration
-    config_tone_meas(&c,
+    gn_config_tone_meas(&c,
         domain_wf,
         type_wf,
         nfft, // FFT order
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
     // compute rfft
     double *rfft_op_re, *rfft_op_im;
     size_t fft_size;
-    rfft(c, ref_qwf_ip, &rfft_op_re, &rfft_op_im, &fft_size);
+    gn_rfft(c, ref_qwf_ip, &rfft_op_re, &rfft_op_im, &fft_size);
 
     // read reference output waveform and deinterleave
     double ref_rfft_op[(fft_size - 1) * 2], ref_rfft_op_re[fft_size], ref_rfft_op_im[fft_size];

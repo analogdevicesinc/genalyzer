@@ -3,10 +3,10 @@
 #include <dft.hpp>
 
 extern "C" {
-void fft(config c, int32_t* qwf_i, int32_t* qwf_q, double** fft_cplx_re, double** fft_cplx_im, size_t* len)
+void gn_fft(gn_config c, int32_t* qwf_i, int32_t* qwf_q, double** fft_cplx_re, double** fft_cplx_im, size_t* len)
 {
-    an::int32_vector qwvf_i(qwf_i, qwf_i + c->nfft);
-    an::int32_vector qwvf_q(qwf_q, qwf_q + c->nfft);
+    an::int32_vector qwvf_i(qwf_i, qwf_i + c->nfft*c->navg);
+    an::int32_vector qwvf_q(qwf_q, qwf_q + c->nfft*c->navg);
     an::cplx_vector fft_cplx(c->nfft);
     double* fft_cplx_re_tmp = (double*)calloc(c->nfft, sizeof(double));
     double* fft_cplx_im_tmp = (double*)calloc(c->nfft, sizeof(double));

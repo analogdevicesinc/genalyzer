@@ -26,10 +26,10 @@ int main(int argc, char* argv[])
     long int* hits;
     long int ref_hits[num_bins];
     double ref_dnl[num_bins];
-    config c = NULL;
+    gn_config c = NULL;
 
     // configuration
-    config_ramp_nl_meas(&c,
+    gn_config_ramp_nl_meas(&c,
         npts, // # of data points
         fs, // sample rate
         fsr, // full-scale range
@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     read_file_to_array(test_filename_hits_op1, (void*)ref_dnl, DOUBLE);
 
     // compute dnl
-    compute_dnl(c, ip_qwf, &bins, &hits, &dnl);
+    gn_compute_dnl(c, ip_qwf, &bins, &hits, &dnl);
     // compute_inl(c, qwf, &bins, &hits, &dnl_data, &inl_data);
 
     // reference bins array

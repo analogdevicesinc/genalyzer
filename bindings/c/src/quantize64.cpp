@@ -5,7 +5,7 @@
 #include <processes.hpp>
 
 extern "C" {
-void quantize64(config c, double* awf, int64_t** result)
+void quantize64(gn_config c, double* awf, int64_t** result)
 {
     an::int64_vector qwvf(c->npts);
     an::quantize(awf, c->npts, qwvf.data(), qwvf.size(), c->fsr, c->res, c->irnoise, c->cf, false, 1, {}, {});

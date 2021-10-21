@@ -16,6 +16,7 @@ Reference
    :caption: Contents:
 
    c/configs
+   python/configs
    01_introduction
    02_using_genalyzer
    03_examples
