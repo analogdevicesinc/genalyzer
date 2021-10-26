@@ -428,7 +428,7 @@ def quantize(c: GNConfig, awf: list) -> List[int]:
     return list(qwf[0 : len(awf)])
 
 
-def rfft(c: GNConfig, realqwf: list) -> tuple(list, list):
+def rfft(c: GNConfig, realqwf: list):
     """Compute FFT of a real waveform:
 
     :param c: GNConfig object
@@ -446,7 +446,7 @@ def rfft(c: GNConfig, realqwf: list) -> tuple(list, list):
     return out_i_list, out_q_list
 
 
-def fft(c: GNConfig, qwf_i: list, qwf_q: list) -> tuple(list, list):
+def fft(c: GNConfig, qwf_i: list, qwf_q: list):
     """Compute FFT of a complex waveform:
 
     :param c: GNConfig object
