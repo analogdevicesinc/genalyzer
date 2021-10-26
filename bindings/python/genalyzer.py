@@ -1,28 +1,48 @@
 from typing import List
-from ctypes import *
+from ctypes import (
+    c_uint,
+    c_ulong,
+    c_int,
+    c_double,
+    c_bool,
+    POINTER,
+    byref,
+    Structure,
+    c_void_p,
+    c_char_p,
+    CDLL,
+)
 from platform import system as _system
 from ctypes.util import find_library
 
-"""
+
 if "Windows" in _system():
     _libgen = "libgenalyzer.dll"
 else:
     # Non-windows, possibly Posix system
     _libgen = "genalyzer"
 
-_libgen = cdll(find_library(_libgen), use_errno=True, use_last_error=True)
-"""
-_libgen = CDLL("libgenalyzer.so")
+_libgen = CDLL(find_library(_libgen), use_errno=True, use_last_error=True)
 
 
-class _gn_Config(Structure):
+class _GNConfig(Structure):
     pass
+
+
+_GNConfigPtr = POINTER(_GNConfig)
+
+
+class GNConfig(object):
+    """Configuration structure to handle library state"""
+
+    def __init__(self):
+        self._struct = _GNConfigPtr()
 
 
 _gn_config_tone_gen = _libgen.gn_config_tone_gen
 _gn_config_tone_gen.restype = None
 _gn_config_tone_gen.argtypes = [
-    POINTER(POINTER(_gn_Config)),
+    POINTER(_GNConfigPtr),
     c_uint,
     c_uint,
     c_ulong,
@@ -42,7 +62,7 @@ _gn_config_tone_gen.argtypes = [
 _gn_config_tone_meas = _libgen.gn_config_tone_meas
 _gn_config_tone_meas.restype = None
 _gn_config_tone_meas.argtypes = [
-    POINTER(POINTER(_gn_Config)),
+    POINTER(_GNConfigPtr),
     c_uint,
     c_uint,
     c_ulong,
@@ -58,7 +78,7 @@ _gn_config_tone_meas.argtypes = [
 _gn_config_noise_meas = _libgen.gn_config_noise_meas
 _gn_config_noise_meas.restype = None
 _gn_config_noise_meas.argtypes = [
-    POINTER(POINTER(_gn_Config)),
+    POINTER(_GNConfigPtr),
     c_uint,
     c_ulong,
     c_int,
@@ -75,7 +95,7 @@ _gn_config_noise_meas.argtypes = [
 _gn_config_tone_nl_meas = _libgen.gn_config_tone_nl_meas
 _gn_config_tone_nl_meas.restype = None
 _gn_config_tone_nl_meas.argtypes = [
-    POINTER(POINTER(_gn_Config)),
+    POINTER(_GNConfigPtr),
     c_uint,
     c_ulong,
     c_double,
@@ -90,7 +110,7 @@ _gn_config_tone_nl_meas.argtypes = [
 _gn_config_ramp_nl_meas = _libgen.gn_config_ramp_nl_meas
 _gn_config_ramp_nl_meas.restype = None
 _gn_config_ramp_nl_meas.argtypes = [
-    POINTER(POINTER(_gn_Config)),
+    POINTER(_GNConfigPtr),
     c_ulong,
     c_double,
     c_double,
@@ -102,24 +122,36 @@ _gn_config_ramp_nl_meas.argtypes = [
 
 _gn_gen_tone = _libgen.gn_gen_tone
 _gn_gen_tone.restype = None
-_gn_gen_tone.argtypes = [POINTER(_gn_Config), POINTER(POINTER(c_double)), POINTER(c_uint)]
+_gn_gen_tone.argtypes = [
+    _GNConfigPtr,
+    POINTER(POINTER(c_double)),
+    POINTER(c_uint),
+]
 
 _gn_gen_noise = _libgen.gn_gen_noise
 _gn_gen_noise.restype = None
-_gn_gen_noise.argtypes = [POINTER(_gn_Config), POINTER(c_uint), POINTER(POINTER(c_double))]
+_gn_gen_noise.argtypes = [
+    _GNConfigPtr,
+    POINTER(c_uint),
+    POINTER(POINTER(c_double)),
+]
 
 _gn_gen_ramp = _libgen.gn_gen_ramp
 _gn_gen_ramp.restype = None
-_gn_gen_ramp.argtypes = [POINTER(_gn_Config), POINTER(POINTER(c_double))]
+_gn_gen_ramp.argtypes = [_GNConfigPtr, POINTER(POINTER(c_double)), POINTER(c_uint)]
 
 _gn_quantize = _libgen.gn_quantize
 _gn_quantize.restype = None
-_gn_quantize.argtypes = [POINTER(_gn_Config), POINTER(c_double), POINTER(POINTER(c_int))]
+_gn_quantize.argtypes = [
+    _GNConfigPtr,
+    POINTER(c_double),
+    POINTER(POINTER(c_int)),
+]
 
 _gn_rfft = _libgen.gn_rfft
 _gn_rfft.restype = None
 _gn_rfft.argtypes = [
-    POINTER(_gn_Config),
+    _GNConfigPtr,
     POINTER(c_int),
     POINTER(POINTER(c_double)),
     POINTER(POINTER(c_double)),
@@ -129,7 +161,7 @@ _gn_rfft.argtypes = [
 _gn_fft = _libgen.gn_fft
 _gn_fft.restype = None
 _gn_fft.argtypes = [
-    POINTER(_gn_Config),
+    _GNConfigPtr,
     POINTER(c_int),
     POINTER(c_int),
     POINTER(POINTER(c_double)),
@@ -139,21 +171,24 @@ _gn_fft.argtypes = [
 
 _gn_metric = _libgen.gn_metric
 _gn_metric.restype = c_double
-_gn_metric.argtypes = [POINTER(_gn_Config), c_void_p, c_char_p, POINTER(c_uint)]
+_gn_metric.argtypes = [_GNConfigPtr, c_void_p, c_char_p, POINTER(c_uint)]
 
 
-def config_tone_gen(d: dict) -> POINTER(_gn_Config):
-    """Configure tone generation for tone-based test: 
-    Required keys are
-    domain_wf
-    type_wf
-    nfft
-    navg
-    fs
-    fsr    
-    res
+def config_tone_gen(d: dict) -> GNConfig:
+    """Configure tone generation for tone-based test
+
+    :param d: dictionary of parameters
+            Required keys are
+            domain_wf
+            type_wf
+            nfft
+            navg
+            fs
+            fsr
+            res
+    :return: GNConfig object
     """
-    c = POINTER(_gn_Config)()
+    c = GNConfig()
     domain_wf = c_uint(int(d["domain_wf"]))
     type_wf = c_uint(int(d["type_wf"]))
     nfft = c_ulong(int(d["nfft"]))
@@ -180,7 +215,7 @@ def config_tone_gen(d: dict) -> POINTER(_gn_Config):
     fshift_update = c_bool(False)
 
     _gn_config_tone_gen(
-        byref(c),
+        byref(c._struct),
         domain_wf,
         type_wf,
         nfft,
@@ -199,18 +234,18 @@ def config_tone_gen(d: dict) -> POINTER(_gn_Config):
     return c
 
 
-def config_tone_meas(d: dict) -> POINTER(_gn_Config):
-    """Configure measurement for tone-based test: 
+def config_tone_meas(d: dict) -> GNConfig:
+    """Configure measurement for tone-based test:
     Required keys are
     domain_wf
     type_wf
     nfft
     navg
     fs
-    fsr    
+    fsr
     res
     """
-    c = POINTER(_gn_Config)()
+    c = GNConfig()
     domain_wf = c_uint(int(d["domain_wf"]))
     type_wf = c_uint(int(d["type_wf"]))
     nfft = c_ulong(int(d["nfft"]))
@@ -223,7 +258,7 @@ def config_tone_meas(d: dict) -> POINTER(_gn_Config):
     fshift_update = c_bool(False)
 
     _gn_config_tone_meas(
-        byref(c),
+        byref(c._struct),
         domain_wf,
         type_wf,
         nfft,
@@ -249,8 +284,22 @@ def config_noise_meas(
     fsample_update: bool = False,
     fdata_update: bool = False,
     fshift_update: bool = False,
-) -> POINTER(_gn_Config):
-    c = POINTER(_gn_Config)()
+) -> GNConfig:
+    """Configure measurement for noise-based test.
+
+    :param type_wf: waveform type
+    :param nfft: number of points in FFT
+    :param navg: number of averages
+    :param fs: sampling frequency
+    :param fsr: sampling frequency resolution
+    :param res: resolution
+    :param npr: noise power ratio
+    :param fsample_update: update sampling frequency
+    :param fdata_update: update data
+    :param fshift_update: update shift
+    :return: GNConfig object
+    """
+    c = GNConfig()
     type_wf = c_uint(type_wf)
     nfft = c_ulong(nfft)
     navg = c_int(navg)
@@ -263,7 +312,7 @@ def config_noise_meas(
     fshift_update = c_bool(fshift_update)
 
     _gn_config_noise_meas(
-        byref(c),
+        byref(c._struct),
         type_wf,
         nfft,
         navg,
@@ -278,15 +327,15 @@ def config_noise_meas(
     return c
 
 
-def config_ramp_nl_meas(d: dict) -> POINTER(_gn_Config):
-    """Configure measurement for ramp-based test: 
+def config_ramp_nl_meas(d: dict) -> GNConfig:
+    """Configure measurement for ramp-based test:
     Required keys are
     npts
     fs
-    fsr    
+    fsr
     res
     """
-    c = POINTER(_gn_Config)()
+    c = GNConfig()
     npts = c_ulong(int(d["npts"]))
     fs = c_double(float(d["fs"]))
     fsr = c_double(float(d["fsr"]))
@@ -297,7 +346,7 @@ def config_ramp_nl_meas(d: dict) -> POINTER(_gn_Config):
     start = c_double(float(d["start"]))
     stop = c_double(float(d["stop"]))
 
-    _gn_config_ramp_nl_meas(byref(c), npts, fs, fsr, res, start, stop, 0.0)
+    _gn_config_ramp_nl_meas(byref(c._struct), npts, fs, fsr, res, start, stop, 0.0)
     return c
 
 
@@ -311,9 +360,21 @@ def config_tone_nl_meas(
     freq: List[int],
     phase: List[int],
     scale: List[int],
-) -> POINTER(_gn_Config):
-    c = POINTER(_gn_Config)()
-    domain_wf = c_uint(domain_wf)
+) -> GNConfig:
+    """Configure measurement for non-linear tone-based test
+
+    :param type_wf: waveform type
+    :param npts: number of points in FFT
+    :param fs: sampling frequency
+    :param fsr: sampling frequency resolution
+    :param res: resolution
+    :param num_tones: number of tones
+    :param freq: frequency values
+    :param phase: phase values
+    :param scale: scale values
+    :return: GNConfig object
+    """
+    c = GNConfig()
     npts = c_ulong(npts)
     fs = c_double(fs)
     fsr = c_double(fsr)
@@ -325,101 +386,120 @@ def config_tone_nl_meas(
     scale = double_array(*scale)
 
     _gn_config_tone_nl_meas(
-        byref(c), type_wf, npts, fs, fsr, res, freq, scale, phase, num_tones
+        byref(c._struct), type_wf, npts, fs, fsr, res, freq, scale, phase, num_tones
     )
     return c
 
 
-def gen_tone(c: POINTER(_gn_Config)):
-    """Generate single-tone or multi-tone waveform:
-    Takes opaque struct returned by the corresponding config_* function call
+def gen_tone(c: GNConfig) -> List[float]:
+    """Generate single-tone or multi-tone waveform
+
+    :param c: GNConfig object
+    :return: waveform
     """
     awf = POINTER(c_double)()
     npts = c_uint(0)
-    _gn_gen_tone(c, byref(awf), byref(npts))
+    _gn_gen_tone(c._struct, byref(awf), byref(npts))
     return list(awf[0 : npts.value])
 
 
-def gen_ramp(c: POINTER(_gn_Config)):
+def gen_ramp(c: GNConfig) -> List[float]:
     """Generate ramp waveform:
-    Takes opaque struct returned by the corresponding config_* function call
+
+    :param c: GNConfig object
+    :return: waveform
     """
     awf = POINTER(c_double)()
     npts = c_uint(0)
-    _gn_gen_ramp(c, byref(awf), byref(npts))
+    _gn_gen_ramp(c._struct, byref(awf), byref(npts))
     return list(awf[0 : npts.value])
 
 
-def quantize(c: POINTER(_gn_Config), awf: list):
+def quantize(c: GNConfig, awf: list) -> List[int]:
     """Quantize single-tone or multi-tone waveform:
-    Arguments are opaque struct returned by the corresponding config_* function call, and 
-    analog waveform returned by the corresponding gen_* function call
+
+    :param c: GNConfig object
+    :param awf: waveform
+    :return: quantized waveform
     """
     qwf = POINTER(c_int)()
     awf_ptr = (c_double * len(awf))(*awf)
-    _gn_quantize(c, awf_ptr, byref(qwf))
+    _gn_quantize(c._struct, awf_ptr, byref(qwf))
     return list(qwf[0 : len(awf)])
 
 
-def rfft(c: POINTER(_gn_Config), realqwf: list):
+def rfft(c: GNConfig, realqwf: list) -> tuple(list, list):
     """Compute FFT of a real waveform:
-    Arguments are, 
-    opaque configuration struct corresponding to the measurement desired, and 
-    real quantized waveform 
+
+    :param c: GNConfig object
+    :param realqwf: real waveform
+    :return: FFT
     """
     out_i = POINTER(c_double)()
     out_q = POINTER(c_double)()
     realqwf_ptr = (c_int * len(realqwf))(*realqwf)
     fft_size = c_uint(0)
-    _gn_rfft(c, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
+    _gn_rfft(c._struct, realqwf_ptr, byref(out_i), byref(out_q), byref(fft_size))
     out_i_list = list(out_i[0 : fft_size.value])
     out_q_list = list(out_q[0 : fft_size.value])
+
     return out_i_list, out_q_list
 
 
-def fft(c: POINTER(_gn_Config), qwf_i: list, qwf_q: list):
+def fft(c: GNConfig, qwf_i: list, qwf_q: list) -> tuple(list, list):
     """Compute FFT of a complex waveform:
-    Arguments are,
-    opaque configuration struct corresponding to the measurement desired,
-    quantized waveform real part, and  
-    quantized waveform imaginary part 
+
+    :param c: GNConfig object
+    :param qwf_i: real part of complex waveform
+    :param qwf_q: imaginary part of complex waveform
     """
     out_i = POINTER(c_double)()
     out_q = POINTER(c_double)()
     qwf_i_ptr = (c_int * len(qwf_i))(*qwf_i)
     qwf_q_ptr = (c_int * len(qwf_q))(*qwf_i)
     fft_size = c_uint(0)
-    _gn_fft(c, qwf_i_ptr, qwf_q_ptr, byref(out_i), byref(out_q), byref(fft_size))
+    _gn_fft(
+        c._struct, qwf_i_ptr, qwf_q_ptr, byref(out_i), byref(out_q), byref(fft_size)
+    )
     out_i_list = list(out_i[0 : fft_size.value])
     out_q_list = list(out_q[0 : fft_size.value])
     return out_i_list, out_q_list
 
 
-def metric_t(c: POINTER(_gn_Config), qwf: list, m_name: str):
-    """Compute desired performance metric:
-    Arguments are,
-    opaque configuration struct corresponding to the measurement desired,
-    quantized waveform with interleaved real and imaginary parts,
-    metric name 
+def metric_t(c: GNConfig, qwf: list, m_name: str) -> float:
+    """Compute desired performance metric based on time domain data.
+
+    :param c: opaque configuration struct corresponding to the measurement desired
+    :param qwf: quantized waveform
+    :param m_name: name of the metric to compute
+    :return: value of the metric
     """
     qwf_ptr = (c_int * len(qwf))(*qwf)
     m_name_enc = m_name.encode("utf-8")
     r = c_double(0.0)
     err_code = c_uint(0)
-    r = _gn_metric(c, qwf_ptr, m_name_enc, err_code)
-    return r, err_code
+    r = _gn_metric(c._struct, qwf_ptr, m_name_enc, byref(err_code))
+
+    if err_code.value != 0:
+        raise Exception(f"Failed to get metric. ERROR: {err_code.value}")
+
+    return r
 
 
-def metric_f(c: POINTER(_gn_Config), fft: list, m_name: str):
+def metric_f(c: GNConfig, fft: list, m_name: str) -> float:
     """Compute desired performance metric:
     Arguments are,
     opaque configuration struct corresponding to the measurement desired,
     FFT with interleaved real and imaginary parts,
-    metric name 
+    metric name
     """
     fft_ptr = (c_double * len(fft))(*fft)
     m_name_enc = m_name.encode("utf-8")
     r = c_double(0.0)
     err_code = c_uint(0)
-    r = _gn_metric(c, fft_ptr, m_name_enc, err_code)
-    return r, err_code
+    r = _gn_metric(c._struct, fft_ptr, m_name_enc, byref(err_code))
+
+    if err_code.value != 0:
+        raise Exception(f"Failed to get metric. ERROR: {err_code.value}")
+
+    return r
