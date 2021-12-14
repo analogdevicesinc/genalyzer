@@ -106,8 +106,8 @@ def test_metric_t(filename):
         c = genalyzer.config_tone_gen(config_dict)
         awf = genalyzer.gen_tone(c)
         qwf = genalyzer.quantize(c, awf)
-        res, err_code = genalyzer.metric_t(c, qwf, "SFDR")
-        assert err_code != 22, "invalid argument"
+        res = genalyzer.metric_t(c, qwf, "SFDR")
+        # assert err_code != 22, "invalid argument"
 
 
 @pytest.mark.parametrize("filename", test_fft_input_files)
@@ -121,8 +121,8 @@ def test_fft_metric_f(filename):
         qwf_q = [qwf[i] for i in range(len(qwf)) if i % 2 != 0]
         fft_i, fft_q = genalyzer.fft(c, qwf_i, qwf_q)
         fft_data = [val for pair in zip(fft_i, fft_q) for val in pair]
-        res, err_code = genalyzer.metric_f(c, fft_data, "SFDR")
-        assert err_code != 22, "invalid argument"
+        res = genalyzer.metric_f(c, fft_data, "SFDR")
+        # assert err_code != 22, "invalid argument"
 
 
 @pytest.mark.parametrize("filename", test_rfft_input_files)
@@ -134,5 +134,5 @@ def test_rfft_metric_f(filename):
         qwf = genalyzer.quantize(c, awf)
         rfft_i, rfft_q = genalyzer.rfft(c, qwf)
         rfft_data = [val for pair in zip(rfft_i, rfft_q) for val in pair]
-        res, err_code = genalyzer.metric_f(c, rfft_data, "SFDR")
-        assert err_code != 22, "invalid argument"
+        res = genalyzer.metric_f(c, rfft_data, "SFDR")
+        # assert err_code != 22, "invalid argument"

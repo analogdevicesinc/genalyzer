@@ -3,7 +3,7 @@ name: CI Pushes
 on: [push, pull_request]
 
 jobs:
-  UbuntuDoc:
+  TestC:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,29 +15,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          bash ./.github/scripts/install_genalyzer.sh
+          bash ./.github/scripts/install_dependencies.sh
 
-  UbuntuDeploy:
-    runs-on: ubuntu-latest
-    needs: [UbuntuDoc]
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.6
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.6
-
-      - name: Install dependencies
+      - name: Build and test
         run: |
-          bash ./.github/scripts/install_genalyzer.sh
-      - name: Publish doc
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/doc/sphinx
+          mkdir -p build
+          cd build
+          cmake ..
+          make -j4
+          make test
 
-  MacOSDoc:
+  TestCMacOS:
     runs-on: macos-latest
 
     steps:
@@ -56,8 +44,84 @@ jobs:
           mkdir -p build
           cd build
           cmake ..
-          sudo make -j4
-          sudo make test
+          make -j4
+          make test
           sudo make install
-          sudo ldconfig
+
+  TestPython:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          bash ./.github/scripts/install_dependencies.sh
+          bash ./.github/scripts/install_genalyzer.sh
+
+      - name: Test
+        run: |
+          cd build/bindings/python
+          sudo pip3 install .
+          cd ../../..
+          cd bindings/python
+          pytest -vs tests
+
+  DocBuild:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+
+      - name: Install dependencies
+        run: |
+          bash ./.github/scripts/install_dependencies.sh
+          
+      - name: Build doc
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make Sphinx
+
+
+  DocDeploy:
+    runs-on: ubuntu-latest
+    needs: [DocBuild]
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+
+      - name: Install dependencies
+        run: |
+          bash ./.github/scripts/install_dependencies.sh
+          
+      - name: Build doc
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make Sphinx
           cd ..
+
+      - name: Publish doc
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/doc/sphinx
