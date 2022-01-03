@@ -6,6 +6,7 @@ jobs:
   TestC:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         images: ["debian:buster", "debian:bullseye", "ubuntu:20.04"]
 
