@@ -1,6 +1,10 @@
 #include "cgenalyzer.h"
 #include "cgenalyzer_private.h"
+#ifdef __APPLE__
+#include <mach/error.h>
+#else
 #include <error.h>
+#endif
 
 extern "C" {
 double gn_metric(gn_config c, const void* input, const char* m_name, unsigned int* err_code)

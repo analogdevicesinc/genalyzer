@@ -44,8 +44,15 @@ set_target_properties(swx_analysis_genalyzer PROPERTIES
 set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib"
 	CACHE PATH "Installation directory for libraries")
 
+if(APPLE)
+  find_package(PkgConfig)
+  pkg_check_modules(FFTW3 REQUIRED fftw3)
+endif()
 find_package(FFTW REQUIRED)
 target_link_libraries(swx_analysis_genalyzer LINK_PUBLIC ${FFTW_LIBRARIES})
+if(APPLE)
+  target_include_directories(swx_analysis_genalyzer PRIVATE ${FFTW3_INCLUDE_DIRS})
+endif()
 
 install(TARGETS swx_analysis_genalyzer
 	ARCHIVE DESTINATION lib
