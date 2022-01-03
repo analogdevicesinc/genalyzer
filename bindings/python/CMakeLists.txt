@@ -1,17 +1,7 @@
-cmake_minimum_required(VERSION 0.8)
+cmake_minimum_required(VERSION 3.13.4)
 project(libgenalyzer-py NONE)
 
-if(${CMAKE_VERSION} VERSION_LESS "3.12.0")
-	if(Python3_EXECUTABLE)
-		set(PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
-	endif()
-	find_package(PythonInterp 3.6 REQUIRED)
-
-	set(Python3_FOUND ${PYTHONINTERP_FOUND})
-	set(Python3_EXECUTABLE ${PYTHON_EXECUTABLE})
-else()
-	find_package(Python3 3.6 REQUIRED COMPONENTS Interpreter)
-endif()
+find_package(Python3 3.6 REQUIRED COMPONENTS Interpreter)
 
 if (Python3_FOUND)
 	message(STATUS "Found Python: Building bindings")
