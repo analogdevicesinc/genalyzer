@@ -22,6 +22,10 @@
 
 #include <cgenalyzer.h>
 #include <errno.h>
+#ifdef __APPLE__
+#include <stdlib.h>
+#else
+#endif
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
@@ -57,7 +61,7 @@ static inline bool int64_arrays_equal(long int* a, long int* b, size_t arr_size,
 {
     bool result = true;
     for (int n = 0; n < arr_size; n++)
-        result &= (abs(a[n] - b[n]) <= tol) ? true : false;
+        result &= (labs(a[n] - b[n]) <= tol) ? true : false;
 
     return result;
 }
@@ -72,24 +76,41 @@ bool int_arrays_almost_equal(void* a, void* b, size_t arr_size, size_t tol, data
 
 char* extract_token(const char* file_name, const char* token, unsigned int* err_val)
 {
-    char line[256], *line_split;
+
+    *err_val = 0;
+
     FILE* fp = fopen(file_name, "r");
     if (fp == NULL) {
         fprintf(stderr, "%s: %s\n", file_name, strerror(errno));
         *err_val = errno;
     }
 
-    while (fgets(line, sizeof(line), fp) != NULL) {
+    char *line = NULL;
+    char *outstr;
+    size_t len = 0;
+    char *line_split;
+    while(getline(&line, &len, fp) != -1) {
+
         line_split = strtok(line, "=");
+        if (line_split == NULL) {
+            *err_val = EINVAL;
+            break;
+        }
         if (strcmp(line_split, token) == 0) {
             line_split = strtok(NULL, "=");
             if (line_split != NULL) {
-                fclose(fp);
-                return (line_split);
+                outstr = (char*) malloc(strlen(line_split));
+                strcpy(outstr, line_split);
+                // printf("%s %s\n",token, outstr);
             }
-        } else
-            *err_val = EINVAL;
+            else
+                *err_val = EINVAL;
+            break;
+        }
     }
+
+    fclose(fp);
+    return outstr;
 }
 
 int read_file_to_array(const char* file_name, void* result, datatype result_type)
