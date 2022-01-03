@@ -5,7 +5,12 @@ on: [push, pull_request]
 jobs:
   TestC:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        images: ["debian:buster", "debian:bullseye", "ubuntu:20.04"]
 
+    container:
+      image: ${{ matrix.images }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.6
