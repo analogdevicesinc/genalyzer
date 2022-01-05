@@ -84,31 +84,45 @@ char* extract_token(const char* file_name, const char* token, unsigned int* err_
         *err_val = errno;
     }
 
-    char *line = NULL;
+    char c;
+    char *line = (char*)malloc(256);
+    int i = 0;
     char *outstr;
     size_t len = 0;
     char *line_split;
-    while(getline(&line, &len, fp) != -1) {
 
-        line_split = strtok(line, "=");
-        if (line_split == NULL) {
-            *err_val = EINVAL;
-            break;
-        }
-        if (strcmp(line_split, token) == 0) {
-            line_split = strtok(NULL, "=");
-            if (line_split != NULL) {
-                outstr = (char*) malloc(strlen(line_split));
-                strcpy(outstr, line_split);
-                // printf("%s %s\n",token, outstr);
-            }
-            else
+    do {
+        c = (char)fgetc(fp);
+        line[i] = c;
+
+        if (c=='\n') {
+            // Process line
+            line[i+1] = '\0';
+            line_split = strtok(line, "=");
+            if (line_split == NULL) {
                 *err_val = EINVAL;
-            break;
+                break;
+            }
+            if (strcmp(line_split, token) == 0) {
+                line_split = strtok(NULL, "=");
+                if (line_split != NULL) {
+                    outstr = (char*) malloc(strlen(line_split));
+                    strcpy(outstr, line_split);
+                    // printf("%s %s\n",token, outstr);
+                }
+                else
+                    *err_val = EINVAL;
+                break;
+            }
+            i = 0;
         }
-    }
+        else {
+            i++;
+        }
+    } while(c != EOF);
 
     fclose(fp);
+    free(line);
     return outstr;
 }
 
@@ -146,10 +160,11 @@ int read_file_to_array(const char* file_name, void* result, datatype result_type
 
 int write_array_to_file(const char* file_name, void* result, size_t r_size, datatype result_type)
 {
-    char line[256];
+    char * line = (char*)malloc(256*sizeof(char));
     FILE* fp = fopen(file_name, "w");
     if (fp == NULL) {
         fprintf(stderr, "%s: %s\n", file_name, strerror(errno));
+        free(line);
         return errno;
     }
 
@@ -164,6 +179,7 @@ int write_array_to_file(const char* file_name, void* result, size_t r_size, data
     }
 
     fclose(fp);
+    free(line);
     return 0;
 }
 
