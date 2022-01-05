@@ -2,6 +2,8 @@
 #include "cgenalyzer_private.h"
 #ifdef __APPLE__
 #include <mach/error.h>
+#elif _WIN32
+#include <errno.h>
 #else
 #include <error.h>
 #endif

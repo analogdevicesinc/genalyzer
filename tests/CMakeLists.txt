@@ -1,11 +1,17 @@
 enable_testing()
 
+if(WIN32)
+  set(LIBRARIES genalyzer)
+else()
+  set(LIBRARIES genalyzer m)
+endif()
+
 ################################################################################
 file(GLOB TEST_FILES_LIST "test_vectors/test_gen_tone_*.txt")
 set(n 0)
 SET_SOURCE_FILES_PROPERTIES(test_gen_tone.c PROPERTIES LANGUAGE C)
 add_executable(test_gen_tone test_gen_tone.c test_genalyzer.h)
-target_link_libraries(test_gen_tone genalyzer m)
+target_link_libraries(test_gen_tone ${LIBRARIES})
 foreach(test_file ${TEST_FILES_LIST})
   add_test(NAME test_gen_tone_${n}
     COMMAND test_gen_tone ${test_file}
@@ -18,7 +24,7 @@ file(GLOB TEST_FILES_LIST "test_vectors/test_gen_ramp_[^and_quantize_]*.txt")
 set(n 0)
 SET_SOURCE_FILES_PROPERTIES(test_gen_ramp.c PROPERTIES LANGUAGE C)
 add_executable(test_gen_ramp test_gen_ramp.c test_genalyzer.h)
-target_link_libraries(test_gen_ramp genalyzer m)
+target_link_libraries(test_gen_ramp ${LIBRARIES})
 foreach(test_file ${TEST_FILES_LIST})
   add_test(NAME test_gen_ramp_${n}
     COMMAND test_gen_ramp ${test_file}
@@ -31,7 +37,7 @@ file(GLOB TEST_FILES_LIST "test_vectors/test_gen_ramp_and_quantize_*.txt")
 set(n 0)
 SET_SOURCE_FILES_PROPERTIES(test_gen_ramp_and_quantize.c PROPERTIES LANGUAGE C)
 add_executable(test_gen_ramp_and_quantize test_gen_ramp_and_quantize.c test_genalyzer.h)
-target_link_libraries(test_gen_ramp_and_quantize genalyzer m)
+target_link_libraries(test_gen_ramp_and_quantize ${LIBRARIES})
 foreach(test_file ${TEST_FILES_LIST})
   add_test(NAME test_gen_ramp_and_quantize_${n}
     COMMAND test_gen_ramp_and_quantize ${test_file}
@@ -44,7 +50,7 @@ file(GLOB TEST_FILES_LIST "test_vectors/test_quantize_*.txt")
 set(n 0)
 SET_SOURCE_FILES_PROPERTIES(test_quantize.c PROPERTIES LANGUAGE C)
 add_executable(test_quantize test_quantize.c test_genalyzer.h)
-target_link_libraries(test_quantize genalyzer m)
+target_link_libraries(test_quantize ${LIBRARIES})
 foreach(test_file ${TEST_FILES_LIST})
   add_test(NAME test_quantize_${n}
     COMMAND test_quantize ${test_file}
@@ -59,7 +65,7 @@ list(LENGTH TEST_IN_FILES_LIST IN_LENGTH)
 math(EXPR IN_LENGTH "${IN_LENGTH} - 1")
 SET_SOURCE_FILES_PROPERTIES(test_rfft.c PROPERTIES LANGUAGE C)
 add_executable(test_rfft test_rfft.c test_genalyzer.h)
-target_link_libraries(test_rfft genalyzer m)
+target_link_libraries(test_rfft ${LIBRARIES})
 foreach(index RANGE ${IN_LENGTH})
   list(GET TEST_IN_FILES_LIST ${index} IN)
   list(GET TEST_OUT_FILES_LIST ${index} OUT)
@@ -75,7 +81,7 @@ list(LENGTH TEST_IN_FILES_LIST IN_LENGTH)
 math(EXPR IN_LENGTH "${IN_LENGTH} - 1")
 SET_SOURCE_FILES_PROPERTIES(test_fft.c PROPERTIES LANGUAGE C)
 add_executable(test_fft test_fft.c test_genalyzer.h)
-target_link_libraries(test_fft genalyzer m)
+target_link_libraries(test_fft ${LIBRARIES})
 foreach(index RANGE ${IN_LENGTH})
   list(GET TEST_IN_FILES_LIST ${index} IN)
   list(GET TEST_OUT_FILES_LIST ${index} OUT)
@@ -90,7 +96,7 @@ file(GLOB TEST_FILES_LIST "test_vectors/test_rfft_[^input_][^output_]*.txt")
 set(n 0)
 SET_SOURCE_FILES_PROPERTIES(test_metric.c PROPERTIES LANGUAGE C)
 add_executable(test_metric test_metric.c test_genalyzer.h)
-target_link_libraries(test_metric genalyzer m)
+target_link_libraries(test_metric ${LIBRARIES})
 foreach(test_file ${TEST_FILES_LIST})
   add_test(NAME test_metric_${n}
     COMMAND test_metric ${test_file}
@@ -103,7 +109,7 @@ file(GLOB TEST_FILES_LIST "test_vectors/test_Pluto_OneToneFFT*.txt")
 set(n 0)
 SET_SOURCE_FILES_PROPERTIES(test_pluto_metrics.c PROPERTIES LANGUAGE C)
 add_executable(test_pluto_metrics test_pluto_metrics.c test_genalyzer.h)
-target_link_libraries(test_pluto_metrics genalyzer m)
+target_link_libraries(test_pluto_metrics ${LIBRARIES})
 foreach(test_file ${TEST_FILES_LIST})
   add_test(NAME test_pluto_metrics_${n}
     COMMAND test_pluto_metrics ${test_file}
@@ -116,7 +122,7 @@ file(GLOB TEST_FILES_LIST "test_vectors/test_quantize64_*.txt")
 set(n 0)
 SET_SOURCE_FILES_PROPERTIES(test_quantize64.c PROPERTIES LANGUAGE C)
 add_executable(test_quantize64 test_quantize64.c test_genalyzer.h)
-target_link_libraries(test_quantize64 genalyzer m)
+target_link_libraries(test_quantize64 ${LIBRARIES})
 foreach(test_file ${TEST_FILES_LIST})
   add_test(NAME test_quantize64_${n}
     COMMAND test_quantize64 ${test_file}

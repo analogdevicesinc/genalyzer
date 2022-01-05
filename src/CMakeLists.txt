@@ -1,6 +1,8 @@
 file(GLOB HEADER_LIST CONFIGURE_DEPENDS
      "${PROJECT_SOURCE_DIR}/include/*.hpp")
 
+add_definitions(-DEXPORT_API)
+
 add_library(swx_analysis_genalyzer
     abstract_object.cpp
     array_math.cpp
@@ -50,7 +52,7 @@ if(APPLE)
 endif()
 find_package(FFTW REQUIRED)
 target_link_libraries(swx_analysis_genalyzer LINK_PUBLIC ${FFTW_LIBRARIES})
-if(APPLE)
+if(APPLE OR WIN32)
   target_include_directories(swx_analysis_genalyzer PRIVATE ${FFTW3_INCLUDE_DIRS})
 endif()
 

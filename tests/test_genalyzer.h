@@ -22,9 +22,8 @@
 
 #include <cgenalyzer.h>
 #include <errno.h>
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(_WIN32)
 #include <stdlib.h>
-#else
 #endif
 #include <math.h>
 #include <stdio.h>
