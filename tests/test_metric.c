@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     double* scale = (double*)calloc(num_tones, sizeof(double));
     double* phase = (double*)calloc(num_tones, sizeof(double));
 
-    char tmp_token[10];
+    char * tmp_token = (char*)malloc(10*sizeof(char));
     for (int n = 0; n < num_tones; n++) {
         sprintf(tmp_token, "freq%d", n);
         freq[n] = 0.0; //atof(extract_token(test_filename, tmp_token, &err_code));
@@ -35,7 +35,9 @@ int main(int argc, char* argv[])
     }
 
     size_t npts = 2 * nfft * navg;
-    double ref_fft[2 * nfft], ref_fft_re[nfft], ref_fft_im[nfft];
+    double * ref_fft = (double*)malloc(2*nfft*sizeof(double));
+    double * ref_fft_re = (double*)malloc(nfft*sizeof(double));
+    double * ref_fft_im = (double*)malloc(nfft*sizeof(double));
     gn_config c = NULL;
 
     // configuration
@@ -65,6 +67,9 @@ int main(int argc, char* argv[])
     free(freq);
     free(scale);
     free(phase);
+    free(ref_fft);
+    free(ref_fft_im);
+    free(ref_fft_re);
 
     return 0;
 }
