@@ -53,7 +53,7 @@ endif()
 find_package(FFTW REQUIRED)
 target_link_libraries(swx_analysis_genalyzer LINK_PUBLIC ${FFTW_LIBRARIES})
 if(APPLE OR WIN32)
-  target_include_directories(swx_analysis_genalyzer PRIVATE ${FFTW3_INCLUDE_DIRS})
+  target_include_directories(swx_analysis_genalyzer PRIVATE ${FFTW_INCLUDE_DIRS})
 endif()
 
 install(TARGETS swx_analysis_genalyzer
