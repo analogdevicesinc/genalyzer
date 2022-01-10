@@ -1,6 +1,8 @@
 file(GLOB SOURCE_LIST CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/bindings/c/src/*.cpp")
 set(GENALYZER_MAIN_HEADER "${PROJECT_SOURCE_DIR}/bindings/c/include/cgenalyzer.h")
 
+add_definitions(-DGENALYZER_EXPORTS)
+
 add_library(genalyzer SHARED ${SOURCE_LIST} ${HEADER_LIST})
 
 target_link_libraries(genalyzer LINK_PRIVATE swx_analysis_genalyzer)

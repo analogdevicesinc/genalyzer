@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     double* scale = (double*)calloc(num_tones, sizeof(double));
     double* phase = (double*)calloc(num_tones, sizeof(double));
 
-    char tmp_token[10];
+    char * tmp_token = (char*)malloc(10*sizeof(char));
     for (int n = 0; n < num_tones; n++) {
         sprintf(tmp_token, "freq%d", n);
         freq[n] = atof(extract_token(test_filename, tmp_token, &err_code));
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
     gn_gen_tone(c, &awf, &npts);
 
     // read reference waveform
-    double ref_awf[npts];
+    double * ref_awf = (double*)malloc(npts*sizeof(double));
     read_file_to_array(test_filename, (void*)ref_awf, DOUBLE);
 
     // compare
@@ -67,6 +67,8 @@ int main(int argc, char* argv[])
     free(freq);
     free(scale);
     free(phase);
+    free(ref_awf);
+    free(tmp_token);
 
     return 0;
 }

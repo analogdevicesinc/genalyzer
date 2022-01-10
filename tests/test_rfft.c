@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     double* scale = (double*)calloc(num_tones, sizeof(double));
     double* phase = (double*)calloc(num_tones, sizeof(double));
 
-    char tmp_token[10];
+    char * tmp_token = (char*)malloc(10*sizeof(char));
     for (int n = 0; n < num_tones; n++) {
         sprintf(tmp_token, "freq%d", n);
         freq[n] = atof(extract_token(test_filename_ip, tmp_token, &err_code));
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
     else
         npts = nfft * navg;
 
-    int ref_qwf_ip[npts];
+    int * ref_qwf_ip = (int*)malloc(npts*sizeof(int));
     gn_config c = NULL;
 
     // configuration
@@ -65,7 +65,10 @@ int main(int argc, char* argv[])
     gn_rfft(c, ref_qwf_ip, &rfft_op_re, &rfft_op_im, &fft_size);
 
     // read reference output waveform and deinterleave
-    double ref_rfft_op[(fft_size - 1) * 2], ref_rfft_op_re[fft_size], ref_rfft_op_im[fft_size];
+    double * ref_rfft_op = (double*)malloc(((fft_size - 1) * 2)*sizeof(double));
+    double * ref_rfft_op_re = (double*)malloc(fft_size*sizeof(double));
+    double * ref_rfft_op_im = (double*)malloc(fft_size*sizeof(double));
+
     read_file_to_array(test_filename_op, (void*)ref_rfft_op, DOUBLE);
     deinterleave(ref_rfft_op, nfft, ref_rfft_op_re, ref_rfft_op_im, DOUBLE);
 
@@ -78,8 +81,10 @@ int main(int argc, char* argv[])
     free(freq);
     free(scale);
     free(phase);
+    free(ref_qwf_ip);
     free(rfft_op_re);
     free(rfft_op_im);
+    free(tmp_token);
 
     return 0;
 }

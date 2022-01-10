@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
     double start = atof(extract_token(test_filename, "start", &err_code));
     double stop = atof(extract_token(test_filename, "stop", &err_code));
 
-    double ref_awf[npts];
+    double * ref_awf = (double*)malloc(npts*sizeof(double));
     gn_config c = NULL;
 
     // configuration

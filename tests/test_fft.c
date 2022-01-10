@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     double* scale = (double*)calloc(num_tones, sizeof(double));
     double* phase = (double*)calloc(num_tones, sizeof(double));
 
-    char tmp_token[10];
+    char * tmp_token = (char*)malloc(10*sizeof(char));
     for (int n = 0; n < num_tones; n++) {
         sprintf(tmp_token, "freq%d", n);
         freq[n] = atof(extract_token(test_filename_ip, tmp_token, &err_code));
@@ -34,9 +34,15 @@ int main(int argc, char* argv[])
         phase[n] = atof(extract_token(test_filename_ip, tmp_token, &err_code));
     }
 
-    size_t npts = 2 * nfft * navg;
-    int ref_qwf_ip[npts], ref_qwf_ip_re[npts / 2], ref_qwf_ip_im[npts / 2];
-    double ref_fft_op[npts], ref_fft_op_re[npts/2], ref_fft_op_im[npts/2];
+    int npts = 2 * nfft * navg;
+    int * ref_qwf_ip = (int*)malloc(npts*sizeof(int));
+    int * ref_qwf_ip_re = (int*)malloc(npts/2*sizeof(int));
+    int * ref_qwf_ip_im = (int*)malloc(npts/2*sizeof(int));
+
+    double * ref_fft_op = (double*)malloc(npts*sizeof(double));
+    double * ref_fft_op_re = (double*)malloc(npts/2*sizeof(double));
+    double * ref_fft_op_im = (double*)malloc(npts/2*sizeof(double));
+
     gn_config c = NULL;
 
     // configuration
