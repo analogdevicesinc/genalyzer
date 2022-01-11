@@ -5,7 +5,9 @@ Genalyzer is a C++ library that facilitates the computation of commonly used dat
 
 # Licenses
 
+Genalyzer has two license models. The first is [GPL-v2](https://github.com/analogdevicesinc/genalyzer/blob/master/LICENSE) which is often used when linking against the GPL-v2 version of FFTW. Alternatively, if you have your own FFTW license, the [ADI BSD license](https://github.com/analogdevicesinc/genalyzer/blob/master/LICENSE_ADIBSD) can be used.
+
 ## Docs and Icons
 
-The genalyzer documentation utilizes the following and provides attribution the following:
+The genalyzer documentation utilizes and provides attribution to the following as required by their licenses:
 - ![Font Awesome Free License for doc logo](https://fontawesome.com/license/free)
