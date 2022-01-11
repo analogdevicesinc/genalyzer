@@ -1,0 +1,26 @@
+{%- if exists("publicFunctions") %}## Functions
+
+| Name | Description |
+| -------------- | -------------- |
+{% for child in publicFunctions -%}
+|**[{{child.name}}](#function-{{child.name}})**|{% if existsIn(child, "brief") %}{{child.brief}}{% endif %}|
+{% endfor %}
+{% endif -%}
+
+{%- if exists("publicTypes") %}## Types
+
+|                | Name           |
+| -------------- | -------------- |
+{% for child in publicTypes -%}
+| {% if existsIn(child, "templateParams") -%}
+template <{% for param in child.templateParams -%}
+{{param.typePlain}} {{param.name}}{% if existsIn(param, "defvalPlain") %} ={{param.defvalPlain}}{% endif -%}
+{% if not loop.is_last %},{% endif -%}
+{% endfor %}\> <br>{% endif -%}
+{{child.kind}}{% if child.kind == "enum" and child.strong %} class{% endif %}{% if existsIn(child, "type") %} {{child.type}} {% endif -%}| **[{{child.name}}](#enum-{{child.name}})** {% if child.kind == "enum" %}{ {% for enumvalue in child.enumvalues -%}
+{{enumvalue.name}}{% if existsIn(enumvalue, "initializer") %} {{enumvalue.initializer}}{% endif -%}
+{% if not loop.is_last %}, {% endif %}{% endfor -%}
+ }{% endif -%}
+{% if existsIn(child, "brief") %}<br>{{child.brief}}{% endif %} |
+{% endfor %}
+{% endif -%}

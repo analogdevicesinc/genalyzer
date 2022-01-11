@@ -1,0 +1,44 @@
+site_name: genalyzer
+site_description: Library of DSP functions for RF measurements
+site_author: Analog Devices, Inc.
+
+theme:
+  logo: assets/wave-square-solid.svg
+  name: material
+  palette:
+    - scheme: default
+      primary: deep orange
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep orange
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+nav:
+    - Home: index.md
+    - Set Up: setup.md
+    - Usage Model: theory.md
+    - API Reference: cgenalyzer_8h.md
+    - Tutorials:
+      - Simulation: sim.md
+      - Hardware: hw.md
+
+
+
+repo_url: https://github.com/analogdevicesinc/genalyzer
+
+markdown_extensions:
+    - admonition
+
+plugins:
+  - search
+  - mkdocstrings
+  # - doxygen-snippets:
+  #     doxygen-source: build/doc/docs/xml
+  #     api-path: api
+  #     debug: False
+  #     hints: True
+  #     full-doc: True
