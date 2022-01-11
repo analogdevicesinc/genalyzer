@@ -44,9 +44,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew install cmake gnu-tar bzip2 gzip fftw doxygen
-          pip3 install sphinx
-          pip3 install breathe
-          pip3 install sphinx_rtd_theme
+          pip3 install -r requirements_doc.txt
           mkdir -p build
           cd build
           cmake ..
@@ -99,7 +97,7 @@ jobs:
           mkdir -p build
           cd build
           cmake ..
-          make Sphinx
+          make MkDocs
 
 
   DocDeploy:
@@ -123,11 +121,11 @@ jobs:
           mkdir -p build
           cd build
           cmake ..
-          make Sphinx
+          make MkDocs
           cd ..
 
       - name: Publish doc
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/doc/sphinx
+          publish_dir: ./build/doc/out_docs/mkdocs/out
