@@ -8,6 +8,7 @@ import os
 
 examples_dir = "../../../tests/test_vectors/"
 
+
 def get_config(f):
     config_dict = {}
     for line in f:
@@ -19,6 +20,7 @@ def get_config(f):
             config_dict[key] = float(val)
 
     return config_dict
+
 
 loc = os.path.dirname(__file__)
 filename = os.path.join(loc, examples_dir, "test_rfft_input_1619625519432.txt")
