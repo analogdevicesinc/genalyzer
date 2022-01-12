@@ -1,5 +1,5 @@
 %% Set up Library
-addpath(genpath(['..',filesep,'bindings',filesep,'c',filesep'include']))
+addpath(genpath(['..',filesep,'c',filesep,'include']))
 libName = 'libgenalyzer';
 genalyzerwrapperh = 'genalyzer-wrapper.h';
 genalyzerh = 'cgenalyzer.h';
