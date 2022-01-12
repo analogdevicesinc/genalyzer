@@ -17,11 +17,12 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
   include(CTest)
 
-  if(APPLE)
+  if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    set(CMAKE_CXX_FLAGS
+        "${CMAKE_CXX_FLAGS} -std=gnu++14 -fext-numeric-literals")
+  else() # WIN/macOS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
-  else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14 -fext-numeric-literals")
-  endif()   
+  endif()
 
   find_package(Doxygen)
   if(Doxygen_FOUND)
@@ -29,6 +30,10 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   else()
     message(STATUS "Doxygen not found, not building docs")
   endif()
+endif()
+
+if(MSVC)
+  add_compile_options(/wd4251 /wd4996)
 endif()
 
 option(LIB_CHECK_PYINSTALL "Check for library during python install" OFF)
