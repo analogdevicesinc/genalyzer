@@ -2,7 +2,7 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-void compute_dnl(gn_config c, int* qwf, int32_t** bins, int64_t** hits, double** dnl_data)
+void gn_compute_dnl(gn_config c, int* qwf, int32_t** bins, int64_t** hits, double** dnl_data)
 {
     *bins = new int32_t[c->num_bins];
     *hits = new int64_t[c->num_bins];
