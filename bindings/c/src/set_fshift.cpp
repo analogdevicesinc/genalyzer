@@ -2,7 +2,7 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-fft_analysis_wrapper* set_fshift(fft_analysis_wrapper* cfftobj, double fshift)
+void set_fshift(fft_analysis_wrapper* cfftobj, double fshift)
 {
     an::fft_analysis2* fftobj;
     fftobj = reinterpret_cast<an::fft_analysis2*>(cfftobj);

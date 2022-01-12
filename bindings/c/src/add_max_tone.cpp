@@ -2,7 +2,7 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-fft_analysis_wrapper* add_max_tone(fft_analysis_wrapper* cfftobj, const char* tone_label)
+void add_max_tone(fft_analysis_wrapper* cfftobj, const char* tone_label)
 {
     an::fft_analysis2* fftobj;
     fftobj = reinterpret_cast<an::fft_analysis2*>(cfftobj);

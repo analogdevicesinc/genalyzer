@@ -2,7 +2,7 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-fft_analysis_wrapper* add_band(fft_analysis_wrapper* cfftobj)
+void add_band(fft_analysis_wrapper* cfftobj)
 {
     an::fft_analysis2* fftobj;
     fftobj = reinterpret_cast<an::fft_analysis2*>(cfftobj);

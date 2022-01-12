@@ -24,15 +24,15 @@ extern "C" {
   __api void gn_destroy_fft_analysis_wrapper (fft_analysis_wrapper *cfftobj);
 
   // wrappers to fft_analysis2 methods
-  __api fft_analysis_wrapper *add_band (fft_analysis_wrapper *cfftobj);
-  __api fft_analysis_wrapper *add_fixed_tone (fft_analysis_wrapper *cfftobj);
-  __api fft_analysis_wrapper *add_max_tone (fft_analysis_wrapper *cfftobj,
+  __api void add_band (fft_analysis_wrapper *cfftobj);
+  __api void add_fixed_tone (fft_analysis_wrapper *cfftobj);
+  __api void add_max_tone (fft_analysis_wrapper *cfftobj,
                                       const char *tone_label);
-  __api fft_analysis_wrapper *set_analysis_band (fft_analysis_wrapper *cfftobj);
-  __api fft_analysis_wrapper *set_fdata (fft_analysis_wrapper *cfftobj,
+  __api void set_analysis_band (fft_analysis_wrapper *cfftobj);
+  __api void set_fdata (fft_analysis_wrapper *cfftobj,
                                    double fdata);
-  __api fft_analysis_wrapper *set_fsample (fft_analysis_wrapper *cfftobj, double fs);
-  __api fft_analysis_wrapper *set_fshift (fft_analysis_wrapper *cfftobj,
+  __api void set_fsample (fft_analysis_wrapper *cfftobj, double fs);
+  __api void set_fshift (fft_analysis_wrapper *cfftobj,
                                     double fshift);
 
   /**
