@@ -20,6 +20,8 @@ set_target_properties(genalyzer PROPERTIES
   CXX_EXTENSIONS OFF
 )
 
+set_target_properties(genalyzer PROPERTIES OUTPUT_NAME libgenalyzer)
+
 set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib" CACHE PATH "Installation directory for libraries")
 
 set(GENALYZER_PC ${CMAKE_CURRENT_BINARY_DIR}/libgenalyzer.pc)
