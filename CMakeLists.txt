@@ -10,6 +10,8 @@ set(BUILD_SHARED_LIBS
 
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
+option(BUILD_DOC "Generate documentation" OFF)
+
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
@@ -24,11 +26,13 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
   endif()
 
-  find_package(Doxygen)
-  if(Doxygen_FOUND)
-    add_subdirectory(doc)
-  else()
-    message(STATUS "Doxygen not found, not building docs")
+  if(BUILD_DOC)
+    find_package(Doxygen)
+    if(Doxygen_FOUND)
+      add_subdirectory(doc)
+    else()
+      message(STATUS "Doxygen not found, not building docs")
+    endif()
   endif()
 endif()
 

@@ -20,7 +20,9 @@ set_target_properties(genalyzer PROPERTIES
   CXX_EXTENSIONS OFF
 )
 
-set_target_properties(genalyzer PROPERTIES OUTPUT_NAME libgenalyzer)
+if(MSVC)
+  set_target_properties(genalyzer PROPERTIES OUTPUT_NAME libgenalyzer)
+endif()
 
 set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib" CACHE PATH "Installation directory for libraries")
 
