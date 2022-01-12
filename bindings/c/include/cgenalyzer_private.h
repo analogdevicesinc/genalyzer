@@ -23,6 +23,7 @@
 #ifndef GENALYZER_PRIVATE_H
 #define GENALYZER_PRIVATE_H
 #include "cgenalyzer.h"
+#include "cgenalyzer_advanced.h"
 #include <code_density.hpp>
 #include <fft_analysis2.hpp>
 #include <real_to_string.hpp>
