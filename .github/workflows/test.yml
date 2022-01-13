@@ -96,7 +96,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake ..
+          cmake .. -DBUILD_DOC=ON
           make MkDocs
 
 
@@ -120,7 +120,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake ..
+          cmake .. -DBUILD_DOC=ON
           make MkDocs
           cd ..
 
