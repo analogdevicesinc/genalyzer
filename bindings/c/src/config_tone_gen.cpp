@@ -22,7 +22,6 @@ void gn_config_tone_gen(gn_config_tone* c, meas_domain m_domain, waveform_type w
     c_p->scale = tone_ampl;
     c_p->phase = tone_phase;
     c_p->n_tones = num_tones;
-    c_p->window = window;
     c_p->update_fsample = fsample_update;
     c_p->update_fdata = fdata_update;
     c_p->update_fshift = fshift_update;
@@ -31,8 +30,25 @@ void gn_config_tone_gen(gn_config_tone* c, meas_domain m_domain, waveform_type w
 
     // defaults
     c_p->irnoise = -200.0;
+    switch (window) {
+        case BlackmanHarris:
+            c_p->win = an::WindowType::BlackmanHarris;
+            printf("BlackmanHarris\n");
+            break;
+        case Hann:
+            c_p->win = an::WindowType::Hann;
+            printf("Hann\n");
+            break;
+        case Rect:
+            c_p->win = an::WindowType::Rect;
+            printf("Rect\n");
+            break;
+        default:
+            c_p->win = an::WindowType::BlackmanHarris;
+            printf("default\n");
+    }
+    printf("window - %zu\tc_p->win - %zu\n", window, c_p->win);
     c_p->cf = an::CodeFormat::TwosComplement;
-    c_p->win = an::WindowType::Hann;
 
     *c = c_p;
 }
