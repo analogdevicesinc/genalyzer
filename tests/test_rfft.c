@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
         fs, // sample rate
         fsr, // full-scale range
         res, // ADC resolution: unused configuration setting
-        0, 
+        2, // rectangular window
         false,
         false,
         false);
@@ -69,7 +69,6 @@ int main(int argc, char* argv[])
     double * ref_rfft_op = (double*)malloc(((fft_size - 1) * 2)*sizeof(double));
     double * ref_rfft_op_re = (double*)malloc(fft_size*sizeof(double));
     double * ref_rfft_op_im = (double*)malloc(fft_size*sizeof(double));
-
     read_file_to_array(test_filename_op, (void*)ref_rfft_op, DOUBLE);
     deinterleave(ref_rfft_op, nfft, ref_rfft_op_re, ref_rfft_op_im, DOUBLE);
 

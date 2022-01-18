@@ -22,9 +22,9 @@
 
 #include <cgenalyzer.h>
 #include <errno.h>
-#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef enum datatype { INT32,
@@ -58,7 +58,7 @@ static inline bool int64_arrays_equal(long int* a, long int* b, size_t arr_size,
 {
     bool result = true;
     for (int n = 0; n < arr_size; n++)
-        result &= (labs(a[n] - b[n]) <= tol) ? true : false;
+        result &= (abs(a[n] - b[n]) <= tol) ? true : false;
 
     return result;
 }
@@ -73,55 +73,29 @@ bool int_arrays_almost_equal(void* a, void* b, size_t arr_size, size_t tol, data
 
 char* extract_token(const char* file_name, const char* token, unsigned int* err_val)
 {
-
-    *err_val = 0;
-
+    char line[256];
+    char *local_line_split;
     FILE* fp = fopen(file_name, "r");
     if (fp == NULL) {
         fprintf(stderr, "%s: %s\n", file_name, strerror(errno));
         *err_val = errno;
     }
 
-    char c;
-    char *line = (char*)malloc(256);
-    int i = 0;
-    char *outstr;
-    size_t len = 0;
-    char *line_split;
-
-    do {
-        c = (char)fgetc(fp);
-        line[i] = c;
-
-        if (c=='\n') {
-            // Process line
-            line[i+1] = '\0';
-            line_split = strtok(line, "=");
-            if (line_split == NULL) {
-                *err_val = EINVAL;
-                break;
+    while (fgets(line, sizeof(line), fp) != NULL) {
+	    local_line_split = strtok(line, "=");
+        if (strcmp(local_line_split, token) == 0) {
+            local_line_split = strtok(NULL, "=");
+            if (local_line_split != NULL) {
+                fclose(fp);
+                *err_val = 0;
+                return strdup(local_line_split);
             }
-            if (strcmp(line_split, token) == 0) {
-                line_split = strtok(NULL, "=");
-                if (line_split != NULL) {
-                    outstr = (char*) malloc(strlen(line_split));
-                    strcpy(outstr, line_split);
-                    // printf("%s %s\n",token, outstr);
-                }
-                else
-                    *err_val = EINVAL;
-                break;
-            }
-            i = 0;
         }
-        else {
-            i++;
-        }
-    } while(c != EOF);
+    }
 
     fclose(fp);
-    free(line);
-    return outstr;
+    *err_val = EINVAL;
+    return NULL;
 }
 
 int read_file_to_array(const char* file_name, void* result, datatype result_type)
@@ -158,11 +132,10 @@ int read_file_to_array(const char* file_name, void* result, datatype result_type
 
 int write_array_to_file(const char* file_name, void* result, size_t r_size, datatype result_type)
 {
-    char * line = (char*)malloc(256*sizeof(char));
+    char line[256];
     FILE* fp = fopen(file_name, "w");
     if (fp == NULL) {
         fprintf(stderr, "%s: %s\n", file_name, strerror(errno));
-        free(line);
         return errno;
     }
 
@@ -177,7 +150,6 @@ int write_array_to_file(const char* file_name, void* result, size_t r_size, data
     }
 
     fclose(fp);
-    free(line);
     return 0;
 }
 

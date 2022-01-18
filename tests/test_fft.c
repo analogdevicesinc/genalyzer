@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
         fs, // sample rate
         fsr, // full-scale range
         res, // ADC resolution: unused configuration setting
-        0, 
+        2,  // rectangular window
         false,
         false,
         false);
@@ -73,8 +73,6 @@ int main(int argc, char* argv[])
     gn_fft(c, ref_qwf_ip_re, ref_qwf_ip_im, &fft_op_re, &fft_op_im, &fft_size);
 
     // compare
-    for (int i = 0; i < 10; i++)
-        printf("%f\t%f\n", ref_fft_op_re[i], fft_op_re[i]);
     assert(float_arrays_almost_equal(ref_fft_op_re, fft_op_re, nfft, 8));
     assert(float_arrays_almost_equal(ref_fft_op_im, fft_op_im, nfft, 8));
 
