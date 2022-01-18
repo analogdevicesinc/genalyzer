@@ -31,6 +31,7 @@ int main(int argc, char* argv[])
         fs, // sample rate
         fsr, // full-scale range
         res, // ADC resolution: unused configuration setting
+        0, 
         true,
         true,
         true);
@@ -39,13 +40,15 @@ int main(int argc, char* argv[])
     if (domain_wf) {
       double * in = (double*)malloc(2*nfft*sizeof(double));
       read_file_to_array(test_filename, (void*)in, DOUBLE);
-      sfdr_val = gn_metric(c, in, "SFDR", &err_code);
+      double *fft_op_re, *fft_op_im;
+      sfdr_val = gn_metric(c, in, "SFDR", &fft_op_re, &fft_op_im, &err_code);      
       // assert(floats_almost_equal(sfdr_val, 9.53, 2));
     }
     else {
       int * in = (int*)malloc(2*nfft*navg*sizeof(int));
       read_file_to_array(test_filename, (void*)in, INT32);
-      sfdr_val = gn_metric(c, in, "SFDR", &err_code);
+      double *fft_op_re, *fft_op_im;
+      sfdr_val = gn_metric(c, in, "SFDR", &fft_op_re, &fft_op_im, &err_code);      
       // assert(floats_almost_equal(sfdr_val, 9.53, 2));
       }
 
