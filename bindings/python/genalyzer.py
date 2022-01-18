@@ -53,6 +53,7 @@ _gn_config_tone_gen.argtypes = [
     POINTER(c_double),
     POINTER(c_double),
     POINTER(c_double),
+    c_uint,
     c_ulong,
     c_bool,
     c_bool,
@@ -70,6 +71,7 @@ _gn_config_tone_meas.argtypes = [
     c_double,
     c_double,
     c_int,
+    c_uint,
     c_bool,
     c_bool,
     c_bool,
@@ -227,6 +229,7 @@ def config_tone_gen(d: dict) -> GNConfig:
         scale,
         phase,
         num_tones,
+        2,
         fsample_update,
         fdata_update,
         fshift_update,
@@ -235,15 +238,19 @@ def config_tone_gen(d: dict) -> GNConfig:
 
 
 def config_tone_meas(d: dict) -> GNConfig:
-    """Configure measurement for tone-based test:
-    Required keys are
-    domain_wf
-    type_wf
-    nfft
-    navg
-    fs
-    fsr
-    res
+    """Configure measurement for tone-based test.
+
+    :param domain_wf: waveform domain
+    :param type_wf: waveform type
+    :param nfft: number of points in FFT
+    :param navg: number of averages
+    :param fs: sampling frequency
+    :param fsr: sampling frequency resolution
+    :param res: resolution
+    :param fsample_update: update sampling frequency
+    :param fdata_update: update data
+    :param fshift_update: update shift
+    :return: GNConfig object
     """
     c = GNConfig()
     domain_wf = c_uint(int(d["domain_wf"]))
@@ -266,6 +273,7 @@ def config_tone_meas(d: dict) -> GNConfig:
         fs,
         fsr,
         res,
+        2,
         fsample_update,
         fdata_update,
         fshift_update,
@@ -328,13 +336,14 @@ def config_noise_meas(
 
 
 def config_ramp_nl_meas(d: dict) -> GNConfig:
-    """Configure measurement for ramp-based test:
-    Required keys are
-    npts
-    fs
-    fsr
-    res
-    """
+    """Configure measurement for ramp-based test
+
+    :param npts: number of points in FFT
+    :param fs: sampling frequency
+    :param fsr: sampling frequency resolution
+    :param res: resolution
+    :return: GNConfig object
+    """    
     c = GNConfig()
     npts = c_ulong(int(d["npts"]))
     fs = c_double(float(d["fs"]))
@@ -487,11 +496,12 @@ def metric_t(c: GNConfig, qwf: list, m_name: str) -> float:
 
 
 def metric_f(c: GNConfig, fft: list, m_name: str) -> float:
-    """Compute desired performance metric:
-    Arguments are,
-    opaque configuration struct corresponding to the measurement desired,
-    FFT with interleaved real and imaginary parts,
-    metric name
+    """Compute desired performance metric based on frequency domain data.
+
+    :param c: opaque configuration struct corresponding to the measurement desired
+    :param fft: FFT of quantized waveform
+    :param m_name: name of the metric to compute
+    :return: value of the metric
     """
     fft_ptr = (c_double * len(fft))(*fft)
     m_name_enc = m_name.encode("utf-8")
