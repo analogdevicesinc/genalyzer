@@ -48,7 +48,8 @@ int main(int argc, char* argv[])
         navg, // # of FFTs averaged
         fs, // sample rate
         fsr, // full-scale range
-        res, // ADC resolution: unused configuration setting
+        res, // ADC resolution
+        0,
         false,
         false,
         false);
@@ -57,10 +58,12 @@ int main(int argc, char* argv[])
     read_file_to_array(test_filename, (void*)ref_fft, DOUBLE);
 
     // compute metric
-    sfdr_val = gn_metric(c, ref_fft, "SFDR", &err_code);
+    double *fft_op_re, *fft_op_im;
+    sfdr_val = gn_metric(c, ref_fft, "SFDR", &fft_op_re, &fft_op_im, &err_code);
 
     // compare
     printf("SFDR - %f\n", sfdr_val);
+    // assert(floats_almost_equal(sfdr_val, sfdr_ref, 2));
 
     // free memory
     free(c);

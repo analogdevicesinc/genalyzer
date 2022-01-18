@@ -43,7 +43,6 @@ struct gn_config_s {
     an::size_t in_stride = 1;
     int navg;
     an::size_t npts;
-    win_func window;
 
     an::real_t fs;
     an::real_t fdata;
