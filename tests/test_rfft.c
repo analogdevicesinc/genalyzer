@@ -52,6 +52,7 @@ int main(int argc, char* argv[])
         fs, // sample rate
         fsr, // full-scale range
         res, // ADC resolution: unused configuration setting
+        0, 
         false,
         false,
         false);

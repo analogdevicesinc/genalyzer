@@ -19,7 +19,13 @@ double gn_compute_metric(gn_config c, fft_analysis_wrapper* obj, const double* f
 
     an::str_t fs_str = an::real_to_string(c->fs);
     fftobj->set_fsample(fs_str);
-    an::var_map::unique_ptr results = fftobj->analyze_rfft(fft_cplx);
+
+    an::var_map::unique_ptr results;
+    if ((c->wf_type == REAL_COSINE) || (c->wf_type == REAL_SINE))
+        results = fftobj->analyze_rfft(fft_cplx);
+    else if (c->wf_type == COMPLEX_EXP)
+        results = fftobj->analyze_fft(fft_cplx);
+
     double r = results->as_map("Metrics").as_real(result_name);
     return r;
 }

@@ -49,6 +49,7 @@ int main(int argc, char* argv[])
         scale, // tone scale, # of array elements = num_tones
         phase, // tone phase, # of array elements = num_tones
         num_tones, // # of tones
+        0, 
         false,
         false,
         false);

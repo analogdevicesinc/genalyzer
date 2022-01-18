@@ -9,7 +9,7 @@
 #endif
 
 extern "C" {
-double gn_metric(gn_config c, const void* input, const char* m_name, unsigned int* err_code)
+double gn_metric(gn_config c, const void* input, const char* m_name, double** fft_re, double** fft_im, unsigned int* err_code)
 {
     char m_names[16][10] = { "ABN", "FSNR", "nad", "noise",
         "NSD", "SFDR", "SINAD", "SNR",
@@ -18,7 +18,8 @@ double gn_metric(gn_config c, const void* input, const char* m_name, unsigned in
     bool found_metric = false;
     fft_analysis_wrapper* cfftobj;
     size_t fft_size;
-    double *fft_cplx_re, *fft_cplx_im;
+    double *fft_re_tmp, *fft_im_tmp;
+    double *tmp;
 
     char** tone_label;
     tone_label = (char**)malloc(c->n_tones * sizeof(char*));
@@ -32,7 +33,7 @@ double gn_metric(gn_config c, const void* input, const char* m_name, unsigned in
         int32_t* qwf = (int32_t*)input;
         // compute FFT
         if ((c->wf_type == REAL_COSINE) || (c->wf_type == REAL_SINE))
-	  gn_rfft(c, qwf, &fft_cplx_re, &fft_cplx_im, &fft_size);
+            gn_rfft(c, qwf, &fft_re_tmp, &fft_im_tmp, &fft_size);
         else if (c->wf_type == COMPLEX_EXP) {
             int32_t *qwf_i, *qwf_q;
             qwf_i = (int32_t*)calloc(c->nfft*c->navg, sizeof(int32_t));
@@ -41,26 +42,28 @@ double gn_metric(gn_config c, const void* input, const char* m_name, unsigned in
                 qwf_i[i / 2] = qwf[i];
                 qwf_q[i / 2] = qwf[i + 1];
             }
-            gn_fft(c, qwf_i, qwf_q, &fft_cplx_re, &fft_cplx_im, &fft_size);
+            gn_fft(c, qwf_i, qwf_q, &fft_re_tmp, &fft_im_tmp, &fft_size);
         }
     } else if (c->md == FREQ) {
         double* temp_fft_data = (double*)input;
         if (c->wf_type == COMPLEX_EXP) {
-            fft_cplx_re = (double*)calloc(c->nfft, sizeof(double));
-            fft_cplx_im = (double*)calloc(c->nfft, sizeof(double));
+            fft_re_tmp = (double*)calloc(c->nfft, sizeof(double));
+            fft_im_tmp = (double*)calloc(c->nfft, sizeof(double));
             for (int n = 0; n < 2 * c->nfft; n += 2) {
-                fft_cplx_re[n / 2] = temp_fft_data[n];
-                fft_cplx_im[n / 2] = temp_fft_data[n + 1];
+                fft_re_tmp[n / 2] = temp_fft_data[n];
+                fft_im_tmp[n / 2] = temp_fft_data[n + 1];
             }
         } else {
-            fft_cplx_re = (double*)calloc(c->nfft / 2, sizeof(double));
-            fft_cplx_im = (double*)calloc(c->nfft / 2, sizeof(double));
+            fft_re_tmp = (double*)calloc(c->nfft / 2, sizeof(double));
+            fft_im_tmp = (double*)calloc(c->nfft / 2, sizeof(double));
             for (int n = 0; n < c->nfft; n += 2) {
-                fft_cplx_re[n / 2] = temp_fft_data[n];
-                fft_cplx_im[n / 2] = temp_fft_data[n + 1];
+                fft_re_tmp[n / 2] = temp_fft_data[n];
+                fft_im_tmp[n / 2] = temp_fft_data[n + 1];
             }
         }
     }
+    *fft_re = fft_re_tmp;
+    *fft_im = fft_im_tmp;
 
     // compute metrics
     cfftobj = gn_create_fft_analysis_wrapper();
@@ -75,7 +78,7 @@ double gn_metric(gn_config c, const void* input, const char* m_name, unsigned in
 
     for (int i = 0; i < 16; i++) {
         if (strcmp(m_name, m_names[i]) == 0) {
-            r = gn_compute_metric(c, cfftobj, fft_cplx_re, fft_cplx_im, m_name);
+            r = gn_compute_metric(c, cfftobj, fft_re_tmp, fft_im_tmp, m_name);
             found_metric = true;
             break;
         }
@@ -83,8 +86,6 @@ double gn_metric(gn_config c, const void* input, const char* m_name, unsigned in
 
     // free memory
     gn_destroy_fft_analysis_wrapper(cfftobj);
-    free(fft_cplx_re);
-    free(fft_cplx_im);
     free(tone_label);
 
     if (!found_metric)
