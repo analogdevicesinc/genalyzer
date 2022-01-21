@@ -144,7 +144,7 @@ def test_fft_metric_f(filename):
         qwf_q = [qwf[i] for i in range(len(qwf)) if i % 2 != 0]
         fft_i, fft_q = genalyzer.fft(c, qwf_i, qwf_q)
         fft_data = [val for pair in zip(fft_i, fft_q) for val in pair]
-        result, fft_i_dbg, fft_q_cbg, err_code = genalyzer.metric_f(c, fft_data, "SFDR")
+        result, err_code = genalyzer.metric_f(c, fft_data, "SFDR")
         assert err_code != 22, "invalid argument"
 
 
@@ -157,5 +157,5 @@ def test_rfft_metric_f(filename):
         qwf = genalyzer.quantize(c, awf)
         rfft_i, rfft_q = genalyzer.rfft(c, qwf)
         rfft_data = [val for pair in zip(rfft_i, rfft_q) for val in pair]
-        result, rfft_i_dbg, rfft_q_cbg, err_code = genalyzer.metric_f(c, rfft_data, "SFDR")
+        result, err_code = genalyzer.metric_f(c, rfft_data, "SFDR")
         assert err_code != 22, "invalid argument"

@@ -248,15 +248,7 @@ class gn_params:
 def config_tone_meas(p: gn_params) -> GNConfig:
     """Configure tone generation for tone-based test
 
-    :param d: dictionary of parameters
-            Required keys are
-            domain_wf
-            type_wf
-            nfft
-            navg
-            fs
-            fsr
-            res
+    :param p: object of gn_params dataclass
     :return: GNConfig object
     """
     c = GNConfig()
@@ -266,10 +258,7 @@ def config_tone_meas(p: gn_params) -> GNConfig:
     navg = c_int(p.navg)
     fs = c_double(p.fs)
     fsr = c_double(p.fsr)
-    res = c_int(p.res) 
-    # freq = [d[key] for key in d.keys() if key.startswith("freq")]
-    # phase = [d[key] for key in d.keys() if key.startswith("phase")]
-    # scale = [d[key] for key in d.keys() if key.startswith("scale")]
+    res = c_int(p.res)
     assert len(p.freq) == len(
         p.phase
     ), "number of frequency values need to match number of phase values"
@@ -363,10 +352,7 @@ def config_noise_meas(
 def config_ramp_nl_meas(p: gn_params) -> GNConfig:
     """Configure measurement for ramp-based test
 
-    :param npts: number of points in FFT
-    :param fs: sampling frequency
-    :param fsr: sampling frequency resolution
-    :param res: resolution
+    :param p: object of gn_params dataclass
     :return: GNConfig object
     """    
     c = GNConfig()
@@ -429,7 +415,7 @@ def gen_tone(c: GNConfig) -> List[float]:
     """Generate single-tone or multi-tone waveform
 
     :param c: GNConfig object
-    :return: waveform
+    :return: single-/multi-tone floating-point waveform as list
     """
     awf = POINTER(c_double)()
     npts = c_uint(0)
@@ -441,7 +427,7 @@ def gen_ramp(c: GNConfig) -> List[float]:
     """Generate ramp waveform:
 
     :param c: GNConfig object
-    :return: waveform
+    :return: floating-point ramp waveform as list
     """
     awf = POINTER(c_double)()
     npts = c_uint(0)
@@ -453,8 +439,8 @@ def quantize(c: GNConfig, awf: list) -> List[int]:
     """Quantize single-tone or multi-tone waveform:
 
     :param c: GNConfig object
-    :param awf: waveform
-    :return: quantized waveform
+    :param awf: floating-point waveform as list
+    :return: quantized waveform as list
     """
     qwf = POINTER(c_int)()
     awf_ptr = (c_double * len(awf))(*awf)
@@ -467,7 +453,7 @@ def rfft(c: GNConfig, realqwf: list):
 
     :param c: GNConfig object
     :param realqwf: real waveform
-    :return: FFT
+    :return: floating-point I and Q of FFT as lists
     """
     out_i = POINTER(c_double)()
     out_q = POINTER(c_double)()
@@ -486,6 +472,7 @@ def fft(c: GNConfig, qwf_i: list, qwf_q: list):
     :param c: GNConfig object
     :param qwf_i: real part of complex waveform
     :param qwf_q: imaginary part of complex waveform
+    :return: floating-point I and Q of FFT as lists
     """
     out_i = POINTER(c_double)()
     out_q = POINTER(c_double)()
@@ -506,7 +493,7 @@ def metric_t(c: GNConfig, qwf: list, m_name: str) -> float:
     :param c: opaque configuration struct corresponding to the measurement desired
     :param qwf: quantized waveform
     :param m_name: name of the metric to compute
-    :return: value of the metric
+    :return: computed metric, floating-point I and Q of computed FFT as lists, error code returned
     """
     qwf_ptr = (c_int * len(qwf))(*qwf)
     m_name_enc = m_name.encode("utf-8")
@@ -534,7 +521,7 @@ def metric_f(c: GNConfig, fft: list, m_name: str) -> float:
     :param c: opaque configuration struct corresponding to the measurement desired
     :param fft: FFT of quantized waveform
     :param m_name: name of the metric to compute
-    :return: value of the metric
+    :return: computed metric, error code returned
     """
     fft_ptr = (c_double * len(fft))(*fft)
     m_name_enc = m_name.encode("utf-8")
@@ -550,7 +537,4 @@ def metric_f(c: GNConfig, fft: list, m_name: str) -> float:
     if err_code.value != 0:
         raise Exception(f"Failed to get metric. ERROR: {err_code.value}")
 
-    fft_i_list = list(fft_i[0 : fft_size.value])
-    fft_q_list = list(fft_q[0 : fft_size.value])
-    
-    return r, fft_i_list, fft_q_list, err_code
+    return r, err_code
