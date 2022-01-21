@@ -6,7 +6,8 @@ close all;
 tx = adi.Pluto.Tx;
 tx.uri = 'ip:pluto'; 
 tx.DataSource = 'DDS';
-tx.DDSFrequencies = [2e6 2e6; 0 0]; % set DDS complex tone freq to 2 MHz 
+ToneFreq = 2e6;
+tx.DDSFrequencies = [ToneFreq ToneFreq; 0 0]; % set DDS complex tone freq to 2 MHz 
 tx.DDSPhases = [90e3 0; 0 0]; % expressed in millidegrees
 tx.DDSScales = [1 1; 0 0];
 tx.CenterFrequency = 2.4e9;
@@ -69,7 +70,12 @@ fprintf('SFDR (time) - %f\terror code - %d\n', sfdr_time, err_code.Value);
 fft_gen_time = fft_time_re.Value+1i*fft_time_im.Value;
 f = (-nfft/2:nfft/2-1)*fs/nfft;
 psd_y = circshift(20*log10(abs(fft_gen_time)), nfft/2);
-figure; plot(f*1e-6, psd_y);
+indx1 = find(min(abs(f - ToneFreq)) == abs(f - ToneFreq));
+indx2 = find(min(abs(f + ToneFreq)) == abs(f + ToneFreq));
+figure; 
+yh = plot(f*1e-6, psd_y);
+datatip(yh,'DataIndex', indx1);
+datatip(yh,'DataIndex', indx2);
 grid on;
 axis square;
 xlabel('freq (MHz)');
