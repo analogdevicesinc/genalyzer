@@ -59,7 +59,8 @@ int main(int argc, char* argv[])
 
     // compute metric
     double *fft_op_re, *fft_op_im;
-    sfdr_val = gn_metric(c, ref_fft, "SFDR", &fft_op_re, &fft_op_im, &err_code);
+    size_t fft_len;
+    sfdr_val = gn_metric(c, ref_fft, "SFDR", &fft_op_re, &fft_op_im, &fft_len, &err_code);
 
     // compare
     printf("SFDR - %f\n", sfdr_val);

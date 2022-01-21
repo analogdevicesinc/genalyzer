@@ -259,10 +259,11 @@ extern "C"
    * @param m_name Input name of the performance metric
    * @param fft_re Output real part of FFT computed.
    * @param fft_im Output imaginary part of FFT computed.
+   * @param len Length of the FFT generated
    * @param error_code Output error code. If 0, no error occurred.
    */
   __api double gn_metric (gn_config c, const void *input, const char *m_name,
-                          double** fft_re, double** fft_im, unsigned int *error_code);
+                          double** fft_re, double** fft_im, size_t *len, unsigned int *error_code);
   /**
    * @brief Compute DNL of the data-converter
    * @param c Configuration structure of test

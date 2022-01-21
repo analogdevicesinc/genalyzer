@@ -9,7 +9,7 @@
 #endif
 
 extern "C" {
-double gn_metric(gn_config c, const void* input, const char* m_name, double** fft_re, double** fft_im, unsigned int* err_code)
+double gn_metric(gn_config c, const void* input, const char* m_name, double** fft_re, double** fft_im, size_t *fft_len, unsigned int* err_code)
 {
     char m_names[16][10] = { "ABN", "FSNR", "nad", "noise",
         "NSD", "SFDR", "SINAD", "SNR",
@@ -64,6 +64,7 @@ double gn_metric(gn_config c, const void* input, const char* m_name, double** ff
     }
     *fft_re = fft_re_tmp;
     *fft_im = fft_im_tmp;
+    *fft_len = fft_size;
 
     // compute metrics
     cfftobj = gn_create_fft_analysis_wrapper();

@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import List
 from ctypes import (
     c_uint,
@@ -14,7 +15,7 @@ from ctypes import (
 )
 from platform import system as _system
 from ctypes.util import find_library
-
+import os
 
 if "Windows" in _system():
     _libgen = "libgenalyzer.dll"
@@ -173,10 +174,78 @@ _gn_fft.argtypes = [
 
 _gn_metric = _libgen.gn_metric
 _gn_metric.restype = c_double
-_gn_metric.argtypes = [_GNConfigPtr, c_void_p, c_char_p, POINTER(c_uint)]
+_gn_metric.argtypes = [
+    _GNConfigPtr, 
+    c_void_p, 
+    c_char_p, 
+    POINTER(POINTER(c_double)),
+    POINTER(POINTER(c_double)),
+    POINTER(c_uint),
+    POINTER(c_uint)
+]
 
 
-def config_tone_gen(d: dict) -> GNConfig:
+@dataclass
+class gn_params:
+    """
+    A dataclass to contain measurement parameters.
+    Attributes
+    ----------
+    fs: float
+        Sample-rate
+    fsr: float
+        Full-scale range
+    freq: list[float]
+        List of tone frequencies
+    phase: list[float]
+        List of tone phases
+    scale: list[float]
+        List of tone scales
+    start: float
+        Starting value of ramp waveform
+    stop: float
+        Ending value of ramp waveform
+    domain_wf : int
+        Waveform domain. Time - 0; FREQ - 1
+    type_wf: int
+        Waveform type. Real Cosine - 0; Real Sine - 1; Complex Exp - 2
+    nfft: int
+        FFT order
+    navg: int
+        Num. of FFTs averaged
+    npts: int = 1024
+        Num. of data points to generate
+    num_tones: int = 1
+        Num. of tones
+    res: int = 0
+        Resolution
+    fsample_update: bool = False
+        Update fsample
+    fdata_update: bool = False
+        Update fdata
+    fshift_update: bool = False
+        Update fshift
+    """
+    fs: float
+    fsr: float
+    freq: list[float]
+    phase: list[float]
+    scale: list[float]
+    start: float = 0.0
+    stop: float = 0.1
+    domain_wf: int = 0
+    type_wf: int = 0
+    nfft: int = 1024
+    navg: int = 1
+    npts: int = 1024
+    num_tones: int = 1
+    res: int = 0
+    fsample_update: bool = False
+    fdata_update: bool = False
+    fshift_update: bool = False
+
+
+def config_tone_meas(p: gn_params) -> GNConfig:
     """Configure tone generation for tone-based test
 
     :param d: dictionary of parameters
@@ -191,27 +260,27 @@ def config_tone_gen(d: dict) -> GNConfig:
     :return: GNConfig object
     """
     c = GNConfig()
-    domain_wf = c_uint(int(d["domain_wf"]))
-    type_wf = c_uint(int(d["type_wf"]))
-    nfft = c_ulong(int(d["nfft"]))
-    navg = c_int(int(d["navg"]))
-    fs = c_double(float(d["fs"]))
-    fsr = c_double(float(d["fsr"]))
-    res = c_int(int(d["res"])) if ("res" in d.keys()) else c_int(0)
-    freq = [d[key] for key in d.keys() if key.startswith("freq")]
-    phase = [d[key] for key in d.keys() if key.startswith("phase")]
-    scale = [d[key] for key in d.keys() if key.startswith("scale")]
-    assert len(freq) == len(
-        phase
+    domain_wf = c_uint(p.domain_wf)
+    type_wf = c_uint(p.type_wf)
+    nfft = c_ulong(p.nfft)
+    navg = c_int(p.navg)
+    fs = c_double(p.fs)
+    fsr = c_double(p.fsr)
+    res = c_int(p.res) 
+    # freq = [d[key] for key in d.keys() if key.startswith("freq")]
+    # phase = [d[key] for key in d.keys() if key.startswith("phase")]
+    # scale = [d[key] for key in d.keys() if key.startswith("scale")]
+    assert len(p.freq) == len(
+        p.phase
     ), "number of frequency values need to match number of phase values"
-    assert len(phase) == len(
-        scale
+    assert len(p.phase) == len(
+        p.scale
     ), "number of phase values need to match number of scale values"
-    num_tones = c_ulong(len(freq))
+    num_tones = c_ulong(len(p.freq))
     double_array = c_double * num_tones.value
-    freq = (double_array)(*freq)
-    phase = (double_array)(*phase)
-    scale = (double_array)(*scale)
+    freq = (double_array)(*p.freq)
+    phase = (double_array)(*p.phase)
+    scale = (double_array)(*p.scale)
     fsample_update = c_bool(False)
     fdata_update = c_bool(False)
     fshift_update = c_bool(False)
@@ -229,50 +298,6 @@ def config_tone_gen(d: dict) -> GNConfig:
         scale,
         phase,
         num_tones,
-        2,
-        fsample_update,
-        fdata_update,
-        fshift_update,
-    )
-    return c
-
-
-def config_tone_meas(d: dict) -> GNConfig:
-    """Configure measurement for tone-based test.
-
-    :param domain_wf: waveform domain
-    :param type_wf: waveform type
-    :param nfft: number of points in FFT
-    :param navg: number of averages
-    :param fs: sampling frequency
-    :param fsr: sampling frequency resolution
-    :param res: resolution
-    :param fsample_update: update sampling frequency
-    :param fdata_update: update data
-    :param fshift_update: update shift
-    :return: GNConfig object
-    """
-    c = GNConfig()
-    domain_wf = c_uint(int(d["domain_wf"]))
-    type_wf = c_uint(int(d["type_wf"]))
-    nfft = c_ulong(int(d["nfft"]))
-    navg = c_int(int(d["navg"]))
-    fs = c_double(float(d["fs"]))
-    fsr = c_double(float(d["fsr"]))
-    res = c_int(int(d["res"])) if ("res" in d.keys()) else c_int(0)
-    fsample_update = c_bool(False)
-    fdata_update = c_bool(False)
-    fshift_update = c_bool(False)
-
-    _gn_config_tone_meas(
-        byref(c._struct),
-        domain_wf,
-        type_wf,
-        nfft,
-        navg,
-        fs,
-        fsr,
-        res,
         2,
         fsample_update,
         fdata_update,
@@ -335,7 +360,7 @@ def config_noise_meas(
     return c
 
 
-def config_ramp_nl_meas(d: dict) -> GNConfig:
+def config_ramp_nl_meas(p: gn_params) -> GNConfig:
     """Configure measurement for ramp-based test
 
     :param npts: number of points in FFT
@@ -345,15 +370,15 @@ def config_ramp_nl_meas(d: dict) -> GNConfig:
     :return: GNConfig object
     """    
     c = GNConfig()
-    npts = c_ulong(int(d["npts"]))
-    fs = c_double(float(d["fs"]))
-    fsr = c_double(float(d["fsr"]))
+    npts = c_ulong(p.npts)
+    fs = c_double(p.fs)
+    fsr = c_double(p.fsr)
     res = c_int(0)
     assert (
-        d["start"] < d["stop"]
+        p.start < p.stop
     ), "ramp waveform start value needs to be less than ramp stop value"
-    start = c_double(float(d["start"]))
-    stop = c_double(float(d["stop"]))
+    start = c_double(p.start)
+    stop = c_double(p.stop)
 
     _gn_config_ramp_nl_meas(byref(c._struct), npts, fs, fsr, res, start, stop, 0.0)
     return c
@@ -486,13 +511,21 @@ def metric_t(c: GNConfig, qwf: list, m_name: str) -> float:
     qwf_ptr = (c_int * len(qwf))(*qwf)
     m_name_enc = m_name.encode("utf-8")
     r = c_double(0.0)
+    fft_i = POINTER(c_double)()
+    fft_q = POINTER(c_double)()
+    fft_size = c_uint(0)
     err_code = c_uint(0)
-    r = _gn_metric(c._struct, qwf_ptr, m_name_enc, byref(err_code))
+    r = _gn_metric(
+        c._struct, qwf_ptr, m_name_enc, byref(fft_i), byref(fft_q), byref(fft_size), byref(err_code)
+    )
 
     if err_code.value != 0:
         raise Exception(f"Failed to get metric. ERROR: {err_code.value}")
 
-    return r
+    fft_i_list = list(fft_i[0 : fft_size.value])
+    fft_q_list = list(fft_q[0 : fft_size.value])
+    
+    return r, fft_i_list, fft_q_list, err_code
 
 
 def metric_f(c: GNConfig, fft: list, m_name: str) -> float:
@@ -506,10 +539,18 @@ def metric_f(c: GNConfig, fft: list, m_name: str) -> float:
     fft_ptr = (c_double * len(fft))(*fft)
     m_name_enc = m_name.encode("utf-8")
     r = c_double(0.0)
+    fft_i = POINTER(c_double)()
+    fft_q = POINTER(c_double)()
+    fft_size = c_uint(0)
     err_code = c_uint(0)
-    r = _gn_metric(c._struct, fft_ptr, m_name_enc, byref(err_code))
+    r = _gn_metric(
+        c._struct, fft_ptr, m_name_enc, byref(fft_i), byref(fft_q), byref(fft_size), byref(err_code)
+    )
 
     if err_code.value != 0:
         raise Exception(f"Failed to get metric. ERROR: {err_code.value}")
 
-    return r
+    fft_i_list = list(fft_i[0 : fft_size.value])
+    fft_q_list = list(fft_q[0 : fft_size.value])
+    
+    return r, fft_i_list, fft_q_list, err_code

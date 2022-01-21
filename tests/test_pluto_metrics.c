@@ -41,14 +41,16 @@ int main(int argc, char* argv[])
       double * in = (double*)malloc(2*nfft*sizeof(double));
       read_file_to_array(test_filename, (void*)in, DOUBLE);
       double *fft_op_re, *fft_op_im;
-      sfdr_val = gn_metric(c, in, "SFDR", &fft_op_re, &fft_op_im, &err_code);      
+      size_t fft_len;
+      sfdr_val = gn_metric(c, in, "SFDR", &fft_op_re, &fft_op_im, &fft_len, &err_code);      
       // assert(floats_almost_equal(sfdr_val, 9.53, 2));
     }
     else {
       int * in = (int*)malloc(2*nfft*navg*sizeof(int));
       read_file_to_array(test_filename, (void*)in, INT32);
       double *fft_op_re, *fft_op_im;
-      sfdr_val = gn_metric(c, in, "SFDR", &fft_op_re, &fft_op_im, &err_code);      
+      size_t fft_len;
+      sfdr_val = gn_metric(c, in, "SFDR", &fft_op_re, &fft_op_im, &fft_len, &err_code);      
       // assert(floats_almost_equal(sfdr_val, 9.53, 2));
       }
 
