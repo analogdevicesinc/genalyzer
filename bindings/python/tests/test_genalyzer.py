@@ -1,16 +1,12 @@
 import sys
 import os
 
-loc = os.path.join(*['C:', os.sep, 'genalyzer', 'genalyzer','bindings', 'python', 'deps'])
-files = os.listdir(loc)
-
-os.environ["PATH"]+=";"+loc
 import genalyzer
 import glob
 import pytest
 import os
 
-test_dir = os.path.join(*['..', '..', '..', 'tests', 'test_vectors'])
+test_dir = os.path.join(*["..", "..", "..", "tests", "test_vectors"])
 loc = os.path.dirname(__file__)
 test_gen_tone_files = [
     f for f in glob.glob(os.path.join(loc, test_dir, "test_gen_tone_*.txt"))
@@ -44,25 +40,33 @@ def get_test_config(f):
         else:
             (key, val) = line.split("=")
             (val, new_line) = val.split("\n")
-            if key in ["domain_wf", "type_wf", "nfft", "navg", "num_tones", "res", "npts"]:
+            if key in [
+                "domain_wf",
+                "type_wf",
+                "nfft",
+                "navg",
+                "num_tones",
+                "res",
+                "npts",
+            ]:
                 inputs[key] = int(val)
             else:
                 inputs[key] = float(val)
-    
+
     inputs["freq"] = []
     inputs["phase"] = []
     inputs["scale"] = []
     if "num_tones" in inputs:
         for n in range(inputs["num_tones"]):
-            fvar_name = "freq%d"%(n)
+            fvar_name = "freq%d" % (n)
             inputs["freq"].append(inputs[fvar_name])
-            del(inputs[fvar_name])
-            pvar_name = "phase%d"%(n)
+            del inputs[fvar_name]
+            pvar_name = "phase%d" % (n)
             inputs["phase"].append(inputs[pvar_name])
-            del(inputs[pvar_name])
-            svar_name = "scale%d"%(n)
+            del inputs[pvar_name]
+            svar_name = "scale%d" % (n)
             inputs["scale"].append(inputs[svar_name])
-            del(inputs[svar_name])
+            del inputs[svar_name]
 
     config_obj = genalyzer.gn_params(**inputs)
     return config_obj

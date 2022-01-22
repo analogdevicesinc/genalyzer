@@ -54,8 +54,8 @@ _gn_config_tone_gen.argtypes = [
     POINTER(c_double),
     POINTER(c_double),
     POINTER(c_double),
-    c_uint,
     c_ulong,
+    c_uint,
     c_bool,
     c_bool,
     c_bool,
@@ -175,13 +175,13 @@ _gn_fft.argtypes = [
 _gn_metric = _libgen.gn_metric
 _gn_metric.restype = c_double
 _gn_metric.argtypes = [
-    _GNConfigPtr, 
-    c_void_p, 
-    c_char_p, 
+    _GNConfigPtr,
+    c_void_p,
+    c_char_p,
     POINTER(POINTER(c_double)),
     POINTER(POINTER(c_double)),
     POINTER(c_uint),
-    POINTER(c_uint)
+    POINTER(c_uint),
 ]
 
 
@@ -226,11 +226,12 @@ class gn_params:
     fshift_update: bool = False
         Update fshift
     """
+
     fs: float
     fsr: float
-    freq: list[float]
-    phase: list[float]
-    scale: list[float]
+    freq: List[float]
+    phase: List[float]
+    scale: List[float]
     start: float = 0.0
     stop: float = 0.1
     domain_wf: int = 0
@@ -354,7 +355,7 @@ def config_ramp_nl_meas(p: gn_params) -> GNConfig:
 
     :param p: object of gn_params dataclass
     :return: GNConfig object
-    """    
+    """
     c = GNConfig()
     npts = c_ulong(p.npts)
     fs = c_double(p.fs)
@@ -503,7 +504,13 @@ def metric_t(c: GNConfig, qwf: list, m_name: str) -> float:
     fft_size = c_uint(0)
     err_code = c_uint(0)
     r = _gn_metric(
-        c._struct, qwf_ptr, m_name_enc, byref(fft_i), byref(fft_q), byref(fft_size), byref(err_code)
+        c._struct,
+        qwf_ptr,
+        m_name_enc,
+        byref(fft_i),
+        byref(fft_q),
+        byref(fft_size),
+        byref(err_code),
     )
 
     if err_code.value != 0:
@@ -511,7 +518,7 @@ def metric_t(c: GNConfig, qwf: list, m_name: str) -> float:
 
     fft_i_list = list(fft_i[0 : fft_size.value])
     fft_q_list = list(fft_q[0 : fft_size.value])
-    
+
     return r, fft_i_list, fft_q_list, err_code
 
 
@@ -531,7 +538,13 @@ def metric_f(c: GNConfig, fft: list, m_name: str) -> float:
     fft_size = c_uint(0)
     err_code = c_uint(0)
     r = _gn_metric(
-        c._struct, fft_ptr, m_name_enc, byref(fft_i), byref(fft_q), byref(fft_size), byref(err_code)
+        c._struct,
+        fft_ptr,
+        m_name_enc,
+        byref(fft_i),
+        byref(fft_q),
+        byref(fft_size),
+        byref(err_code),
     )
 
     if err_code.value != 0:
