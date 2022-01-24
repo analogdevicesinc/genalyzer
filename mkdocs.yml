@@ -21,6 +21,7 @@ nav:
     - Home: index.md
     - Set Up: setup.md
     - Usage Model: theory.md
+    - Examples: examples.md
     - API Reference: cgenalyzer_8h.md
     - Tutorials:
       - Simulation: sim.md
@@ -32,6 +33,8 @@ repo_url: https://github.com/analogdevicesinc/genalyzer
 
 markdown_extensions:
     - admonition
+    - attr_list
+    - md_in_html
 
 plugins:
   - search
