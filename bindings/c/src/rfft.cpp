@@ -14,7 +14,7 @@ void gn_rfft(gn_config c, int32_t* qwf, double** fft_cplx_re, double** fft_cplx_
 
     an::rfft(qwvf.data(), qwvf.size(), fft_cplx.data(), fft_cplx.size(), c->res, c->navg, static_cast<an::diff_t>(c->nfft), c->win, c->cf);
 
-    for (int i = 0; i < fft_cplx.size(); i++) {
+    for (size_t i = 0; i < fft_cplx.size(); i++) {
         fft_cplx_re_tmp[i] = fft_cplx[i].real();
         fft_cplx_im_tmp[i] = fft_cplx[i].imag();
     }

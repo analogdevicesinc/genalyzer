@@ -13,7 +13,7 @@ void gn_fft(gn_config c, int32_t* qwf_i, int32_t* qwf_q, double** fft_cplx_re, d
 
     an::fft(qwvf_i.data(), qwvf_i.size(), qwvf_q.data(), qwvf_q.size(), 1, fft_cplx.data(), fft_cplx.size(), c->res, c->navg, static_cast<an::diff_t>(c->nfft), c->win, c->cf);
 
-    for (int i = 0; i < fft_cplx.size(); i++) {
+    for (size_t i = 0; i < fft_cplx.size(); i++) {
         fft_cplx_re_tmp[i] = fft_cplx[i].real();
         fft_cplx_im_tmp[i] = fft_cplx[i].imag();
     }

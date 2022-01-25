@@ -11,7 +11,7 @@ void gn_rfft_norm(gn_config c, size_t* fft_size, double* fft_cplx_re, double* ff
     an::cplx_vector fft_cplx(c->nfft / 2 + 1);
     an::rfft_norm(awf, *awf_size, fft_cplx.data(), fft_cplx.size(), c->navg, static_cast<an::diff_t>(c->nfft), c->win);
 
-    for (int i = 0; i < fft_cplx.size(); i++) {
+    for (size_t i = 0; i < fft_cplx.size(); i++) {
         fft_cplx_re[i] = fft_cplx[i].real();
         fft_cplx_im[i] = fft_cplx[i].imag();
     }
