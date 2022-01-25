@@ -24,7 +24,7 @@ double gn_metric(gn_config c, const void* input, const char* m_name, double** ff
 
     char** tone_label;
     tone_label = (char**)malloc(c->n_tones * sizeof(char*));
-    for (int i = 0; i < c->n_tones; i++) {
+    for (size_t i = 0; i < c->n_tones; i++) {
         tone_label[i] = (char*)malloc(2 * sizeof(char));
         tone_label[i][0] = (char) (i + 'a');
         tone_label[i][1] = '\0';
@@ -39,7 +39,7 @@ double gn_metric(gn_config c, const void* input, const char* m_name, double** ff
             int32_t *qwf_i, *qwf_q;
             qwf_i = (int32_t*)calloc(c->nfft*c->navg, sizeof(int32_t));
             qwf_q = (int32_t*)calloc(c->nfft*c->navg, sizeof(int32_t));
-            for (int i = 0; i < 2 * c->nfft*c->navg; i += 2) {
+            for (size_t i = 0; i < 2 * c->nfft*c->navg; i += 2) {
                 qwf_i[i / 2] = qwf[i];
                 qwf_q[i / 2] = qwf[i + 1];
             }
@@ -50,14 +50,14 @@ double gn_metric(gn_config c, const void* input, const char* m_name, double** ff
         if (c->wf_type == COMPLEX_EXP) {
             fft_re_tmp = (double*)calloc(c->nfft, sizeof(double));
             fft_im_tmp = (double*)calloc(c->nfft, sizeof(double));
-            for (int n = 0; n < 2 * c->nfft; n += 2) {
+            for (size_t n = 0; n < 2 * c->nfft; n += 2) {
                 fft_re_tmp[n / 2] = temp_fft_data[n];
                 fft_im_tmp[n / 2] = temp_fft_data[n + 1];
             }
         } else {
             fft_re_tmp = (double*)calloc(c->nfft / 2, sizeof(double));
             fft_im_tmp = (double*)calloc(c->nfft / 2, sizeof(double));
-            for (int n = 0; n < c->nfft; n += 2) {
+            for (size_t n = 0; n < c->nfft; n += 2) {
                 fft_re_tmp[n / 2] = temp_fft_data[n];
                 fft_im_tmp[n / 2] = temp_fft_data[n + 1];
             }
@@ -69,7 +69,7 @@ double gn_metric(gn_config c, const void* input, const char* m_name, double** ff
 
     // compute metrics
     cfftobj = gn_create_fft_analysis_wrapper();
-    for (int i = 0; i < c->n_tones; i++)
+    for (size_t i = 0; i < c->n_tones; i++)
         add_max_tone(cfftobj, tone_label[i]);
     if (c->update_fsample)
         set_fsample(cfftobj, c->fs);
