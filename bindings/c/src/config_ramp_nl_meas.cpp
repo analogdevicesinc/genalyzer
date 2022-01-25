@@ -20,7 +20,7 @@ void gn_config_ramp_nl_meas(gn_config* c, size_t npts, double sample_rate, doubl
     c_private->cf = an::CodeFormat::TwosComplement;
     c_private->irnoise = irnoise;
 
-    c_private->num_bins = (1 << c_private->res);
+    c_private->num_bins = (1LL << c_private->res);
     c_private->num_hits = c_private->num_bins;
 
     *c = c_private;

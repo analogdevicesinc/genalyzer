@@ -17,15 +17,16 @@ double gn_metric(gn_config c, const void* input, const char* m_name, double** ff
     double r = -1e-6;
     bool found_metric = false;
     fft_analysis_wrapper* cfftobj;
-    size_t fft_size;
+    size_t fft_size = 0;
     double *fft_re_tmp, *fft_im_tmp;
-    double *tmp;
+    fft_re_tmp = (double*)calloc(c->nfft, sizeof(double));
+    fft_im_tmp = (double*)calloc(c->nfft, sizeof(double));            
 
     char** tone_label;
     tone_label = (char**)malloc(c->n_tones * sizeof(char*));
     for (int i = 0; i < c->n_tones; i++) {
         tone_label[i] = (char*)malloc(2 * sizeof(char));
-        tone_label[i][0] = i + 'a';
+        tone_label[i][0] = (char) (i + 'a');
         tone_label[i][1] = '\0';
     }
 

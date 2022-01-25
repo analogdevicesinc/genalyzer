@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
     // read test waveform
     const char* test_filename = argv[1];
@@ -18,7 +18,6 @@ int main(int argc, char* argv[])
     int res = atoi(extract_token(test_filename, "res", &err_code));
     int navg = atoi(extract_token(test_filename, "navg", &err_code));
     double fs = atof(extract_token(test_filename, "fs", &err_code));
-    double fdata = fs, fshift = fs;
     double fsr = atof(extract_token(test_filename, "fsr", &err_code));
     double* freq = (double*)calloc(num_tones, sizeof(double));
     double* scale = (double*)calloc(num_tones, sizeof(double));
@@ -34,10 +33,7 @@ int main(int argc, char* argv[])
         phase[n] = 0.0; //atof(extract_token(test_filename, tmp_token, &err_code));
     }
 
-    size_t npts = 2 * nfft * navg;
     double * ref_fft = (double*)malloc(2*nfft*sizeof(double));
-    double * ref_fft_re = (double*)malloc(nfft*sizeof(double));
-    double * ref_fft_im = (double*)malloc(nfft*sizeof(double));
     gn_config c = NULL;
 
     // configuration
@@ -72,8 +68,6 @@ int main(int argc, char* argv[])
     free(scale);
     free(phase);
     free(ref_fft);
-    free(ref_fft_im);
-    free(ref_fft_re);
-
+    
     return 0;
 }

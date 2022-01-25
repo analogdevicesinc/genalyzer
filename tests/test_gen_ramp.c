@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
     // read test waveform
     const char* test_filename = argv[1];

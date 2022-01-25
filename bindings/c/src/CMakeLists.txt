@@ -21,6 +21,12 @@ set_target_properties(genalyzer PROPERTIES
 )
 
 if(MSVC)
+  target_compile_options(genalyzer PRIVATE /W4 /WX)
+else()
+  target_compile_options(genalyzer PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+
+if(MSVC)
   set_target_properties(genalyzer PROPERTIES OUTPUT_NAME libgenalyzer)
 endif()
 

@@ -6,7 +6,7 @@
 #include <processes.hpp>
 
 extern "C" {
-void fft_norm(gn_config c, size_t* fft_size, double* fft_cplx_re, double* fft_cplx_im, double* awf_i, size_t* awf_i_size, double* awf_q, size_t* awf_q_size)
+void fft_norm(gn_config c, size_t* fft_size, double* fft_cplx_re, double* fft_cplx_im, double* awf_i, size_t* awf_i_size, double* awf_q)
 {
     cplx_t * in = new cplx_t[*awf_i_size];
     for (int i = 0; i < *awf_i_size; i++)

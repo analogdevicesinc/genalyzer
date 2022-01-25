@@ -4,28 +4,28 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
     // read test waveform
     const char* test_filename_ip = argv[1];
     const char* test_filename_hits_op0 = argv[2];
     const char* test_filename_hits_op1 = argv[3];
 
-    size_t npts = atoll(extract_token(test_filename_ip, "npts"));
-    double fs = atof(extract_token(test_filename_ip, "fs"));
-    double fsr = atof(extract_token(test_filename_ip, "fsr"));
-    int res = atoi(extract_token(test_filename_ip, "res"));
-    double start = atof(extract_token(test_filename_ip, "start"));
-    double stop = atof(extract_token(test_filename_ip, "stop"));
+    unsigned int err_code;
+    const size_t npts = atoll(extract_token(test_filename_ip, "npts", &err_code));
+    double fs = atof(extract_token(test_filename_ip, "fs", &err_code));
+    double fsr = atof(extract_token(test_filename_ip, "fsr", &err_code));
+    int res = atoi(extract_token(test_filename_ip, "res", &err_code));
+    double start = atof(extract_token(test_filename_ip, "start", &err_code));
+    double stop = atof(extract_token(test_filename_ip, "stop", &err_code));
 
-    int ip_qwf[npts];
+    int *ip_qwf = (int*)calloc(npts, sizeof(int));
     size_t num_bins = (1 << res);
-    size_t num_hits = num_bins;
     int* bins;
     double* dnl;
     long int* hits;
-    long int ref_hits[num_bins];
-    double ref_dnl[num_bins];
+    long int *ref_hits = (long int*)calloc(num_bins, sizeof(long int));
+    double *ref_dnl = (double*)calloc(num_bins, sizeof(double));
     gn_config c = NULL;
 
     // configuration
@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
     // compute_inl(c, qwf, &bins, &hits, &dnl_data, &inl_data);
 
     // reference bins array
-    int ref_bins[num_bins];
+    int *ref_bins = (int*)calloc(num_bins, sizeof(int));
     for (int i = 0; i < num_bins; i++)
         ref_bins[i] = i - num_bins / 2;
 
@@ -66,6 +66,10 @@ int main(int argc, char* argv[])
     free(hits);
     free(bins);
     free(dnl);
+    free(ip_qwf);
+    free(ref_hits);
+    free(ref_dnl);
+    free(ref_bins);
 
     return 0;
 }

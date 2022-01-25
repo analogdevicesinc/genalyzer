@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
     // read test waveform
     const char* test_filename = argv[1];
@@ -18,7 +18,6 @@ int main(int argc, char* argv[])
     int navg = atoi(extract_token(test_filename, "navg", &err_code));
     double fs = atof(extract_token(test_filename, "fs", &err_code));
     double fsr = atof(extract_token(test_filename, "fsr", &err_code));
-    size_t npts = nfft;
     
     gn_config c = NULL;
 

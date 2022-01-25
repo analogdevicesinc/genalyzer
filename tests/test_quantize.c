@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
     // read test waveform
     const char* test_filename = argv[1];
@@ -19,7 +19,6 @@ int main(int argc, char* argv[])
     int res = atoi(extract_token(test_filename, "res", &err_code));
     int navg = atoi(extract_token(test_filename, "navg", &err_code));
     double fs = atof(extract_token(test_filename, "fs", &err_code));
-    double fdata = fs, fshift = fs;
     double fsr = atof(extract_token(test_filename, "fsr", &err_code));
     double* freq = (double*)calloc(num_tones, sizeof(double));
     double* scale = (double*)calloc(num_tones, sizeof(double));
