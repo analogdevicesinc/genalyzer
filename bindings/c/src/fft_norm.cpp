@@ -20,6 +20,6 @@ void fft_norm(gn_config c, size_t* fft_size, double* fft_cplx_re, double* fft_cp
         fft_cplx_im[i] = fft_cplx[i].imag();
     }
     *fft_size = c->nfft / 2 + 1;
-    delete in;
+    delete[] in;
 }
 }
