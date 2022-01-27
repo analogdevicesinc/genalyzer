@@ -10,29 +10,36 @@ int main(int argc, const char* argv[])
     const char* test_filename_ip = argv[1];
     const char* test_filename_op = argv[2];
 
+    char *tmp_token_name;
+    double* awf;
     unsigned int err_code;
-    meas_domain domain_wf = atoll(extract_token(test_filename_ip, "domain_wf", &err_code));
-    waveform_type type_wf = atoll(extract_token(test_filename_ip, "type_wf", &err_code));
-    size_t nfft = atoll(extract_token(test_filename_ip, "nfft", &err_code));
-    size_t num_tones = atoll(extract_token(test_filename_ip, "num_tones", &err_code));
-    int res = atoi(extract_token(test_filename_ip, "res", &err_code));
-    int navg = atoi(extract_token(test_filename_ip, "navg", &err_code));
-    double fs = atof(extract_token(test_filename_ip, "fs", &err_code));
-    double fsr = atof(extract_token(test_filename_ip, "fsr", &err_code));
-    double* freq = (double*)calloc(num_tones, sizeof(double));
-    double* scale = (double*)calloc(num_tones, sizeof(double));
-    double* phase = (double*)calloc(num_tones, sizeof(double));
-
-    char * tmp_token = (char*)malloc(10*sizeof(char));
+    meas_domain domain_wf;
+    waveform_type type_wf;
+    size_t nfft, num_tones, res;
+    int navg;
+    double fs, fsr;
+    double *freq, *scale, *phase;
+    err_code = read_param(test_filename_ip, "domain_wf", (void*)(&domain_wf), UINT64);
+    err_code = read_param(test_filename_ip, "type_wf", (void*)(&type_wf), UINT64);
+    err_code = read_param(test_filename_ip, "nfft", (void*)(&nfft), UINT64);
+    err_code = read_param(test_filename_ip, "num_tones", (void*)(&num_tones), UINT64);
+    err_code = read_param(test_filename_ip, "res", (void*)(&res), INT32);
+    err_code = read_param(test_filename_ip, "navg", (void*)(&navg), INT32);
+    err_code = read_param(test_filename_ip, "fs", (void*)(&fs), DOUBLE);
+    err_code = read_param(test_filename_ip, "fsr", (void*)(&fsr), DOUBLE);    
+    freq = (double*)calloc(num_tones, sizeof(double));
+    scale = (double*)calloc(num_tones, sizeof(double));
+    phase = (double*)calloc(num_tones, sizeof(double));
+    tmp_token_name = (char*)malloc(10*sizeof(char));
     for (int n = 0; n < num_tones; n++) {
-        sprintf(tmp_token, "freq%d", n);
-        freq[n] = atof(extract_token(test_filename_ip, tmp_token, &err_code));
-        sprintf(tmp_token, "scale%d", n);
-        scale[n] = atof(extract_token(test_filename_ip, tmp_token, &err_code));
-        sprintf(tmp_token, "phase%d", n);
-        phase[n] = atof(extract_token(test_filename_ip, tmp_token, &err_code));
+        sprintf(tmp_token_name, "freq%d", n);
+        err_code = read_param(test_filename_ip, tmp_token_name, (void*)(freq+n), DOUBLE);
+        sprintf(tmp_token_name, "scale%d", n);
+        err_code = read_param(test_filename_ip, tmp_token_name, (void*)(scale+n), DOUBLE);
+        sprintf(tmp_token_name, "phase%d", n);
+        err_code = read_param(test_filename_ip, tmp_token_name, (void*)(phase+n), DOUBLE);
     }
-
+    
     size_t npts = 2 * nfft * navg;
     int * ref_qwf_ip = (int*)malloc(npts*sizeof(int));
     int * ref_qwf_ip_re = (int*)malloc(npts/2*sizeof(int));
@@ -80,6 +87,13 @@ int main(int argc, const char* argv[])
     free(freq);
     free(scale);
     free(phase);
+    free(ref_qwf_ip);
+    free(ref_qwf_ip_re);
+    free(ref_qwf_ip_im);
+    free(ref_fft_op);
+    free(ref_fft_op_re);
+    free(ref_fft_op_im);
+    free(tmp_token_name);
 
     return 0;
 }

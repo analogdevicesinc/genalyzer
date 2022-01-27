@@ -29,6 +29,7 @@
 
 typedef enum datatype { INT32,
     INT64,
+    UINT64,
     DOUBLE } datatype;
 
 static inline bool floats_almost_equal(double a, double b, size_t num_digits)
@@ -95,7 +96,7 @@ char* extract_token(const char* file_name, const char* token, unsigned int* err_
 
         if (c=='\n') {
             // Process line
-            line[i+1] = '\0';
+            line[i] = '\0';
             line_split = strtok(line, "=");
             if (line_split == NULL) {
                 *err_val = EINVAL;
@@ -104,8 +105,11 @@ char* extract_token(const char* file_name, const char* token, unsigned int* err_
             if (strcmp(line_split, token) == 0) {
                 line_split = strtok(NULL, "=");
                 if (line_split != NULL) {
-                    outstr = (char*) malloc(strlen(line_split));
-                    strcpy(outstr, line_split);
+                    // printf("%s(%zu)\t", line_split, strlen(line_split));
+                    free(outstr);
+                    // outstr = (char*) malloc((1+strlen(line_split))*sizeof(char));
+                    // strcpy(outstr, line_split);
+                    outstr = strdup(line_split);
                     // printf("%s %s\n",token, outstr);
                 }
                 else
@@ -199,4 +203,27 @@ void deinterleave(void* input, size_t in_size, void* result_re, void* result_im,
         for (int n = 1; n < in_size; n += 2)
             d_result_im[(n - 1) / 2] = d_input[n];
     }
+}
+
+int read_param(const char* file_name, const char* param_name, void* result, datatype result_type)
+{
+    unsigned int err_code;
+    char *tmp_token = extract_token(file_name, param_name, &err_code);
+        
+    if (result_type == INT32) {
+        int i32_result = atoi(tmp_token);
+        *(int*)result = i32_result;
+    } else if (result_type == INT64) {
+        long int i64_result = atol(tmp_token);
+        *(long int*)result = i64_result;
+    } else if (result_type == UINT64) {
+        long long ui64_result = atoll(tmp_token);
+        *(long long*)result = ui64_result;
+    } else if (result_type == DOUBLE) {
+        double d_result = atof(tmp_token);
+        *(double*)result = d_result;
+    }
+
+    free(tmp_token);
+    return err_code;
 }

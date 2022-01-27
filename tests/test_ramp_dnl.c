@@ -11,13 +11,18 @@ int main(int argc, const char* argv[])
     const char* test_filename_hits_op0 = argv[2];
     const char* test_filename_hits_op1 = argv[3];
 
+    char *tmp_token_name;
+    double* awf;
     unsigned int err_code;
-    const size_t npts = atoll(extract_token(test_filename_ip, "npts", &err_code));
-    double fs = atof(extract_token(test_filename_ip, "fs", &err_code));
-    double fsr = atof(extract_token(test_filename_ip, "fsr", &err_code));
-    int res = atoi(extract_token(test_filename_ip, "res", &err_code));
-    double start = atof(extract_token(test_filename_ip, "start", &err_code));
-    double stop = atof(extract_token(test_filename_ip, "stop", &err_code));
+    size_t npts;
+    int res;
+    double fs, fsr, start, stop;
+    err_code = read_param(test_filename_ip, "npts", (void*)(&npts), UINT64);
+    err_code = read_param(test_filename_ip, "res", (void*)(&res), INT32);
+    err_code = read_param(test_filename_ip, "fs", (void*)(&fs), DOUBLE);
+    err_code = read_param(test_filename_ip, "fsr", (void*)(&fsr), DOUBLE);
+    err_code = read_param(test_filename_ip, "start", (void*)(&start), DOUBLE);
+    err_code = read_param(test_filename_ip, "stop", (void*)(&stop), DOUBLE);
 
     int *ip_qwf = (int*)calloc(npts, sizeof(int));
     size_t num_bins = (1 << res);
@@ -70,6 +75,7 @@ int main(int argc, const char* argv[])
     free(ref_hits);
     free(ref_dnl);
     free(ref_bins);
+    free(tmp_token_name);
 
     return 0;
 }
