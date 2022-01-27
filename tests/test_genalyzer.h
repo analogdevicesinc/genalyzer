@@ -29,6 +29,7 @@
 
 typedef enum datatype { INT32,
     INT64,
+    UINT32,
     UINT64,
     DOUBLE } datatype;
 
@@ -105,12 +106,8 @@ char* extract_token(const char* file_name, const char* token, unsigned int* err_
             if (strcmp(line_split, token) == 0) {
                 line_split = strtok(NULL, "=");
                 if (line_split != NULL) {
-                    // printf("%s(%zu)\t", line_split, strlen(line_split));
                     free(outstr);
-                    // outstr = (char*) malloc((1+strlen(line_split))*sizeof(char));
-                    // strcpy(outstr, line_split);
-                    outstr = strdup(line_split);
-                    // printf("%s %s\n",token, outstr);
+                    outstr = strdup(line_split);                    
                 }
                 else
                     *err_val = EINVAL;
@@ -216,9 +213,12 @@ int read_param(const char* file_name, const char* param_name, void* result, data
     } else if (result_type == INT64) {
         long int i64_result = atol(tmp_token);
         *(long int*)result = i64_result;
+    } else if (result_type == UINT32) {
+        unsigned long ui32_result = atoll(tmp_token);
+        *(unsigned long*)result = ui32_result;
     } else if (result_type == UINT64) {
-        long long ui64_result = atoll(tmp_token);
-        *(long long*)result = ui64_result;
+        unsigned long long ui64_result = atoll(tmp_token);
+        *(unsigned long long*)result = ui64_result;
     } else if (result_type == DOUBLE) {
         double d_result = atof(tmp_token);
         *(double*)result = d_result;
