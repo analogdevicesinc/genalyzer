@@ -23,9 +23,7 @@ rx.CenterFrequency = tx.CenterFrequency;
 rx.EnableCustomFilter = true;
 rx.CustomFilterFileName = 'LTE10_MHz.ftr';
 rx.GainControlModeChannel0 = 'fast_attack';
-for ii = 1:20
-    y = rx();
-end
+y = rx();
 y_re = real(y);
 y_im = imag(y);
 
@@ -59,14 +57,14 @@ calllib('libgenalyzer', 'gn_config_tone_meas', ...
 % calculating SFDR using the time-domain waveform
 err_code = libpointer('uint32Ptr',0);
 fft_len = libpointer('uint64Ptr',0);
-metric = char('SFDR');
+metric = char('td');
 fft_time_re = libpointer('doublePtrPtr', zeros(nfft, 1));
 fft_time_im = libpointer('doublePtrPtr',  zeros(nfft, 1));
 y_interleaved = [y_re'; y_im'];
 y_interleaved = y_interleaved(:);
 y_interleavedPtr = libpointer('int32Ptr', y_interleaved);
-sfdr_time = calllib('libgenalyzer', 'gn_metric', c, y_interleavedPtr, metric, fft_time_re, fft_time_im, fft_len, err_code);
-fprintf('SFDR (time) - %f\terror code - %d\n', sfdr_time, err_code.Value);
+td_time = calllib('libgenalyzer', 'gn_metric', c, y_interleavedPtr, metric, fft_time_re, fft_time_im, fft_len, err_code);
+fprintf('TD (time) - %f\terror code - %d\n', td_time, err_code.Value);
 
 % plot FFT computed by genalyzer
 fft_gen_time = fft_time_re.Value+1i*fft_time_im.Value;
@@ -99,14 +97,14 @@ calllib('libgenalyzer', 'gn_config_tone_meas', ...
 % calculating SFDR using the FFT calculated from time-domain waveform
 err_code = libpointer('uint32Ptr',0);
 fft_len = libpointer('uint64Ptr',0);
-fft_y = fft(hann(length(y)).*y);
+fft_y = sqrt(2)*fft(hann(length(y)).*y)/(nfft*2^(res-1));
 ffty_interleaved = [real(fft_y)'; imag(fft_y).'];
 ffty_interleaved = ffty_interleaved(:);
 ffty_interleavedPtr = libpointer('doublePtr', ffty_interleaved);
 fft_freq_re = libpointer('doublePtrPtr', zeros(nfft, 1));
 fft_freq_im = libpointer('doublePtrPtr',  zeros(nfft, 1));
-sfdr_freq = calllib('libgenalyzer', 'gn_metric', c, ffty_interleavedPtr, metric, fft_freq_re, fft_freq_im, fft_len, err_code);
-fprintf('SFDR (freq) - %f\terror code - %d\n', sfdr_freq, err_code.Value);
+td_freq = calllib('libgenalyzer', 'gn_metric', c, ffty_interleavedPtr, metric, fft_freq_re, fft_freq_im, fft_len, err_code);
+fprintf('TD (freq) - %f\terror code - %d\n', td_freq, err_code.Value);
 
 % unload library
 clear c metric err_code fft_re fft_im fft_len;

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List
 from ctypes import (
     c_uint,
@@ -213,25 +213,27 @@ class gn_params:
         FFT order
     navg: int
         Num. of FFTs averaged
-    npts: int = 1024
+    npts: int
         Num. of data points to generate
-    num_tones: int = 1
+    num_tones: int
         Num. of tones
-    res: int = 0
+    res: int
         Resolution
-    fsample_update: bool = False
+    window: int
+        Window function applied.  0 - BlackmanHarris; 1 - Hanning; 2 - Rectangular
+    fsample_update: bool
         Update fsample
-    fdata_update: bool = False
+    fdata_update: bool
         Update fdata
-    fshift_update: bool = False
+    fshift_update: bool
         Update fshift
     """
 
     fs: float
     fsr: float
-    freq: List[float]
-    phase: List[float]
-    scale: List[float]
+    freq: List[float] = field(default_factory = list)
+    phase: List[float] = field(default_factory = list)
+    scale: List[float] = field(default_factory = list)
     start: float = 0.0
     stop: float = 0.1
     domain_wf: int = 0
@@ -241,6 +243,7 @@ class gn_params:
     npts: int = 1024
     num_tones: int = 1
     res: int = 0
+    win: int = 1
     fsample_update: bool = False
     fdata_update: bool = False
     fshift_update: bool = False
@@ -271,6 +274,7 @@ def config_tone_meas(p: gn_params) -> GNConfig:
     freq = (double_array)(*p.freq)
     phase = (double_array)(*p.phase)
     scale = (double_array)(*p.scale)
+    win = c_uint(p.win)
     fsample_update = c_bool(False)
     fdata_update = c_bool(False)
     fshift_update = c_bool(False)
@@ -288,7 +292,7 @@ def config_tone_meas(p: gn_params) -> GNConfig:
         scale,
         phase,
         num_tones,
-        2,
+        win,
         fsample_update,
         fdata_update,
         fshift_update,
@@ -496,6 +500,7 @@ def metric_t(c: GNConfig, qwf: list, m_name: str) -> float:
     :param m_name: name of the metric to compute
     :return: computed metric, floating-point I and Q of computed FFT as lists, error code returned
     """
+    qwf = qwf.astype(int)
     qwf_ptr = (c_int * len(qwf))(*qwf)
     m_name_enc = m_name.encode("utf-8")
     r = c_double(0.0)

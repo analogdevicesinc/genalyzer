@@ -22,9 +22,10 @@ navg = 1;
 fs = 3e6;
 fsr = 0;
 res = 13;
+window = 1;
 
 r = calllib(libName,'gn_config_tone_meas',...
-    c,domain,type,nfft,navg,fs,fsr,res,false,false,false);
+    c,domain,type,nfft,navg,fs,fsr,res,window,false,false,false);
 
 %% Generate data
 sw = dsp.SineWave();
@@ -34,13 +35,16 @@ sw.Amplitude = 2^11;
 y = int32(sw());
 
 %% Take Measurement
-metric = char('SFDR');
-err_code = libpointer('uint32Ptr',0)
+fft_len = libpointer('uint64Ptr',0);
+metric = char('thd');
+fft_re = libpointer('doublePtrPtr', zeros(nfft, 1));
+fft_im = libpointer('doublePtrPtr',  zeros(nfft, 1));
+err_code = libpointer('uint32Ptr',0);
 
 y = [real(y).'; imag(y).'];
 y = y(:);
 
-sfdrval = calllib('libgenalyzer', 'gn_metric', c, y, metric, err_code);
+sfdrval = calllib('libgenalyzer', 'gn_metric', c, y, metric, fft_re, fft_im, fft_len, err_code);
 
 disp(sfdrval);
 disp(err_code.Value);
