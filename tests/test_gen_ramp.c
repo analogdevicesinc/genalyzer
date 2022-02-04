@@ -11,12 +11,15 @@ int main(int argc, const char* argv[])
 
     double* awf;
     unsigned int err_code;
-    size_t npts = atoll(extract_token(test_filename, "npts", &err_code));
-    double fs = atof(extract_token(test_filename, "fs", &err_code));
-    double fsr = atof(extract_token(test_filename, "fsr", &err_code));
-    int res = atoi(extract_token(test_filename, "res", &err_code));
-    double start = atof(extract_token(test_filename, "start", &err_code));
-    double stop = atof(extract_token(test_filename, "stop", &err_code));
+    size_t npts;
+    int res;
+    double fs, fsr, start, stop;
+    err_code = read_param(test_filename, "npts", (void*)(&npts), UINT64);
+    err_code = read_param(test_filename, "res", (void*)(&res), INT32);
+    err_code = read_param(test_filename, "fs", (void*)(&fs), DOUBLE);
+    err_code = read_param(test_filename, "fsr", (void*)(&fsr), DOUBLE);
+    err_code = read_param(test_filename, "start", (void*)(&start), DOUBLE);
+    err_code = read_param(test_filename, "stop", (void*)(&stop), DOUBLE);
 
     double * ref_awf = (double*)malloc(npts*sizeof(double));
     gn_config c = NULL;
@@ -42,7 +45,9 @@ int main(int argc, const char* argv[])
     assert(float_arrays_almost_equal(ref_awf, awf, len, 6));
 
     // free memory
+    free(c);
     free(awf);
+    free(ref_awf);
 
     return 0;
 }

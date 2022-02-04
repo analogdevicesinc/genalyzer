@@ -44,6 +44,8 @@ double gn_metric(gn_config c, const void* input, const char* m_name, double** ff
                 qwf_q[i / 2] = qwf[i + 1];
             }
             gn_fft(c, qwf_i, qwf_q, &fft_re_tmp, &fft_im_tmp, &fft_size);
+            free(qwf_i);
+            free(qwf_q);
         }
     } else if (c->md == FREQ) {
         double* temp_fft_data = (double*)input;

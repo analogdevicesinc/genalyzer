@@ -9,29 +9,36 @@ int main(int argc, const char* argv[])
     // read test waveform
     const char* test_filename = argv[1];
 
+    char *tmp_token_name;
     double* awf;
     int* qwf;
     unsigned int err_code;
-    meas_domain domain_wf = atoll(extract_token(test_filename, "domain_wf", &err_code));
-    waveform_type type_wf = atoll(extract_token(test_filename, "type_wf", &err_code));
-    size_t nfft = atoll(extract_token(test_filename, "nfft", &err_code));
-    size_t num_tones = atoll(extract_token(test_filename, "num_tones", &err_code));
-    int res = atoi(extract_token(test_filename, "res", &err_code));
-    int navg = atoi(extract_token(test_filename, "navg", &err_code));
-    double fs = atof(extract_token(test_filename, "fs", &err_code));
-    double fsr = atof(extract_token(test_filename, "fsr", &err_code));
-    double* freq = (double*)calloc(num_tones, sizeof(double));
-    double* scale = (double*)calloc(num_tones, sizeof(double));
-    double* phase = (double*)calloc(num_tones, sizeof(double));
-
-    char tmp_token[10];
+    meas_domain domain_wf;
+    waveform_type type_wf;
+    size_t nfft, num_tones;
+    int res, navg;
+    double fs, fsr;
+    double *freq, *scale, *phase;
+    err_code = read_param(test_filename, "domain_wf", (void*)(&domain_wf), UINT64);
+    err_code = read_param(test_filename, "type_wf", (void*)(&type_wf), UINT64);
+    err_code = read_param(test_filename, "nfft", (void*)(&nfft), UINT64);
+    err_code = read_param(test_filename, "num_tones", (void*)(&num_tones), UINT64);
+    err_code = read_param(test_filename, "res", (void*)(&res), INT32);
+    err_code = read_param(test_filename, "navg", (void*)(&navg), INT32);
+    err_code = read_param(test_filename, "fs", (void*)(&fs), DOUBLE);
+    err_code = read_param(test_filename, "fsr", (void*)(&fsr), DOUBLE);
+    
+    freq = (double*)calloc(num_tones, sizeof(double));
+    scale = (double*)calloc(num_tones, sizeof(double));
+    phase = (double*)calloc(num_tones, sizeof(double));
+    tmp_token_name = (char*)malloc(10*sizeof(char));
     for (int n = 0; n < num_tones; n++) {
-        sprintf(tmp_token, "freq%d", n);
-        freq[n] = atof(extract_token(test_filename, tmp_token, &err_code));
-        sprintf(tmp_token, "scale%d", n);
-        scale[n] = atof(extract_token(test_filename, tmp_token, &err_code));
-        sprintf(tmp_token, "phase%d", n);
-        phase[n] = atof(extract_token(test_filename, tmp_token, &err_code));
+        sprintf(tmp_token_name, "freq%d", n);
+        err_code = read_param(test_filename, tmp_token_name, (void*)(freq+n), DOUBLE);
+        sprintf(tmp_token_name, "scale%d", n);
+        err_code = read_param(test_filename, tmp_token_name, (void*)(scale+n), DOUBLE);
+        sprintf(tmp_token_name, "phase%d", n);
+        err_code = read_param(test_filename, tmp_token_name, (void*)(phase+n), DOUBLE);
     }
 
     // configuration
@@ -73,6 +80,7 @@ int main(int argc, const char* argv[])
     free(freq);
     free(scale);
     free(phase);
+    free(tmp_token_name);
 
     return 0;
 }
