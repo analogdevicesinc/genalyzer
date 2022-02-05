@@ -52,3 +52,62 @@ jobs:
           cp src\Release\* tests\Release\
           cp bindings\c\src\Release\* tests\Release\
           ctest -V -C Release
+
+  BuildWindowsInstaller:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+
+      - name: Install dependencies
+        run: |
+          choco install -y wget
+          mkdir deps
+          cd deps
+          mkdir fftw3
+          cd fftw3
+          wget https://fftw.org/pub/fftw/fftw-3.3.5-dll64.zip -q -O fftw.zip
+          7z x -y fftw.zip
+          ls
+          rm fftw.zip
+          cd ..\..
+          ls deps
+          ls deps\fftw3
+          pwd
+          echo $GITHUB_WORKSPACE
+          echo $GITHUB_ACTION_PATH
+
+      - name: Setup FFTW
+        shell: cmd
+        run: |
+          cd deps\fftw3
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          lib /def:libfftw3-3.def
+          lib /def:libfftw3f-3.def
+          lib /def:libfftw3l-3.def
+          cd ..\..
+          dir deps\fftw3
+          echo "GITHUB_WORKSPACE: $env:GITHUB_WORKSPACE"
+
+      - name: Build library
+        run: |
+          "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cmake . -DFFTW_INCLUDE_DIRS="deps\fftw3" -DFFTW_LIBRARIES="$env:GITHUB_WORKSPACE\deps\fftw3\libfftw3-3.lib" -G "Visual Studio 16 2019" -A x64
+          cmake --build . --config Release
+
+      - name: Build installer
+        run: |
+          "%programfiles(x86)%\Inno Setup 6\iscc.exe" "libgenalyzer.iss"
+          dir
+          dir C:\
+        shell: cmd
+
+      - name: Archive Windows exe installer
+        uses: actions/upload-artifact@v2
+        with:
+          name: EXE Installer
+          path: C:\genalyzer-setup.exe
