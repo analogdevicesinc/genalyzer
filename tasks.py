@@ -15,3 +15,33 @@ def lint(c):
     c.run(" ".join(cmd))
     c.run("clang-format -style=file -i bindings/c/include/cgenalyzer.h")
     c.run("black bindings/python")
+
+@task
+def bumpversion_test(c, filename=None):
+    """Bump version to {current-version}.dev.{date}
+    Used for marking development releases for test-pypi
+    """
+    import fileinput
+    import time
+
+    if filename is None:
+        filename = "build/bindings/python/setup.py"
+
+    if not os.path.isfile(filename):
+        raise FileNotFoundError(filename)
+
+    for line in fileinput.input(filename, inplace=True):
+        if line.find("version=") > -1:
+            s = line.find("version=")
+            l = line[s+len("version=") + 1 :].strip()[:-2].split(".")
+            major = int(l[0])
+            minor = int(l[1])
+            rev = int(l[2])
+            seconds = int(time.time())
+            line = ' '*s+'version="{}.{}.{}.dev.{}",\n'.format(
+                major, minor, rev, seconds
+            )
+            ver_string = "{}.{}.{}.dev.{}".format(major, minor, rev, seconds)
+        print(line, end="")
+
+    print(f"Version bumped to {ver_string}")
