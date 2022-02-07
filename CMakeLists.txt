@@ -11,6 +11,7 @@ set(BUILD_SHARED_LIBS
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 option(BUILD_DOC "Generate documentation" OFF)
+option(PYTHON_BINDINGS "Generate python bindings" OFF)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)

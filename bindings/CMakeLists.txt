@@ -1,2 +1,4 @@
 add_subdirectory(c)
-add_subdirectory(python)
+if(PYTHON_BINDINGS)
+  add_subdirectory(python)
+endif()
