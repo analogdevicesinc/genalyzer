@@ -19,8 +19,8 @@ int main(int argc, const char* argv[])
     int res, navg;
     double fs, fsr;
     double *freq, *scale, *phase;
-    err_code = read_param(test_filename, "domain_wf", (void*)(&domain_wf), UINT64);
-    err_code = read_param(test_filename, "type_wf", (void*)(&type_wf), UINT64);
+    err_code = read_param(test_filename, "domain_wf", (void*)(&domain_wf), UINT32);
+    err_code = read_param(test_filename, "type_wf", (void*)(&type_wf), UINT32);
     err_code = read_param(test_filename, "nfft", (void*)(&nfft), UINT64);
     err_code = read_param(test_filename, "num_tones", (void*)(&num_tones), UINT64);
     err_code = read_param(test_filename, "res", (void*)(&res), INT32);
