@@ -12,15 +12,16 @@ int main(int argc, const char* argv[])
 
     char *tmp_token_name;
     double* awf;
-    unsigned int err_code;
-    meas_domain domain_wf;
-    waveform_type type_wf;
+    unsigned int err_code, rvalue;
     size_t nfft, num_tones;
     int res, navg;
     double fs, fsr;
     double *freq, *scale, *phase;
-    err_code = read_param(test_filename, "domain_wf", (void*)(&domain_wf), UINT64);
-    err_code = read_param(test_filename, "type_wf", (void*)(&type_wf), UINT64);
+
+    err_code = read_param(test_filename, "domain_wf", (void*)(&rvalue), UINT32);
+    meas_domain domain_wf = rvalue;
+    err_code = read_param(test_filename, "type_wf", (void*)(&rvalue), UINT32);
+    waveform_type type_wf = rvalue;
     err_code = read_param(test_filename, "nfft", (void*)(&nfft), UINT64);
     err_code = read_param(test_filename, "num_tones", (void*)(&num_tones), UINT64);
     err_code = read_param(test_filename, "res", (void*)(&res), INT32);
