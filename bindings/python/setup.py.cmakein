@@ -76,12 +76,12 @@ class InstallWrapper(install):
 config.update(
     dict(
         name="pylibgenalyzer",
-        version="0.8",
+        version="${CMAKE_PROJECT_VERSION}",
         maintainer="Analog Devices, Inc",
         maintainer_email="srikanth.pagadarai@analog.com",
         description=description,
         long_description=long_description,
-        url="https://github.com/analogdevicesinc/libgenalyzer",
+        url="https://github.com/analogdevicesinc/genalyzer",
         py_modules=["genalyzer"],
         packages=find_packages(exclude=["test*"]),
         python_requires=">=3.6",

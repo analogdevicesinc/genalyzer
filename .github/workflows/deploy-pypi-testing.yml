@@ -1,0 +1,38 @@
+name: PyPI Testing Deploy
+
+on: [push, pull_request]
+
+jobs:
+  PyPITestingDeploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          bash ./.github/scripts/install_dependencies.sh
+          bash ./.github/scripts/install_genalyzer.sh
+          sudo rm -rf build
+          mkdir build && cd build && cmake .. -DPYTHON_BINDINGS=ON && cd ..
+          pip install setuptools wheel twine build
+
+      - name: Update to dev version and build test release
+        run: |
+          pip install invoke
+          invoke bumpversion-test
+          cd build/bindings/python
+          python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+          packages_dir: ./build/bindings/python/dist
