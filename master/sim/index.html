@@ -1,0 +1,637 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Library of DSP functions for RF measurements">
+      
+      
+        <meta name="author" content="Analog Devices, Inc.">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
+    
+    
+      
+        <title>Simulation - genalyzer</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.d6be258b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="genalyzer" class="md-header__button md-logo" aria-label="genalyzer" data-md-component="logo">
+      
+  <img src="../assets/wave-square-solid.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            genalyzer
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Simulation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/analogdevicesinc/genalyzer/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="genalyzer" class="md-nav__button md-logo" aria-label="genalyzer" data-md-component="logo">
+      
+  <img src="../assets/wave-square-solid.svg" alt="logo">
+
+    </a>
+    genalyzer
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/analogdevicesinc/genalyzer/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        Set Up
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        Usage Model
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cgenalyzer_8h/" class="md-nav__link">
+        API Reference
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Simulation
+      </a>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hw/" class="md-nav__link">
+        Hardware
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/analogdevicesinc/genalyzer/edit/master/docs/sim.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<!--- <h1>Single-Tone Tests Demonstration Using genalyzer and ADALM-PLUTO</h1> -->
+
+<p>A number of tests that genalyzer supports assume that the waveform that is analyzed contain one tone or two tones. genalyzer does not support analysis of generic waveforms, which can be decomposed into multiple tone frequencies. In this section, a demonstration of single-tone based measurements supported by genalyzer are described. MATLAB and Python bindings are used to describe the results using the computed FFT and its analysis. First a brief overview of configuring ADALM-PLUTO is shown. For more details, see <a href="https://analogdevicesinc.github.io/TransceiverToolbox/mkdocs/streaming/">this</a> page on streaming samples from a supported device using ADI Transceiver Toolbox for MATLAB and <a href="https://analogdevicesinc.github.io/pyadi-iio/buffers/index.html#buffer-examples">this</a> page for the corresponding details when using PyADI-IIO.</p>
+<h2>Configuring ADALM-PLUTO for Tone-Based Measurement in RF Loopback</h2>
+
+<p>An ADALM-PLUTO is connected in RF loopback and is configured to transmit a 2 MHz complex tone, with the sample rate set to 15.36 MSPS. </p>
+<h3>MATLAB</h3>
+
+<p>The MATLAB and Python code snippets are shown below.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">MATLAB</label><label for="__tabbed_1_2">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="o">%%</span> <span class="n">Tx</span> <span class="nb">set</span> <span class="n">up</span>
+<span class="n">tx</span> <span class="o">=</span> <span class="n">adi</span><span class="o">.</span><span class="n">Pluto</span><span class="o">.</span><span class="n">Tx</span><span class="p">;</span>
+<span class="n">tx</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;ip:pluto&#39;</span><span class="p">;</span> 
+<span class="n">tx</span><span class="o">.</span><span class="n">DataSource</span> <span class="o">=</span> <span class="s1">&#39;DDS&#39;</span><span class="p">;</span>
+<span class="n">tx</span><span class="o">.</span><span class="n">DDSFrequencies</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2e6</span> <span class="mf">2e6</span><span class="p">;</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">];</span> <span class="o">%</span> <span class="nb">set</span> <span class="n">DDS</span> <span class="nb">complex</span> <span class="n">tone</span> <span class="n">freq</span> <span class="n">to</span> <span class="mi">2</span> <span class="n">MHz</span> 
+<span class="n">tx</span><span class="o">.</span><span class="n">DDSPhases</span> <span class="o">=</span> <span class="p">[</span><span class="mf">90e3</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">];</span> <span class="o">%</span> <span class="n">expressed</span> <span class="ow">in</span> <span class="n">millidegrees</span>
+<span class="n">tx</span><span class="o">.</span><span class="n">DDSScales</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">];</span>
+<span class="n">tx</span><span class="o">.</span><span class="n">CenterFrequency</span> <span class="o">=</span> <span class="mf">2.4e9</span><span class="p">;</span>
+<span class="n">tx</span><span class="o">.</span><span class="n">EnableCustomFilter</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+<span class="n">tx</span><span class="o">.</span><span class="n">CustomFilterFileName</span> <span class="o">=</span> <span class="s1">&#39;LTE10_MHz.ftr&#39;</span><span class="p">;</span> <span class="o">%</span> <span class="n">sets</span> <span class="n">PlutoSDR</span> <span class="n">sample</span><span class="o">-</span><span class="n">rate</span> <span class="n">to</span> <span class="mf">15.36</span> <span class="n">MSPS</span>
+<span class="n">tx</span><span class="o">.</span><span class="n">AttenuationChannel0</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span>
+<span class="n">tx</span><span class="p">();</span>
+<span class="n">pause</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="o">%%</span> <span class="n">Rx</span> <span class="nb">set</span> <span class="n">up</span>
+<span class="n">rx</span> <span class="o">=</span> <span class="n">adi</span><span class="o">.</span><span class="n">Pluto</span><span class="o">.</span><span class="n">Rx</span><span class="p">(</span><span class="s1">&#39;uri&#39;</span><span class="p">,</span><span class="s1">&#39;ip:pluto&#39;</span><span class="p">);</span>
+<span class="n">rx</span><span class="o">.</span><span class="n">CenterFrequency</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">CenterFrequency</span><span class="p">;</span>
+<span class="n">rx</span><span class="o">.</span><span class="n">EnableCustomFilter</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+<span class="n">rx</span><span class="o">.</span><span class="n">CustomFilterFileName</span> <span class="o">=</span> <span class="s1">&#39;LTE10_MHz.ftr&#39;</span><span class="p">;</span>
+<span class="n">rx</span><span class="o">.</span><span class="n">GainControlModeChannel0</span> <span class="o">=</span> <span class="s1">&#39;fast_attack&#39;</span><span class="p">;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">rx</span><span class="p">();</span>
+<span class="n">y_re</span> <span class="o">=</span> <span class="n">real</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+<span class="n">y_im</span> <span class="o">=</span> <span class="n">imag</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+
+<span class="n">tx</span><span class="o">.</span><span class="n">release</span><span class="p">();</span>
+<span class="n">rx</span><span class="o">.</span><span class="n">release</span><span class="p">();</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Create radio</span>
+<span class="n">sdr</span> <span class="o">=</span> <span class="n">adi</span><span class="o">.</span><span class="n">Pluto</span><span class="p">()</span>
+
+<span class="c1"># Configure properties</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_lo</span> <span class="o">=</span> <span class="mi">2400000000</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_lo</span> <span class="o">=</span> <span class="mi">2400000000</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_cyclic_buffer</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_hardwaregain_chan0</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">gain_control_mode_chan0</span> <span class="o">=</span> <span class="s2">&quot;fast_attack&quot;</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="s2">&quot;LTE10_MHz.ftr&quot;</span>
+
+<span class="n">fs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sdr</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">)</span>
+<span class="n">tone_freq_hz</span> <span class="o">=</span> <span class="mi">2000000</span>  <span class="c1"># In Hz</span>
+<span class="n">tone_scale</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># Range: 0-1.0</span>
+<span class="n">tx_channel</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Starts at 0</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">dds_single_tone</span><span class="p">(</span><span class="n">tone_freq_hz</span><span class="p">,</span> <span class="n">tone_scale</span><span class="p">,</span> <span class="n">tx_channel</span><span class="p">)</span>
+
+<span class="c1"># Collect data</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sdr</span><span class="o">.</span><span class="n">rx</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2>Using genalyzer and ADALM-PLUTO to Compute Tone-Based Measurements for ADALM-PLUTO in RF Loopback</h2>
+<p>In this section, an example on how to use genalyzer for calculating Spurious free dynamic range (SFDR) is provided. Doc in progress.</p>
+<!-- <h3>Spurious-Free Dynamic Range</h3> -->
+
+<p>Spurious free dynamic range (SFDR) specifies the capability of the ADC and the system to decipher a carrier signal from other noise or any other spurious frequency. It represents the smallest power signal that can be distinguished from a large interfering signal. Mathematically, it is the ratio between the root mean square (rms) value of the power of a carrier and the rms value of the next most significant spurious signal seen in the frequency domain, such as in a fast Fourier transform (FFT). Hence, by definition, this dynamic range must be free of other spurious frequencies, or spurs. </p>
+<p>SFDR is quantified as the range, in units of power (dBc), relative from the carrier of interest to the power of the next most significant frequency. However, it also could be referenced to a full-scale signal in units of power (dBFS). This is an important distinction since the carrier of interest may be a relatively lower power signal that is well below the full-scale input to the ADC. When this is the case, the SFDR becomes paramount in distinguishing the signal from other noise and spurious frequencies.</p>
+<p>A harmonic frequency is an integer multiple of the fundamental frequency. Hence, the SFDR typically will be dominated by the dynamic range between a carrier frequency and the second or third harmonic of the fundamental frequency of interest. </p>
+<p>In this example, these ideas are demonstrated by using MATLAB's <code>calllib</code> interface to genalyzer. A link to the complete MATLAB script is shown at the bottom of this page. </p>
+<p>The first step is to create an opaque configuration struct. Using MATLAB and Python bindings, this is done as shown by the code snippet below. </p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">MATLAB</label><label for="__tabbed_2_2">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="o">%</span> <span class="n">measurement</span> <span class="n">settings</span> 
+<span class="n">domain</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">%</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">TIME</span><span class="p">;</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">FREQ</span>
+<span class="nb">type</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> 
+<span class="n">nfft</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+<span class="n">navg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="mf">15.36e6</span><span class="p">;</span>
+<span class="n">fsr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">res</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+<span class="n">window</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="o">%</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">BlackmanHarris</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Hann</span><span class="p">,</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">Rect</span>
+
+<span class="o">%</span> <span class="n">setup</span> <span class="n">measurement</span> <span class="k">for</span> <span class="n">time</span><span class="o">-</span><span class="n">domain</span> <span class="n">measurement</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">;</span> <span class="o">%</span> <span class="n">create</span> <span class="n">a</span> <span class="n">null</span> <span class="n">pointer</span>
+<span class="n">calllib</span><span class="p">(</span><span class="s1">&#39;libgenalyzer&#39;</span><span class="p">,</span> <span class="s1">&#39;gn_config_tone_meas&#39;</span><span class="p">,</span> <span class="o">...</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">navg</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">fsr</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="n">false</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># setup measurement</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;domain_wf&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;type_wf&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;nfft&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;navg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;fs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;fsr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;win&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;freq&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;phase&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;scale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">config_obj</span> <span class="o">=</span> <span class="n">genalyzer</span><span class="o">.</span><span class="n">gn_params</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">genalyzer</span><span class="o">.</span><span class="n">config_tone_meas</span><span class="p">(</span><span class="n">config_obj</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Now, the configuration struct contains the measurement settings in order to calculate the desired metric. SFDR calculation is done as shown in the following code snippets. </p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">MATLAB</label><label for="__tabbed_3_2">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="o">%</span> <span class="n">calculating</span> <span class="n">SFDR</span> <span class="n">using</span> <span class="n">the</span> <span class="n">time</span><span class="o">-</span><span class="n">domain</span> <span class="n">waveform</span>
+<span class="n">err_code</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;uint32Ptr&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">fft_len</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;uint64Ptr&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">metric</span> <span class="o">=</span> <span class="n">char</span><span class="p">(</span><span class="s1">&#39;SFDR&#39;</span><span class="p">);</span>
+<span class="n">fft_time_re</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;doublePtrPtr&#39;</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="n">nfft</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="n">fft_time_im</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;doublePtrPtr&#39;</span><span class="p">,</span>  <span class="n">zeros</span><span class="p">(</span><span class="n">nfft</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="n">y_interleaved</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_re</span><span class="s1">&#39;; y_im&#39;</span><span class="p">];</span>
+<span class="n">y_interleaved</span> <span class="o">=</span> <span class="n">y_interleaved</span><span class="p">(:);</span>
+<span class="n">y_interleavedPtr</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;int32Ptr&#39;</span><span class="p">,</span> <span class="n">y_interleaved</span><span class="p">);</span>
+<span class="n">sfdr_time</span> <span class="o">=</span> <span class="n">calllib</span><span class="p">(</span><span class="s1">&#39;libgenalyzer&#39;</span><span class="p">,</span> <span class="s1">&#39;gn_metric&#39;</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">y_interleavedPtr</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">fft_time_re</span><span class="p">,</span> <span class="n">fft_time_im</span><span class="p">,</span> <span class="n">fft_len</span><span class="p">,</span> <span class="n">err_code</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># compute SFDR</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">fft_i</span><span class="p">,</span> <span class="n">fft_q</span><span class="p">,</span> <span class="n">err_code</span> <span class="o">=</span> <span class="n">genalyzer</span><span class="o">.</span><span class="n">metric_t</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">x_intrlv</span><span class="p">,</span> <span class="s2">&quot;SFDR&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Note that the FFT calculated for analysis and computing the desired metric is returned by genalyzer. Plotting the FFT computed using genalyzer, we can see that the second harmonic at 4 MHz and its image dominate the remaining spurs. Note that the third harmonic and its image are filtered out by the programmable filter coefficients loaded into ADALM-PLUTO. </p>
+<figure>
+<p><img alt="ADALM-PLUTO FFT" src="../assets/PlutoSDR_FFT.svg" width="900" /></p>
+</figure>
+<p>Since SFDR is by definition, free of spurious frequencies, by examining the above plot, one can estimate SFDR to be around 50 dBc. This values agrees with the SFDR computed by genalyzer. 
+<div class="highlight"><pre><span></span><code><span class="n">SFDR</span> <span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">-</span> <span class="mf">49.742253</span>
+</code></pre></div></p>
+<p>Note that genalyzer can be configured to compute performance metrics from frequency-domain data as well. In other words, genalyzer can be configured to skip the FFT computation step and only perform analysis of the FFT provided as input. Note that passing a <code>1</code> instead of a <code>0</code> to the <code>domain</code> argument controls this configuration. This is shown by the MATLAB code snippet below. The same can be accomplished using Python bindings as well. </p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">MATLAB</label><label for="__tabbed_4_2">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="o">%</span> <span class="n">setup</span> <span class="n">measurement</span> <span class="k">for</span> <span class="n">freq</span><span class="o">-</span><span class="n">domain</span> <span class="n">measurement</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">;</span>
+<span class="n">domain</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="o">%</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">TIME</span><span class="p">;</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">FREQ</span>
+<span class="n">calllib</span><span class="p">(</span><span class="s1">&#39;libgenalyzer&#39;</span><span class="p">,</span> <span class="s1">&#39;gn_config_tone_meas&#39;</span><span class="p">,</span> <span class="o">...</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">navg</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">fsr</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="n">false</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">calculating</span> <span class="n">SFDR</span> <span class="n">using</span> <span class="n">the</span> <span class="n">FFT</span> <span class="n">calculated</span> <span class="kn">from</span> <span class="nn">time</span><span class="o">-</span><span class="n">domain</span> <span class="n">waveform</span>
+<span class="n">err_code</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;uint32Ptr&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">fft_len</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;uint64Ptr&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">fft_y</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">hann</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="o">.*</span><span class="n">y</span><span class="p">);</span>
+<span class="n">ffty_interleaved</span> <span class="o">=</span> <span class="p">[</span><span class="n">real</span><span class="p">(</span><span class="n">fft_y</span><span class="p">)</span><span class="s1">&#39;; imag(fft_y).&#39;</span><span class="p">];</span>
+<span class="n">ffty_interleaved</span> <span class="o">=</span> <span class="n">ffty_interleaved</span><span class="p">(:);</span>
+<span class="n">ffty_interleavedPtr</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;doublePtr&#39;</span><span class="p">,</span> <span class="n">ffty_interleaved</span><span class="p">);</span>
+<span class="n">fft_freq_re</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;doublePtrPtr&#39;</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="n">nfft</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="n">fft_freq_im</span> <span class="o">=</span> <span class="n">libpointer</span><span class="p">(</span><span class="s1">&#39;doublePtrPtr&#39;</span><span class="p">,</span>  <span class="n">zeros</span><span class="p">(</span><span class="n">nfft</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="n">sfdr_freq</span> <span class="o">=</span> <span class="n">calllib</span><span class="p">(</span><span class="s1">&#39;libgenalyzer&#39;</span><span class="p">,</span> <span class="s1">&#39;gn_metric&#39;</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">ffty_interleavedPtr</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">fft_freq_re</span><span class="p">,</span> <span class="n">fft_freq_im</span><span class="p">,</span> <span class="n">fft_len</span><span class="p">,</span> <span class="n">err_code</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># update domain</span>
+<span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;domain_wf&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">config_obj</span> <span class="o">=</span> <span class="n">genalyzer</span><span class="o">.</span><span class="n">gn_params</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">genalyzer</span><span class="o">.</span><span class="n">config_tone_meas</span><span class="p">(</span><span class="n">config_obj</span><span class="p">)</span>
+<span class="c1"># compute SFDR</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">fft_i</span><span class="p">,</span> <span class="n">fft_q</span><span class="p">,</span> <span class="n">err_code</span> <span class="o">=</span> <span class="n">genalyzer</span><span class="o">.</span><span class="n">metric_t</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">x_intrlv</span><span class="p">,</span> <span class="s2">&quot;SFDR&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The calculated SFDR matches the corresponding result obtained using time-domain waveform closely.
+<div class="highlight"><pre><span></span><code>SFDR (freq) - 49.742421
+</code></pre></div></p>
+<p>Similarly, Signal-to-Noise-and-Distortion (SINAD, or S/(N + D) is the ratio of the rms signal amplitude to the mean value of the root-sum-square (RSS) of all other spectral components, including harmonics, but excluding DC. SINAD is a therefore, an indicator of the overall dynamic performance of an ADC because it includes all components which make up noise and distortion. To compute SINAD, only the </p>
+<!--- <h1>Multi-Tone Tests</h1> -->
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../cgenalyzer_8h/" class="md-footer__link md-footer__link--prev" aria-label="Previous: API Reference" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              API Reference
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../hw/" class="md-footer__link md-footer__link--next" aria-label="Next: Hardware" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Hardware
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.092fa1f6.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e3b2bf44.min.js"></script>
+      
+    
+  </body>
+</html>
