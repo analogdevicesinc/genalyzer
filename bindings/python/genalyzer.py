@@ -500,7 +500,7 @@ def metric_t(c: GNConfig, qwf: list, m_name: str) -> float:
     :param m_name: name of the metric to compute
     :return: computed metric, floating-point I and Q of computed FFT as lists, error code returned
     """
-    qwf = qwf.astype(int)
+    qwf = [int(x) for x in qwf]
     qwf_ptr = (c_int * len(qwf))(*qwf)
     m_name_enc = m_name.encode("utf-8")
     r = c_double(0.0)
