@@ -17,7 +17,7 @@ int main(int argc, const char* argv[])
     size_t nfft;
     int res, navg;
     double fs, fsr;
-    err_code = read_param(test_filename, "domain_wf", (void*)(&domain_wf), UINT32);
+    err_code = read_param(test_filename, "domain_wf", (void*)(&domain_wf), UINT64);
     err_code = read_param(test_filename, "type_wf", (void*)(&type_wf), UINT64);
     err_code = read_param(test_filename, "nfft", (void*)(&nfft), UINT64);
     err_code = read_param(test_filename, "res", (void*)(&res), INT32);
