@@ -63,9 +63,9 @@ The MATLAB and Python code snippets are shown below.
     x = sdr.rx()
     ```
 <h2>Using genalyzer and ADALM-PLUTO to Compute Tone-Based Measurements for ADALM-PLUTO in RF Loopback</h2>
-In this section, an example on how to use genalyzer for calculating Spurious free dynamic range (SFDR) is provided. Doc in progress.
+In this section, an example on how to use genalyzer for calculating Spurious free dynamic range (SFDR) is provided. 
 
-<!-- <h3>Spurious-Free Dynamic Range</h3> -->
+<h3>Spurious-Free Dynamic Range</h3>
 
 Spurious free dynamic range (SFDR) specifies the capability of the ADC and the system to decipher a carrier signal from other noise or any other spurious frequency. It represents the smallest power signal that can be distinguished from a large interfering signal. Mathematically, it is the ratio between the root mean square (rms) value of the power of a carrier and the rms value of the next most significant spurious signal seen in the frequency domain, such as in a fast Fourier transform (FFT). Hence, by definition, this dynamic range must be free of other spurious frequencies, or spurs. 
 
@@ -136,9 +136,9 @@ Note that the FFT calculated for analysis and computing the desired metric is re
   ![ADALM-PLUTO FFT](assets/PlutoSDR_FFT.svg){ width="900" }
 </figure> 
 
-Since SFDR is by definition, free of spurious frequencies, by examining the above plot, one can estimate SFDR to be around 50 dBc. This values agrees with the SFDR computed by genalyzer. 
+From the definition of SFDR, by examining the above plot, one can estimate SFDR to be around 50 dBc. This values agrees with the SFDR computed by genalyzer. 
 ``` py
-SFDR (time) - 49.742253
+SFDR (time) - 50.067584
 ```
 
 Note that genalyzer can be configured to compute performance metrics from frequency-domain data as well. In other words, genalyzer can be configured to skip the FFT computation step and only perform analysis of the FFT provided as input. Note that passing a `1` instead of a `0` to the `domain` argument controls this configuration. This is shown by the MATLAB code snippet below. The same can be accomplished using Python bindings as well. 
@@ -172,11 +172,147 @@ Note that genalyzer can be configured to compute performance metrics from freque
     ``` 
 The calculated SFDR matches the corresponding result obtained using time-domain waveform closely.
 ```
-SFDR (freq) - 49.742421
+SFDR (freq) - 50.067747
 ```
 
-Similarly, Signal-to-Noise-and-Distortion (SINAD, or S/(N + D) is the ratio of the rms signal amplitude to the mean value of the root-sum-square (RSS) of all other spectral components, including harmonics, but excluding DC. SINAD is a therefore, an indicator of the overall dynamic performance of an ADC because it includes all components which make up noise and distortion. To compute SINAD, only the 
+<h3>Signal-to-Noise-and-Distortion</h3>
+Similarly, Signal-to-Noise-and-Distortion (SINAD, or S/(N + D) is the ratio of the rms signal amplitude to the mean value of the root-sum-square (RSS) of all other spectral components, including harmonics, but excluding DC. SINAD is therefore, an indicator of the overall dynamic performance of an ADC because it includes all components which make up noise and distortion. 
 
+To compute SINAD using genalyzer, the measurement setup portion is similar to that of SFDR discussed in the previous section. The MATLAB and Python code snippets that compute SINAD are similar to that of SFDR and are shown below.   
+=== "MATLAB"
+    ``` py
+    % calculating SINAD using the time-domain waveform
+    err_code = libpointer('uint32Ptr',0);
+    fft_len = libpointer('uint64Ptr',0);
+    metric = char('SINAD');
+    fft_time_re = libpointer('doublePtrPtr', zeros(nfft, 1));
+    fft_time_im = libpointer('doublePtrPtr',  zeros(nfft, 1));
+    y_interleaved = [y_re'; y_im'];
+    y_interleaved = y_interleaved(:);
+    y_interleavedPtr = libpointer('int32Ptr', y_interleaved);
+    sinad_time = calllib('libgenalyzer', 'gn_metric', c, y_interleavedPtr, metric, fft_time_re, fft_time_im, fft_len, err_code);
+    ``` 
+=== "Python"
+    ``` py
+    # compute SINAD
+    result, fft_i, fft_q, err_code = genalyzer.metric_t(c, x_intrlv, "SINAD")
+    ```
 
+Since SINAD includes the effect of all spectral components, excluding DC and their relative strength in reference to the signal component, we can expect SINAD to be lower than SFDR. This observation agrees with the SINAD computed by genalyzer. 
+``` py
+SINAD (time) - 41.452282
+```
+
+<h3>Full-Scale Signal-to-Noise Ratio</h3>
+Full-Scale Signal-to-Noise Ratio (FSNR) is defined as the ratio of the full-scale input of the ADC to the mean value of the root-sum-square (RSS) of all noise components excluding other spectral components, including harmonics and DC. In genalyzer, the full-scale input of the ADC is set to 0 dB. Consequently, FSNR is a representation of the RSS of noise alone. 
+
+Using genalyzer, the MATLAB and Python code snippets that compute FSNR are as shown below.   
+=== "MATLAB"
+    ``` py
+    % calculating FSNR using the time-domain waveform
+    err_code = libpointer('uint32Ptr',0);
+    fft_len = libpointer('uint64Ptr',0);
+    metric = char('FSNR');
+    fft_time_re = libpointer('doublePtrPtr', zeros(nfft, 1));
+    fft_time_im = libpointer('doublePtrPtr',  zeros(nfft, 1));
+    y_interleaved = [y_re'; y_im'];
+    y_interleaved = y_interleaved(:);
+    y_interleavedPtr = libpointer('int32Ptr', y_interleaved);
+    fsnr_time = calllib('libgenalyzer', 'gn_metric', c, y_interleavedPtr, metric, fft_time_re, fft_time_im, fft_len, err_code);
+    ``` 
+=== "Python"
+    ``` py
+    # compute FSNR
+    result, fft_i, fft_q, err_code = genalyzer.metric_t(c, x_intrlv, "FSNR")
+    ```
+
+Since FSNR excludes the the signal component and all other resultant spectral components FSNR to be at least 10 dB higher than SINAD and approximately equal to SFDR. This observation agrees with the FSNR value computed by genalyzer. 
+``` py
+FSNR (time) - 51.579167
+```
+
+<h3>Signal-to-Noise Ratio</h3>
+Signal-to-Noise Ratio (SNR) is defined as the ratio of the root-sum-square (RSS) of the signal component to the mean value of the root-sum-square (RSS) of all noise components excluding other spectral components, including harmonics and DC. For the example we have been considering thus far, the power of signal component is approximately 13 dB. Its RSS value can be expected to be slightly lower. 
+
+The MATLAB and Python code snippets that compute SNR are as shown below.   
+=== "MATLAB"
+    ``` py
+    % calculating SNR using the time-domain waveform
+    err_code = libpointer('uint32Ptr',0);
+    fft_len = libpointer('uint64Ptr',0);
+    metric = char('SNR');
+    fft_time_re = libpointer('doublePtrPtr', zeros(nfft, 1));
+    fft_time_im = libpointer('doublePtrPtr',  zeros(nfft, 1));
+    y_interleaved = [y_re'; y_im'];
+    y_interleaved = y_interleaved(:);
+    y_interleavedPtr = libpointer('int32Ptr', y_interleaved);
+    snr_time = calllib('libgenalyzer', 'gn_metric', c, y_interleavedPtr, metric, fft_time_re, fft_time_im, fft_len, err_code);
+    ``` 
+=== "Python"
+    ``` py
+    # compute SNR
+    result, fft_i, fft_q, err_code = genalyzer.metric_t(c, x_intrlv, "SNR")
+    ```
+
+Since SNR includes the the signal component which is around 10 dB in the current example, we can expect SNR to be around 10 dB higher than FSNR and approximately equal to SINAD. This observation agrees with the FSNR value computed by genalyzer. 
+``` py
+SNR (time) - 41.464547
+```
+
+<h3>Total Harmonic Distortion</h3>
+Total harmonic distortion (THD) is the ratio of the RMS value of the fundamental signal to the mean value of the root-sum-square of its harmonics. THD of an ADC is also generally specified with the input signal close to full-scale, although it can be specified at any level.
+
+The MATLAB and Python code snippets that compute SNR are as shown below.   
+=== "MATLAB"
+    ``` py
+    % calculating THD using the time-domain waveform
+    err_code = libpointer('uint32Ptr',0);
+    fft_len = libpointer('uint64Ptr',0);
+    metric = char('thd');
+    fft_time_re = libpointer('doublePtrPtr', zeros(nfft, 1));
+    fft_time_im = libpointer('doublePtrPtr',  zeros(nfft, 1));
+    y_interleaved = [y_re'; y_im'];
+    y_interleaved = y_interleaved(:);
+    y_interleavedPtr = libpointer('int32Ptr', y_interleaved);
+    thd_time = calllib('libgenalyzer', 'gn_metric', c, y_interleavedPtr, metric, fft_time_re, fft_time_im, fft_len, err_code);
+    ``` 
+=== "Python"
+    ``` py
+    # compute THD
+    result, fft_i, fft_q, err_code = genalyzer.metric_t(c, x_intrlv, "thd")
+    ```
+
+For the ADALM-PLUTO example we have been considering thus far, the power of signal component is approximately 13 dB. By visually approximating the RSS value of the harmonics alone, the number can be approximated to be around -90 dB. Consequently, THD for the current example is around -80 dBc. This value closely matches the THD value computed by genalyzer. 
+``` py
+THD (time) - -77.064183
+```
+
+<h3>Total Distortion</h3>
+On the other hand, Total Distortion (TD) is the ratio of the RMS value of the fundamental signal to the mean value of the root-sum-square of its harmonics plus noise as well. 
+
+The MATLAB and Python code snippets that compute SNR are as shown below.   
+=== "MATLAB"
+    ``` py
+    % calculating TD using the time-domain waveform
+    err_code = libpointer('uint32Ptr',0);
+    fft_len = libpointer('uint64Ptr',0);
+    metric = char('td');
+    fft_time_re = libpointer('doublePtrPtr', zeros(nfft, 1));
+    fft_time_im = libpointer('doublePtrPtr',  zeros(nfft, 1));
+    y_interleaved = [y_re'; y_im'];
+    y_interleaved = y_interleaved(:);
+    y_interleavedPtr = libpointer('int32Ptr', y_interleaved);
+    td_time = calllib('libgenalyzer', 'gn_metric', c, y_interleavedPtr, metric, fft_time_re, fft_time_im, fft_len, err_code);
+    ``` 
+=== "Python"
+    ``` py
+    # compute TD
+    result, fft_i, fft_q, err_code = genalyzer.metric_t(c, x_intrlv, "td")
+    ```
+
+For the ADALM-PLUTO example we have been considering thus far, since the harmonics contribute the greatest to total distortion, the addition of noise might not signifcantly affect the computed total distortion. Hence, we observe that TD equals THD.  
+``` py
+TD (time) - -77.064183
+```
 
 <!--- <h1>Multi-Tone Tests</h1> -->
