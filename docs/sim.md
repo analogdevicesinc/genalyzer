@@ -133,7 +133,7 @@ Now, the configuration struct contains the measurement settings in order to calc
     ``` 
 Note that the FFT calculated for analysis and computing the desired metric is returned by genalyzer. Plotting the FFT computed using genalyzer, we can see that the second harmonic at 4 MHz and its image dominate the remaining spurs. Note that the third harmonic and its image are filtered out by the programmable filter coefficients loaded into ADALM-PLUTO. 
 <figure markdown>
-  ![ADALM-PLUTO FFT](assets/PlutoSDR_FFT.svg){ width="900" }
+  ![ADALM-PLUTO FFT](assets/PlutoSDR_FFT_sfdr.svg){ width="900" }
 </figure> 
 
 From the definition of SFDR, by examining the above plot, one can estimate SFDR to be around 50 dBc. This values agrees with the SFDR computed by genalyzer. 
@@ -202,6 +202,10 @@ Since SINAD includes the effect of all spectral components, excluding DC and the
 ``` py
 SINAD (time) - 41.452282
 ```
+The RMS signal and noise plus distortion powers computed by genalyzer are shown in the figure below.
+<figure markdown>
+  ![ADALM-PLUTO FFT](assets/PlutoSDR_FFT_sinad.svg){ width="900" }
+</figure> 
 
 <h3>Full-Scale Signal-to-Noise Ratio</h3>
 Full-Scale Signal-to-Noise Ratio (FSNR) is defined as the ratio of the full-scale input of the ADC to the mean value of the root-sum-square (RSS) of all noise components excluding other spectral components, including harmonics and DC. In genalyzer, the full-scale input of the ADC is set to 0 dB. Consequently, FSNR is a representation of the RSS of noise alone. 
@@ -230,6 +234,10 @@ Since FSNR excludes the the signal component and all other resultant spectral co
 ``` py
 FSNR (time) - 51.579167
 ```
+The RMS noise power computed by genalyzer is shown in the figure below.
+<figure markdown>
+  ![ADALM-PLUTO FFT](assets/PlutoSDR_FFT_fsnr.svg){ width="900" }
+</figure> 
 
 <h3>Signal-to-Noise Ratio</h3>
 Signal-to-Noise Ratio (SNR) is defined as the ratio of the root-sum-square (RSS) of the signal component to the mean value of the root-sum-square (RSS) of all noise components excluding other spectral components, including harmonics and DC. For the example we have been considering thus far, the power of signal component is approximately 13 dB. Its RSS value can be expected to be slightly lower. 
@@ -258,6 +266,10 @@ Since SNR includes the the signal component which is around 10 dB in the current
 ``` py
 SNR (time) - 41.464547
 ```
+The RMS signal and noise powers computed by genalyzer are shown in the figure below.
+<figure markdown>
+  ![ADALM-PLUTO FFT](assets/PlutoSDR_FFT_snr.svg){ width="900" }
+</figure> 
 
 <h3>Total Harmonic Distortion</h3>
 Total harmonic distortion (THD) is the ratio of the RMS value of the fundamental signal to the mean value of the root-sum-square of its harmonics. THD of an ADC is also generally specified with the input signal close to full-scale, although it can be specified at any level.
@@ -286,6 +298,10 @@ For the ADALM-PLUTO example we have been considering thus far, the power of sign
 ``` py
 THD (time) - -77.064183
 ```
+The RMS signal and harmonic powers computed by genalyzer are shown in the figure below.
+<figure markdown>
+  ![ADALM-PLUTO FFT](assets/PlutoSDR_FFT_thd.svg){ width="900" }
+</figure> 
 
 <h3>Total Distortion</h3>
 On the other hand, Total Distortion (TD) is the ratio of the RMS value of the fundamental signal to the mean value of the root-sum-square of its harmonics plus noise as well. 

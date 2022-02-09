@@ -2,35 +2,9 @@ clc;
 clear all;
 close all;
 
-%% Tx set up
-tx = adi.Pluto.Tx;
-tx.uri = 'ip:pluto'; 
-tx.DataSource = 'DDS';
-ToneFreq = 2e6;
-tx.DDSFrequencies = [ToneFreq ToneFreq; 0 0]; % set DDS complex tone freq to 2 MHz 
-tx.DDSPhases = [90e3 0; 0 0]; % expressed in millidegrees
-tx.DDSScales = [1 1; 0 0];
-tx.CenterFrequency = 2.4e9;
-tx.EnableCustomFilter = true;
-tx.CustomFilterFileName = 'LTE10_MHz.ftr'; % sets PlutoSDR sample-rate to 15.36 MSPS
-tx.AttenuationChannel0 = -10;
-tx();
-pause(1);
-
-%% Rx set up
-rx = adi.Pluto.Rx('uri','ip:pluto');
-rx.CenterFrequency = tx.CenterFrequency;
-rx.EnableCustomFilter = true;
-rx.CustomFilterFileName = 'LTE10_MHz.ftr';
-rx.GainControlModeChannel0 = 'fast_attack';
-for ii = 1:20
-    y = rx();
-end
+load('PlutoRFLoopback.mat');
 y_re = real(y);
 y_im = imag(y);
-
-tx.release();
-rx.release();
 
 figure(1); 
 plot(0:numel(y)-1, real(y), 'r', 0:numel(y)-1, imag(y), 'b'); 
@@ -72,17 +46,23 @@ fprintf('SFDR (time) - %f\terror code - %d\n', sfdr_time, err_code.Value);
 fft_gen_time = fft_time_re.Value+1i*fft_time_im.Value;
 f = (-nfft/2:nfft/2-1)*fs/nfft;
 psd_y = circshift(20*log10(abs(fft_gen_time)), nfft/2);
-indx1 = find(min(abs(f - ToneFreq)) == abs(f - ToneFreq));
-indx2 = find(min(abs(f + ToneFreq)) == abs(f + ToneFreq));
+% indx1 = find(min(abs(f - ToneFreq)) == abs(f - ToneFreq));
+% indx2 = find(min(abs(f + ToneFreq)) == abs(f + ToneFreq));
 figure; 
 yh = plot(f*1e-6, psd_y);
-datatip(yh,'DataIndex', indx1);
-datatip(yh,'DataIndex', indx2);
+% datatip(yh,'DataIndex', indx1);
+% datatip(yh,'DataIndex', indx2);
 grid on;
 axis square;
 xlabel('freq (MHz)');
-ylabel('magnitude (dBFs)');
+ylabel('magnitude (dB)');
 xlim([-8 8]);
+axes('Position',[.25 .7 .2 .2])
+box on;
+plot(f*1e-6, psd_y, 'LineWidth', 1.1);
+grid on;
+xlim([1.95 2.05]);
+axis square;
 
 % fft can be calculated independently as well
 fft_re = libpointer('doublePtrPtr', zeros(nfft, 1));

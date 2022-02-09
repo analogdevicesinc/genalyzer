@@ -23,9 +23,7 @@ nav:
     - Usage Model: theory.md
     - Examples: examples.md
     - API Reference: cgenalyzer_8h.md
-    - Tutorials:
-      - Simulation: sim.md
-      - Hardware: hw.md
+    - Tutorials: sim.md
 
 
 
