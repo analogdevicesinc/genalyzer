@@ -4,8 +4,10 @@
 extern "C" {
 void add_band(fft_analysis_wrapper* cfftobj)
 {
-    an::fft_analysis2* fftobj;
-    fftobj = reinterpret_cast<an::fft_analysis2*>(cfftobj);
-    fftobj->add_band("a", an::FFTCompTag::Signal, "0.0", "fs", 0, 0);
+    /*
+    an::fourier_analysis* fftobj;
+    fftobj = reinterpret_cast<an::fourier_analysis*>(cfftobj);
+    fftobj->add_band("a", an::FACompTag::Signal, "0.0", "fs", 0, 0);
+    */
 }
 }

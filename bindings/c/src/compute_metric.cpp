@@ -4,8 +4,8 @@
 extern "C" {
 double gn_compute_metric(gn_config c, fft_analysis_wrapper* obj, const double* fft_data_re, const double* fft_data_im, const char* result_name)
 {
-    an::fft_analysis2* fftobj;
-    fftobj = reinterpret_cast<an::fft_analysis2*>(obj);
+    an::fourier_analysis* fftobj;
+    fftobj = reinterpret_cast<an::fourier_analysis*>(obj);
 
     size_t fft_size;
     if (c->wf_type == COMPLEX_EXP)

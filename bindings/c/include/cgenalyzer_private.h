@@ -32,8 +32,8 @@
 extern "C" {
 #endif
 
-using namespace analysis;
-namespace an = ::analysis;
+using namespace dcanalysis_impl;
+namespace an = ::dcanalysis_impl;
 
 struct gn_config_s {
     meas_domain md = TIME;
@@ -55,8 +55,8 @@ struct gn_config_s {
     an::real_t irnoise;
     an::real_t noise_pwr_db;
     an::CodeFormat cf;
-    an::WindowType win;
-    an::PmfType pmf_type;
+    an::Window win;
+    // an::PmfType pmf_type;
     double ramp_start, ramp_stop;
 
     // triplet to describe tones

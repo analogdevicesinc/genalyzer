@@ -3,7 +3,7 @@
 #define GENALYZER_ADVANCED_H
 #include "cgenalyzer.h"
 // #include <code_density.hpp>
-#include <fft_analysis2.hpp>
+#include <fourier_analysis.hpp>
 // #include <real_to_string.hpp>
 
 #ifdef __cplusplus
@@ -13,17 +13,17 @@ extern "C" {
   typedef struct fft_analysis_wrapper fft_analysis_wrapper;
 
   /**
-   * @brief Create wrapper to fft_analysis2 class constructor
+   * @brief Create wrapper to fourier_analysis class constructor
    */
   __api fft_analysis_wrapper *gn_create_fft_analysis_wrapper ();
 
   /**
-   * @brief Destroy wrapper to fft_analysis2 class constructor
+   * @brief Destroy wrapper to fourier_analysis class constructor
    * @param cfftobj Input wrapper to ftt_analysis2 class
    */
   __api void gn_destroy_fft_analysis_wrapper (fft_analysis_wrapper *cfftobj);
 
-  // wrappers to fft_analysis2 methods
+  // wrappers to fourier_analysis methods
   __api void add_band (fft_analysis_wrapper *cfftobj);
   __api void add_fixed_tone (fft_analysis_wrapper *cfftobj);
   __api void add_max_tone (fft_analysis_wrapper *cfftobj,

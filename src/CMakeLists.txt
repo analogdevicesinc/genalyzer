@@ -4,28 +4,22 @@ file(GLOB HEADER_LIST CONFIGURE_DEPENDS
 add_definitions(-DEXPORT_API)
 
 add_library(swx_analysis_genalyzer
-    abstract_object.cpp
-    array_math.cpp
+    array_ops.cpp
     code_density.cpp
-    dft.cpp
-    fft_analysis2.cpp
-    fft_component.cpp
+    enum_map.cpp
+    enum_maps.cpp
+    expression.cpp
     formatted_data.cpp
-    io_data.cpp
-    io_item.cpp
-    io_map.cpp
-    io_null.cpp
-    io_object.cpp
-    io_vector.cpp
-    math_expression.cpp
-    math_expression_tokens.cpp
+    fourier_analysis.cpp
+    fourier_analysis_comp_mask.cpp
+    fourier_transforms.cpp
+    fourier_utilities.cpp
+    json.cpp
+    manager.cpp
+    platform.cpp
     processes.cpp
-    real_to_string.cpp
-    sparse_array_mask.cpp
-    text_utils.cpp
-    var_item.cpp
-    var_map.cpp
-    var_vector.cpp
+    utils.cpp
+    version.cpp
     waveforms.cpp
     ${HEADER_LIST}
     )

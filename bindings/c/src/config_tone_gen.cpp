@@ -32,16 +32,16 @@ void gn_config_tone_gen(gn_config_tone* c, meas_domain m_domain, waveform_type w
     c_p->irnoise = -200.0;
     switch (window) {
         case BlackmanHarris:
-            c_p->win = an::WindowType::BlackmanHarris;
+            c_p->win = an::Window::BlackmanHarris;
             break;
         case Hann:
-            c_p->win = an::WindowType::Hann;
+            c_p->win = an::Window::Hann;
             break;
         case Rect:
-            c_p->win = an::WindowType::Rect;
+            c_p->win = an::Window::NoWindow;
             break;
         default:
-            c_p->win = an::WindowType::BlackmanHarris;
+            c_p->win = an::Window::BlackmanHarris;
     }
     c_p->cf = an::CodeFormat::TwosComplement;
 

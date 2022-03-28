@@ -1,299 +1,297 @@
-/*
-File        : $HeadURL: https://swdev.cld.analog.com/svn/projects/icdev/sandbox/users/pderouni/platform-upgrades/src/analysis/processes.cpp $
-Originator  : pderouni
-Revision    : $Revision: 12382 $
-Last Commit : $Date: 2020-04-06 11:21:16 -0400 (Mon, 06 Apr 2020) $
-Last Editor : $Author: pderouni $
-*/
-
 #include "processes.hpp"
-#include "checks.hpp"
+
 #include "constants.hpp"
-#include "dft.hpp"
+#include "utils.hpp"
+
 #include <algorithm>
+#include <cmath>
+#include <cstdint>
 #include <functional>
 #include <random>
+#include <vector>
 
-namespace analysis {
-
-template <typename T>
-void normalize(const T* in_data,
-    size_t in_size,
-    real_t* out_data,
-    size_t out_size,
-    int res,
-    CodeFormat format)
-{
-    check_array(in_data, in_size, "input array");
-    check_array(out_data, out_size, "output array");
-    assert_eq(in_size, "input array size", out_size, "output array size");
-    check_resolution<T>(res);
-    bool osb = CodeFormat::OffsetBinary == format;
-    const real_t norm_factor = 2.0 / (1 << res);
-    const real_t fmt_offset = osb ? -1.0 : 0.0;
-    for (size_t i = 0; i < in_size; ++i) {
-        out_data[i] = norm_factor * in_data[i] + fmt_offset;
-    }
-}
-
-void polyval(const real_t* in_data,
-    size_t in_size,
-    real_t* out_data,
-    size_t out_size,
-    std::vector<real_t> poco)
-{
-    check_array_pair(in_data, in_size, "input array",
-        out_data, out_size, "output array");
-    if (poco.empty()) {
-        return;
-    }
-    while (1 < poco.size() && 0.0 == poco.back()) {
-        poco.pop_back();
-    }
-    const real_t last_poco = poco.back();
-    poco.pop_back();
-    std::reverse(poco.begin(), poco.end());
-    for (size_t i = 0; i < in_size; ++i) {
-        real_t x = last_poco;
-        for (real_t c : poco) {
-            x = std::fma(x, in_data[i], c);
-        }
-        out_data[i] = x;
-    }
-}
-
-template <typename T>
-void quantize(const real_t* in_data,
-    size_t in_size,
-    T* out_data,
-    size_t out_size,
-    real_t fsr,
-    int res,
-    real_t noise,
-    CodeFormat format,
-    bool null_offset,
-    int m,
-    const std::vector<real_t>& offset,
-    const std::vector<real_t>& gerror)
-{
-    check_array(in_data, in_size, "input array");
-    check_array(out_data, out_size, "output array");
-    assert_eq(in_size, "input array size", out_size, "output array size");
-    check_fsr(fsr);
-    check_resolution<T>(res);
-    real_t lsb = fsr / (1 << res);
-    real_t min_code = -std::pow(2.0, res - 1);
-    real_t max_code = -1.0 - min_code;
-    noise = std::fmax(noise, -180.0);
-    real_t sd = (fsr / 2) * std::pow(10.0, noise / 20) / k_sqrt2;
-    std::random_device rdev;
-    std::mt19937 rgen(rdev());
-    std::normal_distribution<real_t> rdist{};
-    auto os_and_noise = std::bind(std::ref(rdist), rgen);
-    double (*func)(double);
-    if (null_offset) {
-        func = std::round;
-    } else {
-        func = std::floor;
-    }
-    if (m < 2) {
-        m = 1;
-    } else if (256 < m) {
-        throw base::exception("Number of interleaved channels exceeds "
-                              "limit: 256 < "
-            + std::to_string(m));
-    }
-    size_t nch = static_cast<size_t>(m);
-    std::vector<real_t> vos(offset);
-    std::vector<real_t> vge(gerror);
-    vos.resize(nch, 0.0);
-    vge.resize(nch, 0.0);
-    for (size_t ch = 0; ch < nch; ++ch) {
-        const real_t gn = vge[ch] + 1.0;
-        const real_t os = vos[ch];
-        rdist = std::normal_distribution<real_t>(os, sd);
-        for (size_t i = ch; i < out_size; i += nch) {
-            real_t c = std::fma(gn, in_data[i], os_and_noise()) / lsb;
-            c = std::fmax(min_code, std::fmin(func(c), max_code));
-            out_data[i] = static_cast<T>(c);
+namespace dcanalysis_impl {
+    
+    template<typename T>
+    void downsample(
+        const T* in_data,
+        size_t in_size,
+        T* out_data,
+        size_t out_size,
+        int ratio,
+        bool interleaved
+        )
+    {
+        check_array("", "input array", in_data, in_size);
+        check_array("", "output array", out_data, out_size);
+        size_t out_size_expected = downsample_size(in_size, ratio, interleaved);
+        assert_eq("", "output array size", out_size, "expected", out_size_expected);
+        size_t i = 0;
+        if (interleaved) {
+            // check for even in_size ??
+            const size_t jump = ratio * 2;
+            for (size_t j = 0; j < out_size; ++j) {
+                out_data[j] = in_data[i];
+                ++j;
+                out_data[j] = in_data[i + 1];
+                i += jump;
+            }
+        } else {
+            for (size_t j = 0; j < out_size; ++j) {
+                out_data[j] = in_data[i];
+                i += ratio;
+            }
         }
     }
-    if (CodeFormat::OffsetBinary == format) {
-        const int64_t os = static_cast<int64_t>(1) << (res - 1);
-        for (size_t i = 0; i < out_size; ++i) {
-            int64_t code = static_cast<int64_t>(out_data[i]) + os;
-            out_data[i] = static_cast<T>(code);
+
+    template void downsample(const real_t* , size_t, real_t* , size_t, int, bool);
+    template void downsample(const int16_t*, size_t, int16_t*, size_t, int, bool);
+    template void downsample(const int32_t*, size_t, int32_t*, size_t, int, bool);
+    template void downsample(const int64_t*, size_t, int64_t*, size_t, int, bool);
+    
+    size_t downsample_size(size_t in_size, int ratio, bool interleaved)
+    {
+        assert_gt0("", "downsample ratio", ratio);
+        size_t out_size = 0;
+        if (interleaved) {
+            if (is_odd(in_size)) {
+                throw runtime_error("size of interleaved array must be even");
+            }
+            in_size /= 2;
+            out_size = in_size / ratio;
+            if (0 < in_size % ratio) {
+                out_size += 1;
+            }
+            out_size *= 2;
+        } else {
+            out_size = in_size / ratio;
+            if (0 < in_size % ratio) {
+                out_size += 1;
+            }
+        }
+        return out_size;
+    }
+
+    void fshift(
+        const real_t* i_data,
+        size_t i_size,
+        const real_t* q_data,
+        size_t q_size,
+        real_t* out_data,
+        size_t out_size,
+        real_t fs,
+        real_t _fshift
+        )
+    {
+        assert_gt0("", "fs", fs);
+        _fshift -= std::floor(_fshift / fs) * fs; // [0, fs)
+        const real_t twopix = k_2pi * _fshift / fs;
+        if (0 == q_size) {
+            // Interleaved I/Q
+            check_array_pair("", "input array", i_data, i_size, "output array", out_data, out_size, true);
+            const size_t size = i_size / 2;
+            const cplx_t* pin = reinterpret_cast<const cplx_t*>(i_data);
+            cplx_t* pout = reinterpret_cast<cplx_t*>(out_data);
+            const cplx_t jtwopix = {0.0, twopix};
+            cplx_t jtwopix_n = 0.0;
+            for (size_t i = 0; i < size; ++i) {
+                pout[i] = pin[i] * std::exp(jtwopix_n);
+                jtwopix_n += jtwopix;
+            }
+        } else {
+            // Split I/Q
+            check_array_pair("", "I array", i_data, i_size, "Q array", q_data, q_size);
+            check_array("", "output array", out_data, out_size);
+            assert_eq("", "output array size", out_size, "expected", i_size * 2);
+            real_t twopix_n = 0.0;
+            for (size_t i = 0, j = 0; i < i_size; ++i, j += 2) {
+                real_t x = std::cos(twopix_n);
+                real_t y = std::sin(twopix_n);
+                out_data[j]   = i_data[i] * x - q_data[i] * y;
+                out_data[j+1] = i_data[i] * y + q_data[i] * x;
+                twopix_n += twopix;
+            }
         }
     }
-}
 
-void window(const real_t* in_data,
-    size_t in_size,
-    real_t* out_data,
-    size_t out_size,
-    WindowType window)
-{
-    check_array_pair(in_data, in_size, "input array",
-        out_data, out_size, "output array");
-    switch (window) {
-    case WindowType::BlackmanHarris: {
-        const real_t k = 1.9688861870585801;
-        const real_t k1 = 1.0 * k_2pi / in_size;
-        const real_t k2 = 2.0 * k_2pi / in_size;
-        const real_t k3 = 3.0 * k_2pi / in_size;
-        for (size_t i = 0; i < in_size; ++i) {
-            real_t x = k * (0.35875 - 0.48829 * std::cos(k1 * i) + 0.14128 * std::cos(k2 * i) - 0.01168 * std::cos(k3 * i));
-            out_data[i] = in_data[i] * x;
+    template<typename T>
+    void fshift(
+        const T* i_data,
+        size_t i_size,
+        const T* q_data,
+        size_t q_size,
+        T* out_data,
+        size_t out_size,
+        int n,
+        real_t fs,
+        real_t _fshift,
+        CodeFormat format
+        )
+    {
+        resolution_to_minmax<T>(n, format);
+        assert_gt0("", "fs", fs);
+        _fshift -= std::floor(_fshift / fs) * fs; // [0, fs)
+        const real_t twopix = k_2pi * _fshift / fs;
+        size_t in_stride = 0;
+        if (0 == q_size) {
+            // Interleaved I/Q
+            check_array("", "input array", i_data, i_size, true);
+            i_size /= 2;
+            q_size = i_size;
+            q_data = i_data + 1;
+            in_stride = 2;
+        } else {
+            // Split I/Q
+            check_array_pair("", "I array", i_data, i_size, "Q array", q_data, q_size);
+            in_stride = 1;
         }
-        break;
-    }
-    case WindowType::Hann: {
-        const real_t k = 1.6329922791756648;
-        const real_t k1 = k_2pi / in_size;
-        for (size_t i = 0; i < in_size; ++i) {
-            real_t x = k * (0.5 - 0.5 * std::cos(k1 * i));
-            out_data[i] = in_data[i] * x;
+        check_array("", "output array", out_data, out_size);
+        assert_eq("", "output array size", out_size, "expected", i_size + q_size);
+        real_t twopix_n = 0.0;
+        const real_t min_code = -std::pow(2.0, n - 1);
+        const real_t max_code = -1.0 - min_code;
+        const real_t os = (CodeFormat::OffsetBinary == format) ? -min_code : 0.0;
+        for (size_t i = 0, j = 0; j < out_size; i += in_stride, j += 2) {
+            real_t x = std::cos(twopix_n);
+            real_t y = std::sin(twopix_n);
+            real_t itmp1 = static_cast<real_t>(i_data[i]) - os;
+            real_t qtmp1 = static_cast<real_t>(q_data[i]) - os;
+            real_t itmp2 = std::clamp(std::round(itmp1 * x - qtmp1 * y), min_code, max_code);
+            real_t qtmp2 = std::clamp(std::round(itmp1 * y + qtmp1 * x), min_code, max_code);
+            out_data[j]   = static_cast<T>(itmp2 + os);
+            out_data[j+1] = static_cast<T>(qtmp2 + os);
+            twopix_n += twopix;
         }
-        break;
     }
-    case WindowType::Rect:
-        if (in_data != out_data) {
-            std::copy(in_data, in_data + in_size, out_data);
+    
+    template void fshift(const int16_t*, size_t, const int16_t*, size_t, int16_t*, size_t, int, real_t, real_t, CodeFormat);
+    template void fshift(const int32_t*, size_t, const int32_t*, size_t, int32_t*, size_t, int, real_t, real_t, CodeFormat);
+    template void fshift(const int64_t*, size_t, const int64_t*, size_t, int64_t*, size_t, int, real_t, real_t, CodeFormat);
+    
+    size_t fshift_size(size_t i_size, size_t q_size)
+    {
+        if (0 == q_size) {
+            // Input I contains Interleaved I/Q; Input Q is unused
+            if (is_odd(i_size)) {
+                throw runtime_error("size of interleaved array must be even");
+            }
+            return i_size;
+        } else {
+            // Split I/Q
+            assert_eq("", "I size", i_size, "Q size", q_size);
+            return i_size + q_size;
         }
-        break;
-    default:
-        throw base::exception("");
-        break;
     }
-}
-
-} // namespace analysis
-
-namespace analysis { // Allocating Functions
-
-real_vector downsample(const real_vector& data,
-    int m,
-    diff_t start,
-    size_t size)
-{
-    if (m < 1) {
-        throw base::exception("Factor must be a positive integer");
+    
+    template<typename T>
+    void normalize(
+        const T* in_data,
+        size_t in_size,
+        real_t* out_data,
+        size_t out_size,
+        int n,
+        CodeFormat format
+        )
+    {
+        check_array_pair("normalize : ", "input array", in_data, in_size, "output array", out_data, out_size);
+        check_code_width("normalize : ", n);
+        const real_t scalar = 2.0 / (1 << n);
+        if (CodeFormat::OffsetBinary == format) {
+            for (size_t i = 0; i < out_size; ++i) {
+                out_data[i] = std::fma(scalar, static_cast<real_t>(in_data[i]), -1.0);
+            }
+        } else {
+            for (size_t i = 0; i < out_size; ++i) {
+                out_data[i] = scalar * static_cast<real_t>(in_data[i]);
+            }
+        }
     }
-    auto data_size = static_cast<diff_t>(data.size());
-    if (start < 0) {
-        start += data_size;
+
+    template void normalize(const int16_t*, size_t, real_t*, size_t, int, CodeFormat);
+    template void normalize(const int32_t*, size_t, real_t*, size_t, int, CodeFormat);
+    template void normalize(const int64_t*, size_t, real_t*, size_t, int, CodeFormat);
+    
+    void polyval(
+        const real_t* in_data,
+        size_t in_size,
+        real_t* out_data,
+        size_t out_size,
+        const real_t* c_data,
+        size_t c_size
+        )
+    {
+        check_array_pair("polyval : ", "input array", in_data, in_size, "output array", out_data, out_size);
+        check_array("polyval : ", "coefficient array", c_data, c_size);
+        std::vector<real_t> c (c_data, c_data + c_size);
+        while (1 < c.size() && 0.0 == c.back()) {
+            c.pop_back();
+        }
+        const real_t last_c = c.back();
+        c.pop_back();
+        if (c.empty()) {
+            // y = c0
+            std::fill(out_data, out_data + out_size, last_c);
+        } else if (1 == c.size()) {
+            // y = c1 * x + c0
+            const real_t c0 = c[0];
+            for (size_t i = 0; i < out_size; ++i) {
+                out_data[i] = std::fma(last_c, in_data[i], c0);
+            }
+        } else {
+            std::reverse(c.begin(), c.end());
+            // Horner's method
+            // 3rd degree example:
+            // y = x * (x * (x * c3 + c2) + c1) + c0
+            for (size_t i = 0; i < out_size; ++i) {
+                real_t tmp = last_c;
+                for (real_t cn : c) {
+                    tmp = std::fma(in_data[i], tmp, cn);
+                }
+                out_data[i] = tmp;
+            }
+        }
     }
-    if (start < 0 || data_size <= start) {
-        throw base::exception("Start index out of range");
+
+    template<typename T>
+    void quantize(
+        const real_t* in_data,
+        size_t in_size,
+        T* out_data,
+        size_t out_size,
+        real_t fsr,
+        int n,
+        real_t noise,
+        CodeFormat format
+        )
+    {
+        const char* trace = "quantize : ";
+        check_array_pair(trace, "input array", in_data, in_size, "output array", out_data, out_size);
+        assert_gt0(trace, "fsr", fsr);
+        resolution_to_minmax<T>(n, format);
+        const real_t lsb = fsr / (1 << n);
+        const real_t min_code = -std::pow(2.0, n - 1);
+        const real_t max_code = -1.0 - min_code;
+        const real_t os = (CodeFormat::OffsetBinary == format) ? -min_code : 0.0;
+        if (0.0 == noise) {
+            for (size_t i = 0; i < out_size; ++i) {
+                real_t c = std::floor(in_data[i] / lsb);
+                c = std::clamp(c, min_code, max_code);
+                out_data[i] = static_cast<T>(c + os);
+            }
+        } else {
+            std::random_device rdev;
+            std::mt19937 rgen (rdev());
+            auto ngen = std::bind(std::normal_distribution<real_t>(0.0, std::fabs(noise)), rgen);
+            for (size_t i = 0; i < out_size; ++i) {
+                real_t c = std::floor((in_data[i] + ngen()) / lsb);
+                c = std::clamp(c, min_code, max_code);
+                out_data[i] = static_cast<T>(c + os);
+            }
+        }
     }
-    auto max_size = static_cast<size_t>(std::ceil(
-        static_cast<real_t>(data_size - start) / m));
-    size = (0 == size) ? max_size : std::min(size, max_size);
-    real_vector wvf(size);
-    for (size_t i = 0; i < size; ++i) {
-        wvf[i] = data[static_cast<size_t>(start) + i * m];
-    }
-    return wvf;
-}
 
-real_vector_pair downsample(const real_vector_pair& data,
-    int m,
-    diff_t start,
-    size_t size)
-{
-    const real_vector& idata = data.first;
-    const real_vector& qdata = data.second;
-    assert_eq(idata.size(), "in-phase array size",
-        qdata.size(), "quadrature array size");
-    if (m < 1) {
-        throw base::exception("Factor must be a positive integer");
-    }
-    auto data_size = static_cast<diff_t>(idata.size());
-    if (start < 0) {
-        start += data_size;
-    }
-    if (start < 0 || data_size <= start) {
-        throw base::exception("Start index out of range");
-    }
-    auto max_size = static_cast<size_t>(std::ceil(
-        static_cast<real_t>(data_size - start) / m));
-    size = (0 == size) ? max_size : std::min(size, max_size);
-    real_vector_pair wvf{ real_vector(size), real_vector(size) };
-    real_vector& iwvf = wvf.first;
-    real_vector& qwvf = wvf.second;
-    for (size_t i = 0; i < size; ++i) {
-        size_t j = static_cast<size_t>(start) + i * m;
-        iwvf[i] = idata[j];
-        qwvf[i] = qdata[j];
-    }
-    return wvf;
-}
+    template void quantize(const real_t*, size_t, int16_t*, size_t, real_t, int, real_t, CodeFormat);
+    template void quantize(const real_t*, size_t, int32_t*, size_t, real_t, int, real_t, CodeFormat);
+    template void quantize(const real_t*, size_t, int64_t*, size_t, real_t, int, real_t, CodeFormat);
 
-void ftrans(real_vector& data, real_t fs, real_t freq)
-{
-    check_fs(fs);
-    const real_t ft = freq / fs;
-    for (size_t i = 0; i < data.size(); ++i) {
-        data[i] *= std::cos(k_2pi * std::fmod(i * ft, 1.0));
-    }
-}
-
-void ftrans(real_vector_pair& data, real_t fs, real_t freq)
-{
-    check_fs(fs);
-    real_vector& idata = data.first;
-    real_vector& qdata = data.second;
-    assert_eq(idata.size(), "in-phase array size",
-        qdata.size(), "quadrature array size");
-    const real_t ft = freq / fs;
-    for (size_t i = 0; i < idata.size(); ++i) {
-        cplx_t x{ idata[i], qdata[i] };
-        x *= std::exp(cplx_t{ 0.0, k_2pi * std::fmod(i * ft, 1.0) });
-        idata[i] = x.real();
-        qdata[i] = x.imag();
-    }
-}
-
-real_vector pshift(const real_vector& data, real_t phase)
-{
-    cplx_vector _fft = rfft(data);
-    phase = std::fmod(phase, k_2pi);
-    for (auto& x : _fft) {
-        x *= std::exp(cplx_t{ 0.0, phase });
-    }
-    return irfft(_fft, data.size());
-}
-
-real_vector_pair pshift(const real_vector_pair& data, real_t phase)
-{
-    cplx_vector _fft = fft(data);
-    phase = std::fmod(phase, k_2pi);
-    for (auto& x : _fft) {
-        x *= std::exp(cplx_t{ 0.0, phase });
-    }
-    return ifft(_fft);
-}
-
-} // namespace analysis - Allocating Functions
-
-namespace analysis { // Template Instantiations
-
-template ICD_ANALYSIS_DECL void normalize(const int16_t*, size_t, real_t*, size_t, int, CodeFormat);
-
-template ICD_ANALYSIS_DECL void normalize(const int32_t*, size_t, real_t*, size_t, int, CodeFormat);
-
-template ICD_ANALYSIS_DECL void normalize(const int64_t*, size_t, real_t*, size_t, int, CodeFormat);
-
-template ICD_ANALYSIS_DECL void quantize(const real_t*, size_t, int16_t*, size_t,
-    real_t, int, real_t, CodeFormat, bool,
-    int, const std::vector<real_t>&, const std::vector<real_t>&);
-
-template ICD_ANALYSIS_DECL void quantize(const real_t*, size_t, int32_t*, size_t,
-    real_t, int, real_t, CodeFormat, bool,
-    int, const std::vector<real_t>&, const std::vector<real_t>&);
-
-template ICD_ANALYSIS_DECL void quantize(const real_t*, size_t, int64_t*, size_t,
-    real_t, int, real_t, CodeFormat, bool,
-    int, const std::vector<real_t>&, const std::vector<real_t>&);
-
-} // namespace analyais
+} // namespace dcanalysis_impl

@@ -28,7 +28,7 @@ jobs:
   MasterDocDeploy:
     runs-on: ubuntu-latest
     needs: [DocBuild]
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v2

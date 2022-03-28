@@ -4,8 +4,8 @@
 extern "C" {
 void gn_destroy_fft_analysis_wrapper(fft_analysis_wrapper* cfftobj)
 {
-    an::fft_analysis2* fftobj;
-    fftobj = reinterpret_cast<an::fft_analysis2*>(cfftobj);
+    an::fourier_analysis* fftobj;
+    fftobj = reinterpret_cast<an::fourier_analysis*>(cfftobj);
     delete (fftobj);
 }
 }

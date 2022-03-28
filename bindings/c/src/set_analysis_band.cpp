@@ -4,8 +4,8 @@
 extern "C" {
 void set_analysis_band(fft_analysis_wrapper* cfftobj)
 {
-    an::fft_analysis2* fftobj;
-    fftobj = reinterpret_cast<an::fft_analysis2*>(cfftobj);
+    an::fourier_analysis* fftobj;
+    fftobj = reinterpret_cast<an::fourier_analysis*>(cfftobj);
     fftobj->set_analysis_band("0.0", "fs");
 }
 }

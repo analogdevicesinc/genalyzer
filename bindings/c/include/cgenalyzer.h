@@ -273,7 +273,7 @@ extern "C"
    * @param dnl_data Output DNL computed
    */
   __api void gn_compute_dnl (gn_config c, int *qwf, int32_t **bins,
-                             int64_t **hits, double **dnl_data);
+                             uint64_t **hits, double **dnl_data);
   /**
    * @brief Compute INL of the data-converter
    * @param c Configuration structure of test
@@ -284,7 +284,7 @@ extern "C"
    * @param inl_data Output INL computed
    */
   __api void gn_compute_inl (gn_config c, int *qwf, int32_t **bins,
-                             int64_t **hits, double **dnl_data,
+                             uint64_t **hits, double **dnl_data,
                              double **inl_data);
 
 #ifdef __cplusplus

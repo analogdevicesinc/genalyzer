@@ -31,6 +31,7 @@ jobs:
           cd build/bindings/python
           python -m build
       - uses: pypa/gh-action-pypi-publish@release/v1
+        if: github.ref == 'refs/heads/main'
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_TOKEN }}
