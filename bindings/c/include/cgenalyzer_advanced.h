@@ -24,7 +24,6 @@ extern "C" {
   __api void gn_destroy_fft_analysis_wrapper (fft_analysis_wrapper *cfftobj);
 
   // wrappers to fourier_analysis methods
-  __api void add_band (fft_analysis_wrapper *cfftobj);
   __api void add_fixed_tone (fft_analysis_wrapper *cfftobj);
   __api void add_max_tone (fft_analysis_wrapper *cfftobj,
                                       const char *tone_label);
@@ -39,14 +38,11 @@ extern "C" {
    * @brief Compute desired data-converter performance metric
    * @param c Configuration structure of test
    * @param obj Input wrapper to ftt_analysis2 class
-   * @param fft_data_re Input In-phase array of FFT of quantized real waveform
-   * @param fft_data_im Input Quadrature-phase array of FFT of quantized real
-   * waveform
+   * @param fft_data Input array of FFT of quantized real waveform
    * @param result_name Input name of the performance metric
    */
   __api double gn_compute_metric (gn_config c, fft_analysis_wrapper *obj,
-                                  const double *fft_data_re,
-                                  const double *fft_data_im,
+                                  const double *fft_data,
                                   const char *result_name);
 
 #ifdef __cplusplus

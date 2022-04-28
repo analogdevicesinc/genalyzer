@@ -20,7 +20,7 @@ void gn_config_tone_nl_meas(gn_config* c, waveform_type wf_type, size_t npts, do
     c_private->scale = tone_ampl;
     c_private->phase = tone_phase;
     c_private->n_tones = num_tones;
-    c_private->pmf_type = an::PmfType::Tone;
+    c_private->dnl_type = an::DnlSignal::Tone;
 
     *c = c_private;
 }

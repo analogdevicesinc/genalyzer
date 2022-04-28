@@ -12,8 +12,8 @@ void fft_norm(gn_config c, size_t* fft_size, double* fft_cplx_re, double* fft_cp
     for (size_t i = 0; i < *awf_i_size; i++)
         in[i] = std::complex<real_t>(awf_i[i], awf_q[i]);
 
-    an::cplx_vector fft_cplx(c->nfft / 2 + 1);
-    an::fft_norm(in, *awf_i_size, fft_cplx.data(), fft_cplx.size(), c->navg, static_cast<an::diff_t>(c->nfft), c->win);
+    std::vector<an::cplx_t> fft_cplx(c->nfft / 2 + 1);
+    // an::fft_norm(in, *awf_i_size, fft_cplx.data(), fft_cplx.size(), c->navg, static_cast<an::diff_t>(c->nfft), c->win);
 
     for (size_t i = 0; i < fft_cplx.size(); i++) {
         fft_cplx_re[i] = fft_cplx[i].real();

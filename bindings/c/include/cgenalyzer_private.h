@@ -56,7 +56,7 @@ struct gn_config_s {
     an::real_t noise_pwr_db;
     an::CodeFormat cf;
     an::Window win;
-    // an::PmfType pmf_type;
+    an::DnlSignal dnl_type;
     double ramp_start, ramp_stop;
 
     // triplet to describe tones

@@ -48,20 +48,20 @@ double gn_metric(gn_config c, const void* input, const char* m_name, double** ff
             free(qwf_q);
         }
     } else if (c->md == FREQ) {
-        double* temp_fft_data = (double*)input;
+        double* fft_data = (double*)input;
         if (c->wf_type == COMPLEX_EXP) {
             fft_re_tmp = (double*)calloc(c->nfft, sizeof(double));
             fft_im_tmp = (double*)calloc(c->nfft, sizeof(double));
             for (size_t n = 0; n < 2 * c->nfft; n += 2) {
-                fft_re_tmp[n / 2] = temp_fft_data[n];
-                fft_im_tmp[n / 2] = temp_fft_data[n + 1];
+                fft_re_tmp[n / 2] = fft_data[n];
+                fft_im_tmp[n / 2] = fft_data[n + 1];
             }
         } else {
             fft_re_tmp = (double*)calloc(c->nfft / 2, sizeof(double));
             fft_im_tmp = (double*)calloc(c->nfft / 2, sizeof(double));
             for (size_t n = 0; n < c->nfft; n += 2) {
-                fft_re_tmp[n / 2] = temp_fft_data[n];
-                fft_im_tmp[n / 2] = temp_fft_data[n + 1];
+                fft_re_tmp[n / 2] = fft_data[n];
+                fft_im_tmp[n / 2] = fft_data[n + 1];
             }
         }
     }
@@ -82,7 +82,7 @@ double gn_metric(gn_config c, const void* input, const char* m_name, double** ff
 
     for (int i = 0; i < 16; i++) {
         if (strcmp(m_name, m_names[i]) == 0) {
-            r = gn_compute_metric(c, cfftobj, fft_re_tmp, fft_im_tmp, m_name);
+            r = gn_compute_metric(c, cfftobj, fft_data, m_name);
             found_metric = true;
             break;
         }

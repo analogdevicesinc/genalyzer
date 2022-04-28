@@ -7,7 +7,7 @@
 extern "C" {
 void gn_gen_ramp(gn_config c, double** result, size_t* len)
 {
-    an::real_vector awvf(c->npts);
+    std::vector<an::real_t> awvf(c->npts);
     an::ramp(awvf.data(), awvf.size(), c->ramp_start, c->ramp_stop, 0.0);
 
     *result = new double[awvf.size()];
