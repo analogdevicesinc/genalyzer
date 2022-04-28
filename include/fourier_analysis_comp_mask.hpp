@@ -105,8 +105,10 @@ namespace dcanalysis_impl {
             return (this->m_usize  == that.m_usize) && (this->m_data == that.m_data);
         }
 
-        // Returns the index of the max element
-        diff_t find_max_index(const real_t* data, size_t size) const;
+        // <0> = index of max element (-1 if not found)
+        // <1> = last contiguous free index to the left
+        // <2> = last contiguous free index to the right
+        std::tuple<diff_t, diff_t, diff_t> find_max_index(const real_t* data, size_t size) const;
 
         // Returns Index1, Index2, Number of Bins
         std::tuple<size_t, size_t, size_t> get_indexes() const;
