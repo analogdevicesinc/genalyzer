@@ -170,7 +170,9 @@ namespace dcanalysis_impl {
 
         str_t spec_impl() const override
         {
-            return "C= " + center + " , W= " + width + " , SSB= " + std::to_string(ssb);
+            // May implement search band in the future.
+            // return "C= " + center + " , W= " + width + " , SSB= " + std::to_string(ssb);
+            return "SSB= " + std::to_string(ssb);
         }
 
     }; // class fa_max_tone

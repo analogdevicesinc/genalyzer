@@ -66,24 +66,33 @@ namespace dcanalysis_impl {
         return count;
     }
 
-    diff_t fourier_analysis_comp_mask::find_max_index(const real_t* data, size_t size) const
+    std::tuple<diff_t, diff_t, diff_t>
+    fourier_analysis_comp_mask::find_max_index(const real_t* data, size_t size) const
     {
         if (m_usize != size) {
             throw runtime_error("fourier_analysis_comp_mask::find_max_index : size error");
         }
-        real_t max = 0.0;
+        real_t max_value = 0.0;
         diff_t max_index = -1;
+        size_t max_range = 0;
         for (size_t range = 0; range < num_ranges(); ++range) {
             const size_t i1 = m_data[range * 2];
             const size_t i2 = m_data[range * 2 + 1];
             for (size_t i = i1; i < i2; ++i) {
-                if (max < data[i]) {
-                    max = data[i];
+                if (max_value < data[i]) {
+                    max_value = data[i];
                     max_index = i;
+                    max_range = range;
                 }
             }
         }
-        return max_index;
+        if (max_index < 0) {
+            return std::make_tuple(-1, -1, -1);
+        } else {
+            diff_t lower = static_cast<diff_t>(m_data[max_range * 2]);
+            diff_t upper = static_cast<diff_t>(m_data[max_range * 2 + 1]) - 1;
+            return std::make_tuple(max_index, lower, upper);
+        }
     }
 
     std::tuple<size_t, size_t, size_t> fourier_analysis_comp_mask::get_indexes() const

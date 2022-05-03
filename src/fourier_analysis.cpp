@@ -1089,8 +1089,7 @@ namespace dcanalysis_impl { // Analysis and related subroutines
             return results;
         }
 
-        // FIXME: this is essentially works the same as meas_wo_tone; need to implement the
-        //        search band.  Do not confuse search band with analysis band.
+        // May implement search band in future.  Note: search band != analysis band.
         fa_tone_results meas_max_tone(
             const str_t& key,
             const fa_max_tone& comp,
@@ -1102,8 +1101,10 @@ namespace dcanalysis_impl { // Analysis and related subroutines
             )
         {
             fourier_analysis_comp_mask search_mask = masks.at(to_int(FAMask::AB));
-            search_mask.unset_ranges(masks.at(to_int(FAMask::Comp)));
-            diff_t max_index = search_mask.find_max_index(msq_data, msq_size);
+            fourier_analysis_comp_mask& comp_mask = masks.at(to_int(FAMask::Comp));
+            search_mask.unset_ranges(comp_mask);
+            diff_t max_index, lower, upper;
+            std::tie(max_index, lower, upper) = search_mask.find_max_index(msq_data, msq_size);
             if (max_index < 0) {
                 return null_tone_results(comp.tag);
             }
@@ -1112,19 +1113,21 @@ namespace dcanalysis_impl { // Analysis and related subroutines
             const real_t fshift = vars.at("fshift");
             const real_t ffinal = max_index * fbin;
             const real_t freq = ffinal - fshift; // this is a best guess
-            const diff_p lrbins = get_lrbins(nfft, cplx, (ffinal / fbin), comp.ssb);
-            vars[key] = freq; // should probably use fwavg
+            diff_p lrbins = get_lrbins(nfft, cplx, static_cast<real_t>(max_index), comp.ssb);
+            // Unlike FixedTone, MaxTone stops when it runs into another tone.  Since DC is always
+            // found and is always at bin 0, we never have to worry about MaxTone wrapping.
+            lrbins.first = std::max<diff_t>(lower, lrbins.first);
+            lrbins.second = std::min<diff_t>(lrbins.second, upper);
             fourier_analysis_comp_mask m (cplx, msq_size);
             m.set_range(lrbins.first, lrbins.second);
-            fourier_analysis_comp_mask& comp_mask = masks.at(to_int(FAMask::Comp));
-            m.unset_ranges(comp_mask);      // disallow overlap with existing components
-            comp_mask |= m;                 // add this range to component mask
-            masks.at(to_int(comp.tag)) |= m;
+            comp_mask |= m;                     // add this range to component mask
+            masks.at(to_int(comp.tag)) |= m;    // add this range to tag mask
             size_t i1, i2, nbins;
             std::tie(i1, i2, nbins) = m.get_indexes();
             real_t fwavg = 0.0; // FIXME
             bool inband = masks.at(to_int(FAMask::AB)).overlaps(i1, i2);
             real_t mag2 = m.sum(msq_data, msq_size);
+            vars[key] = freq; // should probably use fwavg (once implemented)
             fa_tone_results results;
             results.set(FAToneResult::Tag    , static_cast<real_t>(comp.tag));
             results.set(FAToneResult::Freq   , freq);
@@ -1149,18 +1152,22 @@ namespace dcanalysis_impl { // Analysis and related subroutines
             )
         {
             fourier_analysis_comp_mask& wo_mask = masks.at(to_int(FAMask::WO));
-            const diff_t max_index = wo_mask.find_max_index(msq_data, msq_size);
+            fourier_analysis_comp_mask& comp_mask = masks.at(to_int(FAMask::Comp));
+            diff_t max_index, lower, upper;
+            std::tie(max_index, lower, upper) = wo_mask.find_max_index(msq_data, msq_size);
             if (max_index < 0) {
                 return null_tone_results(comp.tag);
             }
             const bool cplx = msq_size == nfft;
             const real_t ffinal = max_index * fbin;
             const real_t freq = ffinal - fshift; // best guess
-            const diff_p lrbins = get_lrbins(nfft, cplx, (ffinal / fbin), comp.ssb);
+            diff_p lrbins = get_lrbins(nfft, cplx, static_cast<real_t>(max_index), comp.ssb);
+            // Unlike FixedTone, MaxTone stops when it runs into another tone.  Since DC is always
+            // found and is always at bin 0, we never have to worry about MaxTone wrapping.
+            lrbins.first = std::max<diff_t>(lower, lrbins.first);
+            lrbins.second = std::min<diff_t>(lrbins.second, upper);
             fourier_analysis_comp_mask m (cplx, msq_size);
             m.set_range(lrbins.first, lrbins.second);
-            fourier_analysis_comp_mask& comp_mask = masks.at(to_int(FAMask::Comp));
-            m.unset_ranges(comp_mask);      // disallow overlap with existing components
             comp_mask |= m;                 // add this range to component mask
             wo_mask.unset_ranges(m);        // remove this range from WO search mask
             size_t i1, i2, nbins;
@@ -1331,7 +1338,7 @@ namespace dcanalysis_impl { // Analysis and related subroutines
         // Worst Others
         //      WOs are handled separately in order to guarantee max to min order
         //
-        std::map<real_t, str_t> wo_mag_map;             // maps WO magnitude to WO key
+        std::multimap<real_t, str_t> wo_mag_map;        // maps WO magnitude to WO key
         std::map<str_t, fa_tone_results> wo_res_map;    // maps WO key to WO results
         fourier_analysis_comp_mask& wo_mask = masks.at(to_int(FAMask::WO));
         wo_mask = masks.at(to_int(FAMask::AB));                   // Initialize WO mask with AB mask
@@ -1341,7 +1348,7 @@ namespace dcanalysis_impl { // Analysis and related subroutines
             const str_t& key = keys[key_index];
             auto& c = static_cast<const fa_wo_tone&>(*comps.at(key));
             fa_tone_results r = meas_wo_tone(c, msq_data, msq_size, nfft, fbin, fshift, masks);
-            wo_mag_map[r.get(FAToneResult::Mag)] = key;
+            wo_mag_map.insert({r.get(FAToneResult::Mag), key});
             wo_res_map[key] = std::move(r);
         }
         // WOs are found.  Now add to results in order from max to min.  Update MaxSpur.
@@ -1526,8 +1533,8 @@ namespace dcanalysis_impl { // Analysis and related subroutines
         center = alias(center, fdata, !cplx);
         center = std::round(2.0 * center / fbin) / 2.0; // nearest half cycle
         center = alias(center, fdata, !cplx);
-        diff_t lbin = static_cast<diff_t>(center - width / 2);
-        diff_t rbin = static_cast<diff_t>(center + width / 2);
+        diff_t lbin = static_cast<diff_t>(std::ceil( center - width / 2));
+        diff_t rbin = static_cast<diff_t>(std::floor(center + width / 2));
         mask.set_range(lbin, rbin);
     }
 
