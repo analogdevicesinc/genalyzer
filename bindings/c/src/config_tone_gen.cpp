@@ -2,25 +2,25 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-void gn_config_tone_gen(gn_config_tone* c, meas_domain m_domain, waveform_type wf_type, size_t fft_order, int num_avgs, double sample_rate, double full_scale_range, int resolution, double* tone_freq, double* tone_ampl, double* tone_phase, size_t num_tones, win_func window, bool fsample_update, bool fdata_update, bool fshift_update)
+void gn_config_tone_gen(gn_config_tone* c, meas_domain m_domain, waveform_type wf_type, size_t fft_order, int num_avgs, double sample_rate, double full_scale_range, int resolution, double tone_freq, double tone_ampl, double tone_phase, size_t num_tones, win_func window, bool fsample_update, bool fdata_update, bool fshift_update)
 {
     gn_config c_p;
     c_p = (gn_config)calloc(1, sizeof(*c_p));
-
+/*
     c_p->md = m_domain;
     c_p->wf_type = wf_type;
     c_p->i_repr = I32;
     c_p->nfft = fft_order;
-    c_p->navg = num_avgs;
-    c_p->npts = num_avgs * fft_order;
+    c_p->navg = num_avgs;*/
+    c_p->npts = num_avgs * fft_order;/*
     if (c_p->wf_type == COMPLEX_EXP)
-        c_p->npts <<= 1;
-    c_p->fs = sample_rate;
+        c_p->npts <<= 1;*/
+    c_p->fs = sample_rate;/*
     c_p->fsr = full_scale_range;
-    c_p->res = resolution;
+    c_p->res = resolution;*/
     c_p->freq = tone_freq;
     c_p->scale = tone_ampl;
-    c_p->phase = tone_phase;
+    c_p->phase = tone_phase;/*
     c_p->n_tones = num_tones;
     c_p->update_fsample = fsample_update;
     c_p->update_fdata = fdata_update;
@@ -29,21 +29,21 @@ void gn_config_tone_gen(gn_config_tone* c, meas_domain m_domain, waveform_type w
     c_p->fshift = c_p->fs;
 
     // defaults
-    c_p->irnoise = -200.0;
+    c_p->irnoise = -200.0;*/
     switch (window) {
         case BlackmanHarris:
-            c_p->win = an::Window::BlackmanHarris;
+            c_p->win = gn::Window::BlackmanHarris;
             break;
         case Hann:
-            c_p->win = an::Window::Hann;
+            c_p->win = gn::Window::Hann;
             break;
         case Rect:
-            c_p->win = an::Window::NoWindow;
+            c_p->win = gn::Window::NoWindow;
             break;
         default:
-            c_p->win = an::Window::BlackmanHarris;
+            c_p->win = gn::Window::BlackmanHarris;
     }
-    c_p->cf = an::CodeFormat::TwosComplement;
+    c_p->cf = gn::CodeFormat::TwosComplement;
 
     *c = c_p;
 }
