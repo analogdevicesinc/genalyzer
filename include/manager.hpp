@@ -1,5 +1,5 @@
-#ifndef DCANALYSIS_IMPL_MANAGER_HPP
-#define DCANALYSIS_IMPL_MANAGER_HPP
+#ifndef GENALYZER_IMPL_MANAGER_HPP
+#define GENALYZER_IMPL_MANAGER_HPP
 
 #include "enums.hpp"
 #include "object.hpp"
@@ -8,7 +8,7 @@
 /*
  * Part of the API
  */
-namespace dcanalysis_impl::manager {
+namespace genalyzer_impl::manager {
 
     void clear();
 
@@ -26,12 +26,12 @@ namespace dcanalysis_impl::manager {
 
     str_t type_str(const str_t& key);
 
-} // namespace dcanalysis_impl::manager
+} // namespace genalyzer_impl::manager
 
 /*
  * Internal use only
  */
-namespace dcanalysis_impl::manager {
+namespace genalyzer_impl::manager {
 
     static const str_t key_pattern = "[[:alpha:]][[:alnum:]-._]*";
 
@@ -43,6 +43,6 @@ namespace dcanalysis_impl::manager {
 
     ObjectType type(const str_t& key);
 
-} // namespace dcanalysis_impl::manager
+} // namespace genalyzer_impl::manager
 
-#endif // DCANALYSIS_IMPL_MANAGER_HPP
+#endif // GENALYZER_IMPL_MANAGER_HPP

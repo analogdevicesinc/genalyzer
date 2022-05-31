@@ -8,7 +8,7 @@
 #include <functional>
 #include <random>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     namespace {
 
@@ -160,4 +160,4 @@ namespace dcanalysis_impl {
         return keys;
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

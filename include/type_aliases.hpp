@@ -1,5 +1,5 @@
-#ifndef DCANALYSIS_IMPL_TYPE_ALIASES_HPP
-#define DCANALYSIS_IMPL_TYPE_ALIASES_HPP
+#ifndef GENALYZER_IMPL_TYPE_ALIASES_HPP
+#define GENALYZER_IMPL_TYPE_ALIASES_HPP
 
 #include <complex>
 #include <cstddef>
@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     using diff_t        = std::ptrdiff_t;
     using size_t        = std::size_t;
@@ -30,6 +30,6 @@ namespace dcanalysis_impl {
     // vectors
     using str_vector    = std::vector<str_t>;
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_TYPE_ALIASES_HPP
+#endif // GENALYZER_IMPL_TYPE_ALIASES_HPP

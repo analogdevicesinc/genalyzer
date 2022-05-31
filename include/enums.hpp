@@ -1,10 +1,10 @@
-#ifndef DCANALYSIS_IMPL_ENUMS_HPP
-#define DCANALYSIS_IMPL_ENUMS_HPP
+#ifndef GENALYZER_IMPL_ENUMS_HPP
+#define GENALYZER_IMPL_ENUMS_HPP
 
 /*
  * Enumerations that are part of the API (exposed as type int)
  */
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     enum class AnalysisType : int {
         DNL,
@@ -74,12 +74,12 @@ namespace dcanalysis_impl {
         NoWindow
     };
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
 /*
  * Enumerations only used internally
  */
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     enum class FACompType : int {       // Fourier Analysis Component Type
         DC,                             // DC component (always Bin 0)
@@ -174,6 +174,6 @@ namespace dcanalysis_impl {
         FourierAnalysis
     };
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_ENUMS_HPP
+#endif // GENALYZER_IMPL_ENUMS_HPP

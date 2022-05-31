@@ -1,11 +1,11 @@
-#ifndef DCANALYSIS_IMPL_CONSTANTS_HPP
-#define DCANALYSIS_IMPL_CONSTANTS_HPP
+#ifndef GENALYZER_IMPL_CONSTANTS_HPP
+#define GENALYZER_IMPL_CONSTANTS_HPP
 
 #include "type_aliases.hpp"
 
 #include <cmath>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     const real_t k_half         = 0.5;
     const real_t k_one          = 1.0;
@@ -29,6 +29,6 @@ namespace dcanalysis_impl {
     const real_t k_abs_max_msq = k_abs_max_rms * k_abs_max_rms;
     const real_t k_abs_min_msq = k_abs_min_rms * k_abs_min_rms;
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_CONSTANTS_HPP
+#endif // GENALYZER_IMPL_CONSTANTS_HPP

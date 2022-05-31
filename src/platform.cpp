@@ -1,6 +1,6 @@
 #include "type_aliases.hpp"
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     static_assert(sizeof(int16_t)  ==  2, "sizeof(int16_t) != 2");
     static_assert(sizeof(int32_t)  ==  4, "sizeof(int32_t) != 4");
@@ -13,4 +13,4 @@ namespace dcanalysis_impl {
 
     static_assert(sizeof(int)      >=  4, "sizeof(int) < 4");
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

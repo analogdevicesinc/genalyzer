@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     fourier_analysis_comp_mask::fourier_analysis_comp_mask(
         bool cplx, size_t array_size, const std::vector<size_t>& init)
@@ -251,4 +251,4 @@ namespace dcanalysis_impl {
         m_data.insert(m_data.begin() + left_index, {left, right});
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

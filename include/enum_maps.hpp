@@ -1,11 +1,11 @@
-#ifndef DCANALYSIS_IMPL_ENUM_MAPS_HPP
-#define DCANALYSIS_IMPL_ENUM_MAPS_HPP
+#ifndef GENALYZER_IMPL_ENUM_MAPS_HPP
+#define GENALYZER_IMPL_ENUM_MAPS_HPP
 
 #include "enum_map.hpp"
 #include "enums.hpp"
 #include "utils.hpp"
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     int enum_value(const str_t& enumeration, const str_t& enumerator);
 
@@ -79,9 +79,9 @@ namespace dcanalysis_impl {
         { to_int(Window::Hann)           , "Hann"           }}
     );
     
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     const enum_map fa_comp_type_map ("FACompType", {
         { to_int(FACompType::DC)        , "DC"        },
@@ -159,6 +159,6 @@ namespace dcanalysis_impl {
         { to_int(ObjectType::FourierAnalysis) , "FourierAnalysis" }}
     );
     
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_ENUM_MAPS_HPP
+#endif // GENALYZER_IMPL_ENUM_MAPS_HPP

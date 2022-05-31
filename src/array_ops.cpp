@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     namespace {
 
@@ -68,4 +68,4 @@ namespace dcanalysis_impl {
         c2r(in_data, in_size, out_data, out_size, std::norm<real_t>);
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

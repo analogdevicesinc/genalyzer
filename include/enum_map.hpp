@@ -1,5 +1,5 @@
-#ifndef DCANALYSIS_IMPL_ENUM_MAP_HPP
-#define DCANALYSIS_IMPL_ENUM_MAP_HPP
+#ifndef GENALYZER_IMPL_ENUM_MAP_HPP
+#define GENALYZER_IMPL_ENUM_MAP_HPP
 
 #include "exceptions.hpp"
 #include "type_aliases.hpp"
@@ -7,7 +7,7 @@
 #include <initializer_list>
 #include <map>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     class enum_map
     {
@@ -77,6 +77,6 @@ namespace dcanalysis_impl {
 
     }; // class enum_map
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_ENUM_MAP_HPP
+#endif // GENALYZER_IMPL_ENUM_MAP_HPP

@@ -1,11 +1,11 @@
-#ifndef DCANALYSIS_IMPL_WAVEFORMS_HPP
-#define DCANALYSIS_IMPL_WAVEFORMS_HPP
+#ifndef GENALYZER_IMPL_WAVEFORMS_HPP
+#define GENALYZER_IMPL_WAVEFORMS_HPP
 
 #include "type_aliases.hpp"
 
 #include <map>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
     
     void cos(
         real_t* data,
@@ -38,6 +38,6 @@ namespace dcanalysis_impl {
 
     const std::vector<str_t>& wf_analysis_ordered_keys();
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_WAVEFORMS_HPP
+#endif // GENALYZER_IMPL_WAVEFORMS_HPP

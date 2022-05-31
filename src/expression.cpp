@@ -9,7 +9,7 @@
 #include <stack>
 #include <tuple>
 
-namespace dcanalysis_impl { // expression tokens
+namespace genalyzer_impl { // expression tokens
 
     enum class TokenType {
         Number, Operator, Parenthesis, Variable
@@ -159,9 +159,9 @@ namespace dcanalysis_impl { // expression tokens
         str_t var;
     };
 
-} // dcanalysis_impl
+} // genalyzer_impl
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     bool is_binary_operator(char c)
     {
@@ -334,7 +334,7 @@ namespace dcanalysis_impl {
             {
                 case TokenType::Number : {
                     auto& t = static_cast<const num_token&>(*token);
-                    ss << dcanalysis_impl::to_string(t.num, fmt, prec);
+                    ss << genalyzer_impl::to_string(t.num, fmt, prec);
                     break;
                 }
                 case TokenType::Operator : {
@@ -523,9 +523,9 @@ namespace dcanalysis_impl {
         return tokens;
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-namespace dcanalysis_impl { // expression class
+namespace genalyzer_impl { // expression class
 
     expression::expression(const str_t& infix_string)
         : m_infix_tokens (tokenize_infix(infix_string))
@@ -637,12 +637,12 @@ namespace dcanalysis_impl { // expression class
     str_t expression::to_postfix_string(FPFormat fmt, int prec) const
     {
         token_vector postfix_tokens = infix_to_postfix(m_infix_tokens);
-        return dcanalysis_impl::to_string(postfix_tokens, fmt, prec);
+        return genalyzer_impl::to_string(postfix_tokens, fmt, prec);
     }
     
     str_t expression::to_string(FPFormat fmt, int prec) const
     {
-        return dcanalysis_impl::to_string(m_infix_tokens, fmt, prec);
+        return genalyzer_impl::to_string(m_infix_tokens, fmt, prec);
     }
 
     expression::var_set expression::vars() const
@@ -661,4 +661,4 @@ namespace dcanalysis_impl { // expression class
         return "";
     }
     
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

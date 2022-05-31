@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <sstream>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     str_t table(
         const std::vector<str_vector>& header_rows,
@@ -68,4 +68,4 @@ namespace dcanalysis_impl {
         return ss.str();
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

@@ -1,9 +1,9 @@
-#ifndef DCANALYSIS_IMPL_ARRAY_OPS_HPP
-#define DCANALYSIS_IMPL_ARRAY_OPS_HPP
+#ifndef GENALYZER_IMPL_ARRAY_OPS_HPP
+#define GENALYZER_IMPL_ARRAY_OPS_HPP
 
 #include "type_aliases.hpp"
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     void abs(const real_t* in_data, size_t in_size, real_t* out_data, size_t out_size);
 
@@ -17,6 +17,6 @@ namespace dcanalysis_impl {
 
     void norm(const real_t* in_data, size_t in_size, real_t* out_data, size_t out_size);
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_ARRAY_OPS_HPP
+#endif // GENALYZER_IMPL_ARRAY_OPS_HPP

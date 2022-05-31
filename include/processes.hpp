@@ -1,10 +1,10 @@
-#ifndef DCANALYSIS_IMPL_PROCESSES_HPP
-#define DCANALYSIS_IMPL_PROCESSES_HPP
+#ifndef GENALYZER_IMPL_PROCESSES_HPP
+#define GENALYZER_IMPL_PROCESSES_HPP
 
 #include "enums.hpp"
 #include "type_aliases.hpp"
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
     
     template<typename T>
     void downsample(
@@ -76,6 +76,6 @@ namespace dcanalysis_impl {
         CodeFormat format
         );
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_PROCESSES_HPP
+#endif // GENALYZER_IMPL_PROCESSES_HPP

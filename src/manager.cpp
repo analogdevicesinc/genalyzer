@@ -8,7 +8,7 @@
 #include <map>
 #include <regex>
 
-namespace dcanalysis_impl::manager {
+namespace genalyzer_impl::manager {
 
     static std::map<str_t, object::pointer> object_map;
 
@@ -74,9 +74,9 @@ namespace dcanalysis_impl::manager {
         return object_type_map.at(to_int(type(key)));
     }
 
-} // namespace dcanalysis::manager
+} // namespace genalyzer::manager
 
-namespace dcanalysis_impl::manager {
+namespace genalyzer_impl::manager {
 
     void add_object(const str_t& key, object::pointer obj, bool replace)
     {
@@ -121,4 +121,4 @@ namespace dcanalysis_impl::manager {
         return object_map.at(key)->object_type();
     }
 
-} // namespace dcanalysis::manager
+} // namespace genalyzer::manager

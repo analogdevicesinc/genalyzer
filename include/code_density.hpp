@@ -1,12 +1,12 @@
-#ifndef DCANALYSIS_IMPL_CODE_DENSITY_HPP
-#define DCANALYSIS_IMPL_CODE_DENSITY_HPP
+#ifndef GENALYZER_IMPL_CODE_DENSITY_HPP
+#define GENALYZER_IMPL_CODE_DENSITY_HPP
 
 #include "enums.hpp"
 #include "type_aliases.hpp"
 
 #include <map>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     size_t code_density_size(int n, CodeFormat format);
 
@@ -66,6 +66,6 @@ namespace dcanalysis_impl {
 
     const std::vector<str_t>& inl_analysis_ordered_keys();
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_CODE_DENSITY_HPP
+#endif // GENALYZER_IMPL_CODE_DENSITY_HPP

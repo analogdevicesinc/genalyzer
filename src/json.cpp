@@ -11,7 +11,7 @@
 
 using json = nlohmann::json;
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     std::shared_ptr<fourier_analysis> fourier_analysis::load(const str_t& filename)
     {
@@ -139,4 +139,4 @@ namespace dcanalysis_impl {
         ofs << std::setw(4) << j << std::endl;
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

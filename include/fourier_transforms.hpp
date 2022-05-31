@@ -1,10 +1,10 @@
-#ifndef DCANALYSIS_IMPL_FOURIER_TRANSFORMS_HPP
-#define DCANALYSIS_IMPL_FOURIER_TRANSFORMS_HPP
+#ifndef GENALYZER_IMPL_FOURIER_TRANSFORMS_HPP
+#define GENALYZER_IMPL_FOURIER_TRANSFORMS_HPP
 
 #include "enums.hpp"
 #include "type_aliases.hpp"
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     void fft(
         const real_t* i_data,
@@ -62,6 +62,6 @@ namespace dcanalysis_impl {
 
     size_t rfft_size(size_t in_size, size_t& navg, size_t& nfft);
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_FOURIER_TRANSFORMS_HPP
+#endif // GENALYZER_IMPL_FOURIER_TRANSFORMS_HPP

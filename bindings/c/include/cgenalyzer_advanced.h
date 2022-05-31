@@ -2,9 +2,7 @@
 #ifndef GENALYZER_ADVANCED_H
 #define GENALYZER_ADVANCED_H
 #include "cgenalyzer.h"
-// #include <code_density.hpp>
 #include <fourier_analysis.hpp>
-// #include <real_to_string.hpp>
 
 #ifdef __cplusplus
 extern "C" {

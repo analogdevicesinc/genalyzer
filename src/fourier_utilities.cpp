@@ -9,7 +9,7 @@
 #include <numeric>
 #include <vector>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     real_t alias(real_t fs, real_t freq, FreqAxisType axis_type)
     {
@@ -107,4 +107,4 @@ namespace dcanalysis_impl {
         return size;
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

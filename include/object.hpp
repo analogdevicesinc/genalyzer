@@ -1,12 +1,12 @@
-#ifndef DCANALYSIS_IMPL_OBJECT_HPP
-#define DCANALYSIS_IMPL_OBJECT_HPP
+#ifndef GENALYZER_IMPL_OBJECT_HPP
+#define GENALYZER_IMPL_OBJECT_HPP
 
 #include "enums.hpp"
 #include "type_aliases.hpp"
 
 #include <memory>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     class object
     {
@@ -52,6 +52,6 @@ namespace dcanalysis_impl {
 
     }; // class object
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_OBJECT_HPP
+#endif // GENALYZER_IMPL_OBJECT_HPP

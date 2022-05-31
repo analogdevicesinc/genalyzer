@@ -12,7 +12,7 @@
 #include <regex>
 #include <sstream>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     namespace {
 
@@ -65,9 +65,9 @@ namespace dcanalysis_impl {
     const fourier_analysis::min_max_def_t fourier_analysis::mmd_wo  = { 1,  9, 1 };
     const fourier_analysis::min_max_def_t fourier_analysis::mmd_ssb = { 0,  1 << 29, 0 };
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-namespace dcanalysis_impl { // Constructors, Destructor, and Assignment
+namespace genalyzer_impl { // Constructors, Destructor, and Assignment
 
     fourier_analysis::fourier_analysis()
         : object {},
@@ -203,9 +203,9 @@ namespace dcanalysis_impl { // Constructors, Destructor, and Assignment
         return *this;
     }
 
-} // namespace dcanalysis_impl - Constructors, Destructor, and Assignment
+} // namespace genalyzer_impl - Constructors, Destructor, and Assignment
 
-namespace dcanalysis_impl { // Analysis
+namespace genalyzer_impl { // Analysis
 
     fourier_analysis_results fourier_analysis::analyze(
         const real_t* in_data,
@@ -241,9 +241,9 @@ namespace dcanalysis_impl { // Analysis
         return results;
     }
 
-} // namespace dcanalysis_impl - Analysis
+} // namespace genalyzer_impl - Analysis
 
-namespace dcanalysis_impl { // Component Definition
+namespace genalyzer_impl { // Component Definition
 
     void fourier_analysis::add_fixed_tone(
         const str_t& key, FACompTag tag, const str_t& freq, int ssb)
@@ -283,9 +283,9 @@ namespace dcanalysis_impl { // Component Definition
         }
     }
 
-} // namespace dcanalysis_impl - Component Definition
+} // namespace genalyzer_impl - Component Definition
 
-namespace dcanalysis_impl { // Configuration
+namespace genalyzer_impl { // Configuration
 
     namespace {
 
@@ -411,9 +411,9 @@ namespace dcanalysis_impl { // Configuration
         m_wo = std::clamp(n, std::get<0>(mmd_wo), std::get<1>(mmd_wo));
     }
 
-} // namespace dcanalysis_impl - Configuration
+} // namespace genalyzer_impl - Configuration
 
-namespace dcanalysis_impl { // Key Queries
+namespace genalyzer_impl { // Key Queries
 
     bool fourier_analysis::is_reserved(const str_t& key)
     {
@@ -435,9 +435,9 @@ namespace dcanalysis_impl { // Key Queries
         return std::regex_match(key, re);
     }
 
-} // namespace dcanalysis_impl - Key Queries
+} // namespace genalyzer_impl - Key Queries
 
-namespace dcanalysis_impl { // Other Member Functions
+namespace genalyzer_impl { // Other Member Functions
         
     str_t fourier_analysis::flat_tone_key(const str_t& key, int result_index)
     {
@@ -538,9 +538,9 @@ namespace dcanalysis_impl { // Other Member Functions
         return size;
     }
 
-} // namespace dcanalysis_impl - Other Member Functions
+} // namespace genalyzer_impl - Other Member Functions
 
-namespace dcanalysis_impl { // Virtual Function Overrides
+namespace genalyzer_impl { // Virtual Function Overrides
 
     bool fourier_analysis::equals_impl(const object& that_obj) const
     {
@@ -593,9 +593,9 @@ namespace dcanalysis_impl { // Virtual Function Overrides
         return "=====\nFIXME\n=====\n";
     }
     
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-namespace dcanalysis_impl { // Non-Public
+namespace genalyzer_impl { // Non-Public
 
     const str_t fourier_analysis::key_pattern = "[[:alpha:]][[:alnum:]_]*";
 
@@ -878,9 +878,9 @@ namespace dcanalysis_impl { // Non-Public
         }
     }
 
-} // namespace dcanalysis_impl - Non-Public
+} // namespace genalyzer_impl - Non-Public
 
-namespace dcanalysis_impl { // Analysis and related subroutines
+namespace genalyzer_impl { // Analysis and related subroutines
 
     namespace {
 
@@ -1538,4 +1538,4 @@ namespace dcanalysis_impl { // Analysis and related subroutines
         mask.set_range(lbin, rbin);
     }
 
-} // namespace dcanalysis_impl - Non-Public
+} // namespace genalyzer_impl - Non-Public

@@ -1,5 +1,5 @@
-#ifndef DCANALYSIS_IMPL_FOURIER_ANALYSIS_RESULTS_HPP
-#define DCANALYSIS_IMPL_FOURIER_ANALYSIS_RESULTS_HPP
+#ifndef GENALYZER_IMPL_FOURIER_ANALYSIS_RESULTS_HPP
+#define GENALYZER_IMPL_FOURIER_ANALYSIS_RESULTS_HPP
 
 #include "enums.hpp"
 #include "exceptions.hpp"
@@ -7,7 +7,7 @@
 
 #include <map>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     struct fa_tone_results
     {
@@ -88,6 +88,6 @@ namespace dcanalysis_impl {
         std::map<str_t, fa_tone_results> tone_results;
     };
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_FOURIER_ANALYSIS_RESULTS_HPP
+#endif // GENALYZER_IMPL_FOURIER_ANALYSIS_RESULTS_HPP

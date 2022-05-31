@@ -1,9 +1,9 @@
-#ifndef DCANALYSIS_IMPL_FORMATTED_DATA_HPP
-#define DCANALYSIS_IMPL_FORMATTED_DATA_HPP
+#ifndef GENALYZER_IMPL_FORMATTED_DATA_HPP
+#define GENALYZER_IMPL_FORMATTED_DATA_HPP
 
 #include "type_aliases.hpp"
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     str_t table(
         const std::vector<str_vector>& header_rows,
@@ -13,6 +13,6 @@ namespace dcanalysis_impl {
         bool show_col_sep
     );
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_FORMATTED_DATA_HPP
+#endif // GENALYZER_IMPL_FORMATTED_DATA_HPP

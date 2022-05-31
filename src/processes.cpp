@@ -10,7 +10,7 @@
 #include <random>
 #include <vector>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
     
     template<typename T>
     void downsample(
@@ -294,4 +294,4 @@ namespace dcanalysis_impl {
     template void quantize(const real_t*, size_t, int32_t*, size_t, real_t, int, real_t, CodeFormat);
     template void quantize(const real_t*, size_t, int64_t*, size_t, real_t, int, real_t, CodeFormat);
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

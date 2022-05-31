@@ -1,9 +1,9 @@
-#ifndef DCANALYSIS_IMPL_FOURIER_ANALYSIS_COMP_MASK_HPP
-#define DCANALYSIS_IMPL_FOURIER_ANALYSIS_COMP_MASK_HPP
+#ifndef GENALYZER_IMPL_FOURIER_ANALYSIS_COMP_MASK_HPP
+#define GENALYZER_IMPL_FOURIER_ANALYSIS_COMP_MASK_HPP
 
 #include "type_aliases.hpp"
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     // Ranges are set as [first, last], i.e., inclusive-inclusive,
     // but are stored [first, last+1) like STL, i.e., inclusive-exclusive
@@ -189,6 +189,6 @@ namespace dcanalysis_impl {
         return !a.equals(b);
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_FOURIER_ANALYSIS_COMP_MASK_HPP
+#endif // GENALYZER_IMPL_FOURIER_ANALYSIS_COMP_MASK_HPP

@@ -1,5 +1,5 @@
-#ifndef DCANALYSIS_IMPL_FOURIER_ANALYSIS_HPP
-#define DCANALYSIS_IMPL_FOURIER_ANALYSIS_HPP
+#ifndef GENALYZER_IMPL_FOURIER_ANALYSIS_HPP
+#define GENALYZER_IMPL_FOURIER_ANALYSIS_HPP
 
 #include "enums.hpp"
 #include "expression.hpp"
@@ -14,7 +14,7 @@
 #include <set>
 #include <tuple>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     class fourier_analysis final : public object
     {
@@ -226,6 +226,6 @@ namespace dcanalysis_impl {
 
     }; // class fourier_analysis
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_FOURIER_ANALYSIS_HPP
+#endif // GENALYZER_IMPL_FOURIER_ANALYSIS_HPP

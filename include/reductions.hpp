@@ -1,11 +1,11 @@
-#ifndef DCANALYSIS_IMPL_REDUCTIONS_HPP
-#define DCANALYSIS_IMPL_REDUCTIONS_HPP
+#ifndef GENALYZER_IMPL_REDUCTIONS_HPP
+#define GENALYZER_IMPL_REDUCTIONS_HPP
 
 #include "type_aliases.hpp"
 
 #include <map>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     struct std_reduce_t
     {
@@ -56,6 +56,6 @@ namespace dcanalysis_impl {
         return r;
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_REDUCTIONS_HPP
+#endif // GENALYZER_IMPL_REDUCTIONS_HPP

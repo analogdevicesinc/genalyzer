@@ -1,12 +1,12 @@
-#ifndef DCANALYSIS_IMPL_FOURIER_ANALYSIS_COMPONENT_HPP
-#define DCANALYSIS_IMPL_FOURIER_ANALYSIS_COMPONENT_HPP
+#ifndef GENALYZER_IMPL_FOURIER_ANALYSIS_COMPONENT_HPP
+#define GENALYZER_IMPL_FOURIER_ANALYSIS_COMPONENT_HPP
 
 #include "enums.hpp"
 #include "type_aliases.hpp"
 
 #include <memory>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     struct fourier_analysis_component
     {
@@ -217,6 +217,6 @@ namespace dcanalysis_impl {
 
     }; // class fa_wo_tone
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_FOURIER_ANALYSIS_COMPONENT_HPP
+#endif // GENALYZER_IMPL_FOURIER_ANALYSIS_COMPONENT_HPP

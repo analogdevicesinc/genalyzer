@@ -1,5 +1,5 @@
-#ifndef DCANALYSIS_IMPL_UTILS_HPP
-#define DCANALYSIS_IMPL_UTILS_HPP
+#ifndef GENALYZER_IMPL_UTILS_HPP
+#define GENALYZER_IMPL_UTILS_HPP
 
 #include "constants.hpp"
 #include "enums.hpp"
@@ -11,7 +11,7 @@
 #include <limits>
 #include <type_traits>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     inline real_t bounded_db10(real_t msq_value)
     {
@@ -151,6 +151,6 @@ namespace dcanalysis_impl {
 
     str_t to_string(real_t n, FPFormat fmt = FPFormat::Auto, int max_prec = -1);
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_UTILS_HPP
+#endif // GENALYZER_IMPL_UTILS_HPP

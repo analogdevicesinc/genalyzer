@@ -1,6 +1,6 @@
 #include "enum_map.hpp"
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     enum_map::enum_map(const char* name, std::initializer_list<std::pair<int, str_t>> list)
         : m_name (name),
@@ -46,4 +46,4 @@ namespace dcanalysis_impl {
         return !not_found;
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

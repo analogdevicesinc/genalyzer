@@ -1,10 +1,10 @@
-#ifndef DCANALYSIS_IMPL_FOURIER_UTILITIES_HPP
-#define DCANALYSIS_IMPL_FOURIER_UTILITIES_HPP
+#ifndef GENALYZER_IMPL_FOURIER_UTILITIES_HPP
+#define GENALYZER_IMPL_FOURIER_UTILITIES_HPP
 
 #include "enums.hpp"
 #include "type_aliases.hpp"
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     real_t alias(real_t fs, real_t freq, FreqAxisType axis_type);
 
@@ -25,6 +25,6 @@ namespace dcanalysis_impl {
 
     size_t freq_axis_size(size_t nfft, FreqAxisType axis_type);
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_FOURIER_UTILITIES_HPP
+#endif // GENALYZER_IMPL_FOURIER_UTILITIES_HPP

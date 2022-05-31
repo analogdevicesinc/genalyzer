@@ -11,7 +11,7 @@
 #include <numeric>
 #include <vector>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     namespace { // Window Function Constants
 
@@ -946,9 +946,9 @@ namespace dcanalysis_impl {
     template void rfft(const int32_t*, size_t, real_t*, size_t, int, size_t, size_t, Window, CodeFormat, RfftScale);
     template void rfft(const int64_t*, size_t, real_t*, size_t, int, size_t, size_t, Window, CodeFormat, RfftScale);
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     namespace {
 
@@ -1011,4 +1011,4 @@ namespace dcanalysis_impl {
         return size;
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

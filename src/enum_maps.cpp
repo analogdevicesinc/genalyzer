@@ -2,7 +2,7 @@
 
 #include <functional>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     const std::map<str_t, std::reference_wrapper<const enum_map>> enumeration_map = {
         { analysis_type_map.name()    , std::cref(analysis_type_map)    },
@@ -97,4 +97,4 @@ namespace dcanalysis_impl {
         return static_cast<Window>(i);
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

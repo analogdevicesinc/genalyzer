@@ -5,7 +5,7 @@
 #include <limits>
 #include <sstream>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     str_t to_string(real_t n, FPFormat fmt, int max_prec)
     {
@@ -54,4 +54,4 @@ namespace dcanalysis_impl {
         return ss.str();
     }
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl

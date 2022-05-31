@@ -1,5 +1,5 @@
-#ifndef DCANALYSIS_IMPL_EXPRESSION_HPP
-#define DCANALYSIS_IMPL_EXPRESSION_HPP
+#ifndef GENALYZER_IMPL_EXPRESSION_HPP
+#define GENALYZER_IMPL_EXPRESSION_HPP
 
 #include "enums.hpp"
 #include "type_aliases.hpp"
@@ -8,7 +8,7 @@
 #include <memory>
 #include <set>
 
-namespace dcanalysis_impl {
+namespace genalyzer_impl {
 
     struct expression_token;
 
@@ -50,6 +50,6 @@ namespace dcanalysis_impl {
 
     }; // class expression
 
-} // namespace dcanalysis_impl
+} // namespace genalyzer_impl
 
-#endif // DCANALYSIS_IMPL_EXPRESSION_HPP
+#endif // GENALYZER_IMPL_EXPRESSION_HPP
