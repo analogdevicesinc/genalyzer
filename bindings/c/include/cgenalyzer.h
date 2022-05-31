@@ -252,9 +252,10 @@ extern "C"
  * @param nfft: [in] FFT size
  * @param window: [in] Window
  */
+/*
   __api int gn_fftq(double* out, size_t out_size, const int16_t* i,
                  size_t i_size, const int16_t* q, size_t q_size, int n, 
-                 size_t navg, size_t nfft, GnWindow window);
+                 size_t navg, size_t nfft, GnWindow window);*/
   /**
    * @brief Compute desired data-converter performance metric
    * @param c Configuration structure of test

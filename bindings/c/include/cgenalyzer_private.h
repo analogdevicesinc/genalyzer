@@ -153,9 +153,8 @@ extern "C" {
 using namespace genalyzer_impl;
 
 struct gn_config_private {
-    /*
-    meas_domain md = TIME;
-    waveform_type wf_type;
+    //meas_domain md = TIME;
+    waveform_type wf_type;/*
     int_repr i_repr;
     gn::size_t nfft;
     gn::size_t in_stride = 1;
@@ -173,9 +172,9 @@ struct gn_config_private {
     int res;
     int64_t min_code, max_code;
     gn::real_t irnoise;
-    gn::real_t noise_pwr_db;
+    gn::real_t noise_pwr_db;*/
     gn::CodeFormat cf;
-    gn::Window win;
+    gn::Window win;/*
     gn::DnlSignal dnl_type;
     double ramp_start, ramp_stop;*/
 
