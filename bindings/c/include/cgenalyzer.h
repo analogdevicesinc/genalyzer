@@ -26,6 +26,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -73,41 +74,24 @@ extern "C"
 
   // opaque pointer
   typedef struct gn_config_private *gn_config;
-  typedef gn_config gn_config_tone;
+  typedef gn_config gn_tone_config;
 
   /**
    * @brief Configure test based on real sinusoidal or complex exponential
    * tones
+   * @return 0 on success, non-zero otherwise
    * @param c Configuration structure of test and waveform to generate
-   * @param m_domain Input ENUM value to indicate time/frequency domain of
-   * input waveform
-   * @param wf_type Input ENUM value to indicate input waveform type as real or
-   * complex
-   * @param fft_order Input FFT order desired for the waveform generated or
-   * contained in the provided FFT data
-   * @param num_avgs Input number of FFT averages desired for the waveform
-   * generated or contained in the provided FFT data
+   * @param wf_type ENUM value to indicate input waveform type.
+   * Options: REAL_COSINE, REAL_SINE, COMPLEX_EXP    
+   * @param npts Number of sample points in the generated waveform
    * @param sample_rate Input Sample rate of the data converter
-   * @param full_scale_range Input full-scale-range of the data converter
-   * @param resolution Input resolution of the data converter
    * @param tone_freq Input array of tone frequencies to generate
    * @param tone_ampl Input array of tone scales to generate
-   * @param tone_phase Input array of tone phases to generate
-   * @param num_tones Input number of tones to generate
-   * @param window Window function to apply for computing FFT
-   * @param fsample_update Input Boolean value to update fsample
-   * @param fdata_update Input Boolean value to update fdata
-   * @param fshift_update Input Boolean value to update fshift
+   * @param tone_phase Input array of tone phases to generate   
    */
-  __api void gn_config_tone_gen (gn_config_tone *c, meas_domain m_domain,
-                                 waveform_type wf_type, size_t fft_order,
-                                 int num_avgs, double sample_rate,
-                                 double full_scale_range, int resolution,
-                                 double tone_freq, double tone_ampl,
-                                 double tone_phase, size_t num_tones,
-                                 win_func window, 
-                                 bool fsample_update, bool fdata_update,
-                                 bool fshift_update);
+  __api int gn_config_tone (gn_tone_config *c, waveform_type wf_type, size_t npts,
+                              double sample_rate, double tone_freq, double tone_ampl,
+                              double tone_phase);
   /**
    * @brief Configure test based on real sinusoidal or complex exponential
    * tones
@@ -128,6 +112,7 @@ extern "C"
    * @param fdata_update Input Boolean value to update fdata
    * @param fshift_update Input Boolean value to update fshift
    */
+  /*
   __api void gn_config_tone_meas (gn_config_tone *c, meas_domain m_domain,
                                   waveform_type wf_type, size_t fft_order,
                                   int num_avgs, double sample_rate,
@@ -135,6 +120,7 @@ extern "C"
                                   win_func window, 
                                   bool fsample_update, bool fdata_update,
                                   bool fshift_update);
+                                  */
   /**
    * @brief Configure test based on noise waveform
    * @param c Configuration structure of test and waveform to generate

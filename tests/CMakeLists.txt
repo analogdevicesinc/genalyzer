@@ -19,6 +19,7 @@ foreach(test_file ${TEST_FILES_LIST})
   math(EXPR n "${n} + 1")
 endforeach()
 
+if(FALSE)
 ################################################################################
 file(GLOB TEST_FILES_LIST "test_vectors/test_gen_ramp_[^and_quantize_]*.txt")
 set(n 0)
@@ -117,7 +118,6 @@ foreach(test_file ${TEST_FILES_LIST})
   math(EXPR n "${n} + 1")
 endforeach()
 
-if(FALSE)
 file(GLOB TEST_FILES_LIST "test_vectors/test_quantize64_*.txt")
 set(n 0)
 SET_SOURCE_FILES_PROPERTIES(test_quantize64.c PROPERTIES LANGUAGE C)

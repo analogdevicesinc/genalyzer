@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "cJSON.h"
 
 typedef enum datatype { INT32,
     INT64,
@@ -75,54 +76,47 @@ bool int_arrays_almost_equal(void* a, void* b, size_t arr_size, size_t tol, data
         return (false);
 }
 
-char* extract_token(const char* file_name, const char* token, unsigned int* err_val)
+int extract_token(void *val, const char* file_name, const char* token_name)
 {
-    *err_val = 0;
+    const cJSON *token = NULL;
+    int status = 0;
+    FILE *fp;
+    long lSize;
+    char *buffer;
 
-    FILE* fp = fopen(file_name, "r");
-    if (fp == NULL) {
-        fprintf(stderr, "%s: %s\n", file_name, strerror(errno));
-        *err_val = errno;
+    fp = fopen ( file_name , "rb" );
+    if( !fp ) perror(file_name),exit(1);
+
+    fseek( fp , 0L , SEEK_END);
+    lSize = ftell( fp );
+    rewind( fp );
+
+    /* allocate memory for entire content */
+    buffer = calloc( 1, lSize+1 );
+    if( !buffer ) fclose(fp),fputs("memory alloc fails",stderr),exit(1);
+
+    /* copy the file into the buffer */
+    if( 1!=fread( buffer , lSize, 1 , fp) )
+        fclose(fp),free(buffer),fputs("entire read fails",stderr),exit(1);
+
+    cJSON *file_name_json = cJSON_Parse(buffer);
+    if (file_name_json == NULL)
+    {
+        const char *error_ptr = cJSON_GetErrorPtr();
+        if (error_ptr != NULL)
+        {
+            fprintf(stderr, "Error before: %s\n", error_ptr);
+        }
+        status = 0;
+        goto end;
     }
 
-    char c;
-    char *line = (char*)malloc(256);
-    int i = 0;
-    char *outstr = (char*)calloc(1, sizeof(char));
-    char *line_split;
+    token = cJSON_GetObjectItemCaseSensitive(file_name_json, token_name);
+    *(int*)val = token->valueint;
 
-    do {
-        c = (char)fgetc(fp);
-        line[i] = c;
-
-        if (c=='\n') {
-            // Process line
-            line[i] = '\0';
-            line_split = strtok(line, "=");
-            if (line_split == NULL) {
-                *err_val = EINVAL;
-                break;
-            }
-            if (strcmp(line_split, token) == 0) {
-                line_split = strtok(NULL, "=");
-                if (line_split != NULL) {
-                    free(outstr);
-                    outstr = strdup(line_split);                    
-                }
-                else
-                    *err_val = EINVAL;
-                break;
-            }
-            i = 0;
-        }
-        else {
-            i++;
-        }
-    } while(c != EOF);
-
-    fclose(fp);
-    free(line);
-    return outstr;
+end:
+    cJSON_Delete(file_name_json);
+    return status;
 }
 
 int read_file_to_array(const char* file_name, void* result, datatype result_type)
@@ -205,25 +199,31 @@ void deinterleave(void* input, size_t in_size, void* result_re, void* result_im,
 int read_param(const char* file_name, const char* param_name, void* result, datatype result_type)
 {
     unsigned int err_code;
-    char *tmp_token = extract_token(file_name, param_name, &err_code);
+    int I32_tmp_token;
+    long int I64_tmp_token;
+    unsigned long UI32_tmp_token;
+    unsigned long long UI64_tmp_token;
+    double D_tmp_token;
         
     if (result_type == INT32) {
-        int i32_result = atoi(tmp_token);
+        int i32_result;
+        err_code = extract_token((void*)(&i32_result), file_name, param_name);
         *(int*)result = i32_result;
     } else if (result_type == INT64) {
-        long int i64_result = atol(tmp_token);
-        *(long int*)result = i64_result;
+        //long int i64_result = atol(tmp_token);
+        //*(long int*)result = i64_result;
     } else if (result_type == UINT32) {
-        unsigned long ui32_result = atoll(tmp_token);
-        *(unsigned long*)result = ui32_result;
+        //unsigned long ui32_result = atoll(tmp_token);
+        //*(unsigned long*)result = ui32_result;
     } else if (result_type == UINT64) {
-        unsigned long long ui64_result = atoll(tmp_token);
-        *(unsigned long long*)result = ui64_result;
+        unsigned long long ui64_result;
+        err_code = extract_token((void*)(&ui64_result), file_name, param_name);
+        *(unsigned long long*)result = ui64_result;printf("%llu\n",ui64_result);
     } else if (result_type == DOUBLE) {
-        double d_result = atof(tmp_token);
-        *(double*)result = d_result;
+        //double d_result = atof(tmp_token);
+        //*(double*)result = d_result;
     }
 
-    free(tmp_token);
+    //free(tmp_token);
     return err_code;
 }
