@@ -74,7 +74,7 @@ extern "C"
 
   // opaque pointer
   typedef struct gn_config_private *gn_config;
-  typedef gn_config gn_tone_config;
+  typedef gn_config gn_config_tone_struct;
 
   /**
    * @brief Configure test based on real sinusoidal or complex exponential
@@ -85,13 +85,14 @@ extern "C"
    * Options: REAL_COSINE, REAL_SINE, COMPLEX_EXP    
    * @param npts Number of sample points in the generated waveform
    * @param sample_rate Input Sample rate of the data converter
+   * @param num_tones Number of tones to generate
    * @param tone_freq Input array of tone frequencies to generate
    * @param tone_ampl Input array of tone scales to generate
    * @param tone_phase Input array of tone phases to generate   
    */
-  __api int gn_config_tone (gn_tone_config *c, waveform_type wf_type, size_t npts,
-                              double sample_rate, double tone_freq, double tone_ampl,
-                              double tone_phase);
+  __api int gn_config_tone (gn_config_tone_struct *c, waveform_type wf_type, size_t npts,
+                              double sample_rate, size_t num_tones, double *tone_freq, double *tone_ampl,
+                              double *tone_phase);
   /**
    * @brief Configure test based on real sinusoidal or complex exponential
    * tones
@@ -186,9 +187,8 @@ extern "C"
    * @brief Generate sinusoidal tone based on supplied configuration.
    * @param c Configuration structure of test and waveform to generate
    * @param result Output array of tone generated
-   * @param len Output length of the generated tone in samples
    */
-  __api int gn_gen_tone (gn_config c, double **result, size_t *len);
+  __api int gn_gen_tone (gn_config c, double **result);
   /**
    * @brief Generate noise based on supplied configuration.
    * @param c Configuration structure of test and waveform to generate

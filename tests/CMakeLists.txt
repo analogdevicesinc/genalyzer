@@ -7,7 +7,7 @@ else()
 endif()
 
 ################################################################################
-file(GLOB TEST_FILES_LIST "test_vectors/test_gen_tone_*.txt")
+file(GLOB TEST_FILES_LIST "test_vectors/test_gen_tone_*.json")
 set(n 0)
 SET_SOURCE_FILES_PROPERTIES(test_gen_tone.c PROPERTIES LANGUAGE C)
 add_executable(test_gen_tone test_gen_tone.c test_genalyzer.h)

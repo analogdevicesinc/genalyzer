@@ -154,15 +154,19 @@ using namespace genalyzer_impl;
 
 struct gn_config_private {
     //meas_domain md = TIME;
-    waveform_type wf_type;/*
+    waveform_type wf_type;
+    bool wf_type_set;
+    /*
     int_repr i_repr;
     gn::size_t nfft;
     gn::size_t in_stride = 1;
     int navg;
     */
     gn::size_t npts;
+    bool npts_set;
 
-    gn::real_t fs;
+    gn::real_t sample_rate;
+    bool sample_rate_set;
     /*
     gn::real_t fdata;
     gn::real_t fshift;
@@ -173,17 +177,25 @@ struct gn_config_private {
     int64_t min_code, max_code;
     gn::real_t irnoise;
     gn::real_t noise_pwr_db;*/
-    gn::CodeFormat cf;
-    gn::Window win;/*
+    gn::CodeFormat code_format;
+    bool code_format_set;
+    gn::Window win;
+    bool win_set;
+    /*
     gn::DnlSignal dnl_type;
     double ramp_start, ramp_stop;*/
 
     // triplet to describe tones
-    double freq;
-    double scale;
-    double phase;/*
-    gn::size_t n_tones = 0;
-
+    double *freq;
+    bool freq_set;
+    double *scale;
+    bool scale_set;
+    double *phase;
+    bool phase_set;
+    
+    gn::size_t num_tones = 0;
+    bool num_tones_set;
+    /*
     gn::size_t num_bins;
     gn::size_t num_hits;*/
 };
