@@ -7,14 +7,53 @@ else()
 endif()
 
 ################################################################################
-file(GLOB TEST_FILES_LIST "test_vectors/test_gen_tone_*.json")
+file(GLOB TEST_FILES_LIST "test_vectors/test_gen_real_tone_*.json")
 set(n 0)
-SET_SOURCE_FILES_PROPERTIES(test_gen_tone.c PROPERTIES LANGUAGE C)
-add_executable(test_gen_tone test_gen_tone.c test_genalyzer.h)
-target_link_libraries(test_gen_tone ${LIBRARIES})
+SET_SOURCE_FILES_PROPERTIES(test_gen_real_tone.c PROPERTIES LANGUAGE C)
+add_executable(test_gen_real_tone test_gen_real_tone.c test_genalyzer.h)
+target_link_libraries(test_gen_real_tone ${LIBRARIES})
 foreach(test_file ${TEST_FILES_LIST})
-  add_test(NAME test_gen_tone_${n}
-    COMMAND test_gen_tone ${test_file}
+  add_test(NAME test_gen_real_tone_${n}
+    COMMAND test_gen_real_tone ${test_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  math(EXPR n "${n} + 1")
+endforeach()
+
+################################################################################
+file(GLOB TEST_FILES_LIST "test_vectors/test_gen_complex_tone_*.json")
+set(n 0)
+SET_SOURCE_FILES_PROPERTIES(test_gen_complex_tone.c PROPERTIES LANGUAGE C)
+add_executable(test_gen_complex_tone test_gen_complex_tone.c test_genalyzer.h)
+target_link_libraries(test_gen_complex_tone ${LIBRARIES})
+foreach(test_file ${TEST_FILES_LIST})
+  add_test(NAME test_gen_complex_tone_${n}
+    COMMAND test_gen_complex_tone ${test_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  math(EXPR n "${n} + 1")
+endforeach()
+
+################################################################################
+file(GLOB TEST_FILES_LIST "test_vectors/test_quantize_real_tone_*.json")
+set(n 0)
+SET_SOURCE_FILES_PROPERTIES(test_quantize_real_tone.c PROPERTIES LANGUAGE C)
+add_executable(test_quantize_real_tone test_quantize_real_tone.c test_genalyzer.h)
+target_link_libraries(test_quantize_real_tone ${LIBRARIES})
+foreach(test_file ${TEST_FILES_LIST})
+  add_test(NAME test_quantize_real_tone_${n}
+    COMMAND test_quantize_real_tone ${test_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  math(EXPR n "${n} + 1")
+endforeach()
+
+################################################################################
+file(GLOB TEST_FILES_LIST "test_vectors/test_quantize_complex_tone_*.json")
+set(n 0)
+SET_SOURCE_FILES_PROPERTIES(test_quantize_complex_tone.c PROPERTIES LANGUAGE C)
+add_executable(test_quantize_complex_tone test_quantize_complex_tone.c test_genalyzer.h)
+target_link_libraries(test_quantize_complex_tone ${LIBRARIES})
+foreach(test_file ${TEST_FILES_LIST})
+  add_test(NAME test_quantize_complex_tone_${n}
+    COMMAND test_quantize_complex_tone ${test_file}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
   math(EXPR n "${n} + 1")
 endforeach()

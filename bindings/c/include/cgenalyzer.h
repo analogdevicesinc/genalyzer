@@ -75,13 +75,13 @@ extern "C"
   // opaque pointer
   typedef struct gn_config_private *gn_config;
   typedef gn_config gn_config_tone_struct;
+  typedef gn_config gn_config_quantize_struct;
 
   /**
-   * @brief Configure test based on real sinusoidal or complex exponential
-   * tones
+   * @brief Configure tone parameters to be used in measurement
    * @return 0 on success, non-zero otherwise
-   * @param c Configuration structure of test and waveform to generate
-   * @param wf_type ENUM value to indicate input waveform type.
+   * @param c Configuration structure containing tone parameters
+   * @param wf_type ENUM value to indicate input waveform type
    * Options: REAL_COSINE, REAL_SINE, COMPLEX_EXP    
    * @param npts Number of sample points in the generated waveform
    * @param sample_rate Input Sample rate of the data converter
@@ -93,6 +93,20 @@ extern "C"
   __api int gn_config_tone (gn_config_tone_struct *c, waveform_type wf_type, size_t npts,
                               double sample_rate, size_t num_tones, double *tone_freq, double *tone_ampl,
                               double *tone_phase);
+
+  /**
+   * @brief Configure quantization parameters to be used in measurement
+   * @return 0 on success, non-zero otherwise
+   * @param c Configuration structure of test and waveform to generate
+   * @param npts Number of sample points in the generated waveform
+   * @param fsr Full-scale range of the waveform    
+   * @param qres Quantization resolution
+   * @param qnoise Quantization noise
+   */
+  __api int gn_config_quantize(gn_config_quantize_struct* c, 
+                              size_t npts, double fsr, 
+                              int qres, double qnoise);
+
   /**
    * @brief Configure test based on real sinusoidal or complex exponential
    * tones
@@ -185,30 +199,43 @@ extern "C"
 
   /**
    * @brief Generate sinusoidal tone based on supplied configuration.
-   * @param c Configuration structure of test and waveform to generate
-   * @param result Output array of tone generated
+   * @return 0 on success, non-zero otherwise   
+   * @param out Output array of generated tone
+   * @param c Configuration structure containing test parameters
    */
-  __api int gn_gen_tone (gn_config c, double **result);
+  __api int gn_gen_real_tone (double **out, gn_config c);
+
+  /**
+   * @brief Generate sinusoidal tone based on supplied configuration.
+   * @return 0 on success, non-zero otherwise   
+   * @param outi In-phase output array of generated tone
+   * @param outq Quadrature output array of generated tone
+   * @param c Configuration structure containing test parameters
+   */
+  __api int gn_gen_complex_tone (double **outi, double **outq, gn_config c);
+
   /**
    * @brief Generate noise based on supplied configuration.
    * @param c Configuration structure of test and waveform to generate
-   * @param result Output array of noise generated
+   * @param out Output array of noise generated
    */
-  __api void gn_gen_noise (gn_config c, double **result);
+  __api void gn_gen_noise (gn_config c, double **out);
   /**
    * @brief Generate ramp based on supplied configuration.
    * @param c Configuration structure of test and waveform to generate
-   * @param result Output array of ramp generated
+   * @param out Output array of ramp generated
    * @param len Output length of the generated tone in samples
    */
-  __api void gn_gen_ramp (gn_config c, double **result, size_t *len);
+  __api void gn_gen_ramp (gn_config c, double **out, size_t *len);
   /**
    * @brief Quantize waveform based on supplied configuration.
-   * @param c Configuration structure of test
-   * @param awf Input waveform to quantize
-   * @param result Output array of waveform quantized
+   * @return 0 on success, non-zero otherwise
    */
-  __api void gn_quantize (gn_config c, const double *awf, int32_t **result);  
+  __api int gn_quantize(
+            int32_t **out,            ///< [out] Output array of quantized waveform   
+            const double *in,         ///< [in] Input array of waveform to be quantized 
+            gn_config c               ///< [c] Configuration structure containing test parameters
+        );
   /**
  * @brief Compute complex FFT of real waveform
  * @return 0 on success, non-zero otherwise

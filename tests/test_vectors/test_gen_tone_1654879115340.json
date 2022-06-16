@@ -1,9 +1,0 @@
-{
-    "name": "Awesome 4K",
-	"wf_type": 0,
-	"npts": 8192,
-	"fs": 8.5E+8,
-	"freq": 7.0E+6,
-	"scale": 1,
-	"phase": 0.1
-}
