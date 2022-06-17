@@ -76,6 +76,7 @@ extern "C"
   typedef struct gn_config_private *gn_config;
   typedef gn_config gn_config_tone_struct;
   typedef gn_config gn_config_quantize_struct;
+  typedef gn_config gn_config_fft_struct;
 
   /**
    * @brief Configure tone parameters to be used in measurement
@@ -106,6 +107,19 @@ extern "C"
   __api int gn_config_quantize(gn_config_quantize_struct* c, 
                               size_t npts, double fsr, 
                               int qres, double qnoise);
+
+  /**
+   * @brief Configure FFT parameters 
+   * @return 0 on success, non-zero otherwise
+   */
+  __api int gn_config_fft(
+            gn_config_fft_struct* c,            ///< [c] Configuration structure containing test parameters
+            size_t npts,                        ///< [npts] Number of sample points in the input waveform
+            int qres,                           ///< [qres] Quantization resolution
+            size_t navg,                        ///< [navg] Number of FFT averages
+            size_t nfft,                        ///< [nfft] FFT order
+            GnWindow win                        ///< [win] Window function to apply, Options: GnWindowBlackmanHarris, GnWindowHann, GnWindowNoWindow
+        );
 
   /**
    * @brief Configure test based on real sinusoidal or complex exponential
@@ -232,8 +246,8 @@ extern "C"
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_quantize(
-            int32_t **out,            ///< [out] Output array of quantized waveform   
-            const double *in,         ///< [in] Input array of waveform to be quantized 
+            int32_t **out,            ///< [out] Quantized output waveform   
+            const double *in,         ///< [in] Input waveform to be quantized 
             gn_config c               ///< [c] Configuration structure containing test parameters
         );
   /**
@@ -252,7 +266,7 @@ extern "C"
                      size_t in_size, size_t navg, size_t nfft,
                      GnWindow window, GnRfftScale scale);
   /**
- * @brief gn_fft
+ * @brief Compute FFT of quantized input waveform
  * @return 0 on success, non-zero otherwise
  * @param out: [out] Interleaved Re/Im output array pointer
  * @param out_size: [in] Output array size
@@ -265,10 +279,12 @@ extern "C"
  * @param nfft: [in] FFT size
  * @param window: [in] Window
  */
-/*
-  __api int gn_fftq(double* out, size_t out_size, const int16_t* i,
-                 size_t i_size, const int16_t* q, size_t q_size, int n, 
-                 size_t navg, size_t nfft, GnWindow window);*/
+  __api int gn_fftz(
+            double **out,             ///< [out] Interleaved Re/Im FFT output
+            const int32_t *in_i,      ///< [in_i] In-phase input
+            const int32_t *in_q,      ///< [in_q] Quadrature input
+            gn_config c               ///< [c] Configuration structure containing test parameters
+        );
   /**
    * @brief Compute desired data-converter performance metric
    * @param c Configuration structure of test

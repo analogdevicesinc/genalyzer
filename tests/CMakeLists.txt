@@ -58,6 +58,19 @@ foreach(test_file ${TEST_FILES_LIST})
   math(EXPR n "${n} + 1")
 endforeach()
 
+################################################################################
+file(GLOB TEST_FILES_LIST "test_vectors/test_fft_tone_*.json")
+set(n 0)
+SET_SOURCE_FILES_PROPERTIES(test_fft.c PROPERTIES LANGUAGE C)
+add_executable(test_fft test_fft.c test_genalyzer.h)
+target_link_libraries(test_fft ${LIBRARIES})
+foreach(test_file ${TEST_FILES_LIST})
+  add_test(NAME test_fft_${n}
+    COMMAND test_fft ${test_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  math(EXPR n "${n} + 1")
+endforeach()
+
 if(FALSE)
 ################################################################################
 file(GLOB TEST_FILES_LIST "test_vectors/test_gen_ramp_[^and_quantize_]*.txt")

@@ -156,11 +156,11 @@ struct gn_config_private {
     //meas_domain md = TIME;
     waveform_type wf_type;
     /*
-    int_repr i_repr;
+    int_repr i_repr;*/
     gn::size_t nfft;
-    gn::size_t in_stride = 1;
-    int navg;
-    */
+    //gn::size_t in_stride = 1;
+    gn::size_t navg;
+    
     gn::size_t npts;
     gn::real_t sample_rate;
     /*
@@ -170,12 +170,13 @@ struct gn_config_private {
     double fsr;
     int qres;
     double qnoise;
+    bool is_input_cplx;
     /*
     int64_t min_code, max_code;
     gn::real_t irnoise;
     gn::real_t noise_pwr_db;*/
     GnCodeFormat code_format;
-    gn::Window win;
+    GnWindow win;
     /*
     gn::DnlSignal dnl_type;
     double ramp_start, ramp_stop;*/

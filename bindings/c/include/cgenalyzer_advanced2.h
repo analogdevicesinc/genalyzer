@@ -1071,39 +1071,36 @@ extern "C" {
   /**
  * @brief gn_fft
  * @return 0 on success, non-zero otherwise
- * @param out: [out] Interleaved Re/Im output array pointer
- * @param out_size: [in] Output array size
- * @param i: [in] In-phase input array pointer
- * @param i_size: [in] In-phase input array size
- * @param q: [in] Quadrature input array pointer
- * @param q_size: [in] Quadrature input array size
- * @param navg: [in] FFT averaging number
- * @param nfft: [in] FFT size
- * @param window: [in] Window
  */
-int gn_fft(double* out, size_t out_size, const double* i,
-                 size_t i_size, const double* q, size_t q_size,
-                 size_t navg, size_t nfft, GnWindow window);
+int gn_fft(
+    double* out,                        ///< [out] Interleaved Re/Im output array pointer
+    size_t out_size,                    ///< [in] Output array size
+    const double* i,                    ///< [in] In-phase input array pointer
+    size_t i_size,                      ///< [in] In-phase input array size
+    const double* q,                    ///< [in] Quadrature input array pointer
+    size_t q_size,                      ///< [in] Quadrature input array size
+    size_t navg,                        ///< [in] FFT averaging number
+    size_t nfft,                        ///< [in] FFT size
+    GnWindow window                     ///< [in] Window
+    );
 
 /**
  * @brief gn_fft16
  * @return 0 on success, non-zero otherwise
- * @param out: [out] Interleaved Re/Im output array pointer
- * @param out_size: [in] Output array size
- * @param i: [in] In-phase input array pointer
- * @param i_size: [in] In-phase input array size
- * @param q: [in] Quadrature input array pointer
- * @param q_size: [in] Quadrature input array size
- * @param n: [in] Resolution
- * @param navg: [in] FFT averaging number
- * @param nfft: [in] FFT size
- * @param window: [in] Window
- * @param format: [in] Code format
  */
-int gn_fft16(double* out, size_t out_size, const int16_t* i,
-                size_t i_size, const int16_t* q, size_t q_size,
-                int n, size_t navg, size_t nfft, GnWindow window,
-                GnCodeFormat format);
+int gn_fft16(
+    double* out,                        ///< [out] Interleaved Re/Im output array pointer
+    size_t out_size,                    ///< [in] Output array size
+    const int16_t* i,                   ///< [in] In-phase input array pointer
+    size_t i_size,                      ///< [in] In-phase input array size
+    const int16_t* q,                   ///< [in] Quadrature input array pointer
+    size_t q_size,                      ///< [in] Quadrature input array size
+    int n,                              ///< [in] Resolution
+    size_t navg,                        ///< [in] FFT averaging number
+    size_t nfft,                        ///< [in] FFT size
+    GnWindow window,                    ///< [in] Window
+    GnCodeFormat format                 ///< [in] Code format
+    );
 
 /**
  * @brief gn_fft32
@@ -1640,7 +1637,7 @@ int gn_quantize16(
     double fsr,                         ///< [in] Full-scale range
     int n,                              ///< [in] Resolution
     double noise,                       ///< [in] Input referred RMS noise
-    GnCodeFormat format                ///< [in] Code format
+    GnCodeFormat format                 ///< [in] Code format
 );
 
 /**
@@ -1655,7 +1652,7 @@ int gn_quantize32(
     double fsr,                         ///< [in] Full-scale range
     int n,                              ///< [in] Resolution
     double noise,                       ///< [in] Input referred RMS noise
-    GnCodeFormat format                ///< [in] Code format
+    GnCodeFormat format                 ///< [in] Code format
 );
 
 /**

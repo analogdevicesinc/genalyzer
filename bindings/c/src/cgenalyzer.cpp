@@ -4,16 +4,17 @@
 extern "C" {
     int gn_config_tone(gn_config_tone_struct* c, waveform_type wf_type, size_t npts, double sample_rate, size_t num_tones, double *tone_freq, double *tone_ampl, double *tone_phase)
     {
-        gn_config c_p;
-        c_p = (gn_config)calloc(1, sizeof(*c_p));
-        
-        // assign arguments to configuration struct
-        if ((wf_type == REAL_COSINE) || (wf_type == REAL_SINE) || (wf_type == COMPLEX_EXP))
-            c_p->wf_type = wf_type;
-        else {
+        if (!((wf_type == REAL_COSINE) || (wf_type == REAL_SINE) || (wf_type == COMPLEX_EXP)))
+        {
             printf("ERROR: Invalid selection of wf_type for tone generation\n");
             return EXIT_FAILURE;
         }
+        
+        // assign arguments to configuration struct
+        gn_config c_p;
+        c_p = (gn_config)calloc(1, sizeof(*c_p));
+        
+        c_p->wf_type = wf_type;
         c_p->npts = npts;
         c_p->sample_rate = sample_rate;
         c_p->num_tones = num_tones;
@@ -35,6 +36,30 @@ extern "C" {
         c_p->fsr = fsr;
         c_p->qres = qres;
         c_p->qnoise = qnoise;
+        c_p->code_format = GnCodeFormatTwosComplement;
+
+        *c = c_p;
+        return gn_success;
+    }
+
+    int gn_config_fft(gn_config_fft_struct* c, size_t npts, int qres, size_t navg, size_t nfft, GnWindow win)
+    {
+        if (npts != (navg*nfft))
+        {
+            printf("ERROR: Number of samples points in the waveform has to equal FFT order times number of FFT averages\n");
+            return EXIT_FAILURE;
+        }
+
+        // assign arguments to configuration struct
+        gn_config c_p;
+        c_p = (gn_config)calloc(1, sizeof(*c_p));
+
+        // assign arguments to configuration struct
+        c_p->npts = npts;
+        c_p->qres = qres;
+        c_p->navg = navg;
+        c_p->nfft = nfft;
+        c_p->win = win;
         c_p->code_format = GnCodeFormatTwosComplement;
 
         *c = c_p;
@@ -92,17 +117,25 @@ extern "C" {
     {
         int err_code;
         int32_t *qwf = (int32_t *)calloc(c->npts, sizeof(int32_t));
-        
+
         err_code = gn_quantize32(qwf, c->npts, in, c->npts, c->fsr, c->qres, c->qnoise, c->code_format);
         *out = qwf;
 
         return err_code;
     }
-/*
-    int gn_fftq(gn_config c, double* out, size_t out_size,
-        const int16_t* i, size_t i_size, const int16_t* q, size_t q_size,
-        int n, size_t navg, size_t nfft, GnWindow window)
+
+    int gn_fftz(double **out, const int32_t *in_i, const int32_t *in_q, gn_config c)
     {
-        return gn_fft16(out, out_size, i, i_size, q, q_size, n, navg, nfft, window, GnCodeFormatTwosComplement);
-    }*/
+        int err_code;
+        double *fft_of_in = (double *)calloc(2*c->nfft, sizeof(double));
+
+        if (!in_q)
+            err_code = gn_fft32(fft_of_in, 2*c->nfft, in_i, c->npts, NULL, 0, c->qres, c->navg, c->nfft, c->win, c->code_format);
+        else
+            err_code = gn_fft32(fft_of_in, 2*c->nfft, in_i, c->npts, in_q, c->npts, c->qres, c->navg, c->nfft, c->win, c->code_format);
+
+        *out = fft_of_in;
+
+        return err_code;
+    }
 }

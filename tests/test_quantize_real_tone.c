@@ -26,18 +26,16 @@ int main(int argc, const char* argv[])
     gn_config_quantize_struct c = NULL;
     err_code = gn_config_quantize(&c, npts, fsr, qres, qnoise);    
 
-    // read reference waveforms
+    // read reference input waveform
     ref_awf = (double*)malloc(npts*sizeof(double));
-    err_code = read_array_from_json_file(test_filename, "test_vec", ref_awf, DOUBLE, npts);
-    ref_qwf = (int32_t*)malloc(npts*sizeof(int32_t));
-    err_code = read_array_from_json_file(test_filename, "test_vecq", ref_qwf, INT32, npts);
+    err_code = read_array_from_json_file(test_filename, "test_vec", ref_awf, DOUBLE, npts);    
     
     // quantize waveform
     err_code = gn_quantize(&qwf, ref_awf, c);
     
-    // read reference waveform
-    ref_awf = (double*)malloc(npts*sizeof(double));
-    err_code = read_array_from_json_file(test_filename, "test_vec", ref_awf, DOUBLE, npts);
+    // read reference output waveform
+    ref_qwf = (int32_t*)malloc(npts*sizeof(int32_t));
+    err_code = read_array_from_json_file(test_filename, "test_vecq", ref_qwf, INT32, npts);
     
     // compare
     assert(int_arrays_almost_equal(ref_qwf, qwf, 0, npts, INT32));
