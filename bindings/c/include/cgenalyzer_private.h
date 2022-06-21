@@ -154,23 +154,30 @@ using namespace genalyzer_impl;
 
 struct gn_config_private {
     //meas_domain md = TIME;
-    waveform_type wf_type;
-    /*
-    int_repr i_repr;*/
-    gn::size_t nfft;
-    //gn::size_t in_stride = 1;
-    gn::size_t navg;
-    
+    waveform_type wf_type;    
+    gn::size_t nfft;    
+    gn::size_t navg;    
     gn::size_t npts;
+
     gn::real_t sample_rate;
-    /*
-    gn::real_t fdata;
-    gn::real_t fshift;
-    bool update_fsample, update_fdata, update_fshift;*/
-    double fsr;
+    gn::real_t data_rate;
+    gn::real_t shift_freq;
+    
+    gn::real_t fsr;
     int qres;
-    double qnoise;
-    bool is_input_cplx;
+    gn::real_t qnoise;
+    
+    char **obj_key;
+    size_t num_obj_keys = 0;
+
+    char **comp_key;
+    size_t num_comp_keys = 0;
+
+    // Number of single-side bins
+    int ssb_fund = 0;
+    int ssb_rest = 0;
+
+    int max_harm_order = 3;
     /*
     int64_t min_code, max_code;
     gn::real_t irnoise;
@@ -182,11 +189,14 @@ struct gn_config_private {
     double ramp_start, ramp_stop;*/
 
     // triplet to describe tones
-    double *freq;
-    double *scale;
-    double *phase;
-
+    gn::real_t *freq;
+    gn::real_t *scale;
+    gn::real_t *phase;
     gn::size_t num_tones = 0;
+
+    char **rkeys;
+    double *rvalues;
+    size_t *rkey_sizes;
     /*
     gn::size_t num_bins;
     gn::size_t num_hits;*/
