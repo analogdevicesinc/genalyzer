@@ -71,6 +71,32 @@ foreach(test_file ${TEST_FILES_LIST})
   math(EXPR n "${n} + 1")
 endforeach()
 
+################################################################################
+file(GLOB TEST_FILES_LIST "test_vectors/test_fft_tone_*.json")
+set(n 0)
+SET_SOURCE_FILES_PROPERTIES(test_fa_get_all_results.c PROPERTIES LANGUAGE C)
+add_executable(test_fa_get_all_results test_fa_get_all_results.c test_genalyzer.h)
+target_link_libraries(test_fa_get_all_results ${LIBRARIES})
+foreach(test_file ${TEST_FILES_LIST})
+  add_test(NAME test_fa_get_all_results_${n}
+    COMMAND test_fa_get_all_results ${test_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  math(EXPR n "${n} + 1")
+endforeach()
+
+################################################################################
+file(GLOB TEST_FILES_LIST "test_vectors/test_fft_tone_*.json")
+set(n 0)
+SET_SOURCE_FILES_PROPERTIES(test_fa_get_single_result.c PROPERTIES LANGUAGE C)
+add_executable(test_fa_get_single_result test_fa_get_single_result.c test_genalyzer.h)
+target_link_libraries(test_fa_get_single_result ${LIBRARIES})
+foreach(test_file ${TEST_FILES_LIST})
+  add_test(NAME test_fa_get_single_result_${n}
+    COMMAND test_fa_get_single_result ${test_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  math(EXPR n "${n} + 1")
+endforeach()
+
 if(FALSE)
 ################################################################################
 file(GLOB TEST_FILES_LIST "test_vectors/test_gen_ramp_[^and_quantize_]*.txt")

@@ -167,17 +167,14 @@ struct gn_config_private {
     int qres;
     gn::real_t qnoise;
     
-    char **obj_key;
-    size_t num_obj_keys = 0;
-
-    char **comp_key;
-    size_t num_comp_keys = 0;
+    char *obj_key;
+    char *comp_key;    
 
     // Number of single-side bins
-    int ssb_fund = 0;
-    int ssb_rest = 0;
+    int ssb_fund;
+    int ssb_rest;
 
-    int max_harm_order = 3;
+    int max_harm_order;
     /*
     int64_t min_code, max_code;
     gn::real_t irnoise;
@@ -192,11 +189,13 @@ struct gn_config_private {
     gn::real_t *freq;
     gn::real_t *scale;
     gn::real_t *phase;
-    gn::size_t num_tones = 0;
+    gn::size_t num_tones;
 
     char **rkeys;
     double *rvalues;
     size_t *rkey_sizes;
+    size_t results_size;
+    bool all_results_computed;
     /*
     gn::size_t num_bins;
     gn::size_t num_hits;*/

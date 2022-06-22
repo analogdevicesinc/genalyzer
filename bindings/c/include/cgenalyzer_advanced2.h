@@ -765,7 +765,7 @@ int gn_fa_fdata_e(
 int gn_fa_fixed_tone(
     const char* obj_key,                ///< [in] Object key
     const char* comp_key,               ///< [in] Component key
-    GnFACompTag tag,                   ///< [in] Tag
+    GnFACompTag tag,                    ///< [in] Tag
     double freq,                        ///< [in] Frequency
     int ssb                             ///< [in] Number of single-side bins
     );
@@ -777,7 +777,7 @@ int gn_fa_fixed_tone(
 int gn_fa_fixed_tone_e(
     const char* obj_key,                ///< [in] Object key
     const char* comp_key,               ///< [in] Component key
-    GnFACompTag tag,                   ///< [in] Tag
+    GnFACompTag tag,                    ///< [in] Tag
     const char* freq,                   ///< [in] Frequency expression
     int ssb                             ///< [in] Number of single-side bins
     );

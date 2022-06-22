@@ -122,6 +122,28 @@ extern "C"
         );
 
   /**
+   * @brief Do Fourier analysis and all get results
+   * @return 0 on success, non-zero otherwise
+   */
+  __api int gn_fa_get_all_results(
+            char ***rkeys,
+            double **rvalues,  
+            size_t *results_size,               ///< [results_size] size of results
+            double *fft_ilv,                    ///< [fft_ilv] Input - Interleaved Re/Im array pointer
+            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+        );
+
+  /**
+   * @brief Do Fourier analysis and all get results
+   * @return 0 on success, non-zero otherwise
+   */
+  __api int gn_fa_get_single_result(
+            double *rvalue,
+            const char* metric_name,  
+            double *fft_ilv,                    ///< [fft_ilv] Input - Interleaved Re/Im array pointer 
+            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+        );
+  /**
    * @brief Configure test based on real sinusoidal or complex exponential
    * tones
    * @param c Configuration structure of test and waveform to generate
@@ -285,6 +307,16 @@ extern "C"
             const int32_t *in_q,      ///< [in_q] Quadrature input
             gn_config c               ///< [c] Configuration structure containing test parameters
         );
+
+  /**
+   * @brief Generate sinusoidal tone based on supplied configuration.
+   * @return 0 on success, non-zero otherwise 
+   */
+  __api int gn_config_fa_tone(
+            gn_config c,               ///< [c] Configuration structure containing test parameters
+            double fixed_tone_freq     ///< [fixed_tone_freq] Fixed tone frequency
+        );
+
   /**
    * @brief Compute desired data-converter performance metric
    * @param c Configuration structure of test
