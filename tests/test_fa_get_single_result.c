@@ -53,8 +53,8 @@ int main(int argc, const char* argv[])
     err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, c);
 
     // Configure Fourier analysis
-    err_code = gn_config_fa_tone(c, freq[0]);
-    err_code = gn_fa_get_single_result(&sfdr, "sfdr", fft_out, c);
+    err_code = gn_config_fa(c, freq[0]);
+    err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, c);
     
     printf("SFDR - %20.6f\n", sfdr);
     

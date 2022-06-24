@@ -97,6 +97,45 @@ foreach(test_file ${TEST_FILES_LIST})
   math(EXPR n "${n} + 1")
 endforeach()
 
+################################################################################
+file(GLOB TEST_FILES_LIST "test_vectors/test_quantize_real_tone_*.json")
+set(n 0)
+SET_SOURCE_FILES_PROPERTIES(test_wfa_get_all_results.c PROPERTIES LANGUAGE C)
+add_executable(test_wfa_get_all_results test_wfa_get_all_results.c test_genalyzer.h)
+target_link_libraries(test_wfa_get_all_results ${LIBRARIES})
+foreach(test_file ${TEST_FILES_LIST})
+  add_test(NAME test_wfa_get_all_results_${n}
+    COMMAND test_wfa_get_all_results ${test_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  math(EXPR n "${n} + 1")
+endforeach()
+
+################################################################################
+file(GLOB TEST_FILES_LIST "test_vectors/test_quantize_real_tone_*.json")
+set(n 0)
+SET_SOURCE_FILES_PROPERTIES(test_histz.c PROPERTIES LANGUAGE C)
+add_executable(test_histz test_histz.c test_genalyzer.h)
+target_link_libraries(test_histz ${LIBRARIES})
+foreach(test_file ${TEST_FILES_LIST})
+  add_test(NAME test_histz_${n}
+    COMMAND test_histz ${test_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  math(EXPR n "${n} + 1")
+endforeach()
+
+################################################################################
+file(GLOB TEST_FILES_LIST "test_vectors/test_quantize_real_tone_*.json")
+set(n 0)
+SET_SOURCE_FILES_PROPERTIES(test_ha_get_all_results.c PROPERTIES LANGUAGE C)
+add_executable(test_ha_get_all_results test_ha_get_all_results.c test_genalyzer.h)
+target_link_libraries(test_ha_get_all_results ${LIBRARIES})
+foreach(test_file ${TEST_FILES_LIST})
+  add_test(NAME test_ha_get_all_results_${n}
+    COMMAND test_ha_get_all_results ${test_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  math(EXPR n "${n} + 1")
+endforeach()
+
 if(FALSE)
 ################################################################################
 file(GLOB TEST_FILES_LIST "test_vectors/test_gen_ramp_[^and_quantize_]*.txt")

@@ -125,7 +125,7 @@ extern "C"
    * @brief Do Fourier analysis and all get results
    * @return 0 on success, non-zero otherwise
    */
-  __api int gn_fa_get_all_results(
+  __api int gn_get_fa_results(
             char ***rkeys,
             double **rvalues,  
             size_t *results_size,               ///< [results_size] size of results
@@ -134,15 +134,74 @@ extern "C"
         );
 
   /**
-   * @brief Do Fourier analysis and all get results
+   * @brief Do Fourier analysis and get a single result
    * @return 0 on success, non-zero otherwise
    */
-  __api int gn_fa_get_single_result(
+  __api int gn_get_fa_single_result(
             double *rvalue,
             const char* metric_name,  
             double *fft_ilv,                    ///< [fft_ilv] Input - Interleaved Re/Im array pointer 
             gn_config c                         ///< [c] Input - Configuration structure containing test parameters
         );
+
+  /**
+   * @brief Do waveform analysis and all get results
+   * @return 0 on success, non-zero otherwise
+   */
+  __api int gn_get_wfa_results(
+            char ***rkeys, 
+            double **rvalues, 
+            size_t *results_size,               ///< [results_size] size of results 
+            const int32_t *qwf,                 ///< [qwf] Input - Quantized input array pointer 
+            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+        );
+
+  /**
+   * @brief Compute histogram of quantized waveform
+   * @return 0 on success, non-zero otherwise
+   */
+  __api int gn_histz(
+            uint64_t **hist,                    ///< [hist] Output - Histogram of input quantized waveform
+            size_t *hist_len,                   ///< [hist_len] Output - Histogram size
+            const int32_t *qwf,                 ///< [qwf] Input - Quantized input waveform  
+            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+        );
+
+  /**
+   * @brief Do histogram analysis and get results
+   * @return 0 on success, non-zero otherwise
+   */
+  __api int gn_get_ha_results(
+            char ***rkeys,                      ///< [rkeys] Output - Result keys 
+            double **rvalues,                   ///< [rvalues] Output - Result values
+            size_t *results_size,               ///< [results_size] Output - Size of results  
+            const uint64_t *hist,               ///< [hist] Input - Histogram input to be analyzed 
+            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+        );
+
+  /**
+   * @brief Do DNL analysis and get results
+   * @return 0 on success, non-zero otherwise
+   */
+  __api int gn_dnl_analysis_results(
+            char ***rkeys,                      ///< [rkeys] Output - Result keys  
+            double **rvalues,                   ///< [rvalues] Output - Result values 
+            size_t *results_size,               ///< [results_size] Output - Size of results   
+            const double *dnl,                  ///< [dnl] Input - DNL input to be analyzed  
+            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+        );
+
+  /**
+   * @brief Do INL analysis and get results
+   * @return 0 on success, non-zero otherwise
+   */
+  __api int gn_inl_analysis_results(
+          char ***rkeys,                      ///< [rkeys] Output - Result keys  
+          double **rvalues,                   ///< [rvalues] Output - Result values 
+          size_t *results_size,               ///< [results_size] Output - Size of results   
+          const double *dnl,                  ///< [dnl] Input - DNL input to be analyzed  
+          gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+      );
   /**
    * @brief Configure test based on real sinusoidal or complex exponential
    * tones
@@ -312,7 +371,7 @@ extern "C"
    * @brief Generate sinusoidal tone based on supplied configuration.
    * @return 0 on success, non-zero otherwise 
    */
-  __api int gn_config_fa_tone(
+  __api int gn_config_fa(
             gn_config c,               ///< [c] Configuration structure containing test parameters
             double fixed_tone_freq     ///< [fixed_tone_freq] Fixed tone frequency
         );

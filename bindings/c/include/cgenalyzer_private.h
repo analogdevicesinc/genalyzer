@@ -183,7 +183,7 @@ struct gn_config_private {
     GnWindow win;
     /*
     gn::DnlSignal dnl_type;
-    double ramp_start, ramp_stop;*/
+    gn::real_t ramp_start, ramp_stop;*/
 
     // triplet to describe tones
     gn::real_t *freq;
@@ -191,11 +191,43 @@ struct gn_config_private {
     gn::real_t *phase;
     gn::size_t num_tones;
 
-    char **rkeys;
-    double *rvalues;
-    size_t *rkey_sizes;
-    size_t results_size;
-    bool all_results_computed;
+    GnDnlSignal dnla_signal_type;
+    GnInlLineFit inla_fit;
+
+    // keys, values and sizes for Fourier analysis results
+    char **_fa_result_keys;
+    gn::real_t *_fa_result_values;
+    size_t *_fa_result_key_sizes;
+    size_t _fa_results_size;
+    bool _all_fa_results_computed;
+
+    // keys, values and sizes for waveform analysis results
+    char **_wfa_result_keys;
+    gn::real_t *_wfa_result_values;
+    size_t *_wfa_result_key_sizes;
+    size_t _wfa_results_size;
+
+    // keys, values and sizes for Histogram results
+    char **_hist_result_keys;
+    gn::real_t *_hist_result_values;
+    size_t *_hist_result_key_sizes;
+    size_t _hist_results_size;
+
+    // keys, values and sizes for DNL results
+    char **_dnl_result_keys;
+    gn::real_t *_dnl_result_values;
+    size_t *_dnl_result_key_sizes;
+    size_t _dnl_results_size;
+
+    // keys, values and sizes for INL results
+    char **_inl_result_keys;
+    gn::real_t *_inl_result_values;
+    size_t *_inl_result_key_sizes;
+    size_t _inl_results_size;
+
+    // code-density size
+    size_t code_density_size;
+
     /*
     gn::size_t num_bins;
     gn::size_t num_hits;*/
