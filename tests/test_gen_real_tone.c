@@ -13,7 +13,7 @@ int main(int argc, const char* argv[])
     double *awf, *ref_awf;
 
     // read parameters
-    waveform_type wf_type;
+    tone_type wf_type;
     unsigned int npts, num_tones;
     double fs;
     double *freq, *scale, *phase;
@@ -37,11 +37,12 @@ int main(int argc, const char* argv[])
     }
 
     // configuration
-    gn_config_tone_struct c = NULL;
-    err_code = gn_config_tone(&c, wf_type, npts, fs, num_tones, freq, scale, phase);
+    gn_config c = NULL;
+    err_code = gn_config_calloc(&c);
+    err_code = gn_config_gen_tone(wf_type, npts, fs, num_tones, freq, scale, phase, c);
 
     // waveform generation
-    gn_gen_real_tone(&awf, c);
+    err_code = gn_gen_real_tone(&awf, c);
 
     // read reference waveform
     ref_awf = (double*)malloc(npts*sizeof(double));
@@ -56,6 +57,7 @@ int main(int argc, const char* argv[])
     free(scale);
     free(phase);
     free(ref_awf);
+    gn_config_free(c);
 
     return 0;
 }

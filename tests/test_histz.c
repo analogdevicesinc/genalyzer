@@ -24,8 +24,9 @@ int main(int argc, const char* argv[])
     err_code = read_scalar_from_json_file(test_filename, "qres", (void*)(&qres), INT32);
     
     // configuration
-    gn_config_quantize_struct c = NULL;
-    err_code = gn_config_quantize(&c, npts, fsr, qres, qnoise);
+    gn_config c = NULL;
+    err_code = gn_config_calloc(&c);
+    err_code = gn_config_quantize(npts, fsr, qres, qnoise, c);
     
     // read reference output waveform
     ref_qwf = (int32_t*)malloc(npts*sizeof(int32_t));
@@ -45,6 +46,7 @@ int main(int argc, const char* argv[])
     // free memory
     free(ref_qwf);
     free(hist);
+    gn_config_free(c);
     
     return 0;
 }

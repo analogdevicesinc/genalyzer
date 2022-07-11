@@ -2,8 +2,7 @@
 #include "cgenalyzer_private.h"
 
 extern "C" {
-    // configuration
-    int gn_config_create(gn_config_tone_struct* c)
+    int gn_config_calloc(gn_config* c)
     {
         gn_config c_p;
         c_p = (gn_config)calloc(1, sizeof(*c_p));
@@ -12,71 +11,332 @@ extern "C" {
         return gn_success;
     }
 
-    int gn_config_tone(gn_config_tone_struct* c, waveform_type wf_type, size_t npts, gn::real_t sample_rate, size_t num_tones, gn::real_t *tone_freq, gn::real_t *tone_ampl, gn::real_t *tone_phase)
+    int gn_config_free(gn_config c)
     {
-        if (!((wf_type == REAL_COSINE) || (wf_type == REAL_SINE) || (wf_type == COMPLEX_EXP)))
+        if (!(c->obj_key))
+            free(c->obj_key);
+        if (!(c->comp_key))
+            free(c->comp_key);
+        if (!(c->tone_freq))
+            free(c->tone_freq);
+        if (!(c->tone_ampl))
+            free(c->tone_ampl);
+        if (!(c->tone_phase))
+            free(c->tone_phase);
+        if ((c->_fa_results_size) > 0)
         {
-            printf("ERROR: Invalid selection of wf_type for tone generation\n");
+            for (size_t i = 0; i < c->_fa_results_size; i++)
+                free(c->_fa_result_keys[i]);
+            free(c->_fa_result_keys);
+            free(c->_fa_result_key_sizes);
+            free(c->_fa_result_values);
+        }
+        if ((c->_wfa_results_size) > 0)
+        {
+            for (size_t i = 0; i < c->_wfa_results_size; i++)
+                free(c->_wfa_result_keys[i]);
+            free(c->_wfa_result_keys);
+            free(c->_wfa_result_key_sizes);
+            free(c->_wfa_result_values);
+        }
+        if ((c->_hist_results_size) > 0)
+        {
+            for (size_t i = 0; i < c->_hist_results_size; i++)
+                free(c->_hist_result_keys[i]);
+            free(c->_hist_result_keys);
+            free(c->_hist_result_key_sizes);
+            free(c->_hist_result_values);
+        }
+        if ((c->_dnl_results_size) > 0)
+        {
+            for (size_t i = 0; i < c->_dnl_results_size; i++)
+                free(c->_dnl_result_keys[i]);
+            free(c->_dnl_result_keys);
+            free(c->_dnl_result_key_sizes);
+            free(c->_dnl_result_values);
+        }
+        if ((c->_inl_results_size) > 0)
+        {
+            for (size_t i = 0; i < c->_inl_results_size; i++)
+                free(c->_inl_result_keys[i]);
+            free(c->_inl_result_keys);
+            free(c->_inl_result_key_sizes);
+            free(c->_inl_result_values);
+        }
+        free(c);
+
+        return gn_success;
+    }
+
+    int gn_config_set_ttype(tone_type ttype, gn_config c)
+    {
+        if (!((ttype == REAL_COSINE) || (ttype == REAL_SINE) || (ttype == COMPLEX_EXP)))
+        {
+            printf("ERROR: Invalid selection of ttype for tone generation\n");
+            return EXIT_FAILURE;
+        }        
+        c->ttype = ttype;
+
+        return gn_success;
+    }
+
+    int gn_config_set_npts(size_t npts, gn_config c)
+    {
+        c->npts = npts;
+        return gn_success;
+    }
+
+    int gn_config_set_sample_rate(gn::real_t sample_rate, gn_config c)
+    {
+        c->sample_rate = sample_rate;
+        return gn_success;
+    }
+
+    int gn_config_set_data_rate(gn::real_t data_rate, gn_config c)
+    {
+        c->data_rate = data_rate;
+        return gn_success;
+    }
+
+    int gn_config_set_shift_freq(gn::real_t shift_freq, gn_config c)
+    {
+        c->shift_freq = shift_freq;
+        return gn_success;
+    }
+
+    int gn_config_set_num_tones(size_t num_tones, gn_config c)
+    {
+        c->num_tones = num_tones;
+        return gn_success;
+    }
+
+    int gn_config_set_tone_freq(gn::real_t *tone_freq, gn_config c)
+    {
+        c->tone_freq = tone_freq;
+        return gn_success;
+    }
+
+    int gn_config_set_tone_ampl(gn::real_t *tone_ampl, gn_config c)
+    {
+        c->tone_ampl = tone_ampl;
+        return gn_success;
+    }
+
+    int gn_config_set_tone_phase(gn::real_t *tone_phase, gn_config c)
+    {
+        c->tone_phase = tone_phase;
+        return gn_success;
+    }
+
+    int gn_config_set_fsr(gn::real_t fsr, gn_config c)
+    {
+        c->fsr = fsr;
+        return gn_success;
+    }
+
+    int gn_config_set_qres(int qres, gn_config c)
+    {
+        c->qres = qres;
+        return gn_success;
+    }
+
+    int gn_config_set_noise_rms(gn::real_t noise_rms, gn_config c)
+    {
+        c->noise_rms = noise_rms;
+        return gn_success;
+    }
+
+    int gn_config_set_code_format(GnCodeFormat code_format, gn_config c)
+    {
+        if (!((code_format == GnCodeFormatOffsetBinary) || (code_format == GnCodeFormatTwosComplement)))
+        {
+            printf("ERROR: Invalid selection of code format\n");
+            return EXIT_FAILURE;
+        }
+        c->code_format = code_format;
+        return gn_success;
+    }
+
+    int gn_config_set_nfft(size_t nfft, gn_config c)
+    {
+        if ((c->nfft) > (c->npts))
+        {
+            printf("ERROR: FFT order cannot be greater than the number of sample points\n");
+            return EXIT_FAILURE;
+        }
+
+        double rem = (c->npts)%(c->nfft);
+        if (rem > 0)
+        {
+            printf("ERROR: FFT order has to be a multiple of the number of sample points\n");
+            return EXIT_FAILURE;
+        }
+        c->nfft = nfft;
+        c->fft_navg = c->npts/c->nfft;
+        return gn_success;
+    }
+    
+    int gn_config_set_fft_navg(size_t fft_navg, gn_config c)
+    {
+        if ((c->fft_navg) > (c->npts))
+        {
+            printf("ERROR: Number of FFT averages cannot be greater than the number of sample points\n");
+            return EXIT_FAILURE;
+        }
+
+        double rem = (c->npts)%(c->fft_navg);
+        if (rem > 0)
+        {
+            printf("ERROR: Number of FFT averages has to be a multiple of the number of sample points\n");
+            return EXIT_FAILURE;
+        }
+        c->fft_navg = fft_navg;
+        c->nfft = c->npts/c->fft_navg;
+        return gn_success;
+    }
+    
+    int gn_config_set_win(GnWindow win, gn_config c)
+    {
+        if (!((win == GnWindowBlackmanHarris) || (win == GnWindowHann) || (win == GnWindowNoWindow)))
+        {
+            printf("ERROR: Invalid selection of window function\n");
+            return EXIT_FAILURE;
+        }
+        c->win = win;
+        return gn_success;
+    }
+    
+    int gn_config_set_ssb_fund(int ssb_fund, gn_config c)
+    {
+        c->ssb_fund = ssb_fund;
+        return gn_success;
+    }
+
+    int gn_config_set_ssb_rest(int ssb_rest, gn_config c)
+    {
+        c->ssb_rest = ssb_rest;
+        return gn_success;
+    }
+
+    int gn_config_set_max_harm_order(int max_harm_order, gn_config c)
+    {
+        c->max_harm_order = max_harm_order;
+        return gn_success;
+    }
+
+    int gn_config_set_dnla_signal_type(GnDnlSignal dnla_signal_type, gn_config c)
+    {
+        if (!((dnla_signal_type == GnDnlSignalRamp) || (dnla_signal_type == GnDnlSignalTone)))
+        {
+            printf("ERROR: Invalid selection of DNL analysis signal type\n");
+            return EXIT_FAILURE;
+        }
+        c->dnla_signal_type = dnla_signal_type;
+        return gn_success;
+    }
+
+    int gn_config_set_inla_fit(GnInlLineFit inla_fit, gn_config c)
+    {
+        if (!((inla_fit == GnInlLineFitBestFit) || (inla_fit == GnInlLineFitEndFit) || (inla_fit == GnInlLineFitNoFit)))
+        {
+            printf("ERROR: Invalid selection of INL line fit\n");
+            return EXIT_FAILURE;
+        }
+        c->inla_fit = inla_fit;
+        return gn_success;
+    }
+
+    int gn_config_set_ramp_start(size_t ramp_start, gn_config c)
+    {
+        c->ramp_start = ramp_start;
+        return gn_success;
+    }
+
+    int gn_config_set_ramp_stop(size_t ramp_stop, gn_config c)
+    {
+        c->ramp_stop = ramp_stop;
+        return gn_success;
+    }
+
+    int gn_config_gen_tone(tone_type ttype, size_t npts, gn::real_t sample_rate, size_t num_tones, gn::real_t *tone_freq, gn::real_t *tone_ampl, gn::real_t *tone_phase, gn_config c)
+    {
+        if (!((ttype == REAL_COSINE) || (ttype == REAL_SINE) || (ttype == COMPLEX_EXP)))
+        {
+            printf("ERROR: Invalid selection of waveform type for tone generation\n");
             return EXIT_FAILURE;
         }
         
         // assign arguments to configuration struct
-        gn_config c_p;
-        c_p = (gn_config)calloc(1, sizeof(*c_p));
+        c->ttype = ttype;
+        c->npts = npts;
+        c->sample_rate = sample_rate;
+        c->num_tones = num_tones;
+        c->tone_freq = tone_freq;
+        c->tone_ampl = tone_ampl;
+        c->tone_phase = tone_phase;
+
+        return gn_success;
+    }
+
+    int gn_config_gen_ramp(size_t npts, size_t ramp_start, size_t ramp_stop, gn_config c)
+    {
+        if (ramp_stop < ramp_start)
+        {
+            printf("ERROR: ramp stop value cannot be smaller than ramp start value for ramp generation\n");
+            return EXIT_FAILURE;
+        }
         
-        c_p->wf_type = wf_type;
-        c_p->npts = npts;
-        c_p->sample_rate = sample_rate;
-        c_p->num_tones = num_tones;
-        c_p->freq = tone_freq;
-        c_p->scale = tone_ampl;
-        c_p->phase = tone_phase;
-
-        *c = c_p;
+        c->npts = npts;
+        c->ramp_start = ramp_start;
+        c->ramp_stop = ramp_stop;
+        c->noise_rms = 0.0;
+        
         return gn_success;
     }
-
-    int gn_config_quantize(gn_config_quantize_struct* c, size_t npts, gn::real_t fsr, int qres, gn::real_t qnoise)
+    
+    int gn_config_quantize(size_t npts, gn::real_t fsr, int qres, gn::real_t noise_rms, gn_config c)
     {
-        gn_config c_p;
-        c_p = (gn_config)calloc(1, sizeof(*c_p));
-
         // assign arguments to configuration struct
-        c_p->npts = npts;
-        c_p->fsr = fsr;
-        c_p->qres = qres;
-        c_p->qnoise = qnoise;
-        c_p->code_format = GnCodeFormatTwosComplement;
+        c->npts = npts;
+        c->fsr = fsr;
+        c->qres = qres;
+        c->noise_rms = noise_rms;
+        c->code_format = GnCodeFormatTwosComplement;
 
-        *c = c_p;
         return gn_success;
     }
 
-    int gn_config_fft(gn_config_fft_struct* c, size_t npts, int qres, size_t navg, size_t nfft, GnWindow win)
+    int gn_config_histz_nla(size_t npts, int qres, gn_config c)
     {
-        if (npts != (navg*nfft))
+        // assign arguments to configuration struct
+        c->npts = npts;
+        c->qres = qres;
+        c->code_format = GnCodeFormatTwosComplement;
+        c->inla_fit = GnInlLineFitBestFit;
+
+        return gn_success;
+    }
+
+    int gn_config_fftz(size_t npts, int qres, size_t fft_navg, size_t nfft, GnWindow win, gn_config c)
+    {
+        if (npts != (fft_navg*nfft))
         {
             printf("ERROR: Number of samples points in the waveform has to equal FFT order times number of FFT averages\n");
             return EXIT_FAILURE;
         }
 
         // assign arguments to configuration struct
-        gn_config c_p;
-        c_p = (gn_config)calloc(1, sizeof(*c_p));
+        c->npts = npts;
+        c->qres = qres;
+        c->fft_navg = fft_navg;
+        c->nfft = nfft;
+        c->win = win;
+        c->code_format = GnCodeFormatTwosComplement;
 
-        // assign arguments to configuration struct
-        c_p->npts = npts;
-        c_p->qres = qres;
-        c_p->navg = navg;
-        c_p->nfft = nfft;
-        c_p->win = win;
-        c_p->code_format = GnCodeFormatTwosComplement;
-
-        *c = c_p;
         return gn_success;
     }
 
-    int gn_config_fa(gn_config c, gn::real_t fixed_tone_freq)
+    int gn_config_fa(gn::real_t fixed_tone_freq, gn_config c)
     {
         int err_code;
 
@@ -93,6 +353,7 @@ extern "C" {
         c->ssb_fund = 0;
         c->ssb_rest = 0;
         c->max_harm_order = 3;
+        c->axis_type = GnFreqAxisTypeDcCenter;
 
         // configure object key for Fourier analysis
         err_code = gn_fa_create(c->obj_key);
@@ -119,6 +380,16 @@ extern "C" {
     }
 
     // waveform generation
+    int gn_gen_ramp(gn::real_t **out, gn_config c)
+    {
+        int err_code;
+        gn::real_t *awf = (gn::real_t *)calloc(c->npts, sizeof(gn::real_t));
+        err_code = gn_ramp(awf, c->npts, c->ramp_start, c->ramp_stop, c->noise_rms);
+        *out = awf;
+        
+        return err_code;
+    }
+
     int gn_gen_real_tone(gn::real_t **out, gn_config c)
     {
         int err_code;
@@ -127,10 +398,10 @@ extern "C" {
         for (size_t i = 0; i < c->num_tones; i++) 
         {
             gn::real_t *tmp = (gn::real_t *)calloc(c->npts, sizeof(gn::real_t));
-            if (c->wf_type == REAL_COSINE)
-                err_code = gn_cos(tmp, c->npts, c->sample_rate, c->scale[i], c->freq[i], c->phase[i], 0, 0);
-            else if (c->wf_type == REAL_SINE)
-                err_code = gn_sin(tmp, c->npts, c->sample_rate, c->scale[i], c->freq[i], c->phase[i], 0, 0);
+            if (c->ttype == REAL_COSINE)
+                err_code = gn_cos(tmp, c->npts, c->sample_rate, c->tone_ampl[i], c->tone_freq[i], c->tone_phase[i], 0, 0);
+            else if (c->ttype == REAL_SINE)
+                err_code = gn_sin(tmp, c->npts, c->sample_rate, c->tone_ampl[i], c->tone_freq[i], c->tone_phase[i], 0, 0);
             if (!err_code) 
             {
                 for (size_t j = 0; j < c->npts; j++)
@@ -150,14 +421,14 @@ extern "C" {
 
         for (size_t i = 0; i < c->num_tones; i++) {
             gn::real_t *tmp = (gn::real_t *)calloc(c->npts, sizeof(gn::real_t));
-            err_code = gn_cos(tmp, c->npts, c->sample_rate, c->scale[i], c->freq[i], c->phase[i], 0, 0);
+            err_code = gn_cos(tmp, c->npts, c->sample_rate, c->tone_ampl[i], c->tone_freq[i], c->tone_phase[i], 0, 0);
             if (!err_code) 
             {
                 for (size_t j = 0; j < c->npts; j++)
                     awfi[j] = awfi[j] + tmp[j];                        
             }
             tmp = (gn::real_t *)calloc(c->npts, sizeof(gn::real_t));
-            err_code = gn_sin(tmp, c->npts, c->sample_rate, c->scale[i], c->freq[i], c->phase[i], 0, 0);
+            err_code = gn_sin(tmp, c->npts, c->sample_rate, c->tone_ampl[i], c->tone_freq[i], c->tone_phase[i], 0, 0);
             if (!err_code) 
             {
                 for (size_t j = 0; j < c->npts; j++)
@@ -176,7 +447,7 @@ extern "C" {
         int err_code;
         int32_t *qwf = (int32_t *)calloc(c->npts, sizeof(int32_t));
 
-        err_code = gn_quantize32(qwf, c->npts, in, c->npts, c->fsr, c->qres, c->qnoise, c->code_format);
+        err_code = gn_quantize32(qwf, c->npts, in, c->npts, c->fsr, c->qres, c->noise_rms, c->code_format);
         *out = qwf;
 
         return err_code;
@@ -187,7 +458,7 @@ extern "C" {
         int err_code;
         gn::real_t *fft_of_in = (gn::real_t *)calloc(2*c->nfft, sizeof(gn::real_t));
 
-        err_code = gn_fft32(fft_of_in, 2*c->nfft, in_i, c->npts, in_q, c->npts, c->qres, c->navg, c->nfft, c->win, c->code_format);
+        err_code = gn_fft32(fft_of_in, 2*c->nfft, in_i, c->npts, in_q, c->npts, c->qres, c->fft_navg, c->nfft, c->win, c->code_format);
         *out = fft_of_in;
 
         return err_code;
@@ -198,12 +469,11 @@ extern "C" {
         int err_code;
         uint64_t *out = NULL;        
 
-        err_code = gn_code_density_size(&(c->code_density_size), c->qres, c->code_format);
-
-        out = (uint64_t *)calloc(c->code_density_size, sizeof(uint64_t));
-        err_code += gn_hist32(out, c->code_density_size, qwf, c->npts, c->qres, c->code_format, false);
+        err_code = gn_code_density_size(&(c->_code_density_size), c->qres, c->code_format);
+        out = (uint64_t *)calloc(c->_code_density_size, sizeof(uint64_t));
+        err_code += gn_hist32(out, c->_code_density_size, qwf, c->npts, c->qres, c->code_format, false);
         *hist = out;
-        *hist_len = c->code_density_size;        
+        *hist_len = c->_code_density_size;        
 
         return err_code;
     }
@@ -211,11 +481,13 @@ extern "C" {
     int gn_dnlz(double **dnl, size_t *dnl_len, const uint64_t *hist, gn_config c)
     {
         int err_code;        
-        double *out = (double *)calloc(c->code_density_size, sizeof(double));
+        double *out = NULL;        
 
-        err_code = gn_dnl(out, c->code_density_size, hist, c->code_density_size, c->dnla_signal_type);
+        err_code = gn_code_density_size(&(c->_code_density_size), c->qres, c->code_format);
+        out = (double *)calloc(c->_code_density_size, sizeof(double));
+        err_code = gn_dnl(out, c->_code_density_size, hist, c->_code_density_size, c->dnla_signal_type);
         *dnl = out;
-        *dnl_len = c->code_density_size;        
+        *dnl_len = c->_code_density_size;        
 
         return err_code;
     }
@@ -223,11 +495,13 @@ extern "C" {
     int gn_inlz(double **inl, size_t *inl_len, const double *dnl, gn_config c)
     {
         int err_code;        
-        double *out = (double *)calloc(c->code_density_size, sizeof(double));
+        double *out = NULL;        
 
-        err_code = gn_inl(out, c->code_density_size, dnl, c->code_density_size, c->inla_fit);
+        err_code = gn_code_density_size(&(c->_code_density_size), c->qres, c->code_format);
+        out = (double *)calloc(c->_code_density_size, sizeof(double));
+        err_code = gn_inl(out, c->_code_density_size, dnl, c->_code_density_size, c->inla_fit);
         *inl = out;
-        *inl_len = c->code_density_size;        
+        *inl_len = c->_code_density_size;        
 
         return err_code;
     }
@@ -292,7 +566,7 @@ extern "C" {
             c->_hist_result_keys[i] = (char *)calloc(c->_hist_result_key_sizes[i], sizeof(char));
         
         // execute analysis
-        err_code += gn_hist_analysis(c->_hist_result_keys, c->_hist_results_size, c->_hist_result_values, c->_hist_results_size, hist, c->code_density_size);
+        err_code += gn_hist_analysis(c->_hist_result_keys, c->_hist_results_size, c->_hist_result_values, c->_hist_results_size, hist, c->_code_density_size);
 
         // copy keys
         *rkeys = (char **)calloc((c->_hist_results_size), sizeof(char*));
@@ -311,7 +585,7 @@ extern "C" {
         return(err_code);
     }
 
-    int gn_dnl_analysis_results(char ***rkeys, gn::real_t **rvalues, size_t *results_size, const gn::real_t *dnl, gn_config c)
+    int gn_get_dnla_results(char ***rkeys, gn::real_t **rvalues, size_t *results_size, const gn::real_t *dnl, gn_config c)
     {
         int err_code;
 
@@ -331,7 +605,7 @@ extern "C" {
             c->_dnl_result_keys[i] = (char *)calloc(c->_dnl_result_key_sizes[i], sizeof(char));
         
         // execute analysis
-        err_code += gn_dnl_analysis(c->_dnl_result_keys, c->_dnl_results_size, c->_dnl_result_values, c->_dnl_results_size, dnl, c->code_density_size);
+        err_code += gn_dnl_analysis(c->_dnl_result_keys, c->_dnl_results_size, c->_dnl_result_values, c->_dnl_results_size, dnl, c->_code_density_size);
 
         // copy keys
         *rkeys = (char **)calloc((c->_dnl_results_size), sizeof(char*));
@@ -350,7 +624,7 @@ extern "C" {
         return(err_code);
     }
 
-    int gn_inl_analysis_results(char ***rkeys, gn::real_t **rvalues, size_t *results_size, const gn::real_t *inl, gn_config c)
+    int gn_get_inla_results(char ***rkeys, gn::real_t **rvalues, size_t *results_size, const gn::real_t *inl, gn_config c)
     {
         int err_code;
 
@@ -370,7 +644,7 @@ extern "C" {
             c->_inl_result_keys[i] = (char *)calloc(c->_inl_result_key_sizes[i], sizeof(char));
         
         // execute analysis
-        err_code += gn_inl_analysis(c->_inl_result_keys, c->_inl_results_size, c->_inl_result_values, c->_inl_results_size, inl, c->code_density_size);
+        err_code += gn_inl_analysis(c->_inl_result_keys, c->_inl_results_size, c->_inl_result_values, c->_inl_results_size, inl, c->_code_density_size);
 
         // copy keys
         *rkeys = (char **)calloc((c->_inl_results_size), sizeof(char*));
@@ -437,7 +711,7 @@ extern "C" {
                 c->_fa_result_keys[i] = (char *)calloc(c->_fa_result_key_sizes[i], sizeof(char));
             
             // execute analysis
-            err_code += gn_fft_analysis(c->_fa_result_keys, c->_fa_results_size, c->_fa_result_values, c->_fa_results_size, c->obj_key, fft_ilv, 2*c->nfft, c->nfft, GnFreqAxisTypeDcCenter);
+            err_code += gn_fft_analysis(c->_fa_result_keys, c->_fa_results_size, c->_fa_result_values, c->_fa_results_size, c->obj_key, fft_ilv, 2*c->nfft, c->nfft, c->axis_type);
 
             if (err_code == 0)
                 c->_all_fa_results_computed = true;

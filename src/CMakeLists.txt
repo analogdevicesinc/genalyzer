@@ -3,7 +3,7 @@ file(GLOB HEADER_LIST CONFIGURE_DEPENDS
 
 add_definitions(-DEXPORT_API)
 
-add_library(swx_analysis_genalyzer
+add_library(genalyzer_plus_plus
     array_ops.cpp
     code_density.cpp
     enum_map.cpp
@@ -25,9 +25,9 @@ add_library(swx_analysis_genalyzer
     )
 
 # We need this directory, and users of our library will need it too
-target_include_directories(swx_analysis_genalyzer PUBLIC ../include)
+target_include_directories(genalyzer_plus_plus PUBLIC ../include)
 
-set_target_properties(swx_analysis_genalyzer PROPERTIES
+set_target_properties(genalyzer_plus_plus PROPERTIES
   VERSION ${CMAKE_PROJECT_VERSION}
   SOVERSION ${CMAKE_PROJECT_VERSION_MAJOR}
   FRAMEWORK TRUE
@@ -45,12 +45,12 @@ if(APPLE)
   pkg_check_modules(FFTW3 REQUIRED fftw3)
 endif()
 find_package(FFTW REQUIRED)
-target_link_libraries(swx_analysis_genalyzer LINK_PUBLIC ${FFTW_LIBRARIES})
+target_link_libraries(genalyzer_plus_plus LINK_PUBLIC ${FFTW_LIBRARIES})
 if(APPLE OR WIN32)
-  target_include_directories(swx_analysis_genalyzer PRIVATE ${FFTW_INCLUDE_DIRS})
+  target_include_directories(genalyzer_plus_plus PRIVATE ${FFTW_INCLUDE_DIRS})
 endif()
 
-install(TARGETS swx_analysis_genalyzer
+install(TARGETS genalyzer_plus_plus
 	ARCHIVE DESTINATION lib
 	LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
 	RUNTIME DESTINATION bin

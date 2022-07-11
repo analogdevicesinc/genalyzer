@@ -23,8 +23,9 @@ int main(int argc, const char* argv[])
     err_code = read_scalar_from_json_file(test_filename, "qres", (void*)(&qres), INT32);
     
     // configuration
-    gn_config_quantize_struct c = NULL;
-    err_code = gn_config_quantize(&c, npts, fsr, qres, qnoise);    
+    gn_config c = NULL;
+    err_code = gn_config_calloc(&c);
+    err_code = gn_config_quantize(npts, fsr, qres, qnoise, c);
 
     // read reference waveforms
     ref_awfi = (double*)malloc(npts*sizeof(double));
@@ -49,8 +50,6 @@ int main(int argc, const char* argv[])
     // compare
     assert(int_arrays_almost_equal(ref_qwfi, qwfi, 0, npts, INT32));
     assert(int_arrays_almost_equal(ref_qwfq, qwfq, 0, npts, INT32));
-    for (int ii = 0; ii < 10; ii++)
-        printf("%d\t%d\t%d\t%d\n", ref_qwfi[ii], qwfi[ii], ref_qwfq[ii], qwfq[ii]);
 
     // free memory
     free(qwfi);
@@ -59,6 +58,7 @@ int main(int argc, const char* argv[])
     free(ref_qwfq);
     free(ref_awfi);
     free(ref_awfq);
+    gn_config_free(c);
 
     return 0;
 }

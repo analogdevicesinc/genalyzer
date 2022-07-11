@@ -15,15 +15,15 @@ int main(int argc, const char* argv[])
     double sfdr;
 
     // read parameters
-    waveform_type wf_type;
+    tone_type ttype;
     int qres;
-    unsigned int npts, navg, nfft, tmp_win, num_tones;
+    unsigned int npts, fft_navg, nfft, tmp_win, num_tones;
     double *freq;
     GnWindow win;    
-    err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&wf_type), UINT64);
+    err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&ttype), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "qres", (void*)(&qres), INT32);
     err_code = read_scalar_from_json_file(test_filename, "npts", (void*)(&npts), UINT64);    
-    err_code = read_scalar_from_json_file(test_filename, "navg", (void*)(&navg), UINT64);
+    err_code = read_scalar_from_json_file(test_filename, "navg", (void*)(&fft_navg), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "nfft", (void*)(&nfft), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "num_tones", (void*)(&num_tones), UINT64);
     freq = (double*)calloc(num_tones, sizeof(double));
@@ -46,14 +46,15 @@ int main(int argc, const char* argv[])
     err_code = read_array_from_json_file(test_filename, "test_vecq_q", ref_qwfq, INT32, npts);
 
     // configuration
-    gn_config_fft_struct c = NULL;
-    err_code = gn_config_fft(&c, npts, qres, navg, nfft, win);
+    gn_config c = NULL;
+    err_code = gn_config_calloc(&c);
+    err_code = gn_config_fftz(npts, qres, fft_navg, nfft, win, c);
 
     // FFT of waveform
     err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, c);
 
     // Configure Fourier analysis
-    err_code = gn_config_fa(c, freq[0]);
+    err_code = gn_config_fa(freq[0], c);
     err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, c);
     
     printf("SFDR - %20.6f\n", sfdr);
@@ -62,6 +63,7 @@ int main(int argc, const char* argv[])
     free(ref_qwfi);
     free(ref_qwfq);
     free(fft_out);
+    gn_config_free(c);
     
     return 0;
 }

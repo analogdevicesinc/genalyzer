@@ -14,14 +14,14 @@ int main(int argc, const char* argv[])
     double *fft_out, *ref_fft_out;
 
     // read parameters
-    waveform_type wf_type;
+    tone_type ttype;
     int qres;
-    unsigned int npts, navg, nfft, tmp_win;
+    unsigned int npts, fft_navg, nfft, tmp_win;
     GnWindow win;
-    err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&wf_type), UINT64);
+    err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&ttype), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "qres", (void*)(&qres), INT32);
     err_code = read_scalar_from_json_file(test_filename, "npts", (void*)(&npts), UINT64);    
-    err_code = read_scalar_from_json_file(test_filename, "navg", (void*)(&navg), UINT64);
+    err_code = read_scalar_from_json_file(test_filename, "navg", (void*)(&fft_navg), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "nfft", (void*)(&nfft), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "win", (void*)(&tmp_win), UINT64);
     if (tmp_win==1)
@@ -32,8 +32,9 @@ int main(int argc, const char* argv[])
         win = GnWindowNoWindow;
 
     // configuration
-    gn_config_quantize_struct c = NULL;
-    err_code = gn_config_fft(&c, npts, qres, navg, nfft, win);
+    gn_config c = NULL;
+    err_code = gn_config_calloc(&c);
+    err_code = gn_config_fftz(npts, qres, fft_navg, nfft, win, c);
 
     // read reference waveforms    
     ref_qwfi = (int32_t*)malloc(npts*sizeof(int32_t));
@@ -56,6 +57,7 @@ int main(int argc, const char* argv[])
     free(ref_qwfq);
     free(fft_out);
     free(ref_fft_out);
+    gn_config_free(c);
     
     return 0;
 }

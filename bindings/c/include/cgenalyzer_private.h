@@ -23,16 +23,28 @@
 #ifndef CGENALYZER_PRIVATE_H
 #define CGENALYZER_PRIVATE_H
 #include "cgenalyzer.h"
-#include "cgenalyzer_advanced.h"
 
 #include <array_ops.hpp>
 #include <code_density.hpp>
+#include <constants.hpp>
+#include <enum_map.hpp>
 #include <enum_maps.hpp>
+#include <enums.hpp>
+#include <exceptions.hpp>
+#include <expression.hpp>
+#include <formatted_data.hpp>
+#include <fourier_analysis_comp_mask.hpp>
+#include <fourier_analysis_component.hpp>
+#include <fourier_analysis_results.hpp>
 #include <fourier_analysis.hpp>
 #include <fourier_transforms.hpp>
 #include <fourier_utilities.hpp>
+#include <json.hpp>
 #include <manager.hpp>
+#include <object.hpp>
 #include <processes.hpp>
+#include <reductions.hpp>
+#include <type_aliases.hpp>
 #include <utils.hpp>
 #include <version.hpp>
 #include <waveforms.hpp>
@@ -150,88 +162,71 @@ namespace util {
 extern "C" {
 #endif
 
-using namespace genalyzer_impl;
+    using namespace genalyzer_impl;
 
-struct gn_config_private {
-    //meas_domain md = TIME;
-    waveform_type wf_type;    
-    gn::size_t nfft;    
-    gn::size_t navg;    
-    gn::size_t npts;
+    struct gn_config_private {
+        // waveform and FFT settings
+        tone_type ttype;    
+        gn::size_t npts;
+        gn::real_t sample_rate;
+        gn::real_t *tone_freq;
+        gn::real_t *tone_ampl;
+        gn::real_t *tone_phase;
+        gn::size_t num_tones;
+        gn::real_t fsr;
+        int qres;
+        gn::real_t noise_rms;
+        GnCodeFormat code_format;
+        gn::size_t nfft;
+        gn::size_t fft_navg;
+        GnFreqAxisType axis_type;
+        gn::real_t data_rate;
+        gn::real_t shift_freq;
+        GnWindow win;
+        gn::real_t ramp_start;
+        gn::real_t ramp_stop;
+        
+        // analysis settings
+        char *obj_key;
+        char *comp_key;
+        int ssb_fund;
+        int ssb_rest;
+        int max_harm_order;
+        GnDnlSignal dnla_signal_type;
+        GnInlLineFit inla_fit;
+        gn::size_t _code_density_size;
 
-    gn::real_t sample_rate;
-    gn::real_t data_rate;
-    gn::real_t shift_freq;
-    
-    gn::real_t fsr;
-    int qres;
-    gn::real_t qnoise;
-    
-    char *obj_key;
-    char *comp_key;    
+        // keys, values and sizes for Fourier analysis results
+        char **_fa_result_keys;
+        gn::real_t *_fa_result_values;
+        gn::size_t *_fa_result_key_sizes;
+        gn::size_t _fa_results_size;
+        bool _all_fa_results_computed;
 
-    // Number of single-side bins
-    int ssb_fund;
-    int ssb_rest;
+        // keys, values and sizes for waveform analysis results
+        char **_wfa_result_keys;
+        gn::real_t *_wfa_result_values;
+        gn::size_t *_wfa_result_key_sizes;
+        gn::size_t _wfa_results_size;
 
-    int max_harm_order;
-    /*
-    int64_t min_code, max_code;
-    gn::real_t irnoise;
-    gn::real_t noise_pwr_db;*/
-    GnCodeFormat code_format;
-    GnWindow win;
-    /*
-    gn::DnlSignal dnl_type;
-    gn::real_t ramp_start, ramp_stop;*/
+        // keys, values and sizes for histogram results
+        char **_hist_result_keys;
+        gn::real_t *_hist_result_values;
+        gn::size_t *_hist_result_key_sizes;
+        gn::size_t _hist_results_size;
 
-    // triplet to describe tones
-    gn::real_t *freq;
-    gn::real_t *scale;
-    gn::real_t *phase;
-    gn::size_t num_tones;
+        // keys, values and sizes for DNL results
+        char **_dnl_result_keys;
+        gn::real_t *_dnl_result_values;
+        gn::size_t *_dnl_result_key_sizes;
+        gn::size_t _dnl_results_size;
 
-    GnDnlSignal dnla_signal_type;
-    GnInlLineFit inla_fit;
-
-    // keys, values and sizes for Fourier analysis results
-    char **_fa_result_keys;
-    gn::real_t *_fa_result_values;
-    size_t *_fa_result_key_sizes;
-    size_t _fa_results_size;
-    bool _all_fa_results_computed;
-
-    // keys, values and sizes for waveform analysis results
-    char **_wfa_result_keys;
-    gn::real_t *_wfa_result_values;
-    size_t *_wfa_result_key_sizes;
-    size_t _wfa_results_size;
-
-    // keys, values and sizes for Histogram results
-    char **_hist_result_keys;
-    gn::real_t *_hist_result_values;
-    size_t *_hist_result_key_sizes;
-    size_t _hist_results_size;
-
-    // keys, values and sizes for DNL results
-    char **_dnl_result_keys;
-    gn::real_t *_dnl_result_values;
-    size_t *_dnl_result_key_sizes;
-    size_t _dnl_results_size;
-
-    // keys, values and sizes for INL results
-    char **_inl_result_keys;
-    gn::real_t *_inl_result_values;
-    size_t *_inl_result_key_sizes;
-    size_t _inl_results_size;
-
-    // code-density size
-    size_t code_density_size;
-
-    /*
-    gn::size_t num_bins;
-    gn::size_t num_hits;*/
-};
+        // keys, values and sizes for INL results
+        char **_inl_result_keys;
+        gn::real_t *_inl_result_values;
+        gn::size_t *_inl_result_key_sizes;
+        gn::size_t _inl_results_size;    
+    };
 
 #ifdef __cplusplus
 }

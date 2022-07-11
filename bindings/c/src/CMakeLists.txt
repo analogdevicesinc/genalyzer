@@ -5,7 +5,7 @@ add_definitions(-DGENALYZER_EXPORTS)
 
 add_library(genalyzer SHARED ${SOURCE_LIST} ${HEADER_LIST})
 
-target_link_libraries(genalyzer LINK_PRIVATE swx_analysis_genalyzer)
+target_link_libraries(genalyzer LINK_PRIVATE genalyzer_plus_plus)
 
 target_include_directories(genalyzer PUBLIC "${PROJECT_SOURCE_DIR}/bindings/c/include")
 

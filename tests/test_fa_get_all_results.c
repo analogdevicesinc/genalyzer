@@ -17,12 +17,12 @@ int main(int argc, const char* argv[])
     double *rvalues;
 
     // read parameters
-    waveform_type wf_type;
+    tone_type ttype;
     int qres;
     unsigned int npts, navg, nfft, tmp_win, num_tones;
     double *freq;
     GnWindow win;    
-    err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&wf_type), UINT64);
+    err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&ttype), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "qres", (void*)(&qres), INT32);
     err_code = read_scalar_from_json_file(test_filename, "npts", (void*)(&npts), UINT64);    
     err_code = read_scalar_from_json_file(test_filename, "navg", (void*)(&navg), UINT64);
@@ -48,14 +48,15 @@ int main(int argc, const char* argv[])
     err_code = read_array_from_json_file(test_filename, "test_vecq_q", ref_qwfq, INT32, npts);
 
     // configuration
-    gn_config_fft_struct c = NULL;
-    err_code = gn_config_fft(&c, npts, qres, navg, nfft, win);
+    gn_config c = NULL;
+    err_code = gn_config_calloc(&c);
+    err_code = gn_config_fftz(npts, qres, navg, nfft, win, c);
 
     // FFT of waveform
     err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, c);
 
     // Configure Fourier analysis
-    err_code = gn_config_fa(c, freq[0]);
+    err_code = gn_config_fa(freq[0], c);
     err_code = gn_get_fa_results(&rkeys, &rvalues, &results_size, fft_out, c);
     
     printf("\nAll Fourier Analysis Results:\n");
@@ -70,6 +71,7 @@ int main(int argc, const char* argv[])
     for (size_t i = 0; i < results_size; ++i)
         free(rkeys[i]);
     free(rkeys);
+    gn_config_free(c);
     
     return 0;
 }
