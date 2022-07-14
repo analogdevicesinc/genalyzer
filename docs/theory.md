@@ -22,22 +22,21 @@ The overall structure of a C-example that utilizes genalyzer library in the firs
 
 int main(int argc, char *argv[]) {  
   // opaque config struct that will contain config settings
-  gn_config_quantize_struct c = NULL;  
+  gn_config c = NULL;  
 
   // configure test
-  err_code = gn_config_calloc(&c);
-  err_code = gn_config_gen_tone(..., c);
-  err_code = gn_config_quantize(..., c);
+  err_code = gn_config_gen_tone(..., &c);
+  err_code = gn_config_quantize(..., &c);
   
   // generate waveform and quantize
-  err_code = gn_gen_real_tone(..., c);
-  err_code = gn_quantize(..., c);
+  err_code = gn_gen_real_tone(..., &c);
+  err_code = gn_quantize(..., &c);
 
   // compute metrics
-  err_code = gn_get_fa_single_result(&sfdr, "sfdr", ..., c);
+  err_code = gn_get_fa_single_result(&sfdr, "sfdr", ..., &c);
 
   // free memory
-  gn_config_free(c);
+  gn_config_free(&c);
   
   return 0;
 }
@@ -50,24 +49,23 @@ The overall structure of a C-example in the second scenario is shown by the foll
 
 int main(int argc, char *argv[]) {  
   // opaque config struct that will contain config settings
-  gn_config_quantize_struct c = NULL;  
+  gn_config c = NULL;  
 
   // configure test
-  err_code = gn_config_calloc(&c);
-  err_code = gn_config_fft(..., c);
+  err_code = gn_config_fft(..., &c);
   
   // read ADC codes from file
   err_code = read_array_from_json_file(filename, "adc_output_i", adc_i, ...);
   err_code = read_array_from_json_file(filename, "adc_output_q", adc_q, ...);
 
   // compute FFT
-  err_code = gn_fftz(&fft_out, adc_i, adc_q, c);
+  err_code = gn_fftz(&fft_out, adc_i, adc_q, &c);
 
   // compute metrics
-  err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, c);
+  err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, &c);
 
   // free memory
-  gn_config_free(c);
+  gn_config_free(&c);
   
   return 0;
 }
@@ -78,20 +76,19 @@ If on the other hand, the FFT is pre-computed and genalyzer is expected to compu
 
 int main(int argc, char *argv[]) {  
   // opaque config struct that will contain config settings
-  gn_config_quantize_struct c = NULL;  
+  gn_config c = NULL;  
 
   // configuration
-  err_code = gn_config_calloc(&c);
-  err_code = gn_config_fft(..., c);
+  err_code = gn_config_fft(..., &c);
   
   // read FFT of ADC codes from file
   err_code = read_array_from_json_file(filename, "fft_test_vec", fft_out, ...);
 
   // compute metrics
-  err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, c);
+  err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, &c);
 
   // free memory
-  gn_config_free(c);
+  gn_config_free(&c);
   
   return 0;
 }

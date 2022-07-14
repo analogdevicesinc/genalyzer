@@ -49,15 +49,14 @@ int main(int argc, const char* argv[])
 
     // configuration
     gn_config c = NULL;
-    err_code = gn_config_calloc(&c);
-    err_code = gn_config_fftz(npts, qres, navg, nfft, win, c);
+    err_code = gn_config_fftz(npts, qres, navg, nfft, win, &c);
 
     // FFT of waveform
-    err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, c);
+    err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, &c);
 
     // Configure Fourier analysis
-    err_code = gn_config_fa(freq[0], c);
-    err_code = gn_get_fa_results(&rkeys, &rvalues, &results_size, fft_out, c);
+    err_code = gn_config_fa(freq[0], &c);
+    err_code = gn_get_fa_results(&rkeys, &rvalues, &results_size, fft_out, &c);
     
     printf("\nAll Fourier Analysis Results:\n");
     for (size_t i = 0; i < results_size; i++)
@@ -71,7 +70,7 @@ int main(int argc, const char* argv[])
     for (size_t i = 0; i < results_size; ++i)
         free(rkeys[i]);
     free(rkeys);
-    gn_config_free(c);
+    gn_config_free(&c);
     
     return 0;
 }

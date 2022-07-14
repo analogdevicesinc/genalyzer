@@ -56,23 +56,13 @@ extern "C"
       COMPLEX_EXP
   } tone_type;
 
-    
-  /**
-   * @brief initialize memory for configuration struct
-   * @return 0 on success, non-zero otherwise
-   * @param c genalyzer Configuration struct
-   */
-  __api int gn_config_calloc(
-            gn_config* c
-        );
-
   /**
    * @brief free memory for configuration struct
    * @return 0 on success, non-zero otherwise
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_free(
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -82,17 +72,27 @@ extern "C"
    */
   __api int gn_config_set_ttype(
             tone_type ttype, 
-            gn_config c
+            gn_config *c
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: npts
    * @return 0 on success, non-zero otherwise
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_npts(
             size_t npts, 
-            gn_config c
+            gn_config *c
+        );
+
+  /**
+   * @brief get configuration struct member: npts
+   * @return 0 on success, non-zero otherwise
+   * @param c genalyzer Configuration struct
+   */
+  __api int gn_config_get_npts(
+            size_t *npts, 
+            gn_config *c
         );
 
   /**
@@ -102,7 +102,17 @@ extern "C"
    */
   __api int gn_config_set_sample_rate(
             double sample_rate, 
-            gn_config c
+            gn_config *c
+        );
+
+  /**
+   * @brief free memory for configuration struct
+   * @return 0 on success, non-zero otherwise
+   * @param c genalyzer Configuration struct
+   */
+  __api int gn_config_get_sample_rate(
+            double *sample_rate, 
+            gn_config *c
         );
 
   /**
@@ -112,7 +122,7 @@ extern "C"
    */
   __api int gn_config_set_data_rate(
             double data_rate, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -122,7 +132,7 @@ extern "C"
    */
   __api int gn_config_set_shift_freq(
             double shift_freq, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -132,7 +142,7 @@ extern "C"
    */
   __api int gn_config_set_num_tones(
             size_t num_tones, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -142,7 +152,7 @@ extern "C"
    */
   __api int gn_config_set_tone_freq(
             double *tone_freq, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -152,7 +162,7 @@ extern "C"
    */
   __api int gn_config_set_tone_ampl(
             double *tone_ampl, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -162,7 +172,7 @@ extern "C"
    */
   __api int gn_config_set_tone_phase(
             double *tone_phase, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -172,7 +182,7 @@ extern "C"
    */
   __api int gn_config_set_fsr(
             double fsr, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -182,7 +192,7 @@ extern "C"
    */
   __api int gn_config_set_qres(
             int qres, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -192,7 +202,7 @@ extern "C"
    */
   __api int gn_config_set_noise_rms(
             double noise_rms, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -202,7 +212,7 @@ extern "C"
    */
   __api int gn_config_set_code_format(
             GnCodeFormat code_format, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -212,7 +222,17 @@ extern "C"
    */
   __api int gn_config_set_nfft(
             size_t nfft, 
-            gn_config c
+            gn_config *c
+        );
+
+  /**
+   * @brief get configuration struct member: npts
+   * @return 0 on success, non-zero otherwise
+   * @param c genalyzer Configuration struct
+   */
+  __api int gn_config_get_nfft(
+            size_t *nfft, 
+            gn_config *c
         );
     
   /**
@@ -222,7 +242,7 @@ extern "C"
    */
   __api int gn_config_set_fft_navg(
             size_t fft_navg, 
-            gn_config c
+            gn_config *c
         );
     
   /**
@@ -232,7 +252,7 @@ extern "C"
    */
   __api int gn_config_set_win(
             GnWindow win, 
-            gn_config c
+            gn_config *c
         );
     
   /**
@@ -242,7 +262,7 @@ extern "C"
    */
   __api int gn_config_set_ssb_fund(
             int ssb_fund, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -252,7 +272,7 @@ extern "C"
    */
   __api int gn_config_set_ssb_rest(
             int ssb_rest, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -263,7 +283,7 @@ extern "C"
    */
   __api int gn_config_set_max_harm_order(
             int max_harm_order, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -274,7 +294,7 @@ extern "C"
    */
   __api int gn_config_set_dnla_signal_type(
             GnDnlSignal dnla_signal_type, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -285,7 +305,7 @@ extern "C"
    */
   __api int gn_config_set_inla_fit(
             GnInlLineFit inla_fit, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -296,7 +316,7 @@ extern "C"
    */
   __api int gn_config_set_ramp_start(
             size_t ramp_start, 
-            gn_config c
+            gn_config *c
         );
     
   /**
@@ -307,7 +327,7 @@ extern "C"
    */
   __api int gn_config_set_ramp_stop(
             size_t ramp_stop, 
-            gn_config c
+            gn_config *c
         );    
 
   /**
@@ -330,7 +350,7 @@ extern "C"
             double *tone_freq, 
             double *tone_ampl,
             double *tone_phase, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -345,7 +365,7 @@ extern "C"
             size_t npts, 
             size_t ramp_start, 
             size_t ramp_stop, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -362,7 +382,7 @@ extern "C"
             double fsr,
             int qres, 
             double qnoise, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -375,7 +395,7 @@ extern "C"
   __api int gn_config_histz_nla(
             size_t npts, 
             int qres, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -388,7 +408,7 @@ extern "C"
             size_t navg,                        ///< [navg] Number of FFT averages
             size_t nfft,                        ///< [nfft] FFT order
             GnWindow win,                       ///< [win] Window function to apply, Options: GnWindowBlackmanHarris, GnWindowHann, GnWindowNoWindow
-            gn_config c                         ///< [c] Configuration structure containing test parameters
+            gn_config *c                         ///< [c] Configuration structure containing test parameters
         );
 
   /**
@@ -397,7 +417,7 @@ extern "C"
    */
   __api int gn_config_fa(
             double fixed_tone_freq,    ///< [fixed_tone_freq] Fixed tone frequency
-            gn_config c                ///< [c] Configuration structure containing test parameters            
+            gn_config *c                ///< [c] Configuration structure containing test parameters            
         );
   
   /**
@@ -407,7 +427,8 @@ extern "C"
    */
   __api int gn_gen_ramp(
             double **out, 
-            gn_config c
+            size_t *out_len, 
+            gn_config *c
         );
   
   /**
@@ -417,8 +438,8 @@ extern "C"
    * @param c Configuration structure containing test parameters
    */
   __api int gn_gen_real_tone(
-            double **out, 
-            gn_config c
+            double **out,
+            gn_config *c
         );
 
   /**
@@ -430,8 +451,8 @@ extern "C"
    */
   __api int gn_gen_complex_tone(
             double **outi, 
-            double **outq, 
-            gn_config c
+            double **outq,
+            gn_config *c
         );
 
   /**
@@ -441,7 +462,7 @@ extern "C"
   __api int gn_quantize(
             int32_t **out,            ///< [out] Quantized output waveform   
             const double *in,         ///< [in] Input waveform to be quantized 
-            gn_config c               ///< [c] Configuration structure containing test parameters
+            gn_config *c               ///< [c] Configuration structure containing test parameters
         );
   /**
  * @brief Compute FFT of quantized input waveform
@@ -451,7 +472,7 @@ extern "C"
             double **out,             ///< [out] Interleaved Re/Im FFT output
             const int32_t *in_i,      ///< [in_i] In-phase input
             const int32_t *in_q,      ///< [in_q] Quadrature input
-            gn_config c               ///< [c] Configuration structure containing test parameters
+            gn_config *c               ///< [c] Configuration structure containing test parameters
         );
 
   /**
@@ -462,7 +483,7 @@ extern "C"
             uint64_t **hist,                    ///< [hist] Output - Histogram of input quantized waveform
             size_t *hist_len,                   ///< [hist_len] Output - Histogram size
             const int32_t *qwf,                 ///< [qwf] Input - Quantized input waveform  
-            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+            gn_config *c                         ///< [c] Input - Configuration structure containing test parameters
         );
 
   /**
@@ -473,7 +494,7 @@ extern "C"
             double **dnl, 
             size_t *dnl_len, 
             const uint64_t *hist, 
-            gn_config c
+            gn_config *c
         );
 
   /**
@@ -485,7 +506,7 @@ extern "C"
             double **inl, 
             size_t *inl_len, 
             const double *dnl, 
-            gn_config c
+            gn_config *c
         );
   
   /**
@@ -497,7 +518,7 @@ extern "C"
             double **rvalues, 
             size_t *results_size,               ///< [results_size] size of results 
             const int32_t *qwf,                 ///< [qwf] Input - Quantized input array pointer 
-            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+            gn_config *c                         ///< [c] Input - Configuration structure containing test parameters
         );
 
     /**
@@ -509,7 +530,7 @@ extern "C"
             double **rvalues,                   ///< [rvalues] Output - Result values
             size_t *results_size,               ///< [results_size] Output - Size of results  
             const uint64_t *hist,               ///< [hist] Input - Histogram input to be analyzed 
-            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+            gn_config *c                         ///< [c] Input - Configuration structure containing test parameters
         );
 
   /**
@@ -521,7 +542,7 @@ extern "C"
             double **rvalues,                   ///< [rvalues] Output - Result values 
             size_t *results_size,               ///< [results_size] Output - Size of results   
             const double *dnl,                  ///< [dnl] Input - DNL input to be analyzed  
-            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+            gn_config *c                         ///< [c] Input - Configuration structure containing test parameters
         );
 
   /**
@@ -533,7 +554,7 @@ extern "C"
           double **rvalues,                   ///< [rvalues] Output - Result values 
           size_t *results_size,               ///< [results_size] Output - Size of results   
           const double *inl,                  ///< [dnl] Input - INL input to be analyzed  
-          gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+          gn_config *c                         ///< [c] Input - Configuration structure containing test parameters
       );
 
   /**
@@ -544,7 +565,7 @@ extern "C"
             double *rvalue,
             const char* metric_name,  
             double *fft_ilv,                    ///< [fft_ilv] Input - Interleaved Re/Im array pointer 
-            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+            gn_config *c                         ///< [c] Input - Configuration structure containing test parameters
         );
 
   /**
@@ -556,7 +577,7 @@ extern "C"
             double **rvalues,  
             size_t *results_size,               ///< [results_size] size of results
             double *fft_ilv,                    ///< [fft_ilv] Input - Interleaved Re/Im array pointer
-            gn_config c                         ///< [c] Input - Configuration structure containing test parameters
+            gn_config *c                         ///< [c] Input - Configuration structure containing test parameters
         );
   
 #ifdef __cplusplus

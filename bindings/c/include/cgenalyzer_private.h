@@ -165,6 +165,8 @@ extern "C" {
     using namespace genalyzer_impl;
 
     struct gn_config_private {
+        bool _gn_config_calloced = false;
+        
         // waveform and FFT settings
         tone_type ttype;    
         gn::size_t npts;

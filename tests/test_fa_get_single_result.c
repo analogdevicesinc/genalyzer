@@ -47,15 +47,14 @@ int main(int argc, const char* argv[])
 
     // configuration
     gn_config c = NULL;
-    err_code = gn_config_calloc(&c);
-    err_code = gn_config_fftz(npts, qres, fft_navg, nfft, win, c);
+    err_code = gn_config_fftz(npts, qres, fft_navg, nfft, win, &c);
 
     // FFT of waveform
-    err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, c);
+    err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, &c);
 
     // Configure Fourier analysis
-    err_code = gn_config_fa(freq[0], c);
-    err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, c);
+    err_code = gn_config_fa(freq[0], &c);
+    err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, &c);
     
     printf("SFDR - %20.6f\n", sfdr);
     
@@ -63,7 +62,7 @@ int main(int argc, const char* argv[])
     free(ref_qwfi);
     free(ref_qwfq);
     free(fft_out);
-    gn_config_free(c);
+    gn_config_free(&c);
     
     return 0;
 }

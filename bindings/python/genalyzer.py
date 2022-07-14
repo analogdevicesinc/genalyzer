@@ -43,178 +43,193 @@ class GNConfig(object):
     def __init__(self):
         self._struct = _GNConfigPtr()
 
-
-_gn_config_calloc = _libgen.gn_config_calloc
-_gn_config_calloc.restype = c_int
-_gn_config_calloc.argtypes = [
-    POINTER(_GNConfigPtr),
-]
-
 _gn_config_free = _libgen.gn_config_free
 _gn_config_free.restype = c_int
 _gn_config_free.argtypes = [
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_ttype = _libgen.gn_config_set_ttype
 _gn_config_set_ttype.restype = c_int
 _gn_config_set_ttype.argtypes = [
     c_uint,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_npts = _libgen.gn_config_set_npts
 _gn_config_set_npts.restype = c_int
 _gn_config_set_npts.argtypes = [
     c_ulong,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
+]
+
+_gn_config_get_npts = _libgen.gn_config_get_npts
+_gn_config_get_npts.restype = c_int
+_gn_config_get_npts.argtypes = [
+    POINTER(c_ulong),
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_sample_rate = _libgen.gn_config_set_sample_rate
 _gn_config_set_sample_rate.restype = c_int
 _gn_config_set_sample_rate.argtypes = [
     c_double,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
+]
+
+
+_gn_config_get_sample_rate = _libgen.gn_config_get_sample_rate
+_gn_config_get_sample_rate.restype = c_int
+_gn_config_get_sample_rate.argtypes = [
+    POINTER(c_double),
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_data_rate = _libgen.gn_config_set_data_rate
 _gn_config_set_data_rate.restype = c_int
 _gn_config_set_data_rate.argtypes = [
     c_double,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_shift_freq = _libgen.gn_config_set_shift_freq
 _gn_config_set_shift_freq.restype = c_int
 _gn_config_set_shift_freq.argtypes = [
     c_double,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_num_tones = _libgen.gn_config_set_num_tones
 _gn_config_set_num_tones.restype = c_int
 _gn_config_set_num_tones.argtypes = [
     c_ulong,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_tone_freq = _libgen.gn_config_set_tone_freq
 _gn_config_set_tone_freq.restype = c_int
 _gn_config_set_tone_freq.argtypes = [
     POINTER(c_double),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_tone_ampl = _libgen.gn_config_set_tone_ampl
 _gn_config_set_tone_ampl.restype = c_int
 _gn_config_set_tone_ampl.argtypes = [
     POINTER(c_double),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_tone_phase = _libgen.gn_config_set_tone_phase
 _gn_config_set_tone_phase.restype = c_int
 _gn_config_set_tone_phase.argtypes = [
     POINTER(c_double),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_fsr = _libgen.gn_config_set_fsr
 _gn_config_set_fsr.restype = c_int
 _gn_config_set_fsr.argtypes = [
     c_double,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_qres = _libgen.gn_config_set_qres
 _gn_config_set_qres.restype = c_int
 _gn_config_set_qres.argtypes = [
     c_int,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_noise_rms = _libgen.gn_config_set_noise_rms
 _gn_config_set_noise_rms.restype = c_int
 _gn_config_set_noise_rms.argtypes = [
     c_double,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_code_format = _libgen.gn_config_set_code_format
 _gn_config_set_code_format.restype = c_int
 _gn_config_set_code_format.argtypes = [
     c_uint,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_nfft = _libgen.gn_config_set_nfft
 _gn_config_set_nfft.restype = c_int
 _gn_config_set_nfft.argtypes = [
     c_ulong,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
+]
+
+_gn_config_get_nfft = _libgen.gn_config_get_nfft
+_gn_config_get_nfft.restype = c_int
+_gn_config_get_nfft.argtypes = [
+    POINTER(c_ulong),
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_fft_navg = _libgen.gn_config_set_fft_navg
 _gn_config_set_fft_navg.restype = c_int
 _gn_config_set_fft_navg.argtypes = [
     c_ulong,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_win = _libgen.gn_config_set_win
 _gn_config_set_win.restype = c_int
 _gn_config_set_win.argtypes = [
     c_uint,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_ssb_fund = _libgen.gn_config_set_ssb_fund
 _gn_config_set_ssb_fund.restype = c_int
 _gn_config_set_ssb_fund.argtypes = [
     c_int,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_ssb_rest = _libgen.gn_config_set_ssb_rest
 _gn_config_set_ssb_rest.restype = c_int
 _gn_config_set_ssb_rest.argtypes = [
     c_int,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_max_harm_order = _libgen.gn_config_set_max_harm_order
 _gn_config_set_max_harm_order.restype = c_int
 _gn_config_set_max_harm_order.argtypes = [
     c_int,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_dnla_signal_type = _libgen.gn_config_set_dnla_signal_type
 _gn_config_set_dnla_signal_type.restype = c_int
 _gn_config_set_dnla_signal_type.argtypes = [
     c_uint,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_inla_fit = _libgen.gn_config_set_inla_fit
 _gn_config_set_inla_fit.restype = c_int
 _gn_config_set_inla_fit.argtypes = [
     c_uint,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_ramp_start = _libgen.gn_config_set_ramp_start
 _gn_config_set_ramp_start.restype = c_int
 _gn_config_set_ramp_start.argtypes = [
     c_ulong,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_set_ramp_stop = _libgen.gn_config_set_ramp_stop
 _gn_config_set_ramp_stop.restype = c_int
 _gn_config_set_ramp_stop.argtypes = [
     c_ulong,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_gen_tone = _libgen.gn_config_gen_tone
@@ -227,7 +242,7 @@ _gn_config_gen_tone.argtypes = [
     POINTER(c_double),
     POINTER(c_double),
     POINTER(c_double),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_gen_ramp = _libgen.gn_config_gen_ramp
@@ -236,7 +251,7 @@ _gn_config_gen_ramp.argtypes = [
     c_ulong,
     c_ulong,
     c_ulong,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_quantize = _libgen.gn_config_quantize
@@ -246,7 +261,7 @@ _gn_config_quantize.argtypes = [
     c_double,
     c_int,
     c_double,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_histz_nla = _libgen.gn_config_histz_nla
@@ -254,7 +269,7 @@ _gn_config_histz_nla.restype = c_int
 _gn_config_histz_nla.argtypes = [
     c_ulong,
     c_int,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_fftz = _libgen.gn_config_fftz
@@ -265,28 +280,29 @@ _gn_config_fftz.argtypes = [
     c_ulong,
     c_ulong,
     c_uint,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_config_fa = _libgen.gn_config_fa
 _gn_config_fa.restype = c_int
 _gn_config_fa.argtypes = [
     c_double,
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_gen_ramp = _libgen.gn_gen_ramp
 _gn_gen_ramp.restype = c_int
 _gn_gen_ramp.argtypes = [
     POINTER(POINTER(c_double)),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_gen_real_tone = _libgen.gn_gen_real_tone
 _gn_gen_real_tone.restype = c_int
 _gn_gen_real_tone.argtypes = [
     POINTER(POINTER(c_double)),
-    _GNConfigPtr,
+    POINTER(c_uint),
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_gen_complex_tone = _libgen.gn_gen_complex_tone
@@ -294,7 +310,8 @@ _gn_gen_complex_tone.restype = c_int
 _gn_gen_complex_tone.argtypes = [
     POINTER(POINTER(c_double)),
     POINTER(POINTER(c_double)),
-    _GNConfigPtr,
+    POINTER(c_ulong),
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_quantize = _libgen.gn_quantize
@@ -302,7 +319,7 @@ _gn_quantize.restype = c_int
 _gn_quantize.argtypes = [
     POINTER(POINTER(c_int32)),
     POINTER(c_double),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_fftz = _libgen.gn_fftz
@@ -311,7 +328,7 @@ _gn_fftz.argtypes = [
     POINTER(POINTER(c_double)),
     POINTER(c_int32),
     POINTER(c_int32),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_histz = _libgen.gn_histz
@@ -320,7 +337,7 @@ _gn_histz.argtypes = [
     POINTER(POINTER(c_uint64)),
     POINTER(c_ulong),
     POINTER(c_int32),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_dnlz = _libgen.gn_dnlz
@@ -329,7 +346,7 @@ _gn_dnlz.argtypes = [
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_uint64),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_inlz = _libgen.gn_inlz
@@ -338,7 +355,7 @@ _gn_inlz.argtypes = [
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_uint64),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_get_wfa_results = _libgen.gn_get_wfa_results
@@ -348,7 +365,7 @@ _gn_get_wfa_results.argtypes = [
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_int32),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_get_ha_results = _libgen.gn_get_ha_results
@@ -358,7 +375,7 @@ _gn_get_ha_results.argtypes = [
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_uint64),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_get_dnla_results = _libgen.gn_get_dnla_results
@@ -368,7 +385,7 @@ _gn_get_dnla_results.argtypes = [
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_double),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_get_inla_results = _libgen.gn_get_inla_results
@@ -378,24 +395,275 @@ _gn_get_inla_results.argtypes = [
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_double),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_get_fa_single_result = _libgen.gn_get_fa_single_result
 _gn_get_fa_single_result.restype = c_int
 _gn_get_fa_single_result.argtypes = [
     POINTER(c_double),
-    POINTER(c_char),
+    c_char_p,
     POINTER(c_double),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
 
 _gn_get_fa_results = _libgen.gn_get_fa_results
 _gn_get_fa_results.restype = c_int
 _gn_get_fa_results.argtypes = [
-    POINTER(POINTER(POINTER(c_char))),
+    POINTER(POINTER(c_char_p)),
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_double),
-    _GNConfigPtr,
+    POINTER(_GNConfigPtr),
 ]
+
+def config_free(
+    c: GNConfig,
+) -> int:
+    _gn_config_free(
+        byref(c._struct)
+    )
+
+
+def config_gen_tone(
+    ttype: int,
+    npts: int,
+    sample_rate: float,
+    num_tones: int,
+    tone_freq: float,
+    tone_ampl: float,
+    tone_phase: float,
+    *args
+) -> GNConfig:
+    """Configure GNConfig struct to generate tone.
+    :param ttype: tone type
+    :param npts: number of sample points in the waveform
+    :param sample_rate: sampling frequency
+    :param num_tones: number of tones
+    :param tone_freq: tone frequency
+    :param tone_ampl: tone amplitude
+    :param tone_phase: tone phase
+    :return: GNConfig object
+    """
+    if len(args) == 0:
+        c = GNConfig()
+    elif len(args) == 1:
+        c = args[0]
+    ttype = c_uint(ttype)
+    npts = c_ulong(npts)
+    sample_rate = c_double(sample_rate)
+    num_tones = c_ulong(num_tones)
+    double_array = c_double * num_tones.value
+    tone_freq = (double_array)(*tone_freq)
+    tone_ampl = (double_array)(*tone_ampl)
+    tone_phase = (double_array)(*tone_phase)    
+
+    _gn_config_gen_tone(
+        ttype,
+        npts,
+        sample_rate,
+        num_tones,
+        tone_freq,
+        tone_ampl,
+        tone_phase,
+        byref(c._struct)
+    )
+    return c
+
+
+def config_quantize(
+    npts: int,
+    fsr: float,
+    qres: int,
+    qnoise: float,
+    *args
+) -> GNConfig:
+    """Configure GNConfig struct to perform quantization.
+    :param npts: number of sample points in the waveform
+    :param fsr: full-scale range
+    :param qres: quantization resolution
+    :param qnoise: quantization noise
+    :return: GNConfig object
+    """    
+    if len(args) == 0:
+        c = GNConfig()
+    elif len(args) == 1:
+        c = args[0]
+
+    npts = c_ulong(npts)
+    fsr = c_double(fsr)
+    qres = c_int(qres)
+    qnoise = c_double(qnoise)
+
+    _gn_config_quantize(
+        npts,
+        fsr,
+        qres,
+        qnoise,
+        byref(c._struct)
+    )
+    return c
+
+def config_fftz(
+    npts: int,
+    qres: int,
+    navg: int,
+    nfft:int,
+    win:int,
+    *args
+) -> GNConfig:
+    """Configure GNConfig struct to compute FFT.
+    :param npts: number of sample points in the waveform
+    :param fsr: full-scale range
+    :param qres: quantization resolution
+    :param qnoise: quantization noise
+    :return: GNConfig object
+    """    
+    if len(args) == 0:
+        c = GNConfig()
+    elif len(args) == 1:
+        c = args[0]
+    npts = c_ulong(npts)
+    qres = c_int(qres)
+    navg = c_ulong(navg)
+    nfft = c_ulong(nfft)
+    win = c_uint(win)
+
+    _gn_config_fftz(
+        npts,
+        qres,
+        navg,
+        nfft,
+        win,
+        byref(c._struct)
+    )
+    return c
+
+def config_fa(
+    fixed_tone_freq: float,
+    *args
+) -> GNConfig:
+    """Configure GNConfig struct for Fourier analysis.
+    :param fixed_tone_freq: fixed tone frequency
+    :return: GNConfig object
+    """    
+    if len(args) == 0:
+        c = GNConfig()
+    elif len(args) == 1:
+        c = args[0]
+    fixed_tone_freq = c_double(fixed_tone_freq)
+    
+    _gn_config_fa(
+        fixed_tone_freq, 
+        byref(c._struct)
+    )
+    return c
+
+def gen_real_tone(
+    c: GNConfig
+) -> List[float]:
+    """Generate single-tone or multi-tone floating-point waveform
+    :param c: GNConfig object
+    :return: single-/multi-tone real waveform as list of floats
+    """
+    awf = POINTER(c_double)()
+    awf_len = c_uint(0)
+    _gn_gen_real_tone(byref(awf), byref(awf_len), byref(c._struct))
+    return list(awf[0 : awf_len.value])
+
+def gen_complex_tone(
+    c: GNConfig
+) -> List[float]:
+    """Generate single-tone or multi-tone complex waveform
+    :param c: GNConfig object
+    :return: single-/multi-tone complex waveform as (I and Q) lists of floats
+    """
+    awf_i = POINTER(c_double)()
+    awf_q = POINTER(c_double)()
+    awf_len = c_ulong(0)
+    _gn_gen_complex_tone(byref(awf_i), byref(awf_q), byref(awf_len), byref(c._struct))
+    return (list(awf_i[0 : awf_len.value]), list(awf_q[0 : awf_len.value]))
+
+def quantize(
+    in_awf: list,
+    c: GNConfig
+) -> List[int]:
+    """Quantize real waveform
+    :param c: GNConfig object
+    :return: Quantized floating-point waveform as list of ints
+    """
+    qwf = POINTER(c_int32)()
+    wf_len = c_ulong(0)
+    _gn_config_get_npts(byref(wf_len), byref(c._struct))
+    double_array = c_double * wf_len.value
+    in_awf_ptr = (double_array)(*in_awf)
+    _gn_quantize(byref(qwf), in_awf_ptr, byref(c._struct))
+    return list(qwf[0 : wf_len.value])
+
+def fftz(
+    in_qwfi: int,
+    in_qwfq: int,
+    c: GNConfig
+) -> List[float]:
+    """Compute FFT
+    :param in_qwfi: Input quantized waveform (I)
+    :param in_qwfq: Input quantized waveform (Q)
+    :param c: GNConfig object
+    :return: FFT of the input waveform as list of floats
+    """
+    fft_out = POINTER(c_double)()
+    wf_len = c_ulong(0)
+    _gn_config_get_npts(byref(wf_len), byref(c._struct))
+    int32_array = c_int32 * wf_len.value
+    in_qwfi = (int32_array)(*in_qwfi)
+    in_qwfq = (int32_array)(*in_qwfq)
+    _gn_fftz(byref(fft_out), in_qwfi, in_qwfq, byref(c._struct))
+    fft_len = c_ulong(0)
+    _gn_config_get_nfft(byref(fft_len), byref(c._struct))
+    out = list(fft_out[0 : 2*fft_len.value])
+    fft_out_i = [out[i] for i in range(len(out)) if i % 2 == 0]
+    fft_out_q = [out[i] for i in range(len(out)) if i % 2 != 0]
+    return fft_out_i, fft_out_q
+
+def get_fa_single_result(
+    metric_name: str,
+    fft_ilv: float,
+    c: GNConfig
+) -> float:
+    """Get Fourier analysis results.
+    :param fixed_tone_freq: fixed tone frequency
+    :param: GNConfig object
+    :return: Results as dict
+    """
+    fft_len = c_ulong(0)
+    _gn_config_get_nfft(byref(fft_len), byref(c._struct))
+    fft_ilv_len = 2 * fft_len.value
+    double_array = c_double * fft_ilv_len
+    fft_ilv = (double_array)(*fft_ilv)
+    metric_name_enc = metric_name.encode("utf-8")
+    result = c_double(0)
+    _gn_get_fa_single_result(byref(result), metric_name_enc, fft_ilv, byref(c._struct))
+    return result
+
+def get_fa_results(
+    fft_ilv: float,
+    c: GNConfig
+) -> dict:
+    """Get Fourier analysis results.
+    :param fixed_tone_freq: fixed tone frequency
+    :param: GNConfig object
+    :return: Results as dict
+    """
+    fft_len = c_ulong(0)
+    _gn_config_get_nfft(byref(fft_len), byref(c._struct))
+    fft_ilv_len = 2 * fft_len.value
+    double_array = c_double * fft_ilv_len
+    fft_ilv = (double_array)(*fft_ilv)
+    rkeys = POINTER(c_char_p)()
+    rvalues = POINTER(c_double)()
+    results_size = c_ulong(0)
+    _gn_get_fa_results(byref(rkeys), byref(rvalues), byref(results_size), fft_ilv, byref(c._struct))
+    results = dict()
+    for i in range(results_size.value):
+        results[(rkeys[i]).decode('ascii')] = rvalues[i]
+    return results

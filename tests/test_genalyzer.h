@@ -221,60 +221,6 @@ end:
     return status;
 }
 
-int read_file_to_array(const char* file_name, void* result, datatype result_type)
-{
-    char line[256];
-    FILE* fp = fopen(file_name, "r");
-    if (fp == NULL) {
-        fprintf(stderr, "%s: %s\n", file_name, strerror(errno));
-        return errno;
-    }
-
-    size_t n = 0;
-    while (fgets(line, sizeof(line), fp)) {
-        if (strstr(line, "----------") != NULL)
-            break;
-    }
-
-    if (result_type == INT32) {
-        int* i32_result = result;
-        while (fscanf(fp, "%d", &i32_result[n++]) != EOF)
-            ;
-    } else if (result_type == INT64) {
-        long int* i64_result = result;
-        while (fscanf(fp, "%ld", &i64_result[n++]) != EOF)
-            ;
-    } else if (result_type == DOUBLE) {
-        double* d_result = result;
-        while (fscanf(fp, "%lf", &d_result[n++]) != EOF)
-            ;
-    }
-    fclose(fp);
-    return 0;
-}
-
-int write_array_to_file(const char* file_name, void* result, size_t r_size, datatype result_type)
-{
-    FILE* fp = fopen(file_name, "w");
-    if (fp == NULL) {
-        fprintf(stderr, "%s: %s\n", file_name, strerror(errno));
-        return errno;
-    }
-
-    if (result_type == INT32) {
-        int* i32_result = result;
-        for (int n = 0; n < r_size; n++)
-            fprintf(fp, "%d\n", i32_result[n]);
-    } else if (result_type == DOUBLE) {
-        double* d_result = result;
-        for (int n = 0; n < r_size; n++)
-            fprintf(fp, "%lf\n", d_result[n]);
-    }
-
-    fclose(fp);
-    return 0;
-}
-
 void deinterleave(void* input, size_t in_size, void* result_re, void* result_im, datatype result_type)
 {
     if (result_type == INT32) {

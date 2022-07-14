@@ -38,11 +38,10 @@ int main(int argc, const char* argv[])
 
     // configuration
     gn_config c = NULL;
-    err_code = gn_config_calloc(&c);
-    err_code = gn_config_gen_tone(wf_type, npts, fs, num_tones, freq, scale, phase, c);
+    err_code = gn_config_gen_tone(wf_type, npts, fs, num_tones, freq, scale, phase, &c);
 
     // waveform generation
-    err_code = gn_gen_real_tone(&awf, c);
+    err_code = gn_gen_real_tone(&awf, &c);
 
     // read reference waveform
     ref_awf = (double*)malloc(npts*sizeof(double));
@@ -57,7 +56,7 @@ int main(int argc, const char* argv[])
     free(scale);
     free(phase);
     free(ref_awf);
-    gn_config_free(c);
+    gn_config_free(&c);
 
     return 0;
 }

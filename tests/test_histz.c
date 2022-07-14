@@ -25,15 +25,14 @@ int main(int argc, const char* argv[])
     
     // configuration
     gn_config c = NULL;
-    err_code = gn_config_calloc(&c);
-    err_code = gn_config_quantize(npts, fsr, qres, qnoise, c);
+    err_code = gn_config_quantize(npts, fsr, qres, qnoise, &c);
     
     // read reference output waveform
     ref_qwf = (int32_t*)malloc(npts*sizeof(int32_t));
     err_code = read_array_from_json_file(test_filename, "test_vecq", ref_qwf, INT32, npts);
     
     // Do waveform analysis
-    err_code = gn_histz(&hist, &hist_len, ref_qwf, c);
+    err_code = gn_histz(&hist, &hist_len, ref_qwf, &c);
     
     printf("Histogram length: %lu\n", hist_len);
     size_t tmp_sum = 0;
@@ -46,7 +45,7 @@ int main(int argc, const char* argv[])
     // free memory
     free(ref_qwf);
     free(hist);
-    gn_config_free(c);
+    gn_config_free(&c);
     
     return 0;
 }

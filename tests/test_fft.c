@@ -33,8 +33,7 @@ int main(int argc, const char* argv[])
 
     // configuration
     gn_config c = NULL;
-    err_code = gn_config_calloc(&c);
-    err_code = gn_config_fftz(npts, qres, fft_navg, nfft, win, c);
+    err_code = gn_config_fftz(npts, qres, fft_navg, nfft, win, &c);
 
     // read reference waveforms    
     ref_qwfi = (int32_t*)malloc(npts*sizeof(int32_t));
@@ -43,7 +42,7 @@ int main(int argc, const char* argv[])
     err_code = read_array_from_json_file(test_filename, "test_vecq_q", ref_qwfq, INT32, npts);
 
     // FFT of waveform
-    err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, c);
+    err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, &c);
 
     // read reference FFT
     ref_fft_out = (double*)malloc(2*nfft*sizeof(double));
@@ -57,7 +56,7 @@ int main(int argc, const char* argv[])
     free(ref_qwfq);
     free(fft_out);
     free(ref_fft_out);
-    gn_config_free(c);
+    gn_config_free(&c);
     
     return 0;
 }

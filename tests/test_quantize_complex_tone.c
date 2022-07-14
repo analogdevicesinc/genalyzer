@@ -24,8 +24,7 @@ int main(int argc, const char* argv[])
     
     // configuration
     gn_config c = NULL;
-    err_code = gn_config_calloc(&c);
-    err_code = gn_config_quantize(npts, fsr, qres, qnoise, c);
+    err_code = gn_config_quantize(npts, fsr, qres, qnoise, &c);
 
     // read reference waveforms
     ref_awfi = (double*)malloc(npts*sizeof(double));
@@ -38,8 +37,8 @@ int main(int argc, const char* argv[])
     err_code = read_array_from_json_file(test_filename, "test_vecq_q", ref_qwfq, INT32, npts);
     
     // quantize waveform
-    err_code = gn_quantize(&qwfi, ref_awfi, c);
-    err_code = gn_quantize(&qwfq, ref_awfq, c);
+    err_code = gn_quantize(&qwfi, ref_awfi, &c);
+    err_code = gn_quantize(&qwfq, ref_awfq, &c);
 
     // read reference waveform
     ref_awfi = (double*)malloc(npts*sizeof(double));
@@ -58,7 +57,7 @@ int main(int argc, const char* argv[])
     free(ref_qwfq);
     free(ref_awfi);
     free(ref_awfq);
-    gn_config_free(c);
+    gn_config_free(&c);
 
     return 0;
 }
