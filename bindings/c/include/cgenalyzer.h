@@ -330,6 +330,11 @@ extern "C"
             gn_config *c
         );    
 
+  __api int gn_config_get_code_density_size(
+            size_t *code_density_size, 
+            gn_config *c
+        );
+
   /**
    * @brief Configure tone parameters to be used in measurement
    * @return 0 on success, non-zero otherwise

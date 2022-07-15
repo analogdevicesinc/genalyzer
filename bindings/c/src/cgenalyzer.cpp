@@ -565,6 +565,17 @@ extern "C" {
         return gn_success;
     }
 
+    int gn_config_get_code_density_size(size_t *code_density_size, gn_config *c)
+    {
+        if (!(*c)) 
+        {
+            printf("config struct is NULL\n");
+            return gn_failure;
+        }
+        *code_density_size = (*c)->_code_density_size;
+        return gn_success;
+    }
+
     int gn_config_gen_tone(tone_type ttype, size_t npts, gn::real_t sample_rate, size_t num_tones, gn::real_t *tone_freq, gn::real_t *tone_ampl, gn::real_t *tone_phase, gn_config *c)
     {
         if (!((ttype == REAL_COSINE) || (ttype == REAL_SINE) || (ttype == COMPLEX_EXP)))

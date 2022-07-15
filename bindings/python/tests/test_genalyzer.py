@@ -1,9 +1,4 @@
-import sys
-import os
-import genalyzer
-import glob
-import pytest
-import json
+import os, glob, json, pytest, genalyzer
 
 
 test_dir = os.path.join(*["..", "..", "..", "tests", "test_vectors"])
@@ -68,7 +63,6 @@ def test_quantize_real_tone(filename):
         awf = data['test_vec']
         c = genalyzer.config_quantize(data['npts'], data['fsr'], data['qres'], data['qnoise'])
         qwf = genalyzer.quantize(awf, c)
-        print(qwf[:10])
         genalyzer.config_free(c)
         assert qwf != 0, "the list is non empty"
 
@@ -99,7 +93,7 @@ def test_fft(filename):
         assert out != 0, "the list is non empty"
 
 @pytest.mark.parametrize("filename", test_fft_tone_files)
-def test_fa_get_all_results(filename):
+def test_get_fa_results(filename):
     with open(filename) as f:
         data = json.load(f)
         if data['num_tones'] == 1:
@@ -112,8 +106,53 @@ def test_fa_get_all_results(filename):
         qwfq = data['test_vecq_q']
         qwfq = [int(i) for i in qwfq]
         c = genalyzer.config_fftz(data['npts'], data['qres'], data['navg'], data['nfft'], data['win']-1)
-        fft_out = genalyzer.fftz(qwfi, qwfq, c)
-        c = genalyzer.config_fa(freq_list[0])
-        results = genalyzer.get_fa_results(fft_out, c)
+        fft_out_i, fft_out_q = genalyzer.fftz(qwfi, qwfq, c)
+        fft_out = [val for pair in zip(fft_out_i, fft_out_q) for val in pair]
+        genalyzer.config_fa(freq_list[0], c)
+        fa_results = genalyzer.get_fa_results(fft_out, c)
         genalyzer.config_free(c)
-        assert bool(results), "the dict is non empty"
+        assert bool(fa_results), "the dict is non empty"
+
+@pytest.mark.parametrize("filename", test_fft_tone_files)
+def test_get_fa_single_result(filename):
+    with open(filename) as f:
+        data = json.load(f)
+        if data['num_tones'] == 1:
+            freq_list = [data['freq']]            
+        else:
+            freq_list = data['freq']
+
+        qwfi = data['test_vecq_i']
+        qwfi = [int(i) for i in qwfi]
+        qwfq = data['test_vecq_q']
+        qwfq = [int(i) for i in qwfq]
+        c = genalyzer.config_fftz(data['npts'], data['qres'], data['navg'], data['nfft'], data['win']-1)
+        fft_out_i, fft_out_q = genalyzer.fftz(qwfi, qwfq, c)
+        fft_out = [val for pair in zip(fft_out_i, fft_out_q) for val in pair]
+        genalyzer.config_fa(freq_list[0], c)
+        sfdr = genalyzer.get_fa_single_result("sfdr", fft_out, c)
+        genalyzer.config_free(c)
+        assert sfdr != 0, "the value is non zero"
+
+@pytest.mark.parametrize("filename", test_quantize_real_tone_files)
+def test_get_ha_results(filename):
+    with open(filename) as f:
+        data = json.load(f)
+        qwf = data['test_vecq']
+        qwf = [int(i) for i in qwf]
+        c = genalyzer.config_quantize(data['npts'], data['fsr'], data['qres'], data['qnoise'])
+        hist_qwf = genalyzer.histz(qwf, c)
+        ha_results = genalyzer.get_ha_results(hist_qwf, c)
+        genalyzer.config_free(c)
+        assert bool(ha_results), "the dict is non empty"
+
+@pytest.mark.parametrize("filename", test_quantize_real_tone_files)
+def test_get_wfa_results(filename):
+    with open(filename) as f:
+        data = json.load(f)
+        qwf = data['test_vecq']
+        qwf = [int(i) for i in qwf]
+        c = genalyzer.config_quantize(data['npts'], data['fsr'], data['qres'], data['qnoise'])
+        wfa_results = genalyzer.get_wfa_results(qwf, c)
+        genalyzer.config_free(c)
+        assert bool(wfa_results), "the dict is non empty"

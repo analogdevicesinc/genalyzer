@@ -232,6 +232,13 @@ _gn_config_set_ramp_stop.argtypes = [
     POINTER(_GNConfigPtr),
 ]
 
+_gn_config_get_code_density_size = _libgen.gn_config_get_code_density_size
+_gn_config_get_code_density_size.restype = c_int
+_gn_config_get_code_density_size.argtypes = [
+    POINTER(c_ulong),
+    POINTER(_GNConfigPtr),
+]
+
 _gn_config_gen_tone = _libgen.gn_config_gen_tone
 _gn_config_gen_tone.restype = c_int
 _gn_config_gen_tone.argtypes = [
@@ -301,7 +308,6 @@ _gn_gen_real_tone = _libgen.gn_gen_real_tone
 _gn_gen_real_tone.restype = c_int
 _gn_gen_real_tone.argtypes = [
     POINTER(POINTER(c_double)),
-    POINTER(c_uint),
     POINTER(_GNConfigPtr),
 ]
 
@@ -310,7 +316,6 @@ _gn_gen_complex_tone.restype = c_int
 _gn_gen_complex_tone.argtypes = [
     POINTER(POINTER(c_double)),
     POINTER(POINTER(c_double)),
-    POINTER(c_ulong),
     POINTER(_GNConfigPtr),
 ]
 
@@ -361,7 +366,7 @@ _gn_inlz.argtypes = [
 _gn_get_wfa_results = _libgen.gn_get_wfa_results
 _gn_get_wfa_results.restype = c_int
 _gn_get_wfa_results.argtypes = [
-    POINTER(POINTER(POINTER(c_char))),
+    POINTER(POINTER(c_char_p)),
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_int32),
@@ -371,7 +376,7 @@ _gn_get_wfa_results.argtypes = [
 _gn_get_ha_results = _libgen.gn_get_ha_results
 _gn_get_ha_results.restype = c_int
 _gn_get_ha_results.argtypes = [
-    POINTER(POINTER(POINTER(c_char))),
+    POINTER(POINTER(c_char_p)),
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_uint64),
@@ -381,7 +386,7 @@ _gn_get_ha_results.argtypes = [
 _gn_get_dnla_results = _libgen.gn_get_dnla_results
 _gn_get_dnla_results.restype = c_int
 _gn_get_dnla_results.argtypes = [
-    POINTER(POINTER(POINTER(c_char))),
+    POINTER(POINTER(c_char_p)),
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_double),
@@ -391,7 +396,7 @@ _gn_get_dnla_results.argtypes = [
 _gn_get_inla_results = _libgen.gn_get_inla_results
 _gn_get_inla_results.restype = c_int
 _gn_get_inla_results.argtypes = [
-    POINTER(POINTER(POINTER(c_char))),
+    POINTER(POINTER(c_char_p)),
     POINTER(POINTER(c_double)),
     POINTER(c_ulong),
     POINTER(c_double),
@@ -504,6 +509,33 @@ def config_quantize(
     )
     return c
 
+def config_histz_nla(
+    npts: int,
+    qres: int,
+    *args
+) -> GNConfig:
+    """Configure GNConfig struct to compute histogram or perform non-linearity analysis.
+    :param npts: number of sample points in the waveform
+    :param fsr: full-scale range
+    :param qres: quantization resolution
+    :param qnoise: quantization noise
+    :return: GNConfig object
+    """    
+    if len(args) == 0:
+        c = GNConfig()
+    elif len(args) == 1:
+        c = args[0]
+
+    npts = c_ulong(npts)
+    qres = c_int(qres)
+    
+    _gn_config_histz_nla(
+        npts,
+        qres,
+        byref(c._struct)
+    )
+    return c
+
 def config_fftz(
     npts: int,
     qres: int,
@@ -523,6 +555,7 @@ def config_fftz(
         c = GNConfig()
     elif len(args) == 1:
         c = args[0]
+    
     npts = c_ulong(npts)
     qres = c_int(qres)
     navg = c_ulong(navg)
@@ -551,6 +584,7 @@ def config_fa(
         c = GNConfig()
     elif len(args) == 1:
         c = args[0]
+    
     fixed_tone_freq = c_double(fixed_tone_freq)
     
     _gn_config_fa(
@@ -567,9 +601,10 @@ def gen_real_tone(
     :return: single-/multi-tone real waveform as list of floats
     """
     awf = POINTER(c_double)()
-    awf_len = c_uint(0)
-    _gn_gen_real_tone(byref(awf), byref(awf_len), byref(c._struct))
-    return list(awf[0 : awf_len.value])
+    wf_len = c_ulong(0)
+    _gn_config_get_npts(byref(wf_len), byref(c._struct))
+    _gn_gen_real_tone(byref(awf), byref(c._struct))
+    return list(awf[0 : wf_len.value])
 
 def gen_complex_tone(
     c: GNConfig
@@ -580,9 +615,10 @@ def gen_complex_tone(
     """
     awf_i = POINTER(c_double)()
     awf_q = POINTER(c_double)()
-    awf_len = c_ulong(0)
-    _gn_gen_complex_tone(byref(awf_i), byref(awf_q), byref(awf_len), byref(c._struct))
-    return (list(awf_i[0 : awf_len.value]), list(awf_q[0 : awf_len.value]))
+    wf_len = c_ulong(0)
+    _gn_config_get_npts(byref(wf_len), byref(c._struct))
+    _gn_gen_complex_tone(byref(awf_i), byref(awf_q), byref(c._struct))
+    return (list(awf_i[0 : wf_len.value]), list(awf_q[0 : wf_len.value]))
 
 def quantize(
     in_awf: list,
@@ -625,6 +661,68 @@ def fftz(
     fft_out_q = [out[i] for i in range(len(out)) if i % 2 != 0]
     return fft_out_i, fft_out_q
 
+def histz(
+    in_qwf: int,
+    c: GNConfig
+) -> List[int]:
+    """Compute histogram
+    :param in_qwf: Input quantized waveform
+    :param c: GNConfig object
+    :return: Histogram of the input waveform as list of floats
+    """
+    hist_out = POINTER(c_uint64)()
+    wf_len = c_ulong(0)
+    _gn_config_get_npts(byref(wf_len), byref(c._struct))
+    int32_array = c_int32 * wf_len.value
+    in_qwf = (int32_array)(*in_qwf)
+    hist_len = c_ulong(0)
+    _gn_histz(byref(hist_out), byref(hist_len), in_qwf, byref(c._struct))    
+    return list(hist_out[0 : hist_len.value])
+
+def get_ha_results(
+    hist_in: int,
+    c: GNConfig
+) -> dict:
+    """Get Fourier analysis results.
+    :param hist_in: Input histogram data
+    :param: GNConfig object
+    :return: Results as dict
+    """
+    cd_len = c_ulong(0)
+    _gn_config_get_code_density_size(byref(cd_len), byref(c._struct))
+    uint64_array = c_uint64 * cd_len.value
+    hist_in = (uint64_array)(*hist_in)
+    rkeys = POINTER(c_char_p)()
+    rvalues = POINTER(c_double)()
+    results_size = c_ulong(0)
+    _gn_get_ha_results(byref(rkeys), byref(rvalues), byref(results_size), hist_in, byref(c._struct))
+    ha_results = dict()
+    for i in range(results_size.value):
+        ha_results[(rkeys[i]).decode('ascii')] = rvalues[i]
+    return ha_results
+
+def get_wfa_results(
+    in_qwf: int,
+    c: GNConfig
+) -> dict:
+    """Get Fourier analysis results.
+    :param hist_in: Input histogram data
+    :param: GNConfig object
+    :return: Results as dict
+    """
+    wf_len = c_ulong(0)
+    _gn_config_get_npts(byref(wf_len), byref(c._struct))
+    int32_array = c_int32 * wf_len.value
+    in_qwf = (int32_array)(*in_qwf)
+    rkeys = POINTER(c_char_p)()
+    rvalues = POINTER(c_double)()
+    results_size = c_ulong(0)
+    _gn_get_wfa_results(byref(rkeys), byref(rvalues), byref(results_size), in_qwf, byref(c._struct))
+    wfa_results = dict()
+    for i in range(results_size.value):
+        wfa_results[(rkeys[i]).decode('ascii')] = rvalues[i]
+    return wfa_results
+
 def get_fa_single_result(
     metric_name: str,
     fft_ilv: float,
@@ -663,7 +761,7 @@ def get_fa_results(
     rvalues = POINTER(c_double)()
     results_size = c_ulong(0)
     _gn_get_fa_results(byref(rkeys), byref(rvalues), byref(results_size), fft_ilv, byref(c._struct))
-    results = dict()
+    fa_results = dict()
     for i in range(results_size.value):
-        results[(rkeys[i]).decode('ascii')] = rvalues[i]
-    return results
+        fa_results[(rkeys[i]).decode('ascii')] = rvalues[i]
+    return fa_results
