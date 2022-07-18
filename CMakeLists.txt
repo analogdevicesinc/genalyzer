@@ -45,6 +45,7 @@ option(LIB_CHECK_PYINSTALL "Check for library during python install" OFF)
 add_subdirectory(src)
 add_subdirectory(bindings)
 add_subdirectory(tests)
+add_subdirectory(examples)
 
 if(MSVC)
   configure_file(libgenalyzer.iss.cmakein ${CMAKE_CURRENT_BINARY_DIR}/libgenalyzer.iss @ONLY)

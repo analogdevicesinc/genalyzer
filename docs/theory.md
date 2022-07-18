@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 ```
-If on the other hand, the FFT is pre-computed and genalyzer is expected to compute the desired performance metric alone, then only the configuration of FFT related parameters is needed in order for genalyzer to compute the desired performance metric. Note that in the following example, it is assumed that the FFT data is available in the form of a json file. It can be replaced by any other means of loading this data in ASCII or binary form.
+If on the other hand, the FFT is pre-computed and genalyzer is expected to compute the desired performance metric alone, then only the configuration of FFT related parameters is needed in order for genalyzer to compute the desired performance metric. Note that in the following example, it is assumed that the FFT data is available in the form of a json file. It can be replaced by any other means of loading this data.
 ``` c
 #include "cgenalyzer.h"
 

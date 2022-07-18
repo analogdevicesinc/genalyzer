@@ -66,8 +66,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: tone_type
    * @return 0 on success, non-zero otherwise
+   * @param ttype ENUM value to indicate input tone type. Options: REAL_COSINE, REAL_SINE, COMPLEX_EXP    
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_ttype(
@@ -78,6 +79,7 @@ extern "C"
   /**
    * @brief set configuration struct member: npts
    * @return 0 on success, non-zero otherwise
+   * @param npts Number of sample points in the generated waveform
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_npts(
@@ -88,6 +90,7 @@ extern "C"
   /**
    * @brief get configuration struct member: npts
    * @return 0 on success, non-zero otherwise
+   * @param npts Number of sample points in the generated waveform
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_get_npts(
@@ -96,8 +99,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: sample_rate
    * @return 0 on success, non-zero otherwise
+   * @param sample_rate Input Sample rate of the data converter
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_sample_rate(
@@ -106,8 +110,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief get configuration struct member: sample_rate
    * @return 0 on success, non-zero otherwise
+   * @param sample_rate Input Sample rate of the data converter
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_get_sample_rate(
@@ -116,8 +121,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: data_rate
    * @return 0 on success, non-zero otherwise
+   * @param data_rate Input data rate of the data converter
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_data_rate(
@@ -126,8 +132,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: shift_freq
    * @return 0 on success, non-zero otherwise
+   * @param shift_freq Shift frequency of the data converter
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_shift_freq(
@@ -136,8 +143,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: num_tones
    * @return 0 on success, non-zero otherwise
+   * @param num_tones Number of tones to generate
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_num_tones(
@@ -146,8 +154,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: tone_freq
    * @return 0 on success, non-zero otherwise
+   * @param tone_freq Input array of tone frequencies to generate
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_tone_freq(
@@ -156,8 +165,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: tone_ampl
    * @return 0 on success, non-zero otherwise
+   * @param tone_ampl Input array of tone scales to generate
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_tone_ampl(
@@ -166,8 +176,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: tone_phase
    * @return 0 on success, non-zero otherwise
+   * @param tone_phase Input array of tone phases to generate
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_tone_phase(
@@ -176,8 +187,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: fsr
    * @return 0 on success, non-zero otherwise
+   * @param fsr Full-scale range of the waveform
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_fsr(
@@ -186,8 +198,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: qres
    * @return 0 on success, non-zero otherwise
+   * @param qres Quantization resolution
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_qres(
@@ -196,8 +209,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: noise_rms
    * @return 0 on success, non-zero otherwise
+   * @param qres Quantization noise
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_noise_rms(
@@ -206,8 +220,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: code_format
    * @return 0 on success, non-zero otherwise
+   * @param code_format Code format of data
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_code_format(
@@ -216,8 +231,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: nfft
    * @return 0 on success, non-zero otherwise
+   * @param nfft FFT order
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_nfft(
@@ -226,8 +242,9 @@ extern "C"
         );
 
   /**
-   * @brief get configuration struct member: npts
+   * @brief get configuration struct member: nfft
    * @return 0 on success, non-zero otherwise
+   * @param nfft FFT order
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_get_nfft(
@@ -236,8 +253,9 @@ extern "C"
         );
     
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: navg
    * @return 0 on success, non-zero otherwise
+   * @param navg Num. of FFTs to average
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_fft_navg(
@@ -246,8 +264,9 @@ extern "C"
         );
     
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: win
    * @return 0 on success, non-zero otherwise
+   * @param win Window function used
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_win(
@@ -256,8 +275,9 @@ extern "C"
         );
     
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: ssb_fund
    * @return 0 on success, non-zero otherwise
+   * @param ssb_fund Single side bin fundamental
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_ssb_fund(
@@ -266,8 +286,9 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: ssb_rest
    * @return 0 on success, non-zero otherwise
+   * @param ssb_rest Single side bins rest
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_ssb_rest(
@@ -276,7 +297,7 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: max_harm_order
    * @return 0 on success, non-zero otherwise
    * @param max_harm_order Max order of harmonic
    * @param c genalyzer Configuration struct
@@ -287,7 +308,7 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: dnla_signal_type
    * @return 0 on success, non-zero otherwise
    * @param dnla_signal_type DNL analysis signal type
    * @param c genalyzer Configuration struct
@@ -298,7 +319,7 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: inla_fit
    * @return 0 on success, non-zero otherwise
    * @param inla_fit INL analysis line fit
    * @param c genalyzer Configuration struct
@@ -309,7 +330,7 @@ extern "C"
         );
 
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: ramp_start
    * @return 0 on success, non-zero otherwise
    * @param ramp_start start value of ramp
    * @param c genalyzer Configuration struct
@@ -320,7 +341,7 @@ extern "C"
         );
     
   /**
-   * @brief free memory for configuration struct
+   * @brief set configuration struct member: ramp_stop
    * @return 0 on success, non-zero otherwise
    * @param ramp_stop stop value of ramp
    * @param c genalyzer Configuration struct
@@ -329,7 +350,13 @@ extern "C"
             size_t ramp_stop, 
             gn_config *c
         );    
-
+    
+  /**
+   * @brief get configuration struct member: _code_density_size
+   * @return 0 on success, non-zero otherwise
+   * @param ramp_stop stop value of ramp
+   * @param c genalyzer Configuration struct
+   */
   __api int gn_config_get_code_density_size(
             size_t *code_density_size, 
             gn_config *c
@@ -432,7 +459,6 @@ extern "C"
    */
   __api int gn_gen_ramp(
             double **out, 
-            size_t *out_len, 
             gn_config *c
         );
   

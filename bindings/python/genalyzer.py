@@ -430,6 +430,34 @@ def config_free(
     )
 
 
+def config_gen_ramp(
+    npts: int,
+    ramp_start: int,
+    ramp_stop: int,
+    *args
+) -> GNConfig:
+    """Configure GNConfig struct to generate tone.
+    :param npts: number of sample points in the waveform
+    :param ramp_start: Input start value of ramp
+    :param ramp_stop: Input stop value of ramp
+    :return: GNConfig object
+    """
+    if len(args) == 0:
+        c = GNConfig()
+    elif len(args) == 1:
+        c = args[0]
+    npts = c_ulong(npts)
+    ramp_start = c_ulong(ramp_start)
+    ramp_stop = c_ulong(ramp_stop)
+
+    _gn_config_gen_ramp(
+        npts,
+        ramp_start,
+        ramp_stop,
+        byref(c._struct)
+    )
+    return c
+
 def config_gen_tone(
     ttype: int,
     npts: int,
@@ -593,6 +621,20 @@ def config_fa(
     )
     return c
 
+def gen_ramp(
+    c: GNConfig
+) -> List[float]:
+    """Generate floating-point ramp waveform
+    :param c: GNConfig object
+    :return: real ramp waveform as list of floats
+    """
+    awf = POINTER(c_double)()
+    wf_len = c_ulong(0)
+    _gn_config_get_npts(byref(wf_len), byref(c._struct))
+    _gn_gen_ramp(byref(awf), byref(c._struct))
+    return list(awf[0 : wf_len.value])
+
+
 def gen_real_tone(
     c: GNConfig
 ) -> List[float]:
@@ -741,7 +783,7 @@ def get_fa_single_result(
     metric_name_enc = metric_name.encode("utf-8")
     result = c_double(0)
     _gn_get_fa_single_result(byref(result), metric_name_enc, fft_ilv, byref(c._struct))
-    return result
+    return result.value
 
 def get_fa_results(
     fft_ilv: float,

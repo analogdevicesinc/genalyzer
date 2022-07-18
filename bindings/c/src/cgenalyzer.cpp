@@ -774,13 +774,12 @@ extern "C" {
     }
 
     // waveform generation
-    int gn_gen_ramp(gn::real_t **out, gn::size_t *out_len, gn_config *c)
+    int gn_gen_ramp(gn::real_t **out, gn_config *c)
     {
         int err_code;
         gn::real_t *awf = (gn::real_t *)calloc((*c)->npts, sizeof(gn::real_t));
         err_code = gn_ramp(awf, (*c)->npts, (*c)->ramp_start, (*c)->ramp_stop, (*c)->noise_rms);
         *out = awf;
-        *out_len = (*c)->npts;
         
         return err_code;
     }

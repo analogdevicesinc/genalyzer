@@ -1,5 +1,5 @@
 #include <cgenalyzer.h>
-#include <cgenalyzer_advanced2.h>
+#include <cgenalyzer_advanced.h>
 
 #include <stdbool.h>
 #include <math.h>
@@ -118,7 +118,6 @@ int main(int argc, char* argv[])
     result += gn_fshift16(xwf, xwf_size, qwfi, npts, qwfq, npts, qres, fs, fshift, code_fmt);
     result += gn_downsample16(ywf, ywf_size, xwf, xwf_size, dsr, true);
     result += gn_fft16(fft_cplx, fft_cplx_size, ywf, ywf_size, NULL, 0, qres, navg, nfft, window, code_fmt);
-    // result += gn_fftq(fft_cplx, fft_cplx_size, ywf, ywf_size, NULL, 0, qres, navg, nfft, window);
     HANDLE_ERROR(result);
 
     /*

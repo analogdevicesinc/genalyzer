@@ -1,15 +1,10 @@
-import genalyzer, os, json, glob, pprint
+import genalyzer, pprint
 
-test_dir = os.path.join(*["..", "..", "..", "tests", "test_vectors"])
-loc = os.path.dirname(__file__)
+c = genalyzer.config_gen_tone(0, 8192, 5000000.0, 1, [50000.0], [0.5], [0.2])
+genalyzer.config_quantize(8192, 3.0, 12, pow(10.0, -60.0 / 20.0), c)
 
-f = glob.glob(os.path.join(loc, test_dir, "test_quantize_real_tone_1655388332014.json"))
-a = open(f[0])
-data = json.load(a)
-
-qwf = data['test_vecq']
-qwf = [int(i) for i in qwf]
-c = genalyzer.config_quantize(data['npts'], data['fsr'], data['qres'], data['qnoise'])
+awf = genalyzer.gen_real_tone(c)
+qwf = genalyzer.quantize(awf, c)
 wfa_results = genalyzer.get_wfa_results(qwf, c)
 pprint.pprint(wfa_results)
 genalyzer.config_free(c)
