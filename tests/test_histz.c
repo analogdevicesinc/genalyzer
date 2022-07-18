@@ -17,7 +17,7 @@ int main(int argc, const char* argv[])
     // read parameters
     double fsr, qnoise;
     int qres;
-    unsigned int npts;
+    unsigned long long npts;
     err_code = read_scalar_from_json_file(test_filename, "npts", (void*)(&npts), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "fsr", (void*)(&fsr), DOUBLE);
     err_code = read_scalar_from_json_file(test_filename, "qnoise", (void*)(&qnoise), DOUBLE);

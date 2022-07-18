@@ -14,7 +14,7 @@ int main(int argc, const char* argv[])
 
     // read parameters
     tone_type wf_type;
-    unsigned int npts, num_tones;
+    unsigned long long npts, num_tones;
     double fs;
     double *freq, *scale, *phase;
     err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&wf_type), UINT64);
