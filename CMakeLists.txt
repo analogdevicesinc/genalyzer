@@ -11,6 +11,7 @@ set(BUILD_SHARED_LIBS
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 option(BUILD_DOC "Generate documentation" OFF)
+option(TESTS_EXAMPLES "Build tests and examples" OFF)
 option(PYTHON_BINDINGS "Generate python bindings" OFF)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -44,8 +45,10 @@ endif()
 option(LIB_CHECK_PYINSTALL "Check for library during python install" OFF)
 add_subdirectory(src)
 add_subdirectory(bindings)
-add_subdirectory(tests)
-add_subdirectory(examples)
+if(TESTS_EXAMPLES)
+  add_subdirectory(tests)
+  add_subdirectory(examples)
+endif()
 
 if(MSVC)
   configure_file(libgenalyzer.iss.cmakein ${CMAKE_CURRENT_BINARY_DIR}/libgenalyzer.iss @ONLY)

@@ -40,10 +40,10 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Files]
 Source: "D:\a\genalyzer\genalyzer\bindings\c\src\Release\libgenalyzer.dll"; DestDir: "{sys}"; Check: Is64BitInstallMode; Flags: replacesameversion
-Source: "D:\a\genalyzer\genalyzer\src\Release\swx_analysis_genalyzer.dll"; DestDir: "{sys}"; Check: Is64BitInstallMode; Flags: replacesameversion
+Source: "D:\a\genalyzer\genalyzer\src\Release\genalyzer.dll"; DestDir: "{sys}"; Check: Is64BitInstallMode; Flags: replacesameversion
 
 Source: "D:\a\genalyzer\genalyzer\bindings\c\src\Release\libgenalyzer.lib"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\lib\amd64"; Check: Is64BitInstallMode
-Source: "D:\a\genalyzer\genalyzer\src\Release\swx_analysis_genalyzer.lib"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\lib\amd64"; Check: Is64BitInstallMode
+Source: "D:\a\genalyzer\genalyzer\src\Release\genalyzer.lib"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\lib\amd64"; Check: Is64BitInstallMode
 
 Source: "D:\a\genalyzer\genalyzer\bindings\c\include\cgenalyzer.h"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\include"
 
