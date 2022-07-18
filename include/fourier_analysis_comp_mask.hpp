@@ -1,6 +1,7 @@
 #ifndef GENALYZER_IMPL_FOURIER_ANALYSIS_COMP_MASK_HPP
 #define GENALYZER_IMPL_FOURIER_ANALYSIS_COMP_MASK_HPP
 
+#include <tuple>
 #include "type_aliases.hpp"
 
 namespace genalyzer_impl {
