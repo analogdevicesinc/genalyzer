@@ -336,7 +336,7 @@ extern "C"
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_ramp_start(
-            size_t ramp_start, 
+            double ramp_start, 
             gn_config *c
         );
     
@@ -347,7 +347,7 @@ extern "C"
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_ramp_stop(
-            size_t ramp_stop, 
+            double ramp_stop, 
             gn_config *c
         );    
     
@@ -395,8 +395,8 @@ extern "C"
    */
   __api int gn_config_gen_ramp(
             size_t npts, 
-            size_t ramp_start, 
-            size_t ramp_stop, 
+            double ramp_start, 
+            double ramp_stop, 
             gn_config *c
         );
 

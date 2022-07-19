@@ -336,7 +336,7 @@ extern "C" {
             return gn_failure;
         }
 
-        double rem = ((*c)->npts)%((*c)->nfft);
+        double rem = 1.0*(((*c)->npts)%((*c)->nfft));
         if (rem > 0)
         {
             printf("ERROR: FFT order has to be a multiple of the number of sample points\n");
@@ -379,7 +379,7 @@ extern "C" {
             return gn_failure;
         }
 
-        double rem = ((*c)->npts)%((*c)->fft_navg);
+        double rem = 1.0*(((*c)->npts)%((*c)->fft_navg));
         if (rem > 0)
         {
             printf("ERROR: Number of FFT averages has to be a multiple of the number of sample points\n");
@@ -529,7 +529,7 @@ extern "C" {
         return gn_success;
     }
 
-    int gn_config_set_ramp_start(size_t ramp_start, gn_config *c)
+    int gn_config_set_ramp_start(double ramp_start, gn_config *c)
     {
         if (!(*c)) 
         {
@@ -547,7 +547,7 @@ extern "C" {
         return gn_success;
     }
 
-    int gn_config_set_ramp_stop(size_t ramp_stop, gn_config *c)
+    int gn_config_set_ramp_stop(double ramp_stop, gn_config *c)
     {
         if (!(*c)) 
         {
@@ -607,7 +607,7 @@ extern "C" {
         return gn_success;
     }
 
-    int gn_config_gen_ramp(size_t npts, size_t ramp_start, size_t ramp_stop, gn_config *c)
+    int gn_config_gen_ramp(size_t npts, double ramp_start, double ramp_stop, gn_config *c)
     {
         if (ramp_stop < ramp_start)
         {

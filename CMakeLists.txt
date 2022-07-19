@@ -24,8 +24,10 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(CMAKE_CXX_FLAGS
         "${CMAKE_CXX_FLAGS} -std=gnu++17 -fext-numeric-literals")
-  else() # WIN/macOS
+  elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+  elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
   endif()
 
   if(BUILD_DOC)

@@ -5,9 +5,9 @@
 int main(int argc, const char* argv[])
 {
     // parameters
-    double fsr = 3.0, qnoise = pow(10.0, -60.0 / 20.0);
+    double fsr = 3.0, qnoise = pow(10.0, -60.0 / 20.0), ramp_start = 0, ramp_stop = 2;
     int qres = 12;
-    unsigned long long npts = 8192, ramp_start = 0, ramp_stop = 2;
+    unsigned long long npts = 8192;
     
     // waveforms
     double *awf;
