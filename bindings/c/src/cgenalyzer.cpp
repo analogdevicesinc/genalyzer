@@ -786,7 +786,7 @@ extern "C" {
 
     int gn_gen_real_tone(gn::real_t **out, gn_config *c)
     {
-        int err_code;
+        int err_code = 0;
         gn::real_t *awf = (gn::real_t *)calloc((*c)->npts, sizeof(gn::real_t));
 
         for (size_t i = 0; i < (*c)->num_tones; i++) 
@@ -809,7 +809,7 @@ extern "C" {
 
     int gn_gen_complex_tone(gn::real_t **outi, gn::real_t **outq, gn_config *c)
     {
-        int err_code;
+        int err_code = 0;
         gn::real_t *awfi = (gn::real_t *)calloc((*c)->npts, sizeof(gn::real_t));
         gn::real_t *awfq = (gn::real_t *)calloc((*c)->npts, sizeof(gn::real_t));
 
