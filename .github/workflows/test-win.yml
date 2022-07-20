@@ -46,7 +46,7 @@ jobs:
       - name: Build and test
         run: |
           "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          cmake . -DFFTW_INCLUDE_DIRS="deps\fftw3" -DFFTW_LIBRARIES="$env:GITHUB_WORKSPACE\deps\fftw3\libfftw3-3.lib" -G "Visual Studio 17 2022" -A x64
+          cmake . -DFFTW_INCLUDE_DIRS="deps\fftw3" -DFFTW_LIBRARIES="$env:GITHUB_WORKSPACE\deps\fftw3\libfftw3-3.lib" -DPYTHON_BINDINGS=ON -DBUILD_TESTS_EXAMPLES=ON -G "Visual Studio 17 2022" -A x64
           cmake --build . --config Release 
           cp deps\fftw3\* tests\Release\
           cp src\Release\* tests\Release\

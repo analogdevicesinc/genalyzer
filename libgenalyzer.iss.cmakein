@@ -40,14 +40,14 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Files]
 Source: "D:\a\genalyzer\genalyzer\bindings\c\src\Release\libgenalyzer.dll"; DestDir: "{sys}"; Check: Is64BitInstallMode; Flags: replacesameversion
-Source: "D:\a\genalyzer\genalyzer\src\Release\genalyzer_plus_plus.dll"; DestDir: "{sys}"; Check: Is64BitInstallMode; Flags: replacesameversion
 
 Source: "D:\a\genalyzer\genalyzer\bindings\c\src\Release\libgenalyzer.lib"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\lib\amd64"; Check: Is64BitInstallMode
 Source: "D:\a\genalyzer\genalyzer\src\Release\genalyzer_plus_plus.lib"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\lib\amd64"; Check: Is64BitInstallMode
 
 Source: "D:\a\genalyzer\genalyzer\bindings\c\include\cgenalyzer.h"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\include"
+Source: "D:\a\genalyzer\genalyzer\bindings\c\include\cgenalyzer_advanced.h"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\include"
 
 Source: "D:\a\genalyzer\genalyzer\deps\fftw3\libfftw3-3.dll"; DestDir: "{sys}"; Check: Is64BitInstallMode
 
-Source: "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Redist\MSVC\14.29.30133\x64\Microsoft.VC142.CRT\msvcp140.dll"; DestDir: "{sys}"; Flags: onlyifdoesntexist
+Source: "C:\Program Files (x86)\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.32.31326\x64\Microsoft.VC143.CRT\msvcp140.dll"; DestDir: "{sys}"; Flags: onlyifdoesntexist
 

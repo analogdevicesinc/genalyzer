@@ -108,7 +108,9 @@ int file_to_buffer(long *size, char **buffer, const char* file_name)
         exit(1);
     }
     *size = f_size;
-    *buffer = buff;     
+    *buffer = buff;
+
+    return 0;
 }
 
 int extract_scalar(void *val, const char* file_name, const char* token_name, datatype result_type)
