@@ -3,7 +3,7 @@ file(GLOB HEADER_LIST CONFIGURE_DEPENDS
 
 add_definitions(-DEXPORT_API)
 
-add_library(genalyzer_plus_plus
+add_library(genalyzer_plus_plus STATIC
     array_ops.cpp
     code_density.cpp
     enum_map.cpp

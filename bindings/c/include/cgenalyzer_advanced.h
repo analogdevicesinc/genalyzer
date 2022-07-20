@@ -144,6 +144,19 @@ typedef enum GnWindow {
 extern "C" {
 #endif
 
+#ifdef _WIN32
+#ifdef GENALYZER_EXPORTS
+#define __api __declspec(dllexport)
+#else
+#define __api __declspec(dllimport)
+#endif
+#elif __GNUC__ >= 4 && !defined(MATLAB_MEX_FILE)                              \
+    && !defined(MATLAB_LOADLIBRARY)
+#define __api __attribute__ ((visibility ("default")))
+#else
+#define __api
+#endif
+
 /**
  * \defgroup APIUtilities API Utilities
  * @{
@@ -155,7 +168,7 @@ extern "C" {
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the key sizes.  See \ref gn_set_string_termination.
  */
-int gn_analysis_results_key_sizes(
+__api int gn_analysis_results_key_sizes(
     size_t* key_sizes,                  ///< [out] Key size array pointer
     size_t key_sizes_size,              ///< [in] Key size array size
     GnAnalysisType type                ///< [in] Analysis type
@@ -165,7 +178,7 @@ int gn_analysis_results_key_sizes(
  * @brief gn_analysis_results_size
  * @return 0 on success, non-zero otherwise
  */
-int gn_analysis_results_size(
+__api int gn_analysis_results_size(
     size_t* size,                       ///< [out] Number of key-value result pairs
     GnAnalysisType type                ///< [in] Analysis type
     );
@@ -174,7 +187,7 @@ int gn_analysis_results_size(
  * @brief gn_enum_value
  * @return 0 on success, non-zero otherwise
  */
-int gn_enum_value(
+__api int gn_enum_value(
     int* value,                         ///< [out] Underlying value of enumeration::enumerator
     const char* enumeration,            ///< [in] Enumeration name
     const char* enumerator              ///< [in] Enumerator name
@@ -184,7 +197,7 @@ int gn_enum_value(
  * @brief gn_error_check
  * @return Always returns 0
  */
-int gn_error_check(
+__api int gn_error_check(
     bool* error                         ///< [out] true if an error has occurred; false otherwise
 );
 
@@ -192,13 +205,13 @@ int gn_error_check(
  * @brief gn_error_clear
  * @return Always returns 0
  */
-int gn_error_clear();
+__api int gn_error_clear();
 
 /**
  * @brief gn_error_string
  * @return 0 on success, non-zero otherwise
  */
-int gn_error_string(
+__api int gn_error_string(
     char* buf,                          ///< [out] Pointer to character array
     size_t size                         ///< [in] Size of character array
     );
@@ -212,7 +225,7 @@ int gn_error_string(
  * write a '\0' as the last character.  In addition, functions that return the size of a string
  * will include the null terminator in the size.
  */
-int gn_set_string_termination(
+__api int gn_set_string_termination(
     bool null_terminated                ///< [in] If true, strings are terminated with '\0'
 );
 
@@ -220,7 +233,7 @@ int gn_set_string_termination(
  * @brief gn_version_string
  * @return 0 on success, non-zero otherwise
  */
-int gn_version_string(
+__api int gn_version_string(
     char* buf,                          ///< [in,out] Pointer to character array
     size_t size                         ///< [in] Size of character array
     );
@@ -236,7 +249,7 @@ int gn_version_string(
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the size.  See \ref gn_set_string_termination.
  */
-int gn_error_string_size(
+__api int gn_error_string_size(
     size_t* size                        ///< [out] Number of characters in error string
 );
 
@@ -246,7 +259,7 @@ int gn_error_string_size(
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the size.  See \ref gn_set_string_termination.
  */
-int gn_version_string_size(
+__api int gn_version_string_size(
     size_t* size                        ///< [out] Number of characters in version string
 );
 
@@ -272,7 +285,7 @@ extern "C" {
  * @brief gn_abs
  * @return 0 on success, non-zero otherwise
  */
-int gn_abs(
+__api int gn_abs(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -283,7 +296,7 @@ int gn_abs(
  * @brief gn_angle
  * @return 0 on success, non-zero otherwise
  */
-int gn_angle(
+__api int gn_angle(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -294,7 +307,7 @@ int gn_angle(
  * @brief gn_db
  * @return 0 on success, non-zero otherwise
  */
-int gn_db(
+__api int gn_db(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -305,7 +318,7 @@ int gn_db(
  * @brief gn_db10
  * @return 0 on success, non-zero otherwise
  */
-int gn_db10(
+__api int gn_db10(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -316,7 +329,7 @@ int gn_db10(
  * @brief gn_db20
  * @return 0 on success, non-zero otherwise
  */
-int gn_db20(
+__api int gn_db20(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -327,7 +340,7 @@ int gn_db20(
  * @brief gn_norm
  * @return 0 on success, non-zero otherwise
  */
-int gn_norm(
+__api int gn_norm(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -354,7 +367,7 @@ extern "C" {
  * @brief gn_code_axis
  * @return 0 on success, non-zero otherwise
  */
-int gn_code_axis(
+__api int gn_code_axis(
     double* out,                        ///< [out] Array pointer
     size_t size,                        ///< [in] Array size
     int n,                              ///< [in] Resolution
@@ -365,7 +378,7 @@ int gn_code_axis(
  * @brief gn_code_axisx
  * @return 0 on success, non-zero otherwise
  */
-int gn_code_axisx(
+__api int gn_code_axisx(
     double* out,                       ///< [out] Array pointer
     size_t size,                        ///< [in] Array size
     int64_t min,                        ///< [in] Min code
@@ -376,7 +389,7 @@ int gn_code_axisx(
  * @brief gn_dnl
  * @return 0 on success, non-zero otherwise
  */
-int gn_dnl(
+__api int gn_dnl(
     double* dnl,                        ///< [out] Output array pointer
     size_t dnl_size,                    ///< [in] Output array size
     const uint64_t* hist,               ///< [in] Input array pointer
@@ -402,7 +415,7 @@ int gn_dnl(
  *   <tr><td> nm_range       <td> Non-missing code range (1 + (last_nm_index - first_nm_index))
  * </table>
  */
-int gn_dnl_analysis(
+__api int gn_dnl_analysis(
     char** rkeys,                       ///< [out] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
     double* rvalues,                    ///< [out] Result values array pointer
@@ -415,7 +428,7 @@ int gn_dnl_analysis(
  * @brief gn_hist16
  * @return 0 on success, non-zero otherwise
  */
-int gn_hist16(
+__api int gn_hist16(
     uint64_t* hist,                     ///< [out] Histogram array pointer
     size_t hist_size,                   ///< [in] Histogram array size
     const int16_t* in,                  ///< [in] Input array pointer
@@ -429,7 +442,7 @@ int gn_hist16(
  * @brief gn_hist32
  * @return 0 on success, non-zero otherwise
  */
-int gn_hist32(
+__api int gn_hist32(
     uint64_t* hist,                     ///< [out] Histogram array pointer
     size_t hist_size,                   ///< [in] Histogram array size
     const int32_t* in,                  ///< [in] Input array pointer
@@ -443,7 +456,7 @@ int gn_hist32(
  * @brief gn_hist64
  * @return 0 on success, non-zero otherwise
  */
-int gn_hist64(
+__api int gn_hist64(
     uint64_t* hist,                     ///< [out] Histogram array pointer
     size_t hist_size,                   ///< [in] Histogram array size
     const int64_t* in,                  ///< [in] Input array pointer
@@ -457,7 +470,7 @@ int gn_hist64(
  * @brief gn_histx16
  * @return 0 on success, non-zero otherwise
  */
-int gn_histx16(
+__api int gn_histx16(
     uint64_t* hist,                     ///< [out] Histogram array pointer
     size_t hist_size,                   ///< [in] Histogram array size
     const int16_t* in,                  ///< [in] Input array pointer
@@ -471,7 +484,7 @@ int gn_histx16(
  * @brief gn_histx32
  * @return 0 on success, non-zero otherwise
  */
-int gn_histx32(
+__api int gn_histx32(
     uint64_t* hist,                     ///< [out] Histogram array pointer
     size_t hist_size,                   ///< [in] Histogram array size
     const int32_t* in,                  ///< [in] Input array pointer
@@ -485,7 +498,7 @@ int gn_histx32(
  * @brief gn_histx64
  * @return 0 on success, non-zero otherwise
  */
-int gn_histx64(
+__api int gn_histx64(
     uint64_t* hist,                     ///< [out] Histogram array pointer
     size_t hist_size,                   ///< [in] Histogram array size
     const int64_t* in,                  ///< [in] Input array pointer
@@ -508,7 +521,7 @@ int gn_histx64(
  *   <tr><td> nz_range       <td> Non-zero bin range (1 + (last_nz_index - first_nz_index))
  * </table>
  */
-int gn_hist_analysis(
+__api int gn_hist_analysis(
     char** rkeys,                       ///< [out] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
     double* rvalues,                    ///< [out] Result values array pointer
@@ -521,7 +534,7 @@ int gn_hist_analysis(
  * @brief gn_inl
  * @return 0 on success, non-zero otherwise
  */
-int gn_inl(
+__api int gn_inl(
     double* inl,                        ///< [out] Output array pointer
     size_t inl_size,                    ///< [in] Output array size
     const double* dnl,                  ///< [in] Input array pointer
@@ -542,7 +555,7 @@ int gn_inl(
  *   <tr><td> max_index <td> Index of first occurence of maximum value
  * </table>
  */
-int gn_inl_analysis(
+__api int gn_inl_analysis(
     char** rkeys,                       ///< [out] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
     double* rvalues,                    ///< [out] Result values array pointer
@@ -560,7 +573,7 @@ int gn_inl_analysis(
  * @brief gn_code_density_size
  * @return 0 on success, non-zero otherwise
  */
-int gn_code_density_size(
+__api int gn_code_density_size(
     size_t* size,                       ///< [out] Output array size
     int n,                              ///< [in] Code width (i.e. ADC resolution)
     GnCodeFormat format                ///< [in] Code format
@@ -570,7 +583,7 @@ int gn_code_density_size(
  * @brief gn_code_densityx_size
  * @return 0 on success, non-zero otherwise
  */
-int gn_code_densityx_size(
+__api int gn_code_densityx_size(
     size_t* size,                       ///< [out] Output array size
     int64_t min,                        ///< [in] Min code
     int64_t max                         ///< [in] Max code
@@ -636,7 +649,7 @@ extern "C" {
  *   <tr><td> {TONEKEY}:phase_c    <td> Tone phase relative to carrier                <td> rad
  * </table>
  */
-int gn_fft_analysis(
+__api int gn_fft_analysis(
     char** rkeys,                       ///< [out] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
     double* rvalues,                    ///< [out] Result values array pointer
@@ -652,7 +665,7 @@ int gn_fft_analysis(
  * @brief gn_fft_analysis_select returns select Fourier analysis results
  * @return 0 on success, non-zero otherwise
  */
-int gn_fft_analysis_select(
+__api int gn_fft_analysis_select(
     double* rvalues,                    ///< [out] Result values array pointer
     size_t rvalues_size,                ///< [in] Result values array size
     const char* cfg_id,                 ///< [in] Configuration identifier (filename or object key)
@@ -668,7 +681,7 @@ int gn_fft_analysis_select(
  * @brief gn_fft_analysis_single returns a single Fourier analysis result
  * @return 0 on success, non-zero otherwise
  */
-int gn_fft_analysis_single(
+__api int gn_fft_analysis_single(
     double* rvalue,                     ///< [out] Result value
     const char* cfg_id,                 ///< [in] Configuration identifier (filename or object key)
     const char* rkey,                   ///< [in] Result key
@@ -687,7 +700,7 @@ int gn_fft_analysis_single(
  * @brief gn_fa_analysis_band
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_analysis_band(
+__api int gn_fa_analysis_band(
     const char* obj_key,                ///< [in] Object key
     double center,                      ///< [in] Analysis band center
     double width                        ///< [in] Analysis band width
@@ -697,7 +710,7 @@ int gn_fa_analysis_band(
  * @brief gn_fa_analysis_band_e
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_analysis_band_e(
+__api int gn_fa_analysis_band_e(
     const char* obj_key,                ///< [in] Object key
     const char* center,                 ///< [in] Analysis band center expression
     const char* width                   ///< [in] Analysis band width expression
@@ -707,7 +720,7 @@ int gn_fa_analysis_band_e(
  * @brief gn_fa_clk
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_clk(
+__api int gn_fa_clk(
     const char* obj_key,                ///< [in] Object key
     const int* clk,                     ///< [in] Pointer to array of clock divisors
     size_t clk_size,                    ///< [in] Size of array of clock divisors
@@ -718,7 +731,7 @@ int gn_fa_clk(
  * @brief gn_fa_conv_offset
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_conv_offset(
+__api int gn_fa_conv_offset(
     const char* obj_key,                ///< [in] Object key
     bool enable                         ///< [in] If true, enable converter offset
     );
@@ -727,7 +740,7 @@ int gn_fa_conv_offset(
  * @brief gn_fa_create
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_create(
+__api int gn_fa_create(
     const char* obj_key                 ///< [in] Object key
     );
 
@@ -735,7 +748,7 @@ int gn_fa_create(
  * @brief gn_fa_dc
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_dc(
+__api int gn_fa_dc(
     const char* obj_key,                ///< [in] Object key
     bool as_dist                        ///< [in] If true, treat DC as distortion
     );
@@ -744,7 +757,7 @@ int gn_fa_dc(
  * @brief gn_fa_fdata
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_fdata(
+__api int gn_fa_fdata(
     const char* obj_key,                ///< [in] Object key
     double f                            ///< [in] fdata
     );
@@ -753,7 +766,7 @@ int gn_fa_fdata(
  * @brief gn_fa_fdata_e
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_fdata_e(
+__api int gn_fa_fdata_e(
     const char* obj_key,                ///< [in] Object key
     const char* f                       ///< [in] fdata expression
     );
@@ -762,7 +775,7 @@ int gn_fa_fdata_e(
  * @brief gn_fa_fixed_tone
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_fixed_tone(
+__api int gn_fa_fixed_tone(
     const char* obj_key,                ///< [in] Object key
     const char* comp_key,               ///< [in] Component key
     GnFACompTag tag,                    ///< [in] Tag
@@ -774,7 +787,7 @@ int gn_fa_fixed_tone(
  * @brief gn_fa_fixed_tone_e
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_fixed_tone_e(
+__api int gn_fa_fixed_tone_e(
     const char* obj_key,                ///< [in] Object key
     const char* comp_key,               ///< [in] Component key
     GnFACompTag tag,                    ///< [in] Tag
@@ -786,7 +799,7 @@ int gn_fa_fixed_tone_e(
  * @brief gn_fa_fsample
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_fsample(
+__api int gn_fa_fsample(
     const char* obj_key,                ///< [in] Object key
     double f                            ///< [in] fsample
     );
@@ -795,7 +808,7 @@ int gn_fa_fsample(
  * @brief gn_fa_fsample_e
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_fsample_e(
+__api int gn_fa_fsample_e(
     const char* obj_key,                ///< [in] Object key
     const char* f                       ///< [in] fsample expression
     );
@@ -804,7 +817,7 @@ int gn_fa_fsample_e(
  * @brief gn_fa_fshift
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_fshift(
+__api int gn_fa_fshift(
     const char* obj_key,                ///< [in] Object key
     double f                            ///< [in] fshift
     );
@@ -813,7 +826,7 @@ int gn_fa_fshift(
  * @brief gn_fa_fshift_e
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_fshift_e(
+__api int gn_fa_fshift_e(
     const char* obj_key,                ///< [in] Object key
     const char* f                       ///< [in] fshift expression
     );
@@ -822,7 +835,7 @@ int gn_fa_fshift_e(
  * @brief gn_fa_fund_images
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_fund_images(
+__api int gn_fa_fund_images(
     const char* obj_key,                ///< [in] Object key
     bool enable                         ///< [in] If true, enable fundamental images
     );
@@ -831,7 +844,7 @@ int gn_fa_fund_images(
  * @brief gn_fa_hd
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_hd(
+__api int gn_fa_hd(
     const char* obj_key,                ///< [in] Object key
     int n                               ///< [in] Order of harmonic distortion, i.e., the maximum harmonic
     );
@@ -840,7 +853,7 @@ int gn_fa_hd(
  * @brief gn_fa_ilv
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_ilv(
+__api int gn_fa_ilv(
     const char* obj_key,                ///< [in] Object key
     const int* ilv,                     ///< [in] Pointer to array of interleaving factors
     size_t ilv_size,                    ///< [in] Size of array of interleaving factors
@@ -851,7 +864,7 @@ int gn_fa_ilv(
  * @brief gn_fa_imd
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_imd(
+__api int gn_fa_imd(
     const char* obj_key,                ///< [in] Object key
     int n                               ///< [in] Order of intermodulation distortion
     );
@@ -861,7 +874,7 @@ int gn_fa_imd(
  * @return 0 on success, non-zero otherwise
  * @details If obj_key is empty, the object key is derived from filename.
  */
-int gn_fa_load(
+__api int gn_fa_load(
     char* buf,                          ///< [out] Pointer to character array
     size_t size,                        ///< [in] Size of character array
     const char* filename,               ///< [in] Filename
@@ -872,7 +885,7 @@ int gn_fa_load(
  * @brief gn_fa_max_tone
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_max_tone(
+__api int gn_fa_max_tone(
     const char* obj_key,                ///< [in] Object key
     const char* comp_key,               ///< [in] Component key
     GnFACompTag tag,                   ///< [in] Tag
@@ -883,7 +896,7 @@ int gn_fa_max_tone(
  * @brief gn_fa_preview
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_preview(
+__api int gn_fa_preview(
     char* buf,                          ///< [out] Pointer to character array
     size_t size,                        ///< [in] Size of character array
     const char* cfg_id,                 ///< [in] Configuration identifier (filename or object key)
@@ -894,7 +907,7 @@ int gn_fa_preview(
  * @brief gn_fa_quad_errors
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_quad_errors(
+__api int gn_fa_quad_errors(
     const char* obj_key,                ///< [in] Object key
     bool enable                         ///< [in] If true, enable quadrature errors
     );
@@ -903,7 +916,7 @@ int gn_fa_quad_errors(
  * @brief gn_fa_remove_comp
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_remove_comp(
+__api int gn_fa_remove_comp(
     const char* obj_key,                ///< [in] Object key
     const char* comp_key                ///< [in] Component key
     );
@@ -912,7 +925,7 @@ int gn_fa_remove_comp(
  * @brief gn_fa_reset
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_reset(
+__api int gn_fa_reset(
     const char* obj_key                 ///< [in] Object key
     );
 
@@ -920,7 +933,7 @@ int gn_fa_reset(
  * @brief gn_fa_ssb
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_ssb(
+__api int gn_fa_ssb(
     const char* obj_key,                ///< [in] Object key
     GnFASsb group,                     ///< [in] SSB group
     int ssb                             ///< [in] Number of single-side bins
@@ -930,7 +943,7 @@ int gn_fa_ssb(
  * @brief gn_fa_var
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_var(
+__api int gn_fa_var(
     const char* obj_key,                ///< [in] Object key
     const char* name,                   ///< [in] Variable name
     double value                        ///< [in] Variable value
@@ -940,7 +953,7 @@ int gn_fa_var(
  * @brief gn_fa_wo
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_wo(
+__api int gn_fa_wo(
     const char* obj_key,                ///< [in] Object key
     int n                               ///< [in] Number of worst others
     );
@@ -956,7 +969,7 @@ int gn_fa_wo(
  * @brief gn_fa_result
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_result(
+__api int gn_fa_result(
     double* result,                     ///< [out] Result associated with rkey
     const char** rkeys,                 ///< [in] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
@@ -969,7 +982,7 @@ int gn_fa_result(
  * @brief gn_fa_result_string
  * @return 0 on success, non-zero otherwise
  */
-int gn_fa_result_string(
+__api int gn_fa_result_string(
     char* result,                       ///< [out] Result string associated with rkey
     size_t result_size,                 ///< [in] Size of result string
     const char** rkeys,                 ///< [in] Result keys array pointer
@@ -992,7 +1005,7 @@ int gn_fa_result_string(
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the size.  See \ref gn_set_string_termination.
  */
-int gn_fa_load_key_size(
+__api int gn_fa_load_key_size(
     size_t* size,                       ///< [out] Number of characters in key
     const char* filename,               ///< [in] Filename
     const char* obj_key                 ///< [in] Object key
@@ -1004,7 +1017,7 @@ int gn_fa_load_key_size(
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the size.  See \ref gn_set_string_termination.
  */
-int gn_fa_preview_size(
+__api int gn_fa_preview_size(
     size_t* size,                       ///< [out] Number of characters in compenent list string
     const char* cfg_id,                 ///< [in] Configuration identifier (filename or object key)
     bool cplx                           ///< [in] If true, list will include complex components
@@ -1016,7 +1029,7 @@ int gn_fa_preview_size(
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the size.  See \ref gn_set_string_termination.
  */
-int gn_fa_result_string_size(
+__api int gn_fa_result_string_size(
     size_t* size,                       ///< [out] Number of characters result string
     const char** rkeys,                 ///< [in] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
@@ -1031,7 +1044,7 @@ int gn_fa_result_string_size(
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the key sizes.  See \ref gn_set_string_termination.
  */
-int gn_fft_analysis_results_key_sizes(
+__api int gn_fft_analysis_results_key_sizes(
     size_t* key_sizes,                  ///< [out] Key size array pointer
     size_t key_sizes_size,              ///< [in] Key size array size
     const char* cfg_id,                 ///< [in] Configuration identifier (filename or object key)
@@ -1043,7 +1056,7 @@ int gn_fft_analysis_results_key_sizes(
  * @brief gn_fft_analysis_results_size
  * @return 0 on success, non-zero otherwise
  */
-int gn_fft_analysis_results_size(
+__api int gn_fft_analysis_results_size(
     size_t* size,                       ///< [out] Number of key-value result pairs
     const char* cfg_id,                 ///< [in] Configuration identifier (filename or object key)
     size_t in_size,                     ///< [in] Input array size
@@ -1072,7 +1085,7 @@ extern "C" {
  * @brief gn_fft
  * @return 0 on success, non-zero otherwise
  */
-int gn_fft(
+__api int gn_fft(
     double* out,                        ///< [out] Interleaved Re/Im output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* i,                    ///< [in] In-phase input array pointer
@@ -1088,7 +1101,7 @@ int gn_fft(
  * @brief gn_fft16
  * @return 0 on success, non-zero otherwise
  */
-int gn_fft16(
+__api int gn_fft16(
     double* out,                        ///< [out] Interleaved Re/Im output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int16_t* i,                   ///< [in] In-phase input array pointer
@@ -1106,7 +1119,7 @@ int gn_fft16(
  * @brief gn_fft32
  * @return 0 on success, non-zero otherwise
  */
-int gn_fft32(
+__api int gn_fft32(
     double* out,                        ///< [out] Interleaved Re/Im output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int32_t* i,                   ///< [in] In-phase input array pointer
@@ -1124,7 +1137,7 @@ int gn_fft32(
  * @brief gn_fft64
  * @return 0 on success, non-zero otherwise
  */
-int gn_fft64(
+__api int gn_fft64(
     double* out,                        ///< [out] Interleaved Re/Im output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int64_t* i,                   ///< [in] In-phase input array pointer
@@ -1142,7 +1155,7 @@ int gn_fft64(
  * @brief gn_rfft16
  * @return 0 on success, non-zero otherwise
  */
-int gn_rfft16(
+__api int gn_rfft16(
     double* out,                        ///< [out] Interleaved Re/Im output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int16_t* in,                  ///< [in] Input array pointer
@@ -1159,7 +1172,7 @@ int gn_rfft16(
  * @brief gn_rfft32
  * @return 0 on success, non-zero otherwise
  */
-int gn_rfft32(
+__api int gn_rfft32(
     double* out,                        ///< [out] Interleaved Re/Im output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int32_t* in,                  ///< [in] Input array pointer
@@ -1176,7 +1189,7 @@ int gn_rfft32(
  * @brief gn_rfft64
  * @return 0 on success, non-zero otherwise
  */
-int gn_rfft64(
+__api int gn_rfft64(
     double* out,                        ///< [out] Interleaved Re/Im output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int64_t* in,                  ///< [in] Input array pointer
@@ -1198,7 +1211,7 @@ int gn_rfft64(
  * @brief gn_fft_size
  * @return 0 on success, non-zero otherwise
  */
-int gn_fft_size(
+__api int gn_fft_size(
     size_t* out_size,                   ///< [out] Output array size
     size_t i_size,                      ///< [in] In-phase input array size
     size_t q_size,                      ///< [in] Quadrature input array size
@@ -1210,7 +1223,7 @@ int gn_fft_size(
  * @brief gn_rfft_size
  * @return 0 on success, non-zero otherwise
  */
-int gn_rfft_size(
+__api int gn_rfft_size(
     size_t* out_size,                   ///< [out] Output array size
     size_t in_size,                     ///< [in] Input array size
     size_t navg,                        ///< [in] FFT averaging number
@@ -1239,7 +1252,7 @@ extern "C" {
  * @brief gn_alias
  * @return 0 on success, non-zero otherwise
  */
-int gn_alias(
+__api int gn_alias(
     double* out,                        ///< [out] Output pointer
     double fs,                          ///< [in] Sample rate (S/s)
     double freq,                        ///< [in] Frequency (Hz)
@@ -1250,7 +1263,7 @@ int gn_alias(
  * @brief gn_coherent
  * @return 0 on success, non-zero otherwise
  */
-int gn_coherent(
+__api int gn_coherent(
     double* out,                        ///< [out] Output pointer
     size_t nfft,                        ///< [in] FFT size
     double fs,                          ///< [in] Sample rate (S/s)
@@ -1261,7 +1274,7 @@ int gn_coherent(
  * @brief gn_fftshift
  * @return 0 on success, non-zero otherwise
  */
-int gn_fftshift(
+__api int gn_fftshift(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -1272,7 +1285,7 @@ int gn_fftshift(
  * @brief gn_freq_axis
  * @return 0 on success, non-zero otherwise
  */
-int gn_freq_axis(
+__api int gn_freq_axis(
     double* out,                        ///< [out] Array pointer
     size_t size,                        ///< [in] Array size
     size_t nfft,                        ///< [in] FFT size
@@ -1285,7 +1298,7 @@ int gn_freq_axis(
  * @brief gn_ifftshift
  * @return 0 on success, non-zero otherwise
  */
-int gn_ifftshift(
+__api int gn_ifftshift(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -1301,7 +1314,7 @@ int gn_ifftshift(
  * @brief gn_freq_axis_size
  * @return 0 on success, non-zero otherwise
  */
-int gn_freq_axis_size(
+__api int gn_freq_axis_size(
     size_t* size,                       ///< [out] Output array size
     size_t nfft,                        ///< [in] FFT size
     GnFreqAxisType axis_type           ///< [in] Frequency axis type
@@ -1329,13 +1342,13 @@ extern "C" {
  * @brief gn_mgr_clear
  * @return Always returns 0
  */
-int gn_mgr_clear();
+__api int gn_mgr_clear();
 
 /**
  * @brief gn_mgr_compare
  * @return 0 on success, non-zero otherwise
  */
-int gn_mgr_compare(
+__api int gn_mgr_compare(
     bool* result,                       ///< [out] true if the objects are equal, false otherwise
     const char* obj_key1,               ///< [in] Object key 1
     const char* obj_key2                ///< [in] Object key 2
@@ -1345,7 +1358,7 @@ int gn_mgr_compare(
  * @brief gn_mgr_contains
  * @return Always returns 0
  */
-int gn_mgr_contains(
+__api int gn_mgr_contains(
     bool* result,                       ///< [out] true if Manager contains key, false otherwise
     const char* obj_key                 ///< [in] Object key
     );
@@ -1354,7 +1367,7 @@ int gn_mgr_contains(
  * @brief gn_mgr_remove
  * @return Always returns 0
  */
-int gn_mgr_remove(
+__api int gn_mgr_remove(
     const char* obj_key                 ///< [in] Object key
     );
 
@@ -1363,7 +1376,7 @@ int gn_mgr_remove(
  * @return 0 on success, non-zero otherwise
  * @details If filename is empty, the filename is derived from obj_key.
  */
-int gn_mgr_save(
+__api int gn_mgr_save(
     char* buf,                          ///< [out] Pointer to character array
     size_t size,                        ///< [in] Size of character array
     const char* obj_key,                ///< [in] Object key
@@ -1374,7 +1387,7 @@ int gn_mgr_save(
  * @brief gn_mgr_size
  * @return Always returns 0
  */
-int gn_mgr_size(
+__api int gn_mgr_size(
     size_t* size                        ///< [out] Number of objects owned by the manager
     );
 
@@ -1382,7 +1395,7 @@ int gn_mgr_size(
  * @brief gn_mgr_to_string
  * @return 0 on success, non-zero otherwise
  */
-int gn_mgr_to_string(
+__api int gn_mgr_to_string(
     char* buf,                          ///< [out] Pointer to character array
     size_t size,                        ///< [in] Size of character array
     const char* obj_key                 ///< [in] Object key
@@ -1392,7 +1405,7 @@ int gn_mgr_to_string(
  * @brief gn_mgr_type
  * @return 0 on success, non-zero otherwise
  */
-int gn_mgr_type(
+__api int gn_mgr_type(
     char* buf,                          ///< [out] Pointer to character array
     size_t size,                        ///< [in] Size of character array
     const char* obj_key                 ///< [in] Object key
@@ -1409,7 +1422,7 @@ int gn_mgr_type(
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the size.  See \ref gn_set_string_termination.
  */
-int gn_mgr_save_filename_size(
+__api int gn_mgr_save_filename_size(
     size_t* size,                       ///< [out] Number of characters in filename
     const char* obj_key,                ///< [in] Object key
     const char* filename                ///< [in] Filename
@@ -1421,7 +1434,7 @@ int gn_mgr_save_filename_size(
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the size.  See \ref gn_set_string_termination.
  */
-int gn_mgr_to_string_size(
+__api int gn_mgr_to_string_size(
     size_t* size,                       ///< [out] Number of characters in the string
     const char* obj_key                 ///< [in] Object key
     );
@@ -1432,7 +1445,7 @@ int gn_mgr_to_string_size(
  * @details The library string termination setting determines whether or not a null terminator
  * is included in the size.  See \ref gn_set_string_termination.
  */
-int gn_mgr_type_size(
+__api int gn_mgr_type_size(
     size_t* size,                       ///< [out] Number of characters in object type string
     const char* obj_key                 ///< [in] Object key
     );
@@ -1459,7 +1472,7 @@ extern "C" {
  * @brief gn_downsample
  * @return 0 on success, non-zero otherwise
  */
-int gn_downsample(
+__api int gn_downsample(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -1472,7 +1485,7 @@ int gn_downsample(
  * @brief gn_downsample16
  * @return 0 on success, non-zero otherwise
  */
-int gn_downsample16(
+__api int gn_downsample16(
     int16_t* out,                       ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int16_t* in,                  ///< [in] Input array pointer
@@ -1485,7 +1498,7 @@ int gn_downsample16(
  * @brief gn_downsample32
  * @return 0 on success, non-zero otherwise
  */
-int gn_downsample32(
+__api int gn_downsample32(
     int32_t* out,                       ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int32_t* in,                  ///< [in] Input array pointer
@@ -1498,7 +1511,7 @@ int gn_downsample32(
  * @brief gn_downsample64
  * @return 0 on success, non-zero otherwise
  */
-int gn_downsample64(
+__api int gn_downsample64(
     int64_t* out,                       ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int64_t* in,                  ///< [in] Input array pointer
@@ -1511,7 +1524,7 @@ int gn_downsample64(
  * @brief gn_fshift
  * @return 0 on success, non-zero otherwise
  */
-int gn_fshift(
+__api int gn_fshift(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* i,                    ///< [in] In-phase input array pointer
@@ -1526,7 +1539,7 @@ int gn_fshift(
  * @brief gn_fshift16
  * @return 0 on success, non-zero otherwise
  */
-int gn_fshift16(
+__api int gn_fshift16(
     int16_t* out,                       ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int16_t* i,                   ///< [in] In-phase input array pointer
@@ -1543,7 +1556,7 @@ int gn_fshift16(
  * @brief gn_fshift32
  * @return 0 on success, non-zero otherwise
  */
-int gn_fshift32(
+__api int gn_fshift32(
     int32_t* out,                       ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int32_t* i,                   ///< [in] In-phase input array pointer
@@ -1560,7 +1573,7 @@ int gn_fshift32(
  * @brief gn_fshift64
  * @return 0 on success, non-zero otherwise
  */
-int gn_fshift64(
+__api int gn_fshift64(
     int64_t* out,                       ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int64_t* i,                   ///< [in] In-phase input array pointer
@@ -1577,7 +1590,7 @@ int gn_fshift64(
  * @brief gn_normalize16
  * @return 0 on success, non-zero otherwise
  */
-int gn_normalize16(
+__api int gn_normalize16(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int16_t* in,                  ///< [in] Input array pointer
@@ -1590,7 +1603,7 @@ int gn_normalize16(
  * @brief gn_normalize32
  * @return 0 on success, non-zero otherwise
  */
-int gn_normalize32(
+__api int gn_normalize32(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int32_t* in,                  ///< [in] Input array pointer
@@ -1603,7 +1616,7 @@ int gn_normalize32(
  * @brief gn_normalize64
  * @return 0 on success, non-zero otherwise
  */
-int gn_normalize64(
+__api int gn_normalize64(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const int64_t* in,                  ///< [in] Input array pointer
@@ -1616,7 +1629,7 @@ int gn_normalize64(
  * @brief gn_polyval
  * @return 0 on success, non-zero otherwise
  */
-int gn_polyval(
+__api int gn_polyval(
     double* out,                        ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -1629,7 +1642,7 @@ int gn_polyval(
  * @brief gn_quantize16
  * @return 0 on success, non-zero otherwise
  */
-int gn_quantize16(
+__api int gn_quantize16(
     int16_t* out,                       ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -1644,7 +1657,7 @@ int gn_quantize16(
  * @brief gn_quantize32
  * @return 0 on success, non-zero otherwise
  */
-int gn_quantize32(
+__api int gn_quantize32(
     int32_t* out,                       ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -1659,7 +1672,7 @@ int gn_quantize32(
  * @brief gn_quantize64
  * @return 0 on success, non-zero otherwise
  */
-int gn_quantize64(
+__api int gn_quantize64(
     int64_t* out,                       ///< [out] Output array pointer
     size_t out_size,                    ///< [in] Output array size
     const double* in,                   ///< [in] Input array pointer
@@ -1679,7 +1692,7 @@ int gn_quantize64(
  * @brief gn_downsample_size
  * @return 0 on success, non-zero otherwise
  */
-int gn_downsample_size(
+__api int gn_downsample_size(
     size_t* out_size,                   ///< [out] Output array size
     size_t in_size,                     ///< [in] Input array size
     int ratio,                          ///< [in] Downsample ratio
@@ -1690,7 +1703,7 @@ int gn_downsample_size(
  * @brief gn_fshift_size
  * @return 0 on success, non-zero otherwise
  */
-int gn_fshift_size(
+__api int gn_fshift_size(
     size_t* out_size,                   ///< [out] Output array size
     size_t i_size,                      ///< [in] In-phase input array size
     size_t q_size                       ///< [in] Quadrature input array size
@@ -1718,7 +1731,7 @@ extern "C" {
  * @brief gn_cos
  * @return 0 on success, non-zero otherwise
  */
-int gn_cos(
+__api int gn_cos(
     double* out,                        ///< [out] Array pointer
     size_t size,                        ///< [in] Array size
     double fs,                          ///< [in] Sample rate (S/s)
@@ -1733,7 +1746,7 @@ int gn_cos(
  * @brief gn_gaussian
  * @return 0 on success, non-zero otherwise
  */
-int gn_gaussian(
+__api int gn_gaussian(
     double* out,                        ///< [out] Array pointer
     size_t size,                        ///< [in] Array size
     double mean,                        ///< [in] Mean
@@ -1744,7 +1757,7 @@ int gn_gaussian(
  * @brief gn_ramp
  * @return 0 on success, non-zero otherwise
  */
-int gn_ramp(
+__api int gn_ramp(
     double* out,                        ///< [out] Array pointer
     size_t size,                        ///< [in] Array size
     double start,                       ///< [in] Start value
@@ -1756,7 +1769,7 @@ int gn_ramp(
  * @brief gn_sin
  * @return 0 on success, non-zero otherwise
  */
-int gn_sin(
+__api int gn_sin(
     double* out,                        ///< [out] Array pointer
     size_t size,                        ///< [in] Array size
     double fs,                          ///< [in] Sample rate (S/s)
@@ -1785,7 +1798,7 @@ int gn_sin(
  *   <tr><td> max_index <td> Index of first occurence of maximum value
  * </table>
  */
-int gn_wf_analysis(
+__api int gn_wf_analysis(
     char** rkeys,                       ///< [out] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
     double* rvalues,                    ///< [out] Result values array pointer
@@ -1799,7 +1812,7 @@ int gn_wf_analysis(
  * @return 0 on success, non-zero otherwise
  * @details See description of \ref gn_wf_analysis.
  */
-int gn_wf_analysis16(
+__api int gn_wf_analysis16(
     char** rkeys,                       ///< [out] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
     double* rvalues,                    ///< [out] Result values array pointer
@@ -1813,7 +1826,7 @@ int gn_wf_analysis16(
  * @return 0 on success, non-zero otherwise
  * @details See description of \ref gn_wf_analysis.
  */
-int gn_wf_analysis32(
+__api int gn_wf_analysis32(
     char** rkeys,                       ///< [out] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
     double* rvalues,                    ///< [out] Result values array pointer
@@ -1827,7 +1840,7 @@ int gn_wf_analysis32(
  * @return 0 on success, non-zero otherwise
  * @details See description of \ref gn_wf_analysis.
  */
-int gn_wf_analysis64(
+__api int gn_wf_analysis64(
     char** rkeys,                       ///< [out] Result keys array pointer
     size_t rkeys_size,                  ///< [in] Result keys array size
     double* rvalues,                    ///< [out] Result values array pointer
