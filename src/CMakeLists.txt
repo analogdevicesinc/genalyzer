@@ -24,6 +24,8 @@ add_library(genalyzer_plus_plus STATIC
     ${HEADER_LIST}
     )
 
+set_property(TARGET genalyzer_plus_plus PROPERTY POSITION_INDEPENDENT_CODE ON)
+
 # We need this directory, and users of our library will need it too
 target_include_directories(genalyzer_plus_plus PUBLIC ../include)
 
