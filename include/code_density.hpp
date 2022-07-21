@@ -1,61 +1,71 @@
-/*
-File        : $HeadURL: https://swdev.cld.analog.com/svn/projects/icdev/sandbox/users/pderouni/platform-upgrades/src/analysis/code_density.hpp $
-Originator  : pderouni
-Revision    : $Revision: 12382 $
-Last Commit : $Date: 2020-04-06 11:21:16 -0400 (Mon, 06 Apr 2020) $
-Last Editor : $Author: pderouni $
-*/
+#ifndef GENALYZER_IMPL_CODE_DENSITY_HPP
+#define GENALYZER_IMPL_CODE_DENSITY_HPP
 
-#ifndef ICD_ANALYSIS_CODE_DENSITY_HPP
-#define ICD_ANALYSIS_CODE_DENSITY_HPP
-
-#include "analysis.hpp"
 #include "enums.hpp"
 #include "type_aliases.hpp"
 
-#define ICD_API ICD_ANALYSIS_DECL
+#include <map>
 
-namespace analysis { /// @{ @ingroup CodeDensity
+namespace genalyzer_impl {
 
-/**
-     * @brief dnl Computes DNL from histogram data
-     */
-ICD_API void dnl(const int64_t* hits_data, ///< [in]  code hits array pointer
-    size_t hits_size, ///< [in]  code hits array size
-    real_t* dnl_data, ///< [out] DNL array pointer
-    size_t dnl_size, ///< [in]  DNL array size
-    PmfType pmf ///< [in]  probability mass function
-);
+    size_t code_density_size(int n, CodeFormat format);
 
-/**
-     * @brief histogram2 Computes histogram over the given range of codes
-     * @tparam T int16_t, int32_t, int64_t
-     */
-template <typename T>
-void histogram(const T* in_data, ///< [in]  input array pointer
-    size_t in_size, ///< [in]  input array size
-    int32_t* bins_data, ///< [out] code bins array pointer
-    size_t bins_size, ///< [in]  code bins array size
-    int64_t* hits_data, ///< [out] code hits array pointer
-    size_t hits_size, ///< [in]  code hits array size
-    int64_t min_code, ///< [in]  minimum code
-    int64_t max_code ///< [in]  maximum code
-);
+    size_t code_densityx_size(int64_t min, int64_t max);
 
-/**
-     * @brief inl, Computes INL from DNL data
-     */
-ICD_API void inl(const real_t* dnl_data, ///< [in]  DNL array pointer
-    size_t dnl_size, ///< [in]  DNL array size
-    real_t* inl_data, ///< [out] INL array pointer
-    size_t inl_size, ///< [in]  INL array size
-    bool fit ///< [in]  enable line fit
-);
+    void code_axis(real_t* data, size_t size, int n, CodeFormat format);
 
-/// @} CodeDensity
+    void code_axisx(real_t* data, size_t size, int64_t min, int64_t max);
 
-} // namespace analysis
+    void dnl(
+        real_t* dnl_data,
+        size_t dnl_size,
+        const uint64_t* hist_data,
+        size_t hist_size,
+        DnlSignal type
+        );
+    
+    std::map<str_t, real_t> dnl_analysis(const real_t* data, size_t size);
 
-#undef ICD_API
+    const std::vector<str_t>& dnl_analysis_ordered_keys();
 
-#endif // ICD_ANALYSIS_CODE_DENSITY_HPP
+    template<typename T>
+    void hist(
+        uint64_t* hist_data,
+        size_t hist_size,
+        const T* wf_data,
+        size_t wf_size,
+        int n,
+        CodeFormat format,
+        bool preserve
+        );
+
+    template<typename T>
+    void histx(
+        uint64_t* hist_data,
+        size_t hist_size,
+        const T* wf_data,
+        size_t wf_size,
+        int64_t min,
+        int64_t max,
+        bool preserve
+        );
+
+    std::map<str_t, real_t> hist_analysis(const uint64_t* data, size_t size);
+
+    const std::vector<str_t>& hist_analysis_ordered_keys();
+
+    void inl(
+        real_t* inl_data,
+        size_t inl_size,
+        const real_t* dnl_data,
+        size_t dnl_size,
+        InlLineFit fit
+        );
+
+    std::map<str_t, real_t> inl_analysis(const real_t* data, size_t size);
+
+    const std::vector<str_t>& inl_analysis_ordered_keys();
+
+} // namespace genalyzer_impl
+
+#endif // GENALYZER_IMPL_CODE_DENSITY_HPP
