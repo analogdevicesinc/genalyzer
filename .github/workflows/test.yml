@@ -79,12 +79,13 @@ jobs:
           pytest -vs tests
 
       - name: Update to dev version and build release
-        if: python-version: 3.6
+        if: github.ref == 'refs/heads/main' and python-version: 3.6
         run: |
           cd ../../build/bindings/python
           pip install setuptools wheel twine build
           sed "s/0.0.1/$(openssl rand -base64 12)/" setup.py
           python -m build
+
       - uses: pypa/gh-action-pypi-publish@v1.0.0a0
         with:
           user: __token__
