@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13.4)
 project(
-  swx_analysis_genalyzer
+  genalyzer
   VERSION 0.0.1
   LANGUAGES CXX C)
 
@@ -11,6 +11,7 @@ set(BUILD_SHARED_LIBS
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 option(BUILD_DOC "Generate documentation" OFF)
+option(BUILD_TESTS_EXAMPLES "Build tests and examples" OFF)
 option(PYTHON_BINDINGS "Generate python bindings" OFF)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -22,9 +23,11 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
   if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(CMAKE_CXX_FLAGS
-        "${CMAKE_CXX_FLAGS} -std=gnu++14 -fext-numeric-literals")
-  else() # WIN/macOS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
+        "${CMAKE_CXX_FLAGS} -std=gnu++17 -fext-numeric-literals")
+  elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+  elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
   endif()
 
   if(BUILD_DOC)
@@ -44,7 +47,10 @@ endif()
 option(LIB_CHECK_PYINSTALL "Check for library during python install" OFF)
 add_subdirectory(src)
 add_subdirectory(bindings)
-add_subdirectory(tests)
+if(BUILD_TESTS_EXAMPLES)
+  add_subdirectory(tests)
+  add_subdirectory(examples)
+endif()
 
 if(MSVC)
   configure_file(libgenalyzer.iss.cmakein ${CMAKE_CURRENT_BINARY_DIR}/libgenalyzer.iss @ONLY)
