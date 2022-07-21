@@ -11,6 +11,7 @@ if (Python3_FOUND)
 	configure_file(${SETUP_PY_IN} ${SETUP_PY})
 
 	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/genalyzer.py  ${CMAKE_CURRENT_BINARY_DIR}/genalyzer.py COPYONLY)
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/genalyzer_plus_plus.py  ${CMAKE_CURRENT_BINARY_DIR}/genalyzer_plus_plus.py COPYONLY)
 
 	add_custom_target(libgenalyzer-py-py ALL DEPENDS ${SETUP_PY} COMMAND ${Python3_EXECUTABLE} ${SETUP_PY} --quiet build)
 

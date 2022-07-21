@@ -1,11 +1,11 @@
-file(GLOB SOURCE_LIST CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/bindings/c/src/*.cpp")
+file(GLOB SOURCE_LIST CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/bindings/c/src/*.cpp" "${PROJECT_SOURCE_DIR}/bindings/c/src/*.c")
 set(GENALYZER_MAIN_HEADER "${PROJECT_SOURCE_DIR}/bindings/c/include/cgenalyzer.h")
 
 add_definitions(-DGENALYZER_EXPORTS)
 
 add_library(genalyzer SHARED ${SOURCE_LIST} ${HEADER_LIST})
 
-target_link_libraries(genalyzer LINK_PRIVATE swx_analysis_genalyzer)
+target_link_libraries(genalyzer LINK_PRIVATE genalyzer_plus_plus)
 
 target_include_directories(genalyzer PUBLIC "${PROJECT_SOURCE_DIR}/bindings/c/include")
 
@@ -23,7 +23,7 @@ set_target_properties(genalyzer PROPERTIES
 if(MSVC)
   target_compile_options(genalyzer PRIVATE /W4 /WX)
 else()
-  target_compile_options(genalyzer PRIVATE -Wall -Wextra -Wpedantic -Werror)
+  target_compile_options(genalyzer PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 if(MSVC)
