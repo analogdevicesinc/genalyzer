@@ -1,219 +1,163 @@
-/*
-File        : $HeadURL: https://swdev.cld.analog.com/svn/projects/icdev/sandbox/users/pderouni/platform-upgrades/src/analysis/waveforms.cpp $
-Originator  : pderouni
-Revision    : $Revision: 12382 $
-Last Commit : $Date: 2020-04-06 11:21:16 -0400 (Mon, 06 Apr 2020) $
-Last Editor : $Author: pderouni $
-*/
-
 #include "waveforms.hpp"
-#include "checks.hpp"
+
 #include "constants.hpp"
-#include <algorithm>
+#include "reductions.hpp"
+#include "utils.hpp"
+
+#include <cmath>
 #include <functional>
 #include <random>
 
-namespace analysis {
+namespace genalyzer_impl {
 
-namespace {
+    namespace {
 
-    void check_ampl(size_t ntones, real_t fsr, std::vector<real_t>& ampl)
-    {
-        if (ntones < ampl.size()) {
-            throw base::exception("Size of amplitude spec > number of "
-                                  "tones: "
-                + std::to_string(ampl.size())
-                + " > " + std::to_string(ntones));
-        }
-        if (ntones == ampl.size()) {
-            for (real_t& a : ampl) {
-                a = (fsr / 2) * std::pow(10.0, a / 20);
-            }
-        } else {
-            if (1 < ntones && 1 < ampl.size()) {
-                throw base::exception("If number of tones > 1, size of "
-                                      "amplitude spec must be 0, 1, or "
-                                      "equal to the number of tones");
+        void sinusoid(
+            double(*func)(double),
+            real_t* data,
+            size_t size,
+            real_t fs,
+            real_t ampl,
+            real_t freq,
+            real_t phase,
+            real_t td,
+            real_t tj
+            )
+        {
+            check_array("", "output array", data, size);
+            assert_gt0("", "fs", fs);
+            const real_t twopif = k_2pi * freq;
+            const real_t twopifts = twopif / fs;
+            const real_t twopiftd_plus_phase = std::fma(twopif, td, phase);
+            real_t theta = twopiftd_plus_phase;
+            if (0.0 == tj) {
+                for (size_t i = 0; i < size; ++i) {
+                    data[i] = ampl * func(theta);
+                    theta += twopifts;
+                }
             } else {
-                real_t a = ampl.empty() ? 0.0 : ampl[0];
-                a = (fsr / 2) * std::pow(10.0, a / 20) / ntones;
-                ampl = std::vector<real_t>(ntones, a);
-            }
-        }
-    }
-
-    size_t check_freq(const std::vector<real_t>& freq)
-    {
-        for (real_t f : freq) {
-            if (0.0 == f) {
-                throw base::exception("Frequency must be non-zero");
-            }
-        }
-        return freq.size();
-    }
-
-    void check_phase(size_t ntones, std::vector<real_t>& phase)
-    {
-        if (ntones < phase.size()) {
-            throw base::exception("Size of phase spec > number of tones: "
-                + std::to_string(phase.size())
-                + " > " + std::to_string(ntones));
-        }
-        if (ntones == phase.size()) {
-            for (real_t& p : phase) {
-                p = std::fmod(p, k_2pi);
-            }
-        } else {
-            if (1 < ntones && 1 < phase.size()) {
-                throw base::exception("If number of tones > 1, size of "
-                                      "phase spec must be 0, 1, or "
-                                      "equal to the number of tones");
-            } else {
-                real_t p = phase.empty() ? 0.0 : phase[0];
-                phase = std::vector<real_t>(ntones, std::fmod(p, k_2pi));
-            }
-        }
-    }
-
-    void generate_sinusoid(double (*func)(double),
-        real_t* data,
-        size_t size,
-        real_t fs,
-        real_t fsr,
-        std::vector<real_t> ampl,
-        const std::vector<real_t>& freq,
-        std::vector<real_t> phase,
-        real_t td,
-        real_t tj,
-        real_t offset)
-    {
-        check_array(data, size, "waveform array");
-        check_fs(fs);
-        check_fsr(fsr);
-        size_t ntones = check_freq(freq);
-        check_ampl(ntones, fsr, ampl);
-        check_phase(ntones, phase);
-        if (0 == ntones) {
-            std::fill(data, data + size, offset);
-            return;
-        }
-        // Generate time points
-        const real_t tdfs = td * fs;
-        if (0.0 == tj) {
-            for (size_t i = 0; i < size; ++i) {
-                data[i] = static_cast<real_t>(i) + tdfs;
-            }
-        } else {
-            const real_t tjfs = std::fabs(tj) * fs;
-            std::random_device rdev;
-            std::mt19937 rgen(rdev());
-            std::normal_distribution<double> rdist(tdfs, tjfs);
-            auto delta_t = std::bind(rdist, rgen);
-            for (size_t i = 0; i < size; ++i) {
-                data[i] = static_cast<real_t>(i) + delta_t();
-            }
-        }
-        // Generate tones
-        if (ntones == 1) {
-            const real_t twopift = k_2pi * freq[0] / fs;
-            for (size_t i = 0; i < size; ++i) {
-                data[i] = ampl[0] * func(twopift * data[i] + phase[0]);
-            }
-        } else if (ntones == 2) {
-            const real_t twopif0t = k_2pi * freq[0] / fs;
-            const real_t twopif1t = k_2pi * freq[1] / fs;
-            for (size_t i = 0; i < size; ++i) {
-                const real_t t = data[i];
-                data[i] = ampl[0] * func(twopif0t * t + phase[0]);
-                data[i] += ampl[1] * func(twopif1t * t + phase[1]);
-            }
-        } else {
-            std::vector<real_t> twopift{};
-            for (auto f : freq) {
-                twopift.push_back(k_2pi * f / fs);
-            }
-            for (size_t i = 0; i < size; ++i) {
-                const real_t t = data[i];
-                data[i] = 0.0;
-                for (size_t j = 0; j < ntones; ++j) {
-                    data[i] += ampl[j] * func(twopift[j] * t + phase[j]);
+                std::random_device rdev;
+                std::mt19937 rgen (rdev());
+                auto ngen = std::bind(std::normal_distribution<real_t>(0.0, twopif * tj), rgen);
+                for (size_t i = 0; i < size; ++i) {
+                    data[i] = theta + ngen();
+                    theta += twopifts;
+                } // breaking into two loops gives modest speed improvement
+                for (size_t i = 0; i < size; ++i) {
+                    data[i] = ampl * func(data[i]);
                 }
             }
         }
-        // Offset
-        if (0.0 != offset) {
+
+    } // namespace anonymous
+    
+    void cos(
+        real_t* data,
+        size_t size,
+        real_t fs,
+        real_t ampl,
+        real_t freq,
+        real_t phase,
+        real_t td,
+        real_t tj
+        )
+    {
+        sinusoid(std::cos, data, size, fs, ampl, freq, phase, td, tj);
+    }
+    
+    void gaussian(real_t* data, size_t size, real_t mean, real_t sd)
+    {
+        check_array("", "output array", data, size);
+        if (0.0 == sd) {
             for (size_t i = 0; i < size; ++i) {
-                data[i] += offset;
+                data[i] = mean;
+            }
+        } else {
+            std::random_device rdev;
+            std::mt19937 rgen (rdev());
+            auto ngen = std::bind(std::normal_distribution<real_t>(mean, std::fabs(sd)), rgen);
+            for (size_t i = 0; i < size; ++i) {
+                data[i] = ngen();
             }
         }
     }
-
-} // namespace anonymous
-
-void cos(real_t* data,
-    size_t size,
-    real_t fs,
-    real_t fsr,
-    const std::vector<real_t>& ampl,
-    const std::vector<real_t>& freq,
-    const std::vector<real_t>& phase,
-    real_t td,
-    real_t tj,
-    real_t offset)
-{
-    generate_sinusoid(std::cos, data, size, fs, fsr,
-        ampl, freq, phase, td, tj, offset);
-}
-
-void noise(real_t* data,
-    size_t size,
-    real_t fsr,
-    real_t noise,
-    real_t offset)
-{
-    check_array(data, size, "waveform data");
-    check_fsr(fsr);
-    real_t sd = (fsr / 2) * std::pow(10.0, noise / 20) / k_sqrt2;
-    std::random_device rdev;
-    std::mt19937 rgen(rdev());
-    std::normal_distribution<real_t> rdist(offset, sd);
-    auto normal = std::bind(rdist, rgen);
-    for (size_t i = 0; i < size; ++i) {
-        data[i] = normal();
+    
+    void ramp(real_t* data, size_t size, real_t start, real_t stop, real_t noise)
+    {
+        check_array("", "output array", data, size);
+        const real_t step = (stop - start) / static_cast<real_t>(size);
+        real_t x = start + step / 2;
+        if (0.0 == noise) {
+            for (size_t i = 0; i < size; ++i) {
+                data[i] = x;
+                x += step;
+            }
+        } else {
+            std::random_device rdev;
+            std::mt19937 rgen (rdev());
+            auto ngen = std::bind(std::normal_distribution<real_t>(0.0, std::fabs(noise)), rgen);
+            for (size_t i = 0; i < size; ++i) {
+                data[i] = x + ngen();
+                x += step;
+            }
+        }
     }
-}
-
-void ramp(real_t* data,
-    size_t size,
-    real_t start,
-    real_t stop,
-    real_t offset)
-{
-    check_array(data, size, "waveform data");
-    if (0 == size) {
-        return;
+    
+    void sin(
+        real_t* data,
+        size_t size,
+        real_t fs,
+        real_t ampl,
+        real_t freq,
+        real_t phase,
+        real_t td,
+        real_t tj
+        )
+    {
+        sinusoid(std::sin, data, size, fs, ampl, freq, phase, td, tj);
     }
-    const real_t step = (stop - start) / static_cast<real_t>(size);
-    real_t value = offset + start + step / 2;
-    for (size_t i = 0; i < size; ++i) {
-        data[i] = value;
-        value += step;
+    
+    template<typename T>
+    std::map<str_t, real_t> wf_analysis(const T* wf_data, size_t wf_size)
+    {
+        check_array("", "waveform array", wf_data, wf_size);
+        std_reduce_t r = std_reduce(wf_data, wf_size, 0, wf_size);
+        real_t n = static_cast<real_t>(wf_size);
+        real_t avg = r.sum / n;
+        real_t rms = std::sqrt(r.sumsq / n);
+        real_t rmsac = std::sqrt(rms * rms - avg * avg);
+        std::vector<str_t> keys = wf_analysis_ordered_keys();
+        return std::map<str_t, real_t> {
+            { keys[0] , r.min },
+            { keys[1] , r.max },
+            { keys[2] , (r.max + r.min) / 2 },
+            { keys[3] , r.max - r.min },
+            { keys[4] , avg },
+            { keys[5] , rms },
+            { keys[6] , rmsac },
+            { keys[7] , static_cast<real_t>(r.min_index) },
+            { keys[8] , static_cast<real_t>(r.max_index) }};
     }
-}
 
-void sin(real_t* data,
-    size_t size,
-    real_t fs,
-    real_t fsr,
-    const std::vector<real_t>& ampl,
-    const std::vector<real_t>& freq,
-    const std::vector<real_t>& phase,
-    real_t td,
-    real_t tj,
-    real_t offset)
-{
-    generate_sinusoid(std::sin, data, size, fs, fsr,
-        ampl, freq, phase, td, tj, offset);
-}
+    template std::map<str_t, real_t> wf_analysis(const int16_t*, size_t);
+    template std::map<str_t, real_t> wf_analysis(const int32_t*, size_t);
+    template std::map<str_t, real_t> wf_analysis(const int64_t*, size_t);
+    template std::map<str_t, real_t> wf_analysis(const real_t*, size_t);
 
-} // namespace analysis
+    const std::vector<str_t>& wf_analysis_ordered_keys()
+    {
+        static const std::vector<str_t> keys {
+            "min",
+            "max",
+            "mid",
+            "range",
+            "avg",
+            "rms",
+            "rmsac",
+            "min_index",
+            "max_index"
+            };
+        return keys;
+    }
+
+} // namespace genalyzer_impl

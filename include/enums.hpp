@@ -1,138 +1,179 @@
+#ifndef GENALYZER_IMPL_ENUMS_HPP
+#define GENALYZER_IMPL_ENUMS_HPP
+
 /*
-File        : $HeadURL: https://swdev.cld.analog.com/svn/projects/icdev/sandbox/users/pderouni/platform-upgrades/src/analysis/enums.hpp $
-Originator  : pderouni
-Revision    : $Revision: 12078 $
-Last Commit : $Date: 2019-11-20 10:59:23 -0500 (Wed, 20 Nov 2019) $
-Last Editor : $Author: pderouni $
-*/
+ * Enumerations that are part of the API (exposed as type int)
+ */
+namespace genalyzer_impl {
 
-#ifndef ICD_ANALYSIS_ENUMS_HPP
-#define ICD_ANALYSIS_ENUMS_HPP
+    enum class AnalysisType : int {
+        DNL,
+        Fourier,
+        Histogram,
+        INL,
+        Waveform
+    };
 
-namespace analysis {
+    enum class CodeFormat : int {
+        OffsetBinary,
+        TwosComplement
+    };
 
-/// @{
+    enum class DnlSignal : int {
+        Ramp,
+        Tone
+    };
 
-/// @ingroup Enumerations
+    // Noise means not DC and not Signal and not Distortion
+    enum class FACompTag : int {        // Fourier Analysis Component Tag
+        DC,                             // DC component (always Bin 0)
+        Signal,                         // Signal component
+        HD,                             // Harmonic distortion
+        IMD,                            // Intermodulation distortion
+        ILOS,                           // Interleaving offset component
+        ILGT,                           // Interleaving gain/timing/BW component
+        CLK,                            // Clock component
+        UserDist,                       // User-designated distortion
+        Noise                           // Noise component (e.g. WorstOther)
+    };
 
-/**
-     * @brief The AnalysisType enum class
-     * @anchor AnalysisType
-     */
-enum class AnalysisType : int {
-    FFT, ///< FFT
-    Waveform ///< Waveform
-};
+    enum class FASsb : int {
+        Default,                        // Default SSB (applies to auto-generated components)
+        DC,                             // SSB for DC component
+        Signal,                         // SSB for Signal components
+        WO,                             // SSB for WorstOther components
+    };
 
-/**
-     * @brief The CodeFormat enum class
-     */
-enum class CodeFormat : int {
-    OffsetBinary, ///< Offset Binary
-    TwosComplement ///< Two's Complement
-};
+    enum class FreqAxisFormat : int {
+        Bins,
+        Freq,
+        Norm
+    };
 
-/**
-     * @brief FFTAxisFormat enumerates FFT axis formats
-     */
-enum class FFTAxisFormat : int {
-    Bin, ///< Bin (Cycles)
-    Freq, ///< Frequency
-    Norm ///< Normalized
-};
+    enum class FreqAxisType : int {
+        DcCenter,
+        DcLeft,
+        Real
+    };
 
-/**
-     * @brief FFTCompTag enumerates ways components are used in calculations
-     * @anchor FFTCompTag
-     */
-enum class FFTCompTag : int {
-    Signal, ///< Signal component
-    DC, ///< DC component; always bin zero
-    HD, ///< Harmonic distortion
-    IMD, ///< Intermodulation distortion
-    Dist, ///< Unspecified distortion (i.e. not Noise)
-    ILOS, ///< Interleaving offset component
-    ILGT, ///< Interleaving gain/timing/BW component
-    CLK, ///< Clock component
-    Noise ///< Noise, unless otherwise assigned
-};
+    enum class InlLineFit : int {
+        BestFit,
+        EndFit,
+        NoFit
+    };
 
-/**
-     * @brief FFTCompType enumerates methods used to locate FFT components
-     * @anchor FFTCompType
-     */
-enum class FFTCompType : int {
-    Band, ///< Band
-    FixedTone, ///< Tone at specified location
-    MaxTone ///< Next largest tone within specified band
-};
+    enum class RfftScale : int {
+        DbfsDc,                         // Full-scale sinusoid measures -3 dBFS
+        DbfsSin,                        // Full-scale sinusoid measures  0 dBFS
+        Native                          // Full-scale sinusoid measures -6 dBFS
+    };
 
-/**
-     * @brief The FileType enum class
-     */
-enum class FileType : int {
-    Bin, ///< Binary
-    Json, ///< JSON
-    Xml, ///< XML
-    Yaff ///< Yet Another File Format (experimental; do not use)
-};
+    enum class Window : int {
+        BlackmanHarris,
+        Hann,
+        NoWindow
+    };
 
-/**
-     * @brief The ObjectType enum class
-     */
-enum class ObjectType : int {
-    FFTAnalysis, ///< FFT Analysis
-    QuantArch, ///< Quantizer Architecture
-    QuantModel, ///< Quantizer Model
-    VarItem, ///< Var Item
-    VarMap, ///< Var Map
-    VarVector ///< Var Vector
-};
+} // namespace genalyzer_impl
 
-/**
-     * @brief The PmfType enum class represents the probability mass function
-     *        of different types of well-defined discrete-valued signals
-     */
-enum class PmfType : int {
-    Ramp, ///< Ramp
-    Tone ///< Tone
-};
+/*
+ * Enumerations only used internally
+ */
+namespace genalyzer_impl {
 
-/**
-     * @brief RealFormat enumerates real number formats
-     */
-enum class RealFormat : int {
-    Auto, ///< Automatic
-    Eng, ///< Engineering
-    Fix, ///< Fixed Precision
-    Sci ///< Scientific
-};
+    enum class FACompType : int {       // Fourier Analysis Component Type
+        DC,                             // DC component (always Bin 0)
+        FixedTone,                      // Tone with fixed, user-defined location
+        MaxTone,                        // Next largest tone
+        WOTone                          // Worst other tone
+    };
 
-/**
-     * @brief The VarType enum class
-     */
-enum class VarType : int {
-    Bool, ///< Boolean
-    Int, ///< Integer
-    Real, ///< Real number
-    Cplx, ///< Complex number
-    Str, ///< String
-    Map, ///< Map
-    Vector ///< Vector
-};
+    enum class FAResult : int {         // Fourier Analysis Results
+        // Meta Data
+        AnalysisType = 0,               // Analysis type
+        SignalType,                     // Signal type: 0=Real, 1=Cplx
+        NFFT,                           // FFT size
+        DataSize,                       // Data size
+        FBin,                           // Frequency resolution (Hz)
+        FData,                          // Data rate (S/s)
+        FSample,                        // Sample rate (S/s)
+        FShift,                         // Shift frequency (Hz)
+        // Primary Measurements
+        FSNR,                           // Full-Scale-to-Noise ratio, a.k.a "SNRFS" (dB)
+        SNR,                            // Signal-to-Noise ratio (dB)
+        SINAD,                          // Signal-to-Noise-and-Distortion ratio (dB)
+        SFDR,                           // Spurious-Free Dynamic Range (dB)
+        ABN,                            // Average Bin Noise (dBFS)
+        NSD,                            // Noise Spectral Density (dBFS/Hz)
+        // Carrier and MaxSpur
+        CarrierIndex,                   // Order index of Carrier tone
+        MaxSpurIndex,                   // Order index of MaxSpur tone
+        // Analysis Band Info
+        AB_Width,                       // Width (Hz)
+        AB_I1,                          // Index 1
+        AB_I2,                          // Index 2
+        AB_NBins,                       // Number of bins
+        AB_RSS,                         // Root-sum-square
+        // In-Band Tag Info
+        Signal_NBins,
+        Signal_RSS,
+        CLK_NBins,
+        CLK_RSS,
+        HD_NBins,
+        HD_RSS,
+        ILOS_NBins,
+        ILOS_RSS,
+        ILGT_NBins,
+        ILGT_RSS,
+        IMD_NBins,
+        IMD_RSS,
+        UserDist_NBins,
+        UserDist_RSS,
+        // In-Band Composite Info
+        THD_NBins,                      // HD + IMD (total harmonic distortion)
+        THD_RSS,
+        ILV_NBins,                      // ILOS + ILGT (total interleaving)
+        ILV_RSS,
+        Dist_NBins,                     // Distortion
+        Dist_RSS,
+        Noise_NBins,                    // Noise
+        Noise_RSS,
+        NAD_NBins,                      // Noise + Distortion
+        NAD_RSS,
+        //
+        __SIZE__
+    };
 
-/**
-     * @brief The WindowFunction enum class represents different types of
-     *        windowing functions
-     */
-enum class WindowType : int {
-    BlackmanHarris, ///< Blackman-Harris
-    Hann, ///< Hann
-    Rect ///< Rectangular
-};
+    enum class FAToneResult : int {     // Fourier Analysis Tone Results
+        OrderIndex = 0,
+        Tag,
+        Freq,
+        FFinal,
+        FWAvg,
+        I1,
+        I2,
+        NBins,
+        InBand,
+        Mag,
+        Mag_dBFS,
+        Mag_dBc,
+        Phase,
+        Phase_c,
+        //
+        __SIZE__
+    };
 
-/// @}
+    enum class FPFormat {               // Floating-point format
+        Auto,
+        Eng,
+        Fix,
+        Sci
+    };
 
-} // namespace analysis
+    enum class ObjectType {
+        FourierAnalysis
+    };
 
-#endif // ICD_ANALYSIS_ENUMS_HPP
+} // namespace genalyzer_impl
+
+#endif // GENALYZER_IMPL_ENUMS_HPP
