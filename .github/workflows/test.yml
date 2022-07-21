@@ -27,7 +27,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake ..
+          cmake -DBUILD_TESTS_EXAMPLES=ON ..
           make -j4
           make test
 
@@ -47,7 +47,7 @@ jobs:
           pip3 install -r requirements_doc.txt
           mkdir -p build
           cd build
-          cmake ..
+          cmake -DBUILD_TESTS_EXAMPLES=ON ..
           make -j4
           make test
           sudo make install
@@ -77,6 +77,20 @@ jobs:
           cd ../../..
           cd bindings/python
           pytest -vs tests
+
+      - name: Update to dev version and build release
+        if: github.ref == 'refs/heads/main' and python-version: 3.6
+        run: |
+          cd ../../build/bindings/python
+          pip install setuptools wheel twine build
+          sed "s/0.0.1/$(openssl rand -base64 12)/" setup.py
+          python -m build
+
+      - uses: pypa/gh-action-pypi-publish@v1.0.0a0
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
 
   DocBuild:
     runs-on: ubuntu-latest
