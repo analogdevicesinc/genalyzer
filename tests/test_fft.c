@@ -1,99 +1,62 @@
+#include "cgenalyzer.h"
 #include "test_genalyzer.h"
 #include <assert.h>
-#include <cgenalyzer.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
 int main(int argc, const char* argv[])
 {
-    // read test waveform
-    const char* test_filename_ip = argv[1];
-    const char* test_filename_op = argv[2];
-
-    char *tmp_token_name;
-    double* awf;
-    unsigned int err_code;
-    meas_domain domain_wf;
-    waveform_type type_wf;
-    size_t nfft, num_tones, res;
-    int navg;
-    double fs, fsr;
-    double *freq, *scale, *phase;
-    err_code = read_param(test_filename_ip, "domain_wf", (void*)(&domain_wf), UINT64);
-    err_code = read_param(test_filename_ip, "type_wf", (void*)(&type_wf), UINT64);
-    err_code = read_param(test_filename_ip, "nfft", (void*)(&nfft), UINT64);
-    err_code = read_param(test_filename_ip, "num_tones", (void*)(&num_tones), UINT64);
-    err_code = read_param(test_filename_ip, "res", (void*)(&res), INT32);
-    err_code = read_param(test_filename_ip, "navg", (void*)(&navg), INT32);
-    err_code = read_param(test_filename_ip, "fs", (void*)(&fs), DOUBLE);
-    err_code = read_param(test_filename_ip, "fsr", (void*)(&fsr), DOUBLE);    
-    freq = (double*)calloc(num_tones, sizeof(double));
-    scale = (double*)calloc(num_tones, sizeof(double));
-    phase = (double*)calloc(num_tones, sizeof(double));
-    tmp_token_name = (char*)malloc(10*sizeof(char));
-    for (int n = 0; n < num_tones; n++) {
-        sprintf(tmp_token_name, "freq%d", n);
-        err_code = read_param(test_filename_ip, tmp_token_name, (void*)(freq+n), DOUBLE);
-        sprintf(tmp_token_name, "scale%d", n);
-        err_code = read_param(test_filename_ip, tmp_token_name, (void*)(scale+n), DOUBLE);
-        sprintf(tmp_token_name, "phase%d", n);
-        err_code = read_param(test_filename_ip, tmp_token_name, (void*)(phase+n), DOUBLE);
-    }
+    // read test waveform filename
+    const char* test_filename = argv[1];
     
-    size_t npts = 2 * nfft * navg;
-    int * ref_qwf_ip = (int*)malloc(npts*sizeof(int));
-    int * ref_qwf_ip_re = (int*)malloc(npts/2*sizeof(int));
-    int * ref_qwf_ip_im = (int*)malloc(npts/2*sizeof(int));
+    int err_code;
+    int32_t *ref_qwfi, *ref_qwfq;
+    double *fft_out, *ref_fft_out;
 
-    double * ref_fft_op = (double*)malloc(npts*sizeof(double));
-    double * ref_fft_op_re = (double*)malloc(npts/2*sizeof(double));
-    double * ref_fft_op_im = (double*)malloc(npts/2*sizeof(double));
-
-    gn_config c = NULL;
+    // read parameters
+    tone_type ttype;
+    int qres;
+    unsigned long long npts, fft_navg, nfft, tmp_win;
+    GnWindow win;
+    err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&ttype), UINT64);
+    err_code = read_scalar_from_json_file(test_filename, "qres", (void*)(&qres), INT32);
+    err_code = read_scalar_from_json_file(test_filename, "npts", (void*)(&npts), UINT64);    
+    err_code = read_scalar_from_json_file(test_filename, "navg", (void*)(&fft_navg), UINT64);
+    err_code = read_scalar_from_json_file(test_filename, "nfft", (void*)(&nfft), UINT64);
+    err_code = read_scalar_from_json_file(test_filename, "win", (void*)(&tmp_win), UINT64);
+    if (tmp_win==1)
+        win = GnWindowBlackmanHarris;
+    else if (tmp_win==2)
+        win = GnWindowHann; 
+    else if (tmp_win==3)
+        win = GnWindowNoWindow;
 
     // configuration
-    gn_config_tone_meas(&c,
-        domain_wf,
-        type_wf,
-        nfft, // FFT order
-        navg, // # of FFTs averaged
-        fs, // sample rate
-        fsr, // full-scale range
-        res, // ADC resolution: unused configuration setting
-        2,  // rectangular window
-        false,
-        false,
-        false);
+    gn_config c = NULL;
+    err_code = gn_config_fftz(npts, qres, fft_navg, nfft, win, &c);
 
-    // read quantized input waveform
-    read_file_to_array(test_filename_ip, (void*)ref_qwf_ip, INT32);
-    deinterleave(ref_qwf_ip, npts, ref_qwf_ip_re, ref_qwf_ip_im, INT32);
+    // read reference waveforms    
+    ref_qwfi = (int32_t*)malloc(npts*sizeof(int32_t));
+    err_code = read_array_from_json_file(test_filename, "test_vecq_i", ref_qwfi, INT32, npts);
+    ref_qwfq = (int32_t*)malloc(npts*sizeof(int32_t));
+    err_code = read_array_from_json_file(test_filename, "test_vecq_q", ref_qwfq, INT32, npts);
 
-    // read fft output waveform
-    read_file_to_array(test_filename_op, (void*)ref_fft_op, DOUBLE);
-    deinterleave(ref_fft_op, npts, ref_fft_op_re, ref_fft_op_im, DOUBLE);
+    // FFT of waveform
+    err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, &c);
 
-    // compute rfft
-    double *fft_op_re, *fft_op_im;
-    size_t fft_size;
-    gn_fft(c, ref_qwf_ip_re, ref_qwf_ip_im, &fft_op_re, &fft_op_im, &fft_size);
+    // read reference FFT
+    ref_fft_out = (double*)malloc(2*nfft*sizeof(double));
+    err_code = read_array_from_json_file(test_filename, "fft_test_vec", ref_fft_out, DOUBLE, 2*nfft);
 
     // compare
-    assert(float_arrays_almost_equal(ref_fft_op_re, fft_op_re, nfft, 8));
-    assert(float_arrays_almost_equal(ref_fft_op_im, fft_op_im, nfft, 8));
-
+    assert(float_arrays_almost_equal(ref_fft_out, fft_out, 2*nfft, 6));    
+    
     // free memory
-    free(c);
-    free(freq);
-    free(scale);
-    free(phase);
-    free(ref_qwf_ip);
-    free(ref_qwf_ip_re);
-    free(ref_qwf_ip_im);
-    free(ref_fft_op);
-    free(ref_fft_op_re);
-    free(ref_fft_op_im);
-    free(tmp_token_name);
-
+    free(ref_qwfi);
+    free(ref_qwfq);
+    free(fft_out);
+    free(ref_fft_out);
+    gn_config_free(&c);
+    
     return 0;
 }
