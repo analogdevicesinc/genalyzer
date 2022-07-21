@@ -3,37 +3,33 @@ file(GLOB HEADER_LIST CONFIGURE_DEPENDS
 
 add_definitions(-DEXPORT_API)
 
-add_library(swx_analysis_genalyzer
-    abstract_object.cpp
-    array_math.cpp
+add_library(genalyzer_plus_plus STATIC
+    array_ops.cpp
     code_density.cpp
-    dft.cpp
-    fft_analysis2.cpp
-    fft_component.cpp
+    enum_map.cpp
+    enum_maps.cpp
+    expression.cpp
     formatted_data.cpp
-    io_data.cpp
-    io_item.cpp
-    io_map.cpp
-    io_null.cpp
-    io_object.cpp
-    io_vector.cpp
-    math_expression.cpp
-    math_expression_tokens.cpp
+    fourier_analysis.cpp
+    fourier_analysis_comp_mask.cpp
+    fourier_transforms.cpp
+    fourier_utilities.cpp
+    json.cpp
+    manager.cpp
+    platform.cpp
     processes.cpp
-    real_to_string.cpp
-    sparse_array_mask.cpp
-    text_utils.cpp
-    var_item.cpp
-    var_map.cpp
-    var_vector.cpp
+    utils.cpp
+    version.cpp
     waveforms.cpp
     ${HEADER_LIST}
     )
 
-# We need this directory, and users of our library will need it too
-target_include_directories(swx_analysis_genalyzer PUBLIC ../include)
+set_property(TARGET genalyzer_plus_plus PROPERTY POSITION_INDEPENDENT_CODE ON)
 
-set_target_properties(swx_analysis_genalyzer PROPERTIES
+# We need this directory, and users of our library will need it too
+target_include_directories(genalyzer_plus_plus PUBLIC ../include)
+
+set_target_properties(genalyzer_plus_plus PROPERTIES
   VERSION ${CMAKE_PROJECT_VERSION}
   SOVERSION ${CMAKE_PROJECT_VERSION_MAJOR}
   FRAMEWORK TRUE
@@ -51,12 +47,12 @@ if(APPLE)
   pkg_check_modules(FFTW3 REQUIRED fftw3)
 endif()
 find_package(FFTW REQUIRED)
-target_link_libraries(swx_analysis_genalyzer LINK_PUBLIC ${FFTW_LIBRARIES})
+target_link_libraries(genalyzer_plus_plus LINK_PUBLIC ${FFTW_LIBRARIES})
 if(APPLE OR WIN32)
-  target_include_directories(swx_analysis_genalyzer PRIVATE ${FFTW_INCLUDE_DIRS})
+  target_include_directories(genalyzer_plus_plus PRIVATE ${FFTW_INCLUDE_DIRS})
 endif()
 
-install(TARGETS swx_analysis_genalyzer
+install(TARGETS genalyzer_plus_plus
 	ARCHIVE DESTINATION lib
 	LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
 	RUNTIME DESTINATION bin
