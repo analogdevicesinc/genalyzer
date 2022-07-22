@@ -42,7 +42,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 Source: "D:\a\genalyzer\genalyzer\bindings\c\src\Release\libgenalyzer.dll"; DestDir: "{sys}"; Check: Is64BitInstallMode; Flags: replacesameversion
 
 Source: "D:\a\genalyzer\genalyzer\bindings\c\src\Release\libgenalyzer.lib"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\lib\amd64"; Check: Is64BitInstallMode
-Source: "D:\a\genalyzer\genalyzer\src\Release\genalyzer_plus_plus.lib"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\lib\amd64"; Check: Is64BitInstallMode
+Source: "D:\a\genalyzer\genalyzer\src\Release\genalyzer_plus_plus.lib"; DestDir: "{sys}"; Check: Is64BitInstallMode; Flags: replacesameversion
 
 Source: "D:\a\genalyzer\genalyzer\bindings\c\include\cgenalyzer.h"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\include"
 Source: "D:\a\genalyzer\genalyzer\bindings\c\include\cgenalyzer_advanced.h"; DestDir: "{commonpf32}\Microsoft Visual Studio 12.0\VC\include"
