@@ -79,7 +79,7 @@ jobs:
           pytest -vs tests
 
       - name: Update to dev version and build release
-        if: ${{ ${{ github.ref == 'refs/heads/main' }} && ${{ matrix.python-version == 3.6 }} }}
+        if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == 3.6 }}
         run: |
           cd build/bindings/python
           pip install setuptools wheel twine build
