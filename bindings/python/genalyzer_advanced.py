@@ -1,7 +1,28 @@
+'''
+* cgenalyzer_advanced - genalyzer (advanced) API header file
+*
+* Copyright (C) 2022 Analog Devices, Inc.
+* Author: Peter Derounian
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+'''
+ 
 """
 Python wrapper for Data Converter Analysis Library (genalyzer_plus_plus)
 """
-
+import genalyzer_advanced as advanced
 import ctypes as _ctypes
 from ctypes.util import find_library as _find_library
 from enum import IntEnum as _IntEnum
@@ -33,13 +54,14 @@ _ndptr_u32_1d = _ndptr(dtype=_np.uint32, ndim=1)
 _ndptr_u64_1d = _ndptr(dtype=_np.uint64, ndim=1)
 del _ndptr
 
-
 _module_dir = _os.path.dirname(__file__)
 if "linux" == _sys.platform:
-    _libpath = _os.path.join(_module_dir, "libgenalyzer_plus_plus.so")
+    _libpath = _os.path.join(_module_dir, "libgenalyzer.so")
     _lib = _ctypes.cdll.LoadLibrary(_libpath)
 elif "win32" == _sys.platform:
-    _libpath = _find_library(_os.path.join(_module_dir, "genalyzer_plus_plus"))
+    _libpath = _find_library(_os.path.join(_module_dir, "genalyzer"))
+    if not _libpath:
+        _libpath = _find_library("libgenalyzer.dll")
     try:
         _lib = _ctypes.cdll.LoadLibrary(_libpath)           # seems to work for Python3.9
     except OSError:
