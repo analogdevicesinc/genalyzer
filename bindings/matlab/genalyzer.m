@@ -3,7 +3,7 @@ classdef (Sealed) genalyzer < handle
         header_name = 'cgenalyzer_advanced.h';
         nixbin_name = 'libgenalyzer.so';
         winbin_name = 'libgenalyzer.dll';
-        lib_alias = 'gna';
+        lib_alias = 'gn';
     end
     properties (Constant) % Enumerations
         CodeFormatOffsetBinary   = 0
@@ -48,15 +48,15 @@ classdef (Sealed) genalyzer < handle
     end
     methods (Static) % C Library Load/Unload
         function load()
-            if not(libisloaded(genalyzer_advanced.lib_alias))
+            if not(libisloaded(genalyzer.lib_alias))
                 if ispc
-                    loadlibrary(genalyzer_advanced.winbin_name, ...
-                                genalyzer_advanced.header_name, ...
-                                'alias', genalyzer_advanced.lib_alias);
+                    loadlibrary(genalyzer.winbin_name, ...
+                                genalyzer.header_name, ...
+                                'alias', genalyzer.lib_alias);
                 elseif isunix
-                    loadlibrary(genalyzer_advanced.nixbin_name, ...
-                                genalyzer_advanced.header_name, ...
-                                'alias', genalyzer_advanced.lib_alias);
+                    loadlibrary(genalyzer.nixbin_name, ...
+                                genalyzer.header_name, ...
+                                'alias', genalyzer.lib_alias);
                 else
                     disp(['Cannot load library: ''', computer, ''' is not supported'])
                 end
@@ -64,8 +64,8 @@ classdef (Sealed) genalyzer < handle
             end
         end
         function unload()
-            if (libisloaded(genalyzer_advanced.lib_alias))
-                unloadlibrary(genalyzer_advanced.lib_alias)
+            if (libisloaded(genalyzer.lib_alias))
+                unloadlibrary(genalyzer.lib_alias)
             end
         end
     end
@@ -106,11 +106,11 @@ classdef (Sealed) genalyzer < handle
         function [keys, values] = get_analysis_containers(analysis_type)
             size = 0;
             [result, size] = calllib('gn', 'gn_analysis_results_size', size, analysis_type);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             key_sizes = zeros(1, size, 'uint64');
             [result, key_sizes] = calllib('gn', 'gn_analysis_results_key_sizes', ...
                 key_sizes, size, analysis_type);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             keys = cell(size, 1);
             values = zeros(1, size);
             for r = 1:size
@@ -131,7 +131,7 @@ classdef (Sealed) genalyzer < handle
             boxes = {};
             lbound = 0;
             rbound = datasize - 1;
-            if genalyzer_advanced.FreqAxisTypeDcCenter == axis_type
+            if genalyzer.FreqAxisTypeDcCenter == axis_type
                 lbound = lbound - floor(datasize / 2);
                 rbound = rbound - floor(datasize / 2);
                 if rbound < x1
@@ -168,75 +168,75 @@ classdef (Sealed) genalyzer < handle
             [~, size] = calllib('gn', 'gn_version_string_size', size);
             ver = blanks(size);
             [result, ver] = calllib('gn', 'gn_version_string', ver, numel(ver));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
     end
     methods (Static) % Array Operations
         function Y = abs(X)
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X) / 2, 'double');
             [result, Y] = calllib('gn', 'gn_abs', Y, numel(Y), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = angle(X)
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X) / 2, 'double');
             [result, Y] = calllib('gn', 'gn_angle', Y, numel(Y), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = db(X)
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X) / 2, 'double');
             [result, Y] = calllib('gn', 'gn_db', Y, numel(Y), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = db10(X)
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X), 'double');
             [result, Y] = calllib('gn', 'gn_db10', Y, numel(Y), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = db20(X)
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X), 'double');
             [result, Y] = calllib('gn', 'gn_db20', Y, numel(Y), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = norm(X)
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X) / 2, 'double');
             [result, Y] = calllib('gn', 'gn_norm', Y, numel(Y), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
     end
     methods (Static) % Code Density
         function X = code_axis(n, fmt)
             if nargin < 2
-                fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                fmt = genalyzer.CodeFormatTwosComplement;
             end
             size = 0;
             [result, size] = calllib('gn', 'gn_code_density_size', size, n, fmt);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             X = zeros(1, size, 'double');
             [result, X] = calllib('gn', 'gn_code_axis', X, numel(X), n, fmt);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function X = code_axisx(min_code, max_code)
             size = 0;
             [result, size] = calllib('gn', 'gn_code_densityx_size', size, min_code, max_code);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             X = zeros(1, size, 'double');
             [result, X] = calllib('gn', 'gn_code_axisx', X, numel(X), min_code, max_code);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = dnl(X, signal_type)
             if nargin < 2
-                signal_type = genalyzer_advanced.DnlSignalTone;
+                signal_type = genalyzer.DnlSignalTone;
             end
-            genalyzer_advanced.check_array_1d(X, {'uint64'});
+            genalyzer.check_array_1d(X, {'uint64'});
             Y = zeros(1, numel(X), 'double');
             [result, Y] = calllib('gn', 'gn_dnl', Y, numel(Y), X, numel(X), signal_type);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function M = dnl_analysis(X)
         % DNL_ANALYSIS  Returns DNL analysis metrics
@@ -264,21 +264,21 @@ classdef (Sealed) genalyzer < handle
         %     nm_range        |  Non-missing code range (1 + (last_nm_index - first_nm_index))
         %   ====================================================================================
 
-            genalyzer_advanced.check_array_1d(X, {'double'});
-            [keys, values] = genalyzer_advanced.get_analysis_containers(genalyzer_advanced.AnalysisTypeDnl);
+            genalyzer.check_array_1d(X, {'double'});
+            [keys, values] = genalyzer.get_analysis_containers(genalyzer.AnalysisTypeDnl);
             [result, keys, values] = calllib('gn', 'gn_dnl_analysis', ...
                 keys, numel(keys), values, numel(values), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             M = containers.Map(keys, values);
         end
         function Y = hist(X, n, fmt)
             if nargin < 2
-                fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                fmt = genalyzer.CodeFormatTwosComplement;
             end
-            genalyzer_advanced.check_array_1d(X, {'int16', 'int32', 'int64'});
+            genalyzer.check_array_1d(X, {'int16', 'int32', 'int64'});
             size = 0;
             [result, size] = calllib('gn', 'gn_code_density_size', size, n, fmt);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             Y = zeros(1, size, 'uint64');
             if isa(X, 'int16')
                 [result, Y] = calllib('gn', 'gn_hist16', Y, numel(Y), X, numel(X), n, fmt, false);
@@ -287,13 +287,13 @@ classdef (Sealed) genalyzer < handle
             else
                 [result, Y] = calllib('gn', 'gn_hist64', Y, numel(Y), X, numel(X), n, fmt, false);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = histx(X, min, max)
-            genalyzer_advanced.check_array_1d(X, {'int16', 'int32', 'int64'});
+            genalyzer.check_array_1d(X, {'int16', 'int32', 'int64'});
             size = 0;
             [result, size] = calllib('gn', 'gn_code_densityx_size', size, min, max);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             Y = zeros(1, size, 'uint64');
             if isa(X, 'int16')
                 [result, Y] = calllib('gn', 'gn_histx16', Y, numel(Y), X, numel(X), min, max, false);
@@ -302,7 +302,7 @@ classdef (Sealed) genalyzer < handle
             else
                 [result, Y] = calllib('gn', 'gn_histx64', Y, numel(Y), X, numel(X), min, max, false);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function M = hist_analysis(X)
         % HIST_ANALYSIS  Returns histogram analysis metrics
@@ -325,21 +325,21 @@ classdef (Sealed) genalyzer < handle
         %     nz_range        |  Non-zero bin range (1 + (last_nz_index - first_nz_index))
         %   ================================================================================
 
-            genalyzer_advanced.check_array_1d(X, {'uint64'});
-            [keys, values] = genalyzer_advanced.get_analysis_containers(genalyzer_advanced.AnalysisTypeHistogram);
+            genalyzer.check_array_1d(X, {'uint64'});
+            [keys, values] = genalyzer.get_analysis_containers(genalyzer.AnalysisTypeHistogram);
             [result, keys, values] = calllib('gn', 'gn_hist_analysis', ...
                 keys, numel(keys), values, numel(values), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             M = containers.Map(keys, values);
         end
         function Y = inl(X, fit)
             if nargin < 2
-                fit = genalyzer_advanced.InlLineFitBestFit;
+                fit = genalyzer.InlLineFitBestFit;
             end
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X), 'double');
             [result, Y] = calllib('gn', 'gn_inl', Y, numel(Y), X, numel(X), fit);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function M = inl_analysis(X)
         % INL_ANALYSIS  Returns INL analysis metrics
@@ -362,11 +362,11 @@ classdef (Sealed) genalyzer < handle
         %     max_index  |  Index of first occurence of maximum value
         %   ===========================================================
 
-            genalyzer_advanced.check_array_1d(X, {'double'});
-            [keys, values] = genalyzer_advanced.get_analysis_containers(genalyzer_advanced.AnalysisTypeInl);
+            genalyzer.check_array_1d(X, {'double'});
+            [keys, values] = genalyzer.get_analysis_containers(genalyzer.AnalysisTypeInl);
             [result, keys, values] = calllib('gn', 'gn_inl_analysis', ...
                 keys, numel(keys), values, numel(values), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             M = containers.Map(keys, values);
         end
     end
@@ -446,16 +446,16 @@ classdef (Sealed) genalyzer < handle
         %   ===================================================================================
 
             if nargin < 4
-                axis_type = genalyzer_advanced.FreqAxisTypeDcLeft;
+                axis_type = genalyzer.FreqAxisTypeDcLeft;
             end
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             size = 0;
             [result, size] = calllib('gn', 'gn_fft_analysis_results_size', size, cfg_id, numel(X), nfft);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             key_sizes = zeros(1, size, 'uint64');
             [result, key_sizes] = calllib('gn', 'gn_fft_analysis_results_key_sizes', ...
                 key_sizes, size, cfg_id, numel(X), nfft);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             keys = cell(size, 1);
             values = zeros(1, size);
             for r = 1:size
@@ -463,7 +463,7 @@ classdef (Sealed) genalyzer < handle
             end
             [result, keys, values] = calllib('gn', 'gn_fft_analysis', ...
                 keys, numel(keys), values, numel(values), cfg_id, X, numel(X), nfft, axis_type);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             M = containers.Map(keys, values);
         end
         % Fourier Analysis Configuration
@@ -473,7 +473,7 @@ classdef (Sealed) genalyzer < handle
             else
                 result = calllib('gn', 'gn_fa_analysis_band', obj_key, center, width);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_clk(obj_key, X, as_noise)
             if nargin < 3
@@ -485,19 +485,19 @@ classdef (Sealed) genalyzer < handle
             end
             X = int32(X);
             result = calllib('gn', 'gn_fa_clk', obj_key, X, numel(X), as_noise);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_conv_offset(obj_key, enable)
             result = calllib('gn', 'gn_fa_conv_offset', obj_key, enable);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_create(obj_key)
             result = calllib('gn', 'gn_fa_create', obj_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_dc(obj_key, as_dist)
             result = calllib('gn', 'gn_fa_dc', obj_key, as_dist);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_fdata(obj_key, f)
             if isa(f, 'char')
@@ -505,7 +505,7 @@ classdef (Sealed) genalyzer < handle
             else
                 result = calllib('gn', 'gn_fa_fdata', obj_key, f);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_fixed_tone(obj_key, comp_key, tag, freq, ssb)
             if nargin < 5
@@ -516,7 +516,7 @@ classdef (Sealed) genalyzer < handle
             else
                 result = calllib('gn', 'gn_fa_fixed_tone', obj_key, comp_key, tag, freq, ssb);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_fsample(obj_key, f)
             if isa(f, 'char')
@@ -524,7 +524,7 @@ classdef (Sealed) genalyzer < handle
             else
                 result = calllib('gn', 'gn_fa_fsample', obj_key, f);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_fshift(obj_key, f)
             if isa(f, 'char')
@@ -532,15 +532,15 @@ classdef (Sealed) genalyzer < handle
             else
                 result = calllib('gn', 'gn_fa_fshift', obj_key, f);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_fund_images(obj_key, enable)
             result = calllib('gn', 'gn_fa_fund_images', obj_key, enable);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_hd(obj_key, n)
             result = calllib('gn', 'gn_fa_hd', obj_key, n);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_ilv(obj_key, X, as_noise)
             if nargin < 3
@@ -552,11 +552,11 @@ classdef (Sealed) genalyzer < handle
             end
             X = int32(X);
             result = calllib('gn', 'gn_fa_ilv', obj_key, X, numel(X), as_noise);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_imd(obj_key, n)
             result = calllib('gn', 'gn_fa_imd', obj_key, n);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function S = fa_load(filename, obj_key)
             if nargin < 2
@@ -564,17 +564,17 @@ classdef (Sealed) genalyzer < handle
             end
             size = 0;
             [result, size] = calllib('gn', 'gn_fa_load_key_size', size, filename, obj_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             S = blanks(size);
             [result, S] = calllib('gn', 'gn_fa_load', S, numel(S), filename, obj_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_max_tone(obj_key, comp_key, tag, ssb)
             if nargin < 4
                 ssb = -1;
             end
             result = calllib('gn', 'gn_fa_max_tone', obj_key, comp_key, tag, ssb);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function S = fa_preview(cfg_id, cplx)
             if nargin < 2
@@ -582,72 +582,72 @@ classdef (Sealed) genalyzer < handle
             end
             size = 0;
             [result, size] = calllib('gn', 'gn_fa_preview_size', size, cfg_id, cplx);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             S = blanks(size);
             [result, S] = calllib('gn', 'gn_fa_preview', S, numel(S), cfg_id, cplx);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_quad_errors(obj_key, enable)
             result = calllib('gn', 'gn_fa_quad_errors', obj_key, enable);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_remove_comp(obj_key, comp_key)
             result = calllib('gn', 'gn_fa_remove_comp', obj_key, comp_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_reset(obj_key)
             result = calllib('gn', 'gn_fa_reset', obj_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_ssb(obj_key, group, n)
             result = calllib('gn', 'gn_fa_ssb', obj_key, group, n);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_ssb_dc(obj_key, n)
             disp('fa_ssb_dc(obj_key, n) is deprecated; use fa_ssb(obj_key, FaSsbDC, n)')
-            result = calllib('gn', 'gn_fa_ssb', obj_key, genalyzer_advanced.FaSsbDC, n);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            result = calllib('gn', 'gn_fa_ssb', obj_key, genalyzer.FaSsbDC, n);
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_ssb_def(obj_key, n)
             disp('fa_ssb_def(obj_key, n) is deprecated; use fa_ssb(obj_key, FaSsbDefault, n)')
-            result = calllib('gn', 'gn_fa_ssb', obj_key, genalyzer_advanced.FaSsbDefault, n);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            result = calllib('gn', 'gn_fa_ssb', obj_key, genalyzer.FaSsbDefault, n);
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_ssb_wo(obj_key, n)
             disp('fa_ssb_wo(obj_key, n) is deprecated; use fa_ssb(obj_key, FaSsbWO, n)')
-            result = calllib('gn', 'gn_fa_ssb', obj_key, genalyzer_advanced.FaSsbWO, n);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            result = calllib('gn', 'gn_fa_ssb', obj_key, genalyzer.FaSsbWO, n);
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_var(obj_key, name, value)
             result = calllib('gn', 'gn_fa_var', obj_key, name, value);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function fa_wo(obj_key, n)
             result = calllib('gn', 'gn_fa_wo', obj_key, n);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         % Fourier Analysis Results
         function M = fa_annotations(result_map, axis_type, axis_fmt)
             if nargin < 2
-                axis_type = genalyzer_advanced.FreqAxisTypeDcLeft;
+                axis_type = genalyzer.FreqAxisTypeDcLeft;
             end
             if nargin < 3
-                axis_fmt = genalyzer_advanced.FreqAxisFormatFreq;
+                axis_fmt = genalyzer.FreqAxisFormatFreq;
             end
             
             if 1.0 == result_map('signaltype')
-                if genalyzer_advanced.FreqAxisTypeReal == axis_type
-                    axis_type = genalyzer_advanced.FreqAxisTypeDcLeft;
+                if genalyzer.FreqAxisTypeReal == axis_type
+                    axis_type = genalyzer.FreqAxisTypeDcLeft;
                 end
             else
-                axis_type = genalyzer_advanced.FreqAxisTypeReal;
+                axis_type = genalyzer.FreqAxisTypeReal;
             end
             
             datasize = result_map('datasize');
             fbin = result_map('fbin');
-            if genalyzer_advanced.FreqAxisFormatBins == axis_fmt
+            if genalyzer.FreqAxisFormatBins == axis_fmt
                 xscalar = 1 / fbin;
-            elseif genalyzer_advanced.FreqAxisFormatNorm == axis_fmt
+            elseif genalyzer.FreqAxisFormatNorm == axis_fmt
                 xscalar = 1 / result_map('fdata');
             else
                 xscalar = 1.0;
@@ -706,7 +706,7 @@ classdef (Sealed) genalyzer < handle
                 height = 600;
                 x1     = result_map('ab_i2') + 1;  % "invert" the analysis band
                 x2     = result_map('ab_i1') - 1;  % to draw *excluded* spectrum
-                new_boxes = genalyzer_advanced.get_annot_boxes(...
+                new_boxes = genalyzer.get_annot_boxes(...
                     axis_type, datasize, bottom, height, x1, x2, fbin*xscalar);
                 ab_boxes = [ab_boxes, new_boxes];
             end
@@ -720,7 +720,7 @@ classdef (Sealed) genalyzer < handle
                 height = result_map(strcat(tk, ':mag_dbfs')) - bottom;
                 x1     = result_map(strcat(tk, ':i1'));
                 x2     = result_map(strcat(tk, ':i2'));
-                new_boxes = genalyzer_advanced.get_annot_boxes(...
+                new_boxes = genalyzer.get_annot_boxes(...
                     axis_type, datasize, bottom, height, x1, x2, fbin*xscalar);
                 tone_boxes = [tone_boxes, new_boxes];
             end
@@ -729,15 +729,15 @@ classdef (Sealed) genalyzer < handle
                                { labels,   lines,   ab_boxes,   tone_boxes});
         end
         function S = fa_result_string(result_map, result_key)
-            [keys, values] = genalyzer_advanced.get_key_value_arrays(result_map);
+            [keys, values] = genalyzer.get_key_value_arrays(result_map);
             size = 0;
             [result, size] = calllib('gn', 'gn_fa_result_string_size', size, ...
                 keys, numel(keys), values, numel(values), result_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             S = blanks(size);
             [result, S] = calllib('gn', 'gn_fa_result_string', S, size, ...
                 keys, numel(keys), values, numel(values), result_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
     end
     methods (Static) % Fourier Transforms
@@ -766,7 +766,7 @@ classdef (Sealed) genalyzer < handle
             % -------
             % The discrete Fourier transform as an array of interleaved Real and Imaginary values.
             %
-            type = genalyzer_advanced.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
+            type = genalyzer.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
             Xi = X;
             Xq = zeros(1, 0, type);
             base_index = 1;
@@ -790,7 +790,7 @@ classdef (Sealed) genalyzer < handle
                 if base_index + 2 < nargin
                     win = varargin{base_index + 2};
                 else
-                    win = genalyzer_advanced.WindowNoWindow;
+                    win = genalyzer.WindowNoWindow;
                 end
             else % quantized samples
                 if 6 < nargin || ...                                % 6 < nargin implies split Xi and Xq
@@ -817,19 +817,19 @@ classdef (Sealed) genalyzer < handle
                 if base_index + 3 < nargin
                     win = varargin{base_index + 3};
                 else
-                    win = genalyzer_advanced.WindowNoWindow;
+                    win = genalyzer.WindowNoWindow;
                 end
                 if base_index + 4 < nargin
                     fmt = varargin{base_index + 4};
                 else
-                    fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                    fmt = genalyzer.CodeFormatTwosComplement;
                 end
             end
             size = 0;
             navg = max(0, navg);
             nfft = max(0, nfft);
             [result, size] = calllib('gn', 'gn_fft_size', size, numel(Xi), numel(Xq), navg, nfft);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             Y = zeros(1, size, 'double');
             if isa(X, 'int16')
                 [result, Y] = calllib('gn', 'gn_fft16', Y, numel(Y), Xi, numel(Xi), Xq, numel(Xq), n, navg, nfft, win, fmt);
@@ -840,7 +840,7 @@ classdef (Sealed) genalyzer < handle
             else
                 [result, Y] = calllib('gn', 'gn_fft', Y, numel(Y), Xi, numel(Xi), Xq, numel(Xq), navg, nfft, win);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = rfft(X, varargin)
             % 1. rfft(a, navg=1, nfft=0, window=Window.NoWindow, scale=RfftScale.DbfsSin)
@@ -871,7 +871,7 @@ classdef (Sealed) genalyzer < handle
             % -------
             % The discrete Fourier transform as an array of interleaved Real and Imaginary values.
             %
-            genalyzer_advanced.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
+            genalyzer.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
             if isfloat(X) % normalized samples
                 if nargin < 2
                     navg = 1;
@@ -884,12 +884,12 @@ classdef (Sealed) genalyzer < handle
                     nfft = varargin{2};
                 end
                 if nargin < 4
-                    win = genalyzer_advanced.WindowNoWindow;
+                    win = genalyzer.WindowNoWindow;
                 else
                     win = varargin{3};
                 end
                 if nargin < 5
-                    scale = genalyzer_advanced.RfftScaleDbfsSin;
+                    scale = genalyzer.RfftScaleDbfsSin;
                 else
                     scale = varargin{4};
                 end
@@ -910,17 +910,17 @@ classdef (Sealed) genalyzer < handle
                     nfft = varargin{3};
                 end
                 if nargin < 5
-                    win = genalyzer_advanced.WindowNoWindow;
+                    win = genalyzer.WindowNoWindow;
                 else
                     win = varargin{4};
                 end
                 if nargin < 6
-                    fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                    fmt = genalyzer.CodeFormatTwosComplement;
                 else
                     fmt = varargin{5};
                 end
                 if nargin < 7
-                    scale = genalyzer_advanced.RfftScaleDbfsSin;
+                    scale = genalyzer.RfftScaleDbfsSin;
                 else
                     scale = varargin{6};
                 end
@@ -929,7 +929,7 @@ classdef (Sealed) genalyzer < handle
             navg = max(0, navg);
             nfft = max(0, nfft);
             [result, size] = calllib('gn', 'gn_rfft_size', size, numel(X), navg, nfft);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             Y = zeros(1, size, 'double');
             if isa(X, 'int16')
                 [result, Y] = calllib('gn', 'gn_rfft16', Y, numel(Y), X, numel(X), n, navg, nfft, win, fmt, scale);
@@ -940,45 +940,45 @@ classdef (Sealed) genalyzer < handle
             else
                 [result, Y] = calllib('gn', 'gn_rfft', Y, numel(Y), X, numel(X), navg, nfft, win, scale);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
     end
     methods (Static) % Fourier Utilities
         function X = alias(fs, freq, axis_type)
             X = 0.0;
             [result, X] = calllib('gn', 'gn_alias', X, fs, freq, axis_type);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function X = coherent(nfft, fs, freq)
             X = 0.0;
             [result, X] = calllib('gn', 'gn_coherent', X, nfft, fs, freq);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = fftshift(X)
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X), 'double');
             [result, Y] = calllib('gn', 'gn_fftshift', Y, numel(Y), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function X = freq_axis(nfft, axis_type, fs, axis_fmt)
             if nargin < 3
                 fs = 1.0;
             end
             if nargin < 4
-                axis_fmt = genalyzer_advanced.FreqAxisFormatFreq;
+                axis_fmt = genalyzer.FreqAxisFormatFreq;
             end
             size = 0;
             [result, size] = calllib('gn', 'gn_freq_axis_size', size, nfft, axis_type);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             X = zeros(1, size, 'double');
             [result, X] = calllib('gn', 'gn_freq_axis', X, numel(X), nfft, axis_type, fs, axis_fmt);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = ifftshift(X)
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X), 'double');
             [result, Y] = calllib('gn', 'gn_ifftshift', Y, numel(Y), X, numel(X));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
     end
     methods (Static) % Manager
@@ -988,12 +988,12 @@ classdef (Sealed) genalyzer < handle
         function X = mgr_compare(obj_key1, obj_key2)
             X = false;
             [result, X] = calllib('gn', 'gn_mgr_compare', X, obj_key1, obj_key2);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function X = mgr_contains(obj_key)
             X = false;
             [result, X] = calllib('gn', 'gn_mgr_contains', X, obj_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function mgr_remove(obj_key)
             calllib('gn', 'gn_mgr_remove', obj_key);
@@ -1004,10 +1004,10 @@ classdef (Sealed) genalyzer < handle
             end
             size = 0;
             [result, size] = calllib('gn', 'gn_mgr_save_filename_size', size, obj_key, filename);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             S = blanks(size);
             [result, S] = calllib('gn', 'gn_mgr_save', S, numel(S), obj_key, filename);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function X = mgr_size()
             X = 0;
@@ -1019,29 +1019,29 @@ classdef (Sealed) genalyzer < handle
             end
             size = 0;
             [result, size] = calllib('gn', 'gn_mgr_to_string_size', size, obj_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             S = blanks(size);
             [result, S] = calllib('gn', 'gn_mgr_to_string', S, numel(S), obj_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function S = mgr_type(obj_key)
             size = 0;
             [result, size] = calllib('gn', 'gn_mgr_type_size', size, obj_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             S = blanks(size);
             [result, S] = calllib('gn', 'gn_mgr_type', S, numel(S), obj_key);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
     end
     methods (Static) % Signal Processing
         function Y = downsample(X, ratio, interleaved)
-            type = genalyzer_advanced.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
+            type = genalyzer.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
             if nargin < 3
                 interleaved = false;
             end
             size = 0;
             [result, size] = calllib('gn', 'gn_downsample_size', size, numel(X), ratio, interleaved);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             Y = zeros(1, size, type);
             if isa(X, 'int16')
                 [result, Y] = calllib('gn', 'gn_downsample16', Y, numel(Y), X, numel(X), ratio, interleaved);
@@ -1052,7 +1052,7 @@ classdef (Sealed) genalyzer < handle
             else
                 [result, Y] = calllib('gn', 'gn_downsample', Y, numel(Y), X, numel(X), ratio, interleaved);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = fshift(X, varargin)
             % 1. fshift(iq, fs, fshift_)
@@ -1078,7 +1078,7 @@ classdef (Sealed) genalyzer < handle
             % Frequency shifted version of X as an array of interleaved Real and Imaginary values.
             % The data type is the same as that of X.
             %
-            type = genalyzer_advanced.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
+            type = genalyzer.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
             Xi = X;
             Xq = zeros(1, 0, type);
             base_index = 1;
@@ -1088,7 +1088,7 @@ classdef (Sealed) genalyzer < handle
                 end
                 if 3 < nargin % Xi and Xq are split
                     Xq = varargin{1};
-                    genalyzer_advanced.check_array_1d(Xq, {type});
+                    genalyzer.check_array_1d(Xq, {type});
                     base_index = 2;
                 end
                 fs = varargin{base_index};
@@ -1108,12 +1108,12 @@ classdef (Sealed) genalyzer < handle
                 if base_index + 3 < nargin
                     fmt = varargin{base_index + 3};
                 else
-                    fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                    fmt = genalyzer.CodeFormatTwosComplement;
                 end
             end
             size = 0;
             [result, size] = calllib('gn', 'gn_fshift_size', size, numel(Xi), numel(Xq));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             Y = zeros(1, size, type);
             if isa(X, 'int16')
                 [result, Y] = calllib('gn', 'gn_fshift16', Y, numel(Y), Xi, numel(Xi), Xq, numel(Xq), n, fs, fshift_, fmt);
@@ -1124,13 +1124,13 @@ classdef (Sealed) genalyzer < handle
             else
                 [result, Y] = calllib('gn', 'gn_fshift', Y, numel(Y), Xi, numel(Xi), Xq, numel(Xq), fs, fshift_);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = normalize(X, n, fmt)
             if nargin < 3
-                fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                fmt = genalyzer.CodeFormatTwosComplement;
             end
-            genalyzer_advanced.check_array_1d(X, {'int16', 'int32', 'int64'});
+            genalyzer.check_array_1d(X, {'int16', 'int32', 'int64'});
             Y = zeros(1, numel(X), 'double');
             if isa(X, 'int16')
                 [result, Y] = calllib('gn', 'gn_normalize16', Y, numel(Y), X, numel(X), n, fmt);
@@ -1139,62 +1139,62 @@ classdef (Sealed) genalyzer < handle
             else
                 [result, Y] = calllib('gn', 'gn_normalize64', Y, numel(Y), X, numel(X), n, fmt);
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = polyval(X, C)
-            genalyzer_advanced.check_array_1d(X, {'double'});
-            genalyzer_advanced.check_array_1d(C, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(C, {'double'});
             Y = zeros(1, numel(X), 'double');
             [result, Y] = calllib('gn', 'gn_polyval', Y, numel(Y), X, numel(X), C, numel(C));
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = quantize16(X, fsr, n, noise, fmt)
             if nargin < 4
                 noise = 0.0;
             end
             if nargin < 5
-                fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                fmt = genalyzer.CodeFormatTwosComplement;
             end
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X), 'int16');
             [result, Y] = calllib('gn', 'gn_quantize16', Y, numel(Y), X, numel(X), fsr, n, noise, fmt);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = quantize32(X, fsr, n, noise, fmt)
             if nargin < 4
                 noise = 0.0;
             end
             if nargin < 5
-                fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                fmt = genalyzer.CodeFormatTwosComplement;
             end
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X), 'int32');
             [result, Y] = calllib('gn', 'gn_quantize32', Y, numel(Y), X, numel(X), fsr, n, noise, fmt);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = quantize64(X, fsr, n, noise, fmt)
             if nargin < 4
                 noise = 0.0;
             end
             if nargin < 5
-                fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                fmt = genalyzer.CodeFormatTwosComplement;
             end
-            genalyzer_advanced.check_array_1d(X, {'double'});
+            genalyzer.check_array_1d(X, {'double'});
             Y = zeros(1, numel(X), 'int64');
             [result, Y] = calllib('gn', 'gn_quantize64', Y, numel(Y), X, numel(X), fsr, n, noise, fmt);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function Y = quantize(X, fsr, n, noise, fmt)
             if nargin < 4
                 noise = 0.0;
             end
             if nargin < 5
-                fmt = genalyzer_advanced.CodeFormatTwosComplement;
+                fmt = genalyzer.CodeFormatTwosComplement;
             end
-            if n < 16 || 16 == n && genalyzer_advanced.CodeFormatTwosComplement == fmt
-                Y = genalyzer_advanced.quantize16(X, fsr, n, noise, fmt);
+            if n < 16 || 16 == n && genalyzer.CodeFormatTwosComplement == fmt
+                Y = genalyzer.quantize16(X, fsr, n, noise, fmt);
             else
-                Y = genalyzer_advanced.quantize32(X, fsr, n, noise, fmt);
+                Y = genalyzer.quantize32(X, fsr, n, noise, fmt);
             end
         end
     end
@@ -1211,12 +1211,12 @@ classdef (Sealed) genalyzer < handle
             end
             X = zeros(1, size, 'double');
             [result, X] = calllib('gn', 'gn_cos', X, numel(X), fs, ampl, freq, phase, td, tj);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function X = gaussian(size, mean, sd)
             X = zeros(1, size, 'double');
             [result, X] = calllib('gn', 'gn_gaussian', X, numel(X), mean, sd);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function X = ramp(size, start, stop, noise)
             if nargin < 4
@@ -1224,7 +1224,7 @@ classdef (Sealed) genalyzer < handle
             end
             X = zeros(1, size, 'double');
             [result, X] = calllib('gn', 'gn_ramp', X, numel(X), start, stop, noise);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function X = sin(size, fs, ampl, freq, phase, td, tj)
             if nargin < 5
@@ -1238,7 +1238,7 @@ classdef (Sealed) genalyzer < handle
             end
             X = zeros(1, size, 'double');
             [result, X] = calllib('gn', 'gn_sin', X, numel(X), fs, ampl, freq, phase, td, tj);
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
         end
         function M = wf_analysis(X)
         % WF_ANALYSIS  Returns waveform analysis metrics
@@ -1266,8 +1266,8 @@ classdef (Sealed) genalyzer < handle
         %     max_index  |  Index of first occurence of maximum value
         %   ===========================================================
 
-            genalyzer_advanced.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
-            [keys, values] = genalyzer_advanced.get_analysis_containers(genalyzer_advanced.AnalysisTypeWaveform);
+            genalyzer.check_array_1d(X, {'double', 'int16', 'int32', 'int64'});
+            [keys, values] = genalyzer.get_analysis_containers(genalyzer.AnalysisTypeWaveform);
             if isa(X, 'int16')
                 [result, keys, values] = calllib('gn', 'gn_wf_analysis16', ...
                     keys, numel(keys), values, numel(values), X, numel(X));
@@ -1281,7 +1281,7 @@ classdef (Sealed) genalyzer < handle
                 [result, keys, values] = calllib('gn', 'gn_wf_analysis', ...
                     keys, numel(keys), values, numel(values), X, numel(X));
             end
-            genalyzer_advanced.raise_exception_on_failure(result)
+            genalyzer.raise_exception_on_failure(result)
             M = containers.Map(keys, values);
         end
     end
