@@ -23,12 +23,13 @@ jobs:
         run: |
           bash ./.github/scripts/install_dependencies.sh
 
-      - name: Build
+      - name: Build and test
         run: |
           mkdir -p build
           cd build
-          cmake ..
+          cmake -DBUILD_TESTS_EXAMPLES=ON ..
           make -j4
+          make test
 
   TestCMacOS:
     runs-on: macos-latest
@@ -46,8 +47,9 @@ jobs:
           pip3 install -r requirements_doc.txt
           mkdir -p build
           cd build
-          cmake ..
+          cmake -DBUILD_TESTS_EXAMPLES=ON ..
           make -j4
+          make test
           sudo make install
 
   TestPython:
