@@ -23,13 +23,12 @@ jobs:
         run: |
           bash ./.github/scripts/install_dependencies.sh
 
-      - name: Build and test
+      - name: Build
         run: |
           mkdir -p build
           cd build
-          cmake -DBUILD_TESTS_EXAMPLES=ON ..
+          cmake ..
           make -j4
-          make test
 
   TestCMacOS:
     runs-on: macos-latest
@@ -47,9 +46,8 @@ jobs:
           pip3 install -r requirements_doc.txt
           mkdir -p build
           cd build
-          cmake -DBUILD_TESTS_EXAMPLES=ON ..
+          cmake ..
           make -j4
-          make test
           sudo make install
 
   TestPython:
@@ -79,11 +77,11 @@ jobs:
           pytest -vs tests
 
       - name: Update to dev version and build release
-        if: github.ref == 'refs/heads/main' and python-version: 3.6
+        if: github.ref == 'refs/heads/main' and ${{ matrix.python-version == 3.6 }}
         run: |
           cd ../../build/bindings/python
           pip install setuptools wheel twine build
-          sed "s/0.0.1/$(openssl rand -base64 12)/" setup.py
+          sed "s/0.0.1/0.0.1-dev-$(openssl rand -base64 12)/" setup.py
           python -m build
 
       - uses: pypa/gh-action-pypi-publish@v1.0.0a0
