@@ -79,8 +79,10 @@ jobs:
           pytest -vs tests
 
       - name: Update to dev version and build release
-        if: github.ref == 'refs/heads/main' and ${{ matrix.python-version == 3.6 }}
+        if: ${{ matrix.python-version == 3.6 }}
         run: |
+          echo "file list: `ls -la`"
+          echo "dir: `pwd`"
           cd ../../build/bindings/python
           pip install setuptools wheel twine build
           sed "s/0.0.1/0.0.1-dev-$(openssl rand -base64 12)/" setup.py
