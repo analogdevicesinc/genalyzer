@@ -1,9 +1,11 @@
 enable_testing()
 
+add_library(cJSON cJSON.c cJSON.h)
+
 if(WIN32)
-  set(LIBRARIES genalyzer)
+  set(LIBRARIES genalyzer cJSON)
 else()
-  set(LIBRARIES genalyzer m)
+  set(LIBRARIES genalyzer cJSON m)
 endif()
 
 ################################################################################
