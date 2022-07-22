@@ -56,7 +56,7 @@ del _ndptr
 
 _module_dir = _os.path.dirname(__file__)
 if "linux" == _sys.platform:
-    _libpath = _os.path.join(_module_dir, "libgenalyzer.so")
+    _libpath = _find_library("genalyzer")
     _lib = _ctypes.cdll.LoadLibrary(_libpath)
 elif "win32" == _sys.platform:
     _libpath = _find_library(_os.path.join(_module_dir, "genalyzer"))
