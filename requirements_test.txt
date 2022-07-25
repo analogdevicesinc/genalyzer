@@ -3,3 +3,4 @@ black
 cmake-format
 pytest
 pytest-cov
+numpy

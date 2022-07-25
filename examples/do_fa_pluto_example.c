@@ -1,5 +1,6 @@
 #include "cgenalyzer.h"
 #include "../tests/test_genalyzer.h"
+#include "../tests/cJSON.h"
 #include <stdlib.h>
 
 int main(int argc, const char* argv[])

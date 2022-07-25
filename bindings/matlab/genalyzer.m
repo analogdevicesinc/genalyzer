@@ -1,8 +1,8 @@
 classdef (Sealed) genalyzer < handle
     properties (Constant) % C Library Interface
         header_name = 'cgenalyzer_advanced.h';
-        nixbin_name = 'libgenalyzer_plus_plus.so';
-        winbin_name = 'genalyzer_plus_plus.dll';
+        nixbin_name = 'libgenalyzer.so';
+        winbin_name = 'libgenalyzer.dll';
         lib_alias = 'gn';
     end
     properties (Constant) % Enumerations
