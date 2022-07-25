@@ -1,7 +1,7 @@
 /*
  * cgenalyzer_private - genalyzer private header file
  *
- * Copyright (C) 2021 Analog Devices, Inc.
+ * Copyright (C) 2022 Analog Devices, Inc.
  * Author: Srikanth Pagadarai
  *
  * This program is free software; you can redistribute it and/or
