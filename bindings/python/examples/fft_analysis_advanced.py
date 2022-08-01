@@ -1,9 +1,9 @@
 
 def main():
     import numpy as np
-    import genalyzer as gn
-    #print("Library path: {}".format(gn.advanced._genalyzer._libpath))
-    #print("Version: {}\n".format(gn.advanced.__version__))
+    import genalyzer_advanced as gn
+    #print("Library path: {}".format(gn._genalyzer._libpath))
+    #print("Version: {}\n".format(gn.__version__))
 
     #
     # Setup
@@ -24,10 +24,10 @@ def main():
     poco        = [0.0, 1.0, 0.0, 0.003]            # distortion polynomial coefficients
     qres        = 12                                # quantizer resolution
     qnoise_dbfs = -63.0                             # quantizer noise
-    code_fmt    = gn.advanced.CodeFormat.TWOS_COMPLEMENT
-    axis_fmt    = gn.advanced.FreqAxisFormat.FREQ
-    axis_type   = gn.advanced.FreqAxisType.DC_CENTER
-    window      = gn.advanced.Window.NO_WINDOW
+    code_fmt    = gn.CodeFormat.TWOS_COMPLEMENT
+    axis_fmt    = gn.FreqAxisFormat.FREQ
+    axis_type   = gn.FreqAxisType.DC_CENTER
+    window      = gn.Window.NO_WINDOW
 
     ########################################################################
 
@@ -37,8 +37,8 @@ def main():
     qnoise = 10**(qnoise_dbfs / 20)
     ssb_fund = 4
     ssb_rest = 3
-    if gn.advanced.Window.NO_WINDOW == window:
-        freq = gn.advanced.coherent(nfft, fdata, freq)
+    if gn.Window.NO_WINDOW == window:
+        freq = gn.coherent(nfft, fdata, freq)
         fbin = fdata / nfft
         fshift = round(fshift / fbin) * fbin
         ssb_fund = 0
@@ -47,43 +47,43 @@ def main():
     #
     # Signal generation and processing
     #
-    awfi = gn.advanced.cos(npts, fs, ampl, freq, phase, td, tj)
-    awfq = gn.advanced.sin(npts, fs, ampl, freq, phase + qpe, td, tj)
-    awfi = gn.advanced.polyval(awfi, poco)
-    awfq = gn.advanced.polyval(awfq, poco)
-    qwfi = gn.advanced.quantize(awfi, fsr, qres, qnoise, code_fmt)
-    qwfq = gn.advanced.quantize(awfq, fsr, qres, qnoise, code_fmt)
-    xwf = gn.advanced.fshift(qwfi, qwfq, qres, fs, fshift, code_fmt)
-    xwf = gn.advanced.downsample(xwf, dsr, True)
-    fft_cplx = gn.advanced.fft(xwf, qres, navg, nfft, window, code_fmt)
+    awfi = gn.cos(npts, fs, ampl, freq, phase, td, tj)
+    awfq = gn.sin(npts, fs, ampl, freq, phase + qpe, td, tj)
+    awfi = gn.polyval(awfi, poco)
+    awfq = gn.polyval(awfq, poco)
+    qwfi = gn.quantize(awfi, fsr, qres, qnoise, code_fmt)
+    qwfq = gn.quantize(awfq, fsr, qres, qnoise, code_fmt)
+    xwf = gn.fshift(qwfi, qwfq, qres, fs, fshift, code_fmt)
+    xwf = gn.downsample(xwf, dsr, True)
+    fft_cplx = gn.fft(xwf, qres, navg, nfft, window, code_fmt)
 
     #
     # Fourier analysis configuration
     #
     key = 'fa'
-    gn.advanced.mgr_remove(key)
-    gn.advanced.fa_create(key)
-    gn.advanced.fa_analysis_band(key, "fdata*0.0", "fdata*1.0")
-    gn.advanced.fa_fixed_tone(key, 'A', gn.advanced.FaCompTag.SIGNAL, freq, ssb_fund)
-    # gn.advanced.fa_max_tone(key, 'A', gn.advanced.FaCompTag.SIGNAL, ssb_fund)
-    gn.advanced.fa_conv_offset(key, 0.0 != fshift)
-    gn.advanced.fa_hd(key, 3)
-    gn.advanced.fa_ssb(key, gn.advanced.FaSsb.DEFAULT, ssb_rest)
-    gn.advanced.fa_ssb(key, gn.advanced.FaSsb.DC, -1)
-    gn.advanced.fa_ssb(key, gn.advanced.FaSsb.SIGNAL, -1)
-    gn.advanced.fa_ssb(key, gn.advanced.FaSsb.WO, -1)
-    gn.advanced.fa_fdata(key, fdata)
-    gn.advanced.fa_fsample(key, fs)
-    gn.advanced.fa_fshift(key, fshift)
-    print(gn.advanced.fa_preview(key, True))
-    # fn = gn.advanced.mgr_save(key)
+    gn.mgr_remove(key)
+    gn.fa_create(key)
+    gn.fa_analysis_band(key, "fdata*0.0", "fdata*1.0")
+    gn.fa_fixed_tone(key, 'A', gn.FaCompTag.SIGNAL, freq, ssb_fund)
+    # gn.fa_max_tone(key, 'A', gn.FaCompTag.SIGNAL, ssb_fund)
+    gn.fa_conv_offset(key, 0.0 != fshift)
+    gn.fa_hd(key, 3)
+    gn.fa_ssb(key, gn.FaSsb.DEFAULT, ssb_rest)
+    gn.fa_ssb(key, gn.FaSsb.DC, -1)
+    gn.fa_ssb(key, gn.FaSsb.SIGNAL, -1)
+    gn.fa_ssb(key, gn.FaSsb.WO, -1)
+    gn.fa_fdata(key, fdata)
+    gn.fa_fsample(key, fs)
+    gn.fa_fshift(key, fshift)
+    print(gn.fa_preview(key, True))
+    # fn = gn.mgr_save(key)
 
     #
     # Fourier analysis execution
     #
-    results = gn.advanced.fft_analysis(key, fft_cplx, nfft, axis_type)
-    carrier = gn.advanced.fa_result_string(results, "carrierindex")
-    maxspur = gn.advanced.fa_result_string(results, "maxspurindex")
+    results = gn.fft_analysis(key, fft_cplx, nfft, axis_type)
+    carrier = gn.fa_result_string(results, "carrierindex")
+    maxspur = gn.fa_result_string(results, "maxspurindex")
 
     #
     # Print results
@@ -99,17 +99,17 @@ def main():
     if plot:
         import matplotlib.pyplot as pl
         from matplotlib.patches import Rectangle as MPRect
-        freq_axis = gn.advanced.freq_axis(nfft, axis_type, fdata, axis_fmt)
-        fft_db = gn.advanced.db(fft_cplx)
-        if gn.advanced.FreqAxisType.DC_CENTER == axis_type:
-            fft_db = gn.advanced.fftshift(fft_db)
+        freq_axis = gn.freq_axis(nfft, axis_type, fdata, axis_fmt)
+        fft_db = gn.db(fft_cplx)
+        if gn.FreqAxisType.DC_CENTER == axis_type:
+            fft_db = gn.fftshift(fft_db)
         fig = pl.figure(1)
         fig.clf()
         pl.plot(freq_axis, fft_db)
         pl.grid(True)
         pl.xlim(freq_axis[0], freq_axis[-1])
         pl.ylim(-140.0, 20.0)
-        annots = gn.advanced.fa_annotations(results, axis_type, axis_fmt)
+        annots = gn.fa_annotations(results, axis_type, axis_fmt)
         for x, y, label in annots["labels"]:
             pl.annotate(label, xy=(x, y), ha='center', va='bottom')
         for line in annots["lines"]:
