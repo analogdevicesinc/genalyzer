@@ -22,7 +22,6 @@
 """
 Python wrapper for Data Converter Analysis Library (genalyzer_plus_plus)
 """
-import genalyzer_advanced as advanced
 import ctypes as _ctypes
 from ctypes.util import find_library as _find_library
 from enum import IntEnum as _IntEnum
