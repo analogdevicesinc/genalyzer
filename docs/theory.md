@@ -104,26 +104,24 @@ As indicated previously, test configuration is driven through an opaque struct. 
 |:-------:|:-----------:|:--------:|:-----------:|:-----:|
 | **Waveform and FFT settings** | <tt>ttype</tt>      | ENUM | Tone type | Options:<br/> <tt>REAL_COSINE</tt><br/> <tt>REAL_SINE</tt><br/> <tt>COMPLEX_EXP</tt> |
 |  | <tt>npts</tt>      | size_t | Num. of sample points in the waveform | |
-|  | <tt>sample_rate</tt> | double | Sample Rate |  |
-|  | <tt>tone_freq</tt> | double* | Tone frequency |  |
+|  | <tt>sample_rate</tt> | double | Sample Rate |  Units: samples/second|
+|  | <tt>tone_freq</tt> | double* | Tone frequency |  Units: Hertz |
 |  | <tt>tone_ampl</tt> | double* | Tone amplitude |  |
 |  | <tt>tone_phase</tt> | double* | Tone phase |  |
 |  | <tt>num_tones</tt> | size_t | Num. of tones |  |
-|  | <tt>fsr</tt> | double | ADC full-scale range |  |
-|  | <tt>qres</tt> | int | Quantization resolution |  |
+|  | <tt>fsr</tt> | double | ADC full-scale range |  Units: Volts|
+|  | <tt>qres</tt> | int | Quantization resolution |  Units: bits|
 |  | <tt>noise_rms</tt> | double | Noise RMS value |  |
 |  | <tt>code_format</tt> | ENUM | Code format of ADC/DAC codes | Options: <br/><tt>GnCodeFormatOffsetBinary</tt><br/> <tt>GnCodeFormatTwosComplement</tt> |
 |  | <tt>nfft</tt> | size_t | FFT order | |
 |  | <tt>fft_navg</tt> | size_t | Num. of FFT averages | |
-|  | <tt>data_rate</tt> | double | Data rate | |
-|  | <tt>shift_freq</tt> | double | Shift frequency | |
+|  | <tt>data_rate</tt> | double | Data rate | Units: samples/second |
+|  | <tt>shift_freq</tt> | double | Shift frequency | Units: Hertz|
 |  | <tt>win</tt> | ENUM | Window function | Options: <br/><tt>GnWindowBlackmanHarris</tt><br/> <tt>GnWindowHann</tt><br/> <tt>GnWindowNoWindow</tt> |
 |  | <tt>ramp_start</tt> | double | Start value of ramp | |
 |  | <tt>ramp_stop</tt> | double | Stop value of ramp | |
-| **Fourier analysis settings** | <tt>obj_key</tt> | char* | Object key | |
-|  | <tt>comp_key</tt> | char* | Component key | |
+| **Fourier analysis settings** | <tt>ssb_fund</tt> | int | Single side bin - Fundamental | |
 |  | <tt>ssb_fund</tt> | int | Single side bin - Fundamental | |
-|  | <tt>ssb_rest</tt> | int | Single side bin - Others | |
 |  | <tt>max_harm_order</tt> | int | Max. order of harmonic      | |
 | **NL analysis settings** | <tt>dnla_signal_type</tt> | ENUM | DNL analysis signal type | Options: <br/><tt>GnDnlSignalRamp</tt><br/> <tt>GnDnlSignalTone</tt> |
 |  | <tt>inla_fit</tt> | ENUM | INL analysis fit      | Options: <br/><tt>GnInlLineFitBestFit</tt> <br/><tt>GnInlLineFitEndFit</tt> <br/><tt>GnInlLineFitNoFit</tt> |
