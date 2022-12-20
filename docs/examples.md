@@ -128,6 +128,60 @@ In the following working example, data from an ADALM-PLUTO is used to perform a 
     # free memory
     genalyzer.config_free(c)    
     ```
+Output:
+
+```bash
+All Fourier Analysis Results:
+   0        analysistype            1.000000
+   1          signaltype            1.000000
+   2                nfft        32768.000000
+   3            datasize        32768.000000
+   4                fbin            0.000031
+   5               fdata            1.000000
+   6             fsample            1.000000
+   7              fshift            0.000000
+   8                fsnr            9.601207
+   9                 snr          -51.784642
+  10               sinad          -51.784642
+  11                sfdr          -47.503298
+  12                 abn          -54.755574
+  13                 nsd           -9.601207
+  14        carrierindex            1.000000
+  15        maxspurindex            6.000000
+  16            ab_width            1.000000
+  17               ab_i1            0.000000
+  18               ab_i2        32767.000000
+  19            ab_nbins        32768.000000
+  20              ab_rss            0.331086
+  21        signal_nbins            1.000000
+...
+ 121              -3A:i2            0.000000
+ 122           -3A:nbins            1.000000
+ 123          -3A:inband            1.000000
+ 124             -3A:mag            0.000853
+ 125        -3A:mag_dbfs          -61.385849
+ 126         -3A:mag_dbc            0.000000
+ 127           -3A:phase            1.486939
+ 128         -3A:phase_c            0.000000
+ 129       wo:orderindex            6.000000
+ 130              wo:tag            8.000000
+ 131             wo:freq            0.033356
+ 132           wo:ffinal            0.033356
+ 133            wo:fwavg            0.000000
+ 134               wo:i1         1093.000000
+ 135               wo:i2         1093.000000
+ 136            wo:nbins            1.000000
+ 137           wo:inband            1.000000
+ 138              wo:mag            0.202242
+ 139         wo:mag_dbfs          -13.882552
+ 140          wo:mag_dbc           47.503298
+ 141            wo:phase            0.063808
+ 142          wo:phase_c           -1.423132
+
+A Single Fourier Analysis Result:
+SFDR -           -47.503298
+```
+
 A summary of the most important results displayed and a brief explanation is as follows:
 
 | Result Name | Description|
@@ -220,8 +274,21 @@ In the following working example, genalyzer is used to generate a cosine-tone wa
     qwf = genalyzer.quantize(awf, c)
     wfa_results = genalyzer.get_wfa_results(qwf, c)
     pprint.pprint(wfa_results)
-    genalyzer.config_free(c)
-    ```
+    genalyzer.config_free(c) 
+   ```
+Output:
+```bash
+All Waveform Analysis Results:
+   0                 min         -686.000000
+   1                 max          686.000000
+   2                 mid            0.000000
+   3               range         1372.000000
+   4                 avg           -1.244507
+   5                 rms          482.420110
+   6               rmsac          482.418505
+   7           min_index          247.000000
+   8           max_index           97.000000
+```
 A summary of the results displayed and a brief explanation is as follows:
 
 | Result Name | Description| Notes
@@ -312,6 +379,14 @@ In the following working example, genalyzer is used to generate a ramp waveform,
     pprint.pprint(ha_results)
     genalyzer.config_free(c)
     ```
+Output:
+```bash
+All Waveform Analysis Results:
+   0                 sum         8192.000000
+   1      first_nz_index         2048.000000
+   2       last_nz_index         4094.000000
+   3            nz_range         2047.000000
+```
 A summary of the results displayed and a brief explanation is as follows:
 
 | Result Name | Description|
