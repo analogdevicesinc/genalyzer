@@ -717,7 +717,7 @@ extern "C" {
         return gn_success;
     }
 
-    int gn_config_fa(gn::real_t fixed_tone_freq, gn_config *c)
+    int gn_config_fa_auto(uint8_t ssb_width, gn_config *c)
     {
         int err_code;
 
@@ -726,6 +726,65 @@ extern "C" {
             gn_config c_p;
             c_p = (gn_config)calloc(1, sizeof(*c_p));
             if (!(c_p)) 
+            {
+                printf("insufficient memory\n");
+                return ENOMEM;
+            }
+            else
+                *c = c_p;
+        }
+
+        if ((*c)->sample_rate <= 0) {
+            printf("ERROR: Sample rate must be set before configuring Fourier analysis\n");
+            return gn_failure;
+        }
+
+        (*c)->_all_fa_results_computed = false;
+
+        (*c)->obj_key = (char *)calloc(3, sizeof(char));
+        strcpy((*c)->obj_key, "fa");
+        (*c)->comp_key = (char *)calloc(2, sizeof(char));
+        strcpy((*c)->comp_key, "A");
+
+        (*c)->ssb_fund = ssb_width;
+        (*c)->ssb_rest = 0;
+        (*c)->max_harm_order = 3;
+        (*c)->axis_type = GnFreqAxisTypeDcCenter;
+
+        // configure object key for Fourier analysis
+        err_code = gn_fa_create((*c)->obj_key);
+
+        // configure component key for Fourier analysis
+        err_code += gn_fa_max_tone((*c)->obj_key, (*c)->comp_key, GnFACompTagSignal, (*c)->ssb_fund);
+
+        // configure harmonic order for Fourier analysis
+        err_code += gn_fa_hd((*c)->obj_key, (*c)->max_harm_order);
+
+        // configure single-side bins for Fourier analysis
+        err_code += gn_fa_ssb((*c)->obj_key, GnFASsbDefault, (*c)->ssb_rest);
+        err_code += gn_fa_ssb((*c)->obj_key, GnFASsbDC, -1);
+        err_code += gn_fa_ssb((*c)->obj_key, GnFASsbSignal, -1);
+        err_code += gn_fa_ssb((*c)->obj_key, GnFASsbWO, -1);
+
+        // configure sample-rate, data-rate, shift frequency, and converter offset
+        err_code += gn_fa_fsample((*c)->obj_key, (*c)->sample_rate);
+        err_code += gn_fa_fdata((*c)->obj_key, (*c)->sample_rate);
+        err_code += gn_fa_fshift((*c)->obj_key, 0.0);
+        err_code += gn_fa_conv_offset((*c)->obj_key, false);
+
+        return (err_code);
+    }
+
+
+    int gn_config_fa(gn::real_t fixed_tone_freq, gn_config *c)
+    {
+        int err_code;
+
+        if (!(*c))
+        {
+            gn_config c_p;
+            c_p = (gn_config)calloc(1, sizeof(*c_p));
+            if (!(c_p))
             {
                 printf("insufficient memory\n");
                 return ENOMEM;

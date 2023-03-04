@@ -451,6 +451,15 @@ extern "C"
             double fixed_tone_freq,    ///< [fixed_tone_freq] Fixed tone frequency
             gn_config *c                ///< [c] Configuration structure containing test parameters            
         );
+
+  /**
+   * @brief Generate sinusoidal tone based on supplied configuration without specifying tone manually.
+   * @return 0 on success, non-zero otherwise
+   */
+  __api int gn_config_fa_auto(
+            uint8_t ssb_width,          ///< [ssb_width] Number of bins to use for fundamental search and keepout of other tones
+            gn_config *c                ///< [c] Configuration structure containing test parameters
+        );
   
   /**
    * @brief Generate ramp based on supplied configuration.
