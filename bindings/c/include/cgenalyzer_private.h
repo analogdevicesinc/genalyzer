@@ -203,7 +203,6 @@ extern "C" {
         gn::real_t *_fa_result_values;
         gn::size_t *_fa_result_key_sizes;
         gn::size_t _fa_results_size;
-        bool _all_fa_results_computed;
 
         // keys, values and sizes for waveform analysis results
         char **_wfa_result_keys;
