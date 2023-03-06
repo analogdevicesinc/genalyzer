@@ -1087,31 +1087,25 @@ extern "C" {
     {
         int err_code = 0;
 
-        if (!((*c)->_all_fa_results_computed))
-        {
-            // get results size
-            err_code = gn_fft_analysis_results_size(&((*c)->_fa_results_size), (*c)->obj_key, 2*(*c)->nfft, (*c)->nfft);
-            
-            // allocate memory for result keys and values
-            (*c)->_fa_result_keys = (char **)calloc(((*c)->_fa_results_size), sizeof(char*));
-            (*c)->_fa_result_values = (gn::real_t *)calloc(((*c)->_fa_results_size), sizeof(gn::real_t));
-            
-            // get result key sizes
-            (*c)->_fa_result_key_sizes = (size_t *)calloc(((*c)->_fa_results_size), sizeof(size_t));
-            err_code += gn_fft_analysis_results_key_sizes((*c)->_fa_result_key_sizes, (*c)->_fa_results_size, (*c)->obj_key, 2*(*c)->nfft, (*c)->nfft);
-            
-            // allocate memory for each result key
-            for (size_t i = 0; i < (*c)->_fa_results_size; ++i)
-                (*c)->_fa_result_keys[i] = (char *)calloc((*c)->_fa_result_key_sizes[i], sizeof(char));
-            
-            // execute analysis
-            err_code += gn_fft_analysis((*c)->_fa_result_keys, (*c)->_fa_results_size, (*c)->_fa_result_values, (*c)->_fa_results_size, (*c)->obj_key, fft_ilv, 2*(*c)->nfft, (*c)->nfft, (*c)->axis_type);
+        // get results size
+        err_code = gn_fft_analysis_results_size(&((*c)->_fa_results_size), (*c)->obj_key, 2*(*c)->nfft, (*c)->nfft);
 
-            if (err_code == 0)
-                (*c)->_all_fa_results_computed = true;
-        }
+        // allocate memory for result keys and values
+        (*c)->_fa_result_keys = (char **)calloc(((*c)->_fa_results_size), sizeof(char*));
+        (*c)->_fa_result_values = (gn::real_t *)calloc(((*c)->_fa_results_size), sizeof(gn::real_t));
 
-        if (rkeys && rvalues && results_size) 
+        // get result key sizes
+        (*c)->_fa_result_key_sizes = (size_t *)calloc(((*c)->_fa_results_size), sizeof(size_t));
+        err_code += gn_fft_analysis_results_key_sizes((*c)->_fa_result_key_sizes, (*c)->_fa_results_size, (*c)->obj_key, 2*(*c)->nfft, (*c)->nfft);
+
+        // allocate memory for each result key
+        for (size_t i = 0; i < (*c)->_fa_results_size; ++i)
+            (*c)->_fa_result_keys[i] = (char *)calloc((*c)->_fa_result_key_sizes[i], sizeof(char));
+
+        // execute analysis
+        err_code += gn_fft_analysis((*c)->_fa_result_keys, (*c)->_fa_results_size, (*c)->_fa_result_values, (*c)->_fa_results_size, (*c)->obj_key, fft_ilv, 2*(*c)->nfft, (*c)->nfft, (*c)->axis_type);
+
+        if (rkeys && rvalues && results_size)
         {
             // copy keys
             *rkeys = (char **)calloc(((*c)->_fa_results_size), sizeof(char*));
@@ -1120,12 +1114,17 @@ extern "C" {
 
             // copy values
             *rvalues = (gn::real_t *)calloc(((*c)->_fa_results_size), sizeof(gn::real_t));
-            for (size_t i = 0; i < (*c)->_fa_results_size; ++i) 
+            for (size_t i = 0; i < (*c)->_fa_results_size; ++i)
             {
                 strcpy((*rkeys)[i], (*c)->_fa_result_keys[i]);
                 (*rvalues)[i] = (*c)->_fa_result_values[i];
             }
             *results_size = (*c)->_fa_results_size;
+        }
+        else
+        {
+            fprintf(stderr, "ERROR: Invalid pointer for rkeys, rvalues, or results_size\n");
+            return -EINVAL;
         }
         
         return (err_code);
