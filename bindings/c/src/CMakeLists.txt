@@ -9,6 +9,11 @@ target_link_libraries(genalyzer LINK_PRIVATE genalyzer_plus_plus)
 
 target_include_directories(genalyzer PUBLIC "${PROJECT_SOURCE_DIR}/bindings/c/include")
 
+if(COVERAGE)
+  target_compile_options(genalyzer PRIVATE --coverage)
+  target_link_libraries(genalyzer PRIVATE --coverage)
+endif()
+
 set_target_properties(genalyzer PROPERTIES
   VERSION ${CMAKE_PROJECT_VERSION}
   SOVERSION ${CMAKE_PROJECT_VERSION_MAJOR}
