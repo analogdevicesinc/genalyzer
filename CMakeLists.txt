@@ -13,6 +13,7 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 option(BUILD_DOC "Generate documentation" OFF)
 option(BUILD_TESTS_EXAMPLES "Build tests and examples" OFF)
 option(PYTHON_BINDINGS "Generate python bindings" OFF)
+option(COVERAGE "Enable coverage tracing when testing" OFF)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -50,6 +51,27 @@ add_subdirectory(bindings)
 if(BUILD_TESTS_EXAMPLES)
   add_subdirectory(tests)
   add_subdirectory(examples)
+  # Add coverage flags for compiler
+  if(COVERAGE)
+    if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+      message(FATAL_ERROR "Coverage only supported on Linux")
+    endif()
+    # Verify that lcov is installed
+    find_program(LCOV_PATH lcov)
+    if(NOT LCOV_PATH)
+      message(FATAL_ERROR "lcov not found! Aborting...")
+    endif()
+    SET(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+    SET(CMAKE_C_FLAGS "-g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
+    SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
+    # Add custom target to run tests with coverage
+    add_custom_target(
+      coverage
+      COMMAND ${CMAKE_CTEST_COMMAND} --progress &&  lcov -c -d bindings/c/src -o main_coverage.info && genhtml main_coverage.info -o coverage
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+    message(STATUS "Coverage flags enabled")
+  endif()
 endif()
 
 if(MSVC)
