@@ -31,6 +31,34 @@ jobs:
           make -j4
           make test
 
+  CoverageTest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install dependencies
+        run: |
+          bash ./.github/scripts/install_dependencies.sh
+          sudo apt install lcov -y
+
+      - name: Build and run coverage test
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DPYTHON_BINDINGS=ON -DBUILD_TESTS_EXAMPLES=ON -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
+          make -j4
+          make coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@v1
+        with:
+          path-to-lcov: build/main_coverage.info
+
   TestCMacOS:
     runs-on: macos-latest
 
