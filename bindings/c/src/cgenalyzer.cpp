@@ -737,8 +737,6 @@ extern "C" {
         if ((*c)->sample_rate <= 0)
             (*c)->sample_rate = 1;
 
-        (*c)->_all_fa_results_computed = false;
-
         (*c)->obj_key = (char *)calloc(3, sizeof(char));
         strcpy((*c)->obj_key, "fa");
         (*c)->comp_key = (char *)calloc(2, sizeof(char));
