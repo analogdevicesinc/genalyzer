@@ -45,7 +45,7 @@ extern "C"
 #else
 #define __api
 #endif
-  
+
   // opaque pointer
   typedef struct gn_config_private *gn_config;
 
@@ -57,7 +57,7 @@ extern "C"
   } tone_type;
 
   /**
-   * @brief free memory for configuration struct
+ @brief free memory for configuration struct
    * @return 0 on success, non-zero otherwise
    * @param c genalyzer Configuration struct
    */
@@ -65,6 +65,11 @@ extern "C"
             gn_config *c
         );
 
+  /** @defgroup gn_config_set gn_config_set_*() functions
+   *  These functions help set gn_config opaque struct members. All functions in this category take the member to be updated as the first argument and a NULL pointer as the second argument.
+   *  @{
+   */
+  
   /**
    * @brief set configuration struct member: tone_type
    * @return 0 on success, non-zero otherwise
@@ -88,17 +93,6 @@ extern "C"
         );
 
   /**
-   * @brief get configuration struct member: npts
-   * @return 0 on success, non-zero otherwise
-   * @param npts Number of sample points in the generated waveform
-   * @param c genalyzer Configuration struct
-   */
-  __api int gn_config_get_npts(
-            size_t *npts, 
-            gn_config *c
-        );
-
-  /**
    * @brief set configuration struct member: sample_rate
    * @return 0 on success, non-zero otherwise
    * @param sample_rate Input Sample rate of the data converter
@@ -106,17 +100,6 @@ extern "C"
    */
   __api int gn_config_set_sample_rate(
             double sample_rate, 
-            gn_config *c
-        );
-
-  /**
-   * @brief get configuration struct member: sample_rate
-   * @return 0 on success, non-zero otherwise
-   * @param sample_rate Input Sample rate of the data converter
-   * @param c genalyzer Configuration struct
-   */
-  __api int gn_config_get_sample_rate(
-            double *sample_rate, 
             gn_config *c
         );
 
@@ -240,17 +223,6 @@ extern "C"
             size_t nfft, 
             gn_config *c
         );
-
-  /**
-   * @brief get configuration struct member: nfft
-   * @return 0 on success, non-zero otherwise
-   * @param nfft FFT order
-   * @param c genalyzer Configuration struct
-   */
-  __api int gn_config_get_nfft(
-            size_t *nfft, 
-            gn_config *c
-        );
     
   /**
    * @brief set configuration struct member: navg
@@ -350,9 +322,44 @@ extern "C"
             double ramp_stop, 
             gn_config *c
         );    
+
+  /** @} */ // end of gn_config_set 
+
+  /**
+ @brief get configuration struct member: npts
+   * @return 0 on success, non-zero otherwise
+   * @param npts Number of sample points in the generated waveform
+   * @param c genalyzer Configuration struct
+   */
+  __api int gn_config_get_npts(
+            size_t *npts, 
+            gn_config *c
+        );
+  
+  /**
+ @brief get configuration struct member: sample_rate
+   * @return 0 on success, non-zero otherwise
+   * @param sample_rate Input Sample rate of the data converter
+   * @param c genalyzer Configuration struct
+   */
+  __api int gn_config_get_sample_rate(
+            double *sample_rate, 
+            gn_config *c
+        );
+
+  /**
+ @brief get configuration struct member: nfft
+   * @return 0 on success, non-zero otherwise
+   * @param nfft FFT order
+   * @param c genalyzer Configuration struct
+   */
+  __api int gn_config_get_nfft(
+            size_t *nfft, 
+            gn_config *c
+        );
     
   /**
-   * @brief get configuration struct member: _code_density_size
+ @brief get configuration struct member: _code_density_size
    * @return 0 on success, non-zero otherwise
    * @param ramp_stop stop value of ramp
    * @param c genalyzer Configuration struct
@@ -363,7 +370,7 @@ extern "C"
         );
 
   /**
-   * @brief Configure tone parameters to be used in measurement
+ @brief Configure tone parameters to be used in measurement
    * @return 0 on success, non-zero otherwise
    * @param ttype ENUM value to indicate input tone type. Options: REAL_COSINE, REAL_SINE, COMPLEX_EXP    
    * @param npts Number of sample points in the generated waveform
@@ -386,7 +393,7 @@ extern "C"
         );
 
   /**
-   * @brief Configure tone parameters to be used in measurement
+ @brief Configure tone parameters to be used in measurement
    * @return 0 on success, non-zero otherwise
    * @param npts Number of sample points in the generated waveform
    * @param ramp_start Input start value of ramp
@@ -401,7 +408,7 @@ extern "C"
         );
 
   /**
-   * @brief Configure quantization parameters to be used in measurement
+ @brief Configure quantization parameters to be used in measurement
    * @return 0 on success, non-zero otherwise
    * @param npts Number of sample points in the generated waveform
    * @param fsr Full-scale range of the waveform    
@@ -418,7 +425,7 @@ extern "C"
         );
 
   /**
-   * @brief Configure parameters to compute histogram
+ @brief Configure parameters to compute histogram
    * @return 0 on success, non-zero otherwise
    * @param npts Number of sample points in the generated waveform
    * @param qres Quantization resolution
@@ -431,7 +438,7 @@ extern "C"
         );
 
   /**
-   * @brief Configure FFT parameters 
+ @brief Configure FFT parameters 
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_config_fftz(
@@ -444,7 +451,7 @@ extern "C"
         );
 
   /**
-   * @brief Generate sinusoidal tone based on supplied configuration.
+ @brief Generate sinusoidal tone based on supplied configuration.
    * @return 0 on success, non-zero otherwise 
    */
   __api int gn_config_fa(
@@ -453,7 +460,7 @@ extern "C"
         );
   
   /**
-   * @brief Generate ramp based on supplied configuration.
+ @brief Generate ramp based on supplied configuration.
    * @param out Output array of ramp generated
    * @param c Configuration structure of test and waveform to generate
    */
@@ -463,7 +470,7 @@ extern "C"
         );
   
   /**
-   * @brief Generate sinusoidal tone based on supplied configuration.
+ @brief Generate sinusoidal tone based on supplied configuration.
    * @return 0 on success, non-zero otherwise   
    * @param out Output array of generated tone
    * @param c Configuration structure containing test parameters
@@ -474,7 +481,7 @@ extern "C"
         );
 
   /**
-   * @brief Generate sinusoidal tone based on supplied configuration.
+ @brief Generate sinusoidal tone based on supplied configuration.
    * @return 0 on success, non-zero otherwise   
    * @param outi In-phase output array of generated tone
    * @param outq Quadrature output array of generated tone
@@ -487,7 +494,7 @@ extern "C"
         );
 
   /**
-   * @brief Quantize waveform based on supplied configuration.
+ @brief Quantize waveform based on supplied configuration.
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_quantize(
@@ -507,7 +514,7 @@ extern "C"
         );
 
   /**
-   * @brief Compute histogram of quantized waveform
+ @brief Compute histogram of quantized waveform
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_histz(
@@ -518,7 +525,7 @@ extern "C"
         );
 
   /**
-   * @brief Compute histogram of quantized waveform
+ @brief Compute histogram of quantized waveform
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_dnlz(
@@ -529,7 +536,7 @@ extern "C"
         );
 
   /**
-   * @brief Compute histogram of quantized waveform
+ @brief Compute histogram of quantized waveform
    * @return 0 on success, non-zero otherwise
    */
   
@@ -541,7 +548,7 @@ extern "C"
         );
   
   /**
-   * @brief Do waveform analysis and all get results
+ @brief Do waveform analysis and all get results
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_get_wfa_results(
@@ -553,7 +560,7 @@ extern "C"
         );
 
     /**
-   * @brief Do histogram analysis and get results
+ @brief Do histogram analysis and get results
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_get_ha_results(
@@ -565,7 +572,7 @@ extern "C"
         );
 
   /**
-   * @brief Do DNL analysis and get results
+ @brief Do DNL analysis and get results
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_get_dnla_results(
@@ -577,7 +584,7 @@ extern "C"
         );
 
   /**
-   * @brief Do INL analysis and get results
+ @brief Do INL analysis and get results
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_get_inla_results(
@@ -589,7 +596,7 @@ extern "C"
       );
 
   /**
-   * @brief Do Fourier analysis and get a single result
+ @brief Do Fourier analysis and get a single result
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_get_fa_single_result(
@@ -600,7 +607,7 @@ extern "C"
         );
 
   /**
-   * @brief Do Fourier analysis and all get results
+ @brief Do Fourier analysis and all get results
    * @return 0 on success, non-zero otherwise
    */
   __api int gn_get_fa_results(
