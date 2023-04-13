@@ -108,6 +108,7 @@ def test_get_fa_results(filename):
         c = genalyzer.config_fftz(data['npts'], data['qres'], data['navg'], data['nfft'], data['win']-1)
         fft_out_i, fft_out_q = genalyzer.fftz(qwfi, qwfq, c)
         fft_out = [val for pair in zip(fft_out_i, fft_out_q) for val in pair]
+        genalyzer.config_set_sample_rate(data['fs'], c)
         genalyzer.config_fa(freq_list[0], c)
         fa_results = genalyzer.get_fa_results(fft_out, c)
         genalyzer.config_free(c)
@@ -129,6 +130,7 @@ def test_get_fa_single_result(filename):
         c = genalyzer.config_fftz(data['npts'], data['qres'], data['navg'], data['nfft'], data['win']-1)
         fft_out_i, fft_out_q = genalyzer.fftz(qwfi, qwfq, c)
         fft_out = [val for pair in zip(fft_out_i, fft_out_q) for val in pair]
+        genalyzer.config_set_sample_rate(data['fs'], c)
         genalyzer.config_fa(freq_list[0], c)
         sfdr = genalyzer.get_fa_single_result("sfdr", fft_out, c)
         genalyzer.config_free(c)
