@@ -20,6 +20,7 @@ qwfq = [int(i) for i in qwfq]
 
 # configure
 c = genalyzer.config_fftz(data['npts'], data['qres'], data['navg'], data['nfft'], data['win']-1)
+genalyzer.config_set_sample_rate(data['fs'], c)
 genalyzer.config_fa(freq_list[0], c)
 
 # compute FFT

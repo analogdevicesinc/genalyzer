@@ -793,15 +793,17 @@ extern "C" {
                 *c = c_p;
         }
 
-        if ((*c)->sample_rate <= 0)
-            (*c)->sample_rate = 1;
+        if ((*c)->sample_rate <= 0) {
+            printf("ERROR: Sample rate must be set before configuring Fourier analysis\n");
+            return gn_failure;
+        }
 
         (*c)->obj_key = (char *)calloc(3, sizeof(char));
         strcpy((*c)->obj_key, "fa");
         (*c)->comp_key = (char *)calloc(2, sizeof(char));
         strcpy((*c)->comp_key, "A");
 
-        (*c)->ssb_fund = 0;
+        (*c)->ssb_fund = 120;
         (*c)->ssb_rest = 0;
         (*c)->max_harm_order = 3;
         (*c)->axis_type = GnFreqAxisTypeDcCenter;
