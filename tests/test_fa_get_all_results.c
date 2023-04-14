@@ -23,17 +23,37 @@ int main(int argc, const char* argv[])
     double *freq;
     GnWindow win;    
     err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&ttype), UINT64);
+    if (err_code != 0)
+        return err_code;
     err_code = read_scalar_from_json_file(test_filename, "qres", (void*)(&qres), INT32);
+    if (err_code != 0)
+        return err_code;
     err_code = read_scalar_from_json_file(test_filename, "npts", (void*)(&npts), UINT64);    
+    if (err_code != 0)
+        return err_code;
     err_code = read_scalar_from_json_file(test_filename, "navg", (void*)(&navg), UINT64);
+    if (err_code != 0)
+        return err_code;
     err_code = read_scalar_from_json_file(test_filename, "nfft", (void*)(&nfft), UINT64);
+    if (err_code != 0)
+        return err_code;
     err_code = read_scalar_from_json_file(test_filename, "num_tones", (void*)(&num_tones), UINT64);
+    if (err_code != 0)
+        return err_code;
+
     freq = (double*)calloc(num_tones, sizeof(double));
     if (num_tones > 1)
         err_code = read_array_from_json_file(test_filename, "freq", freq, DOUBLE, num_tones);
     else
         err_code = read_scalar_from_json_file(test_filename, "freq", (void*)(freq), DOUBLE);
+    if (err_code != 0)
+        return err_code;
+
+
     err_code = read_scalar_from_json_file(test_filename, "win", (void*)(&tmp_win), UINT64);
+    if (err_code != 0)
+        return err_code;
+
     if (tmp_win==1)
         win = GnWindowBlackmanHarris;
     else if (tmp_win==2)
@@ -50,13 +70,22 @@ int main(int argc, const char* argv[])
     // configuration
     gn_config c = NULL;
     err_code = gn_config_fftz(npts, qres, navg, nfft, win, &c);
+    if (err_code != 0)
+        return err_code;
 
     // FFT of waveform
     err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, &c);
+    if (err_code != 0)
+        return err_code;
 
     // Configure Fourier analysis
     err_code = gn_config_fa(freq[0], &c);
+    if (err_code != 0)
+        return err_code;
+
     err_code = gn_get_fa_results(&rkeys, &rvalues, &results_size, fft_out, &c);
+    if (err_code != 0)
+        return err_code;
     
     printf("\nAll Fourier Analysis Results:\n");
     for (size_t i = 0; i < results_size; i++)
