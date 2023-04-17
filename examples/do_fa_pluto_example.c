@@ -11,27 +11,21 @@ int main(int argc, const char* argv[])
     int err_code;
     int32_t *ref_qwfi, *ref_qwfq;
     double *fft_out;
-    size_t results_size;
-    char **rkeys;
-    double *rvalues, sfdr;
+    double sfdr;
 
     // read parameters
     tone_type ttype;
     int qres;
-    unsigned long long npts, navg, nfft, tmp_win, num_tones;
-    double *freq;
-    GnWindow win;    
+    unsigned long long npts, navg, nfft, tmp_win;
+    double fs;
+    GnWindow win;
+    uint8_t ssb_width = 100;
     err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&ttype), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "qres", (void*)(&qres), INT32);
     err_code = read_scalar_from_json_file(test_filename, "npts", (void*)(&npts), UINT64);
     err_code = read_scalar_from_json_file(test_filename, "navg", (void*)(&navg), UINT64);
-    err_code = read_scalar_from_json_file(test_filename, "nfft", (void*)(&nfft), UINT64);
-    err_code = read_scalar_from_json_file(test_filename, "num_tones", (void*)(&num_tones), UINT64);
-    freq = (double*)calloc(num_tones, sizeof(double));
-    if (num_tones > 1)
-        err_code = read_array_from_json_file(test_filename, "freq", freq, DOUBLE, num_tones);
-    else
-        err_code = read_scalar_from_json_file(test_filename, "freq", (void*)(freq), DOUBLE);
+    err_code = read_scalar_from_json_file(test_filename, "fs", (void*)(&fs), DOUBLE);
+    err_code = read_scalar_from_json_file(test_filename, "nfft", (void*)(&nfft), UINT64);        
     err_code = read_scalar_from_json_file(test_filename, "win", (void*)(&tmp_win), UINT64);
     if (tmp_win==1)
         win = GnWindowBlackmanHarris;
@@ -52,14 +46,10 @@ int main(int argc, const char* argv[])
 
     // FFT of waveform
     err_code = gn_fftz(&fft_out, ref_qwfi, ref_qwfq, &c);
+    err_code = gn_config_set_sample_rate(fs, &c);
 
     // Configure Fourier analysis
-    err_code = gn_config_fa(freq[0], &c);
-    err_code = gn_get_fa_results(&rkeys, &rvalues, &results_size, fft_out, &c);
-    
-    printf("\nAll Fourier Analysis Results:\n");
-    for (size_t i = 0; i < results_size; i++)
-        printf("%4zu%20s%20.6f\n", i, rkeys[i], rvalues[i]);
+    err_code = gn_config_fa_auto(120, &c);
     
     err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, &c);
     printf("SFDR - %20.6f\n", sfdr);
@@ -67,11 +57,7 @@ int main(int argc, const char* argv[])
     // free memory
     free(ref_qwfi);
     free(ref_qwfq);
-    free(fft_out);
-    free(rvalues);
-    for (size_t i = 0; i < results_size; ++i)
-        free(rkeys[i]);
-    free(rkeys);
+    free(fft_out);    
     gn_config_free(&c);
     
     return 0;

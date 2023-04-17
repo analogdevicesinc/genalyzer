@@ -66,9 +66,9 @@ int main(int argc, const char* argv[])
 
     // read reference waveforms    
     ref_qwfi = (int32_t*)malloc(npts*sizeof(int32_t));
-    err_code = read_array_from_json_file(test_filename, "test_vecq_i", ref_qwfi, INT32, npts);
+    err_code = read_array_from_json_file(test_filename, "test_vec_i", ref_qwfi, INT32, npts);
     ref_qwfq = (int32_t*)malloc(npts*sizeof(int32_t));
-    err_code = read_array_from_json_file(test_filename, "test_vecq_q", ref_qwfq, INT32, npts);
+    err_code = read_array_from_json_file(test_filename, "test_vec_q", ref_qwfq, INT32, npts);
 
     // configuration
     gn_config c = NULL;
