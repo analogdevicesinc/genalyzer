@@ -18,7 +18,7 @@ int main(int argc, const char* argv[])
     tone_type ttype;
     int qres;
     unsigned long long npts, fft_navg, nfft, tmp_win, num_tones;
-    double *freq;
+    double *freq, fs;
     GnWindow win;    
     err_code = read_scalar_from_json_file(test_filename, "wf_type", (void*)(&ttype), UINT64);
     if (err_code != 0)
@@ -33,6 +33,9 @@ int main(int argc, const char* argv[])
     if (err_code != 0)
         return err_code;
     err_code = read_scalar_from_json_file(test_filename, "nfft", (void*)(&nfft), UINT64);
+    if (err_code != 0)
+        return err_code;
+    err_code = read_scalar_from_json_file(test_filename, "fs", (void*)(&fs), DOUBLE);
     if (err_code != 0)
         return err_code;
     err_code = read_scalar_from_json_file(test_filename, "num_tones", (void*)(&num_tones), UINT64);
@@ -79,6 +82,9 @@ int main(int argc, const char* argv[])
         return err_code;
 
     // Configure Fourier analysis
+    err_code = gn_config_set_sample_rate(fs, &c);
+    if (err_code != 0)
+        return err_code;
     err_code = gn_config_fa(freq[0], &c);
     if (err_code != 0)
         return err_code;
