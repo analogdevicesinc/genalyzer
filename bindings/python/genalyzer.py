@@ -23,6 +23,7 @@ from dataclasses import dataclass, field
 from typing import List
 from ctypes import (
     c_char,
+    c_uint8,
     c_int32,
     c_int64,
     c_uint,
@@ -316,6 +317,13 @@ _gn_config_fa = _libgen.gn_config_fa
 _gn_config_fa.restype = c_int
 _gn_config_fa.argtypes = [
     c_double,
+    POINTER(_GNConfigPtr),
+]
+
+_gn_config_fa_auto = _libgen.gn_config_fa_auto
+_gn_config_fa_auto.restype = c_int
+_gn_config_fa_auto.argtypes = [
+    c_uint8,
     POINTER(_GNConfigPtr),
 ]
 
@@ -643,6 +651,21 @@ def config_fa(
     )
     return c
 
+def gn_config_fa_auto(ssb_width: int, c: GNConfig):
+    """Configure GNConfig struct for Fourier analysis where tones are
+    automatically found.
+    :param ssb_width: SSB width
+    :param c: GNConfig object
+    """
+    ssb_width = c_uint8(ssb_width)
+
+    ret = _gn_config_fa_auto(
+        ssb_width,
+        byref(c._struct)
+    )
+    if ret != 0:
+        raise Exception("gn_config_fa_auto failed")
+
 def gen_ramp(
     c: GNConfig
 ) -> List[float]:
@@ -829,3 +852,13 @@ def get_fa_results(
     for i in range(results_size.value):
         fa_results[(rkeys[i]).decode('ascii')] = rvalues[i]
     return fa_results
+
+def config_set_sample_rate(
+    sample_rate: float,
+    c: GNConfig
+) -> None:
+    """Set sample rate.
+    :param sample_rate: Sample rate in Hz
+    :param c: GNConfig object
+    """
+    _gn_config_set_sample_rate(sample_rate, byref(c._struct))

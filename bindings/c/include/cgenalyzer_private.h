@@ -129,8 +129,6 @@ namespace util {
 
     static log gn_error_log;
 
-    static bool gn_null_terminate = true;
-
     template<typename... Types>
     int return_on_exception(const char* s, Types... the_rest)
     {
