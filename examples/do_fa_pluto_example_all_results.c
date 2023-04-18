@@ -11,7 +11,10 @@ int main(int argc, const char* argv[])
     int err_code;
     int32_t *ref_qwfi, *ref_qwfq;
     double *fft_out;
-    double sfdr;
+    
+    size_t results_size;
+    char **rkeys;
+    double *rvalues;
 
     // read parameters
     tone_type ttype;
@@ -51,8 +54,13 @@ int main(int argc, const char* argv[])
     // Configure Fourier analysis
     err_code = gn_config_fa_auto(120, &c);
     
-    err_code = gn_get_fa_single_result(&sfdr, "sfdr", fft_out, &c);
-    printf("SFDR - %20.6f\n", sfdr);
+    err_code = gn_get_fa_results(&rkeys, &rvalues, &results_size, fft_out, &c);
+    if (err_code != 0)
+        return err_code;
+    
+    printf("\nAll Fourier Analysis Results:\n");
+    for (size_t i = 0; i < results_size; i++)
+        printf("%4zu%20s%20.6f\n", i, rkeys[i], rvalues[i]);
     
     // free memory
     free(ref_qwfi);

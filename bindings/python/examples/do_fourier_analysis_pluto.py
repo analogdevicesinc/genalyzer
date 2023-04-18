@@ -41,14 +41,10 @@ plt.ylabel("PSD [dBFs]")
 plt.draw()
 plt.show()
 
-# get all Fourier analysis results
-all_results = genalyzer.get_fa_results(fft_out, c)
-
 # get a single Fourier analysis result
 sfdr = genalyzer.get_fa_single_result("sfdr", fft_out, c)
 
 # display results
-pprint.pprint(all_results)
 print('SFDR - ', sfdr)
 
 # free memory
