@@ -1,3 +1,7 @@
+# This example shows how to use the Fourier analysis functions with data 
+# from a PlutoSDR. The data is read from a JSON file. The Fourier analysis
+# is configured to automatically find the tones in the data.
+
 import genalyzer, os, json, glob, pprint
 import matplotlib.pyplot as plt
 import numpy as np
@@ -21,11 +25,16 @@ qwfq = [int(i) for i in qwfq]
 # configure
 c = genalyzer.config_fftz(data['npts'], data['qres'], data['navg'], data['nfft'], data['win']-1)
 genalyzer.config_set_sample_rate(data['fs'], c)
-genalyzer.config_fa(freq_list[0], c)
+
+# Find tones
+genalyzer.gn_config_fa_auto(ssb_width=120, c=c)
 
 # compute FFT
 fft_out_i, fft_out_q = genalyzer.fftz(qwfi, qwfq, c)
 fft_out = [val for pair in zip(fft_out_i, fft_out_q) for val in pair]
+
+# get all Fourier analysis results
+all_results = genalyzer.get_fa_results(fft_out, c)
 
 # plot FFT
 fft_cp = np.empty(data['nfft'], dtype=np.complex128)
@@ -33,8 +42,18 @@ fft_cp.real = [fft_out[i] for i in range(len(fft_out)) if i % 2 != 0]
 fft_cp.imag = [fft_out[i] for i in range(len(fft_out)) if i % 2 != 1]
 fft_cp = np.roll(np.absolute(fft_cp), round(0.5*data['nfft']))
 f = np.linspace(start=-0.5*data['fs'], stop=0.5*data['fs'], num=data['nfft'])
+dbfs_data = 10*np.log10(np.square(fft_cp))
 plt.clf()
-plt.plot(f, 10*np.log10(np.square(fft_cp)))
+plt.plot(f, dbfs_data)
+
+# Add markers for the harmonics
+harmonic_keys = ['A', '2A','dc']
+for key in harmonic_keys:
+    freq = all_results[f'{key}:freq']
+    amp = all_results[f'{key}:mag_dbfs']
+    plt.plot(freq, amp, 'ro')
+
+
 plt.ylim([-140, 0])
 plt.xlabel("frequency [Hz]")
 plt.ylabel("PSD [dBFs]")
@@ -45,6 +64,7 @@ plt.show()
 sfdr = genalyzer.get_fa_single_result("sfdr", fft_out, c)
 
 # display results
+pprint.pprint(all_results)
 print('SFDR - ', sfdr)
 
 # free memory

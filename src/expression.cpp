@@ -382,6 +382,21 @@ namespace genalyzer_impl {
                 ss.unget();
                 real_t num = 0.0;
                 ss >> num;
+
+#if defined(__APPLE__)
+                if (!ss){
+                    // Clang doesn't support stringstream to double if contains characters
+                    // Need to manually convert
+                    std::string tmp = ss.str();
+                    ss.clear(); // clear error flags
+                    // Remove all non-numeric characters
+                    tmp.erase(std::remove_if(tmp.begin(), tmp.end(), [](char c) { return !(std::isdigit(c) || c == '.'); }), tmp.end());
+                    if (tmp.empty()) {
+                        throw runtime_error("tokenize_infix : invalid numeric value");
+                    }
+                    num = std::stod(tmp);
+                }
+#endif
                 if (ss) {
                     tokens << num;
                 } else {

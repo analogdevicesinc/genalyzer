@@ -22,21 +22,29 @@ int main(int argc, const char* argv[])
     int qres;
     unsigned long long npts;
     err_code = read_scalar_from_json_file(test_filename, "npts", (void*)(&npts), UINT64);
+    if (err_code != 0)return err_code;
     err_code = read_scalar_from_json_file(test_filename, "fsr", (void*)(&fsr), DOUBLE);
+    if (err_code != 0)return err_code;
     err_code = read_scalar_from_json_file(test_filename, "qnoise", (void*)(&qnoise), DOUBLE);
+    if (err_code != 0)return err_code;
     err_code = read_scalar_from_json_file(test_filename, "qres", (void*)(&qres), INT32);
+    if (err_code != 0)return err_code;
     
     // configuration
     gn_config c = NULL;
     err_code = gn_config_quantize(npts, fsr, qres, qnoise, &c);
+    if (err_code != 0)return err_code;
     
     // read reference output waveform
     ref_qwf = (int32_t*)malloc(npts*sizeof(int32_t));
     err_code = read_array_from_json_file(test_filename, "test_vecq", ref_qwf, INT32, npts);
+    if (err_code != 0)return err_code;
     
     // histogram analysis
     err_code = gn_histz(&hist, &hist_len, ref_qwf, &c);
+    if (err_code != 0)return err_code;
     err_code = gn_get_ha_results(&rkeys, &rvalues, &results_size, hist, &c);
+    if (err_code != 0)return err_code;
     
     printf("Histogram length: %lu\n", hist_len);
     size_t tmp_sum = 0;

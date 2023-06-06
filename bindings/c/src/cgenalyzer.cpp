@@ -717,7 +717,7 @@ extern "C" {
         return gn_success;
     }
 
-    int gn_config_fa(gn::real_t fixed_tone_freq, gn_config *c)
+    int gn_config_fa_auto(uint8_t ssb_width, gn_config *c)
     {
         int err_code;
 
@@ -734,15 +734,74 @@ extern "C" {
                 *c = c_p;
         }
 
-        if ((*c)->sample_rate <= 0)
-            (*c)->sample_rate = 1;
+        if ((*c)->sample_rate <= 0) {
+            printf("ERROR: Sample rate must be set before configuring Fourier analysis\n");
+            return gn_failure;
+        }        
 
         (*c)->obj_key = (char *)calloc(3, sizeof(char));
         strcpy((*c)->obj_key, "fa");
         (*c)->comp_key = (char *)calloc(2, sizeof(char));
         strcpy((*c)->comp_key, "A");
 
-        (*c)->ssb_fund = 0;
+        (*c)->ssb_fund = ssb_width;
+        (*c)->ssb_rest = 0;
+        (*c)->max_harm_order = 3;
+        (*c)->axis_type = GnFreqAxisTypeDcCenter;
+
+        // configure object key for Fourier analysis
+        err_code = gn_fa_create((*c)->obj_key);
+
+        // configure component key for Fourier analysis
+        err_code += gn_fa_max_tone((*c)->obj_key, (*c)->comp_key, GnFACompTagSignal, (*c)->ssb_fund);
+
+        // configure harmonic order for Fourier analysis
+        err_code += gn_fa_hd((*c)->obj_key, (*c)->max_harm_order);
+
+        // configure single-side bins for Fourier analysis
+        err_code += gn_fa_ssb((*c)->obj_key, GnFASsbDefault, (*c)->ssb_rest);
+        err_code += gn_fa_ssb((*c)->obj_key, GnFASsbDC, -1);
+        err_code += gn_fa_ssb((*c)->obj_key, GnFASsbSignal, -1);
+        err_code += gn_fa_ssb((*c)->obj_key, GnFASsbWO, -1);
+
+        // configure sample-rate, data-rate, shift frequency, and converter offset
+        err_code += gn_fa_fsample((*c)->obj_key, (*c)->sample_rate);
+        err_code += gn_fa_fdata((*c)->obj_key, (*c)->sample_rate);
+        err_code += gn_fa_fshift((*c)->obj_key, 0.0);
+        err_code += gn_fa_conv_offset((*c)->obj_key, false);
+
+        return (err_code);
+    }
+
+
+    int gn_config_fa(gn::real_t fixed_tone_freq, gn_config *c)
+    {
+        int err_code;
+
+        if (!(*c))
+        {
+            gn_config c_p;
+            c_p = (gn_config)calloc(1, sizeof(*c_p));
+            if (!(c_p))
+            {
+                printf("insufficient memory\n");
+                return ENOMEM;
+            }
+            else
+                *c = c_p;
+        }
+
+        if ((*c)->sample_rate <= 0) {
+            printf("ERROR: Sample rate must be set before configuring Fourier analysis\n");
+            return gn_failure;
+        }
+
+        (*c)->obj_key = (char *)calloc(3, sizeof(char));
+        strcpy((*c)->obj_key, "fa");
+        (*c)->comp_key = (char *)calloc(2, sizeof(char));
+        strcpy((*c)->comp_key, "A");
+
+        (*c)->ssb_fund = 120;
         (*c)->ssb_rest = 0;
         (*c)->max_harm_order = 3;
         (*c)->axis_type = GnFreqAxisTypeDcCenter;
@@ -1060,12 +1119,15 @@ extern "C" {
         int err_code;
         size_t i;
         bool metric_found = false;
+        size_t results_size;
+        char **rkeys;
+        double *rvalues;
 
         // compute all results 
-        err_code = gn_get_fa_results(NULL, NULL, NULL, fft_ilv, &(*c));
-        for (i = 0; i < (*c)->_fa_results_size; i++) 
+        err_code = gn_get_fa_results(&rkeys, &rvalues, &results_size, fft_ilv, &(*c));
+        for (i = 0; i < results_size; i++) 
         {
-            if (!strcmp(metric_name, (*c)->_fa_result_keys[i])) 
+            if (!strcmp(metric_name, rkeys[i])) 
             {
                 metric_found = true;
                 break;
@@ -1076,7 +1138,7 @@ extern "C" {
             printf("ERROR: Invalid selection of metric\n");
             return gn_failure;
         }
-        *rvalue = (*c)->_fa_result_values[i];
+        *rvalue = rvalues[i];
 
         return err_code;
     }
@@ -1084,47 +1146,26 @@ extern "C" {
     int gn_get_fa_results(char ***rkeys, gn::real_t **rvalues, size_t *results_size, gn::real_t *fft_ilv, gn_config *c)
     {
         int err_code = 0;
-
+        size_t *result_key_sizes;
+        
         // get results size
-        err_code = gn_fft_analysis_results_size(&((*c)->_fa_results_size), (*c)->obj_key, 2*(*c)->nfft, (*c)->nfft);
+        err_code = gn_fft_analysis_results_size(results_size, (*c)->obj_key, 2*(*c)->nfft, (*c)->nfft);
 
         // allocate memory for result keys and values
-        (*c)->_fa_result_keys = (char **)calloc(((*c)->_fa_results_size), sizeof(char*));
-        (*c)->_fa_result_values = (gn::real_t *)calloc(((*c)->_fa_results_size), sizeof(gn::real_t));
-
+        *rkeys = (char **)calloc(*results_size, sizeof(char*));
+        *rvalues = (gn::real_t *)calloc(*results_size, sizeof(gn::real_t));
+        
         // get result key sizes
-        (*c)->_fa_result_key_sizes = (size_t *)calloc(((*c)->_fa_results_size), sizeof(size_t));
-        err_code += gn_fft_analysis_results_key_sizes((*c)->_fa_result_key_sizes, (*c)->_fa_results_size, (*c)->obj_key, 2*(*c)->nfft, (*c)->nfft);
+        result_key_sizes = (size_t *)calloc(*results_size, sizeof(size_t));
+        err_code += gn_fft_analysis_results_key_sizes(result_key_sizes, *results_size, (*c)->obj_key, 2*(*c)->nfft, (*c)->nfft);
 
         // allocate memory for each result key
-        for (size_t i = 0; i < (*c)->_fa_results_size; ++i)
-            (*c)->_fa_result_keys[i] = (char *)calloc((*c)->_fa_result_key_sizes[i], sizeof(char));
-
-        // execute analysis
-        err_code += gn_fft_analysis((*c)->_fa_result_keys, (*c)->_fa_results_size, (*c)->_fa_result_values, (*c)->_fa_results_size, (*c)->obj_key, fft_ilv, 2*(*c)->nfft, (*c)->nfft, (*c)->axis_type);
-
-        if (rkeys && rvalues && results_size)
-        {
-            // copy keys
-            *rkeys = (char **)calloc(((*c)->_fa_results_size), sizeof(char*));
-            for (size_t i = 0; i < (*c)->_fa_results_size; ++i)
-                (*rkeys)[i] = (char *)calloc((*c)->_fa_result_key_sizes[i], sizeof(char));
-
-            // copy values
-            *rvalues = (gn::real_t *)calloc(((*c)->_fa_results_size), sizeof(gn::real_t));
-            for (size_t i = 0; i < (*c)->_fa_results_size; ++i)
-            {
-                strcpy((*rkeys)[i], (*c)->_fa_result_keys[i]);
-                (*rvalues)[i] = (*c)->_fa_result_values[i];
-            }
-            *results_size = (*c)->_fa_results_size;
-        }
-        else
-        {
-            fprintf(stderr, "ERROR: Invalid pointer for rkeys, rvalues, or results_size\n");
-            return -EINVAL;
-        }
+        for (size_t i = 0; i < *results_size; ++i)
+            (*rkeys)[i] = (char *)calloc(result_key_sizes[i], sizeof(char));
         
+        // execute analysis
+        err_code += gn_fft_analysis(*rkeys, *results_size, *rvalues, *results_size, (*c)->obj_key, fft_ilv, 2*(*c)->nfft, (*c)->nfft, (*c)->axis_type);
+
         return (err_code);
     }
 }
