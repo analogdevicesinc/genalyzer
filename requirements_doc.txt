@@ -4,3 +4,4 @@ breathe
 myst-parser
 sphinx-tabs
 graphviz
+sphinx_inline_tabs
