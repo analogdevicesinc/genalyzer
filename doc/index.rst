@@ -20,7 +20,7 @@ Reference
    :maxdepth: 2
    :caption: Contents:
 
-   c/configs
+   .. c/configs
    01_introduction
    setup
    theory
