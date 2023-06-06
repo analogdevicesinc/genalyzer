@@ -26,7 +26,7 @@ Reference
    theory
    sim
    examples.md
-   02_using_genalyzer
+   .. 02_using_genalyzer
    03_examples
    reference
 
