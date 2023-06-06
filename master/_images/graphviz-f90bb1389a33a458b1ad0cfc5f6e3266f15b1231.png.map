@@ -1,0 +1,5 @@
+<map id="%3" name="%3">
+<area shape="rect" id="node1" title="/home/runner/work/genalyzer/genalyzer/bindings/c/include/cgenalyzer.h" alt="" coords="55,101,762,149"/>
+<area shape="rect" id="node2" title="/home/runner/work/genalyzer/genalyzer/bindings/c/include/cgenalyzer_advanced.h" alt="" coords="5,5,812,53"/>
+<area shape="poly" id="edge1" title="include" alt="" coords="411,67,411,101,406,101,406,67"/>
+</map>

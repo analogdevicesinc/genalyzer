@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Introduction" href="01_introduction.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <!-- Generated with Sphinx 6.2.1 and Furo 2023.05.20 -->
-        <title>Genalyzer v0.0.1 documentation</title>
+        <title>Test Configuration - Genalyzer v0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
@@ -125,7 +125,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">Genalyzer v0.0.1 documentation</div></a>
+      <a href="index.html"><div class="brand">Genalyzer v0.0.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -136,7 +136,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -145,7 +145,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
   <span class="sidebar-brand-text">Genalyzer v0.0.1 documentation</span>
@@ -193,61 +193,74 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="genalyzer-data-converter-library">
-<h1>genalyzer: Data Converter Library<a class="headerlink" href="#genalyzer-data-converter-library" title="Permalink to this heading">#</a></h1>
-<p>Library for data converter and general sampled data analysis.</p>
-<p>Genalyzer is a C++ library that facilitates the computation of commonly used data-converter RF performance metrics in a standards-complaint manner. Genalyzer supports generation of waveforms for characterizing data-converters as well as the computation of performance metrics given the time- or frequency-domain response of data-converters to such waveforms. In other words, users not only have the option of selecting whether or not to opt for waveform generation to characterize data-convereters, but are also able to utilize time-series data or FFT of samples captured from a data-convereter to directly compute the desired performance metrics.</p>
-<p>Thus, Genalyzer can support a simulation-only scenario or a data-capture scenario. In the first case, the response of a data-converter is simulated given its specifications, in order to compute the expected performance metrics. In the second case, the response of a data-converter is available for Genalyzer to process in the form of a text or binary file. Genalyzer facilitates the computation of common data converter performance metrics in a standards-complaint manner. The terminology and definitions for various common performance metrics are adopted from the IEEE Standard for Terminology and Test Methods for Analog-to-Digital Converters (IEEE 1241-2010) and the IEEE Standard for Terminology and Test Methods of Digital-to-Analog Converter Devices (IEEE 1658-2011) both published by Instrumentation and Measurement/Waveform Generation, Measurement, and Analysis - Technical Committee 10 (IM/WM&amp;A - TC10).</p>
-</section>
-<section id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="01_introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#windows">Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#linux-macos">Linux/macOS</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="theory.html">Usage Model</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="theory.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="theory.html#test-configuration">Test Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="theory.html#waveform-generation">Waveform Generation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="theory.html#performance-metric-computation">Performance Metric Computation</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="sim.html">Simulation Based Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Language Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#fourier-analysis">Fourier Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#waveform-analysis">Waveform Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#histogram-analysis">Histogram Analysis</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="03_examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#configuration-setter-and-getter-functions">Configuration Setter and Getter Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#source-configuration-functions">Source Configuration Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#quantization-functions">Quantization Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#auto">Auto</a></li>
-</ul>
-</li>
-</ul>
+          <section id="test-configuration">
+<h1>Test Configuration<a class="headerlink" href="#test-configuration" title="Permalink to this heading">#</a></h1>
+<section id="tone-based-test-configuration">
+<h2>Tone-based Test Configuration<a class="headerlink" href="#tone-based-test-configuration" title="Permalink to this heading">#</a></h2>
+<p>In tone-based test configuration, <code class="docutils literal notranslate"><span class="pre">config_tone_meas()</span></code> allows users to indicate test settings such as, number of tones, their frequencies, phases, scales, whether real sinusoidal or complex-exponential waveforms are to be generated, the sample-rate, full-scale range of the converter, its resolution etc. Similarly, users can indicate whether the data that will be loaded in the second stage is time-series data or interleaved FFT samples. Moreover, in data-capture scenario i.e., when FFT data is provided to Genalyzer in the second step, the tone frequency, scale and phase information is not required. This test configuration is used for measurements such as SFDR, THD, TIL etc.</p>
+<p>An example of the <code class="docutils literal notranslate"><span class="pre">config_tone_meas()</span></code> function call is shown by the following example.</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">// configuration</span>
+<span class="w">  </span><span class="n">config_tone_meas</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
+<span class="w">                   </span><span class="n">domain_wf</span><span class="p">,</span>
+<span class="w">                   </span><span class="n">type_wf</span><span class="p">,</span>
+<span class="w">                   </span><span class="n">nfft</span><span class="p">,</span><span class="w"> </span><span class="c1">// FFT order</span>
+<span class="w">                   </span><span class="n">navg</span><span class="p">,</span><span class="w"> </span><span class="c1">// # of FFTs averaged</span>
+<span class="w">                   </span><span class="n">fs</span><span class="p">,</span><span class="w"> </span><span class="c1">// sample rate</span>
+<span class="w">                   </span><span class="n">fsr</span><span class="p">,</span><span class="w"> </span><span class="c1">// full-scale range</span>
+<span class="w">                   </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="c1">// ADC resolution: unused configuration setting</span>
+<span class="w">                   </span><span class="n">freq</span><span class="p">,</span><span class="w"> </span><span class="c1">// tone frequency, # of array elements = num_tones</span>
+<span class="w">                   </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="c1">// tone scale, # of array elements = num_tones</span>
+<span class="w">                   </span><span class="n">phase</span><span class="p">,</span><span class="w"> </span><span class="c1">// tone phase, # of array elements = num_tones</span>
+<span class="w">                   </span><span class="n">num_tones</span><span class="p">,</span><span class="w"> </span><span class="c1">// # of tones</span>
+<span class="w">                   </span><span class="nb">false</span><span class="p">,</span>
+<span class="w">                   </span><span class="nb">false</span><span class="p">,</span>
+<span class="w">                   </span><span class="nb">false</span>
+<span class="w">                   </span><span class="p">);</span>
+</pre></div>
 </div>
 </section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">#</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
+<section id="ramp-based-test-configuration">
+<h2>Ramp-based Test Configuration<a class="headerlink" href="#ramp-based-test-configuration" title="Permalink to this heading">#</a></h2>
+<p>In ramp-based test configuration, <code class="docutils literal notranslate"><span class="pre">config_ramp_meas()</span></code> allows users to indicate test settings such as, the starting and ending values of the ramp waveform in addition to the full-scale range and the resolution of the data converter under test. This test configuration is primarily used in non-linearity based measurements.</p>
+<p>An example of the <code class="docutils literal notranslate"><span class="pre">config_ramp_meas()</span></code> function call is shown by the following example.</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">// configuration</span>
+<span class="w">  </span><span class="n">config_ramp_nl_meas</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">npts</span><span class="p">,</span><span class="w"> </span><span class="c1">// # of data points</span>
+<span class="w">                      </span><span class="n">fs</span><span class="p">,</span><span class="w"> </span><span class="c1">// sample rate</span>
+<span class="w">                      </span><span class="n">fsr</span><span class="p">,</span><span class="w"> </span><span class="c1">// full-scale range</span>
+<span class="w">                      </span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="c1">// ADC resolution: unused configuration setting</span>
+<span class="w">                      </span><span class="n">start</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">stop</span><span class="p">,</span>
+<span class="w">                      </span><span class="mf">0.0</span>
+<span class="w">                      </span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="noise-based-test-configuration">
+<h2>Noise-based Test Configuration<a class="headerlink" href="#noise-based-test-configuration" title="Permalink to this heading">#</a></h2>
+<p>In noise-based test configuration, <code class="docutils literal notranslate"><span class="pre">config_noise_meas()</span></code> allows users to indicate test settings such as, the noise power level in addition to the full-scale range and the resolution of the data converter under test. This test configuration is primarily used for computing noise spectral density.</p>
+<p>An example of the <code class="docutils literal notranslate"><span class="pre">config_noise_meas()</span></code> function call is shown by the following example.</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">// configuration</span>
+<span class="w">  </span><span class="n">config_noise_meas</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">COMPLEX_NOISE</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">nfft</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">navg</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">fs</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">fsr</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">res</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">noise_pwr_lvl</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">update_fsample</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">update_fdata</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">update_fshift</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
 </section>
 
         </article>
@@ -255,15 +268,7 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="01_introduction.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Introduction</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
+          
           
         </div>
         <div class="bottom-of-page">
@@ -283,8 +288,29 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Test Configuration</a><ul>
+<li><a class="reference internal" href="#tone-based-test-configuration">Tone-based Test Configuration</a></li>
+<li><a class="reference internal" href="#ramp-based-test-configuration">Ramp-based Test Configuration</a></li>
+<li><a class="reference internal" href="#noise-based-test-configuration">Noise-based Test Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
