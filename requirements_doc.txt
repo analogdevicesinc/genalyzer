@@ -1,4 +1,7 @@
-mkdocs
-mkdocs-material
-mkdocstrings
-mike
+sphinx
+furo
+breathe
+myst-parser
+sphinx-tabs
+graphviz
+sphinx_inline_tabs

@@ -22,7 +22,7 @@ jobs:
           mkdir -p build
           cd build
           cmake .. -DBUILD_DOC=ON
-          make MkDocs
+          make Sphinx
 
 
   MasterDocDeploy:
@@ -46,12 +46,12 @@ jobs:
           mkdir -p build
           cd build
           cmake .. -DBUILD_DOC=ON
-          make MkDocs
+          make Sphinx
           cd ..
 
       - name: Publish doc
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/doc/out_docs/mkdocs/out
+          publish_dir: ./build/doc/sphinx
           destination_dir: master
