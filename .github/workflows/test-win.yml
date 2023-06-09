@@ -109,8 +109,14 @@ jobs:
       - name: Archive Windows exe installer
         uses: actions/upload-artifact@v2
         with:
-          name: EXE Installer
+          name: EXE-Installer
           path: C:\genalyzer-setup.exe
+
+      - name: Download artifact installer
+        uses: actions/download-artifact@v1
+        with:
+          name: EXE-Installer
+          path: win_build
 
       - name: Post development build to GH releases page
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -120,4 +126,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: "Latest Development Build"
-          files: C:\genalyzer-setup.exe
+          files: win_build
