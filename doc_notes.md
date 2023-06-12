@@ -67,7 +67,25 @@ Inputs to *gn_fa_hd()*:
 Similar to *gn_fa_max_tone()*, but simpler compared to setting up *fourier_analysis_component* for max-tone analysis, an internal variable is updated on the max harmonic order.
 
 ### Functionality
-*gn_fa_hd()* assigns the max harmonic order value it is passed to an internal class property.
+*gn_fa_hd()* assigns the max harmonic order value it is passed to an internal class property (*m_hd*).
+
+## gn_fa_ssb
+*gn_fa_ssb()* is another component labeling API function called by *gn_config_fa_auto()* (or *gn_config_fa()*) to configure single-side bins associated with the "object key" in question using which we are configuring Fourier analysis.
+
+### Mechanics
+Calls *set_ssb()* method of *fourier_analysis* class.
+
+Inputs:
+1) an object key 
+2) ssb-group label (an enum)
+3) Number of single-side bins
+
+Note: In both *gn_config_fa_auto()* and *gn_config_fa()*, a default single-side bin number is set. Other options include setting ssbs for DC component, signal components, worst-other components.
+
+### Functionality
+*gn_fa_ssb()* assigns the number of single-side bins associated with an ssb-group to an internal class property (*m_ssb_def*).
+
+**Need discussion on single-side bins**
 
 Question:
 1. How is a line such as `m_user_keys.push_back(key);` in fourier_analysis.cpp possible? You can access the members of a static object without referring to the object itself?
