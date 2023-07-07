@@ -14,6 +14,17 @@ if(COVERAGE)
   target_link_libraries(genalyzer PRIVATE --coverage)
 endif()
 
+if(UNIX)
+  # If GCC is older than 8.0.0, enable experimental filesystem
+  execute_process(
+    COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+  if(GCC_VERSION VERSION_LESS 8.0.0)
+    message(STATUS "GCC version < 8.0.0, enabling experimental filesystem")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lstdc++fs")
+    target_compile_definitions(genalyzer PUBLIC EXPERIMENTAL_FILESYSTEM)
+  endif()
+endif()
+
 set_target_properties(genalyzer PROPERTIES
   VERSION ${CMAKE_PROJECT_VERSION}
   SOVERSION ${CMAKE_PROJECT_VERSION_MAJOR}

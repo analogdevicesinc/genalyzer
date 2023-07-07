@@ -25,6 +25,14 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(CMAKE_CXX_FLAGS
         "${CMAKE_CXX_FLAGS} -std=gnu++17 -fext-numeric-literals")
+    # If GCC is older than 8.0.0, enable experimental filesystem
+    execute_process(
+      COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+    if(GCC_VERSION VERSION_LESS 8.0.0)
+      message(STATUS "GCC version < 8.0.0, enabling experimental filesystem")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lstdc++fs")
+      add_definitions(-DEXPERIMENTAL_FILESYSTEM=1)
+    endif()
   elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
   elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
