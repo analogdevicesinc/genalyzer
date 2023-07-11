@@ -1,4 +1,4 @@
-name: CI Pushes
+name: Linux and macOS Builds
 
 on: [push, pull_request]
 
@@ -9,6 +9,13 @@ jobs:
       fail-fast: false
       matrix:
         images: ["debian:buster", "debian:bullseye", "ubuntu:20.04"]
+        include:
+          - images: "debian:buster"
+            label: "Debian_10"
+          - images: "debian:bullseye"
+            label: "Debian_11"
+          - images: "ubuntu:20.04"
+            label: "Ubuntu_20_04"
 
     container:
       image: ${{ matrix.images }}
@@ -30,6 +37,59 @@ jobs:
           cmake -DBUILD_TESTS_EXAMPLES=ON ..
           make -j4
           make test ARGS="-VV"
+          cd ..
+          mkdir -p libs
+          cp build/bindings/c/src/libgenalyzer.so* libs/
+          cp build/src/libgenalyzer_plus_plus.a* libs/
+          cp bindings/c/include/cgenalyzer.h libs/
+          cp bindings/c/include/cgenalyzer_advanced.h libs/
+          cp bindings/python/genalyzer.py libs/
+          cp bindings/python/genalyzer_advanced.py libs/
+          cp bindings/matlab/genalyzer.m libs/
+
+      - name: Archive generated SOs
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.label }}-Build
+          path: libs/
+
+  TestCCentOS:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        images: ["tfcollins/libiio_centos_7-ci:latest"]
+
+    container:
+      image: ${{ matrix.images }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          bash ./.github/scripts/install_dependencies_rhel.sh
+
+      - name: Build and test
+        run: |
+          mkdir -p build
+          cd build
+          source scl_source enable devtoolset-7 && cmake -DBUILD_TESTS_EXAMPLES=ON ..
+          make -j4
+          make test ARGS="-VV"
+          cd ..
+          mkdir -p libs
+          cp build/bindings/c/src/libgenalyzer.so* libs/
+          cp build/src/libgenalyzer_plus_plus.a* libs/
+          cp bindings/c/include/cgenalyzer.h libs/
+          cp bindings/c/include/cgenalyzer_advanced.h libs/
+          cp bindings/python/genalyzer.py libs/
+          cp bindings/python/genalyzer_advanced.py libs/
+          cp bindings/matlab/genalyzer.m libs/
+
+      - name: Archive generated SOs
+        uses: actions/upload-artifact@v2
+        with:
+          name: RHEL_7-Build
+          path: libs/
 
   CoverageTest:
     runs-on: ubuntu-latest

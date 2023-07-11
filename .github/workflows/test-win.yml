@@ -53,6 +53,12 @@ jobs:
           cp bindings\c\src\Release\* tests\Release\
           ctest -V -C Release
 
+      - name: Archive generated DLLs
+        uses: actions/upload-artifact@v2
+        with:
+          name: DLLs
+          path: src\Release\
+
   BuildWindowsInstaller:
     runs-on: windows-latest
 

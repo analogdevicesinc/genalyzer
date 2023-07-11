@@ -3949,9 +3949,12 @@ T conditional_static_cast(U value)
 
 // #include <nlohmann/detail/value_t.hpp>
 
-
 #ifdef JSON_HAS_CPP_17
+#ifdef EXPERIMENTAL_FILESYSTEM
+    #include <experimental/filesystem>
+#else
     #include <filesystem>
+#endif
 #endif
 
 namespace nlohmann
@@ -4380,6 +4383,17 @@ void from_json(const BasicJsonType& j, std::unordered_map<Key, Value, Hash, KeyE
 }
 
 #ifdef JSON_HAS_CPP_17
+#ifdef EXPERIMENTAL_FILESYSTEM
+template<typename BasicJsonType>
+void from_json(const BasicJsonType& j, std::experimental::filesystem::path& p)
+{
+    if (JSON_HEDLEY_UNLIKELY(!j.is_string()))
+    {
+        JSON_THROW(type_error::create(302, "type must be string, but is " + std::string(j.type_name()), j));
+    }
+    p = *j.template get_ptr<const typename BasicJsonType::string_t*>();
+}
+#else
 template<typename BasicJsonType>
 void from_json(const BasicJsonType& j, std::filesystem::path& p)
 {
@@ -4389,6 +4403,7 @@ void from_json(const BasicJsonType& j, std::filesystem::path& p)
     }
     p = *j.template get_ptr<const typename BasicJsonType::string_t*>();
 }
+#endif
 #endif
 
 struct from_json_fn
@@ -4627,7 +4642,11 @@ class tuple_element<N, ::nlohmann::detail::iteration_proxy_value<IteratorType >>
 
 
 #ifdef JSON_HAS_CPP_17
+#ifdef EXPERIMENTAL_FILESYSTEM
+    #include <experimental/filesystem>
+#else
     #include <filesystem>
+#endif
 #endif
 
 namespace nlohmann
@@ -5003,11 +5022,19 @@ void to_json(BasicJsonType& j, const T& t)
 }
 
 #ifdef JSON_HAS_CPP_17
+#ifdef EXPERIMENTAL_FILESYSTEM
+template<typename BasicJsonType>
+void to_json(BasicJsonType& j, const std::experimental::filesystem::path& p)
+{
+    j = p.string();
+}
+#else
 template<typename BasicJsonType>
 void to_json(BasicJsonType& j, const std::filesystem::path& p)
 {
     j = p.string();
 }
+#endif
 #endif
 
 struct to_json_fn
