@@ -862,3 +862,14 @@ def config_set_sample_rate(
     :param c: GNConfig object
     """
     _gn_config_set_sample_rate(sample_rate, byref(c._struct))
+
+def config_code_format(
+    code_format: int,
+    c: GNConfig
+) -> None:
+    """Configure code format.
+    :param code_format: code format (Offset binary, Twos complement)
+    :param c: GNConfig object
+    """
+    code_format = c_uint(code_format)
+    _gn_config_set_code_format(code_format, byref(c._struct))
