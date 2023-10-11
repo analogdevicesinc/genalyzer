@@ -18,6 +18,9 @@ test_quantize_complex_tone_files = [
 test_fft_tone_files = [
     f for f in glob.glob(os.path.join(loc, test_dir, "test_fft_tone_*.json"))
 ]
+test_gen_wave_data = [
+    f for f in glob.glob(os.path.join(loc, test_dir, "test_gen_wave_data_*.json"))
+]
 
 @pytest.mark.parametrize("filename", test_gen_real_tone_files)
 def test_gen_real_tone(filename):
@@ -97,7 +100,7 @@ def test_get_fa_results(filename):
     with open(filename) as f:
         data = json.load(f)
         if data['num_tones'] == 1:
-            freq_list = [data['freq']]            
+            freq_list = [data['freq']]
         else:
             freq_list = data['freq']
 
@@ -119,7 +122,7 @@ def test_get_fa_single_result(filename):
     with open(filename) as f:
         data = json.load(f)
         if data['num_tones'] == 1:
-            freq_list = [data['freq']]            
+            freq_list = [data['freq']]
         else:
             freq_list = data['freq']
 
@@ -158,3 +161,20 @@ def test_get_wfa_results(filename):
         wfa_results = genalyzer.get_wfa_results(qwf, c)
         genalyzer.config_free(c)
         assert bool(wfa_results), "the dict is non empty"
+
+@pytest.mark.parametrize("filename", test_gen_wave_data)
+def test_gen_wf_data(filename):
+    with open(filename) as f:
+        data = json.load(f)
+        wavegen = genalyzer.WaveformGen(data['npts'], data['freq'], data['code_fmt'], data['res'], data['v_ref_n'],
+                                        data['v_ref_p'], data['v_min'], data['v_max'])
+        wf_sine = wavegen.gen_sine_wave()
+        wf_cosine = wavegen.gen_cosine_wave()
+        wf_tri = wavegen.gen_triangular_wave()
+        wf_square = wavegen.gen_square_wave()
+        wf_pwm = wavegen.gen_pwm_wave(data['duty_cyc'])
+        assert len(wf_sine) != 0, "the list is empty"
+        assert len(wf_cosine) != 0, "the list is empty"
+        assert len(wf_tri) != 0, "the list is empty"
+        assert len(wf_square) != 0, "the list is empty"
+        assert len(wf_pwm) != 0, "the list is empty"
