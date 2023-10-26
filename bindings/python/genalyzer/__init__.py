@@ -1,3 +1,10 @@
+"""Python bindings for Genalyzer"""
+
+# Version of the genalyzer bindings (which may be different than the library version)
+__version__ = "0.0.1"
+__author__ = "Analog Devices, Inc."
+
+
 from .simplified import (
     config_free,
     config_gen_ramp,
