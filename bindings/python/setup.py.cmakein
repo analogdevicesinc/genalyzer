@@ -85,6 +85,7 @@ config.update(
         py_modules=["genalyzer","genalyzer_advanced"],
         packages=find_packages(exclude=["test*"]),
         python_requires=">=3.6",
+        install_requires=['scipy>=1.11.2', 'numpy>=1.22.4'],
         cmdclass={"install": InstallWrapper},
         classifiers=[
             "Programming Language :: Python :: 3",
