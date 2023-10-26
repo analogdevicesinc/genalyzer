@@ -1,4 +1,4 @@
-'''
+"""
 * cgenalyzer - genalyzer API header file
 *
 * Copyright (C) 2022 Analog Devices, Inc.
@@ -17,11 +17,12 @@
 * You should have received a copy of the GNU General Public License
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-'''
+"""
 
 from dataclasses import dataclass, field
-import numpy as np
-from scipy import signal
+
+# import numpy as np
+# from scipy import signal
 from typing import List
 from ctypes import (
     c_char,
@@ -44,7 +45,8 @@ from ctypes import (
 from platform import system as _system
 from ctypes.util import find_library
 import os
-import genalyzer_advanced as advanced
+
+# import genalyzer_advanced as advanced
 
 if "Windows" in _system():
     _libgen = "libgenalyzer.dll"
@@ -67,6 +69,7 @@ class GNConfig(object):
 
     def __init__(self):
         self._struct = _GNConfigPtr()
+
 
 _gn_config_free = _libgen.gn_config_free
 _gn_config_free.restype = c_int
@@ -454,20 +457,14 @@ _gn_get_fa_results.argtypes = [
     POINTER(_GNConfigPtr),
 ]
 
+
 def config_free(
     c: GNConfig,
 ) -> int:
-    _gn_config_free(
-        byref(c._struct)
-    )
+    _gn_config_free(byref(c._struct))
 
 
-def config_gen_ramp(
-    npts: int,
-    ramp_start: int,
-    ramp_stop: int,
-    *args
-) -> GNConfig:
+def config_gen_ramp(npts: int, ramp_start: int, ramp_stop: int, *args) -> GNConfig:
     """Configure GNConfig struct to generate tone.
     :param npts: number of sample points in the waveform
     :param ramp_start: Input start value of ramp
@@ -482,13 +479,9 @@ def config_gen_ramp(
     ramp_start = c_ulong(ramp_start)
     ramp_stop = c_ulong(ramp_stop)
 
-    _gn_config_gen_ramp(
-        npts,
-        ramp_start,
-        ramp_stop,
-        byref(c._struct)
-    )
+    _gn_config_gen_ramp(npts, ramp_start, ramp_stop, byref(c._struct))
     return c
+
 
 def config_gen_tone(
     ttype: int,
@@ -521,7 +514,7 @@ def config_gen_tone(
     double_array = c_double * num_tones.value
     tone_freq = (double_array)(*tone_freq)
     tone_ampl = (double_array)(*tone_ampl)
-    tone_phase = (double_array)(*tone_phase)    
+    tone_phase = (double_array)(*tone_phase)
 
     _gn_config_gen_tone(
         ttype,
@@ -531,25 +524,19 @@ def config_gen_tone(
         tone_freq,
         tone_ampl,
         tone_phase,
-        byref(c._struct)
+        byref(c._struct),
     )
     return c
 
 
-def config_quantize(
-    npts: int,
-    fsr: float,
-    qres: int,
-    qnoise: float,
-    *args
-) -> GNConfig:
+def config_quantize(npts: int, fsr: float, qres: int, qnoise: float, *args) -> GNConfig:
     """Configure GNConfig struct to perform quantization.
     :param npts: number of sample points in the waveform
     :param fsr: full-scale range
     :param qres: quantization resolution
     :param qnoise: quantization noise
     :return: GNConfig object
-    """    
+    """
     if len(args) == 0:
         c = GNConfig()
     elif len(args) == 1:
@@ -560,27 +547,18 @@ def config_quantize(
     qres = c_int(qres)
     qnoise = c_double(qnoise)
 
-    _gn_config_quantize(
-        npts,
-        fsr,
-        qres,
-        qnoise,
-        byref(c._struct)
-    )
+    _gn_config_quantize(npts, fsr, qres, qnoise, byref(c._struct))
     return c
 
-def config_histz_nla(
-    npts: int,
-    qres: int,
-    *args
-) -> GNConfig:
+
+def config_histz_nla(npts: int, qres: int, *args) -> GNConfig:
     """Configure GNConfig struct to compute histogram or perform non-linearity analysis.
     :param npts: number of sample points in the waveform
     :param fsr: full-scale range
     :param qres: quantization resolution
     :param qnoise: quantization noise
     :return: GNConfig object
-    """    
+    """
     if len(args) == 0:
         c = GNConfig()
     elif len(args) == 1:
@@ -588,21 +566,13 @@ def config_histz_nla(
 
     npts = c_ulong(npts)
     qres = c_int(qres)
-    
-    _gn_config_histz_nla(
-        npts,
-        qres,
-        byref(c._struct)
-    )
+
+    _gn_config_histz_nla(npts, qres, byref(c._struct))
     return c
 
+
 def config_fftz(
-    npts: int,
-    qres: int,
-    navg: int,
-    nfft:int,
-    win:int,
-    *args
+    npts: int, qres: int, navg: int, nfft: int, win: int, *args
 ) -> GNConfig:
     """Configure GNConfig struct to compute FFT.
     :param npts: number of sample points in the waveform
@@ -610,48 +580,37 @@ def config_fftz(
     :param qres: quantization resolution
     :param qnoise: quantization noise
     :return: GNConfig object
-    """    
+    """
     if len(args) == 0:
         c = GNConfig()
     elif len(args) == 1:
         c = args[0]
-    
+
     npts = c_ulong(npts)
     qres = c_int(qres)
     navg = c_ulong(navg)
     nfft = c_ulong(nfft)
     win = c_uint(win)
 
-    _gn_config_fftz(
-        npts,
-        qres,
-        navg,
-        nfft,
-        win,
-        byref(c._struct)
-    )
+    _gn_config_fftz(npts, qres, navg, nfft, win, byref(c._struct))
     return c
 
-def config_fa(
-    fixed_tone_freq: float,
-    *args
-) -> GNConfig:
+
+def config_fa(fixed_tone_freq: float, *args) -> GNConfig:
     """Configure GNConfig struct for Fourier analysis.
     :param fixed_tone_freq: fixed tone frequency
     :return: GNConfig object
-    """    
+    """
     if len(args) == 0:
         c = GNConfig()
     elif len(args) == 1:
         c = args[0]
-    
+
     fixed_tone_freq = c_double(fixed_tone_freq)
-    
-    _gn_config_fa(
-        fixed_tone_freq, 
-        byref(c._struct)
-    )
+
+    _gn_config_fa(fixed_tone_freq, byref(c._struct))
     return c
+
 
 def gn_config_fa_auto(ssb_width: int, c: GNConfig):
     """Configure GNConfig struct for Fourier analysis where tones are
@@ -661,16 +620,12 @@ def gn_config_fa_auto(ssb_width: int, c: GNConfig):
     """
     ssb_width = c_uint8(ssb_width)
 
-    ret = _gn_config_fa_auto(
-        ssb_width,
-        byref(c._struct)
-    )
+    ret = _gn_config_fa_auto(ssb_width, byref(c._struct))
     if ret != 0:
         raise Exception("gn_config_fa_auto failed")
 
-def gen_ramp(
-    c: GNConfig
-) -> List[float]:
+
+def gen_ramp(c: GNConfig) -> List[float]:
     """Generate floating-point ramp waveform
     :param c: GNConfig object
     :return: real ramp waveform as list of floats
@@ -682,9 +637,7 @@ def gen_ramp(
     return list(awf[0 : wf_len.value])
 
 
-def gen_real_tone(
-    c: GNConfig
-) -> List[float]:
+def gen_real_tone(c: GNConfig) -> List[float]:
     """Generate single-tone or multi-tone floating-point waveform
     :param c: GNConfig object
     :return: single-/multi-tone real waveform as list of floats
@@ -695,9 +648,8 @@ def gen_real_tone(
     _gn_gen_real_tone(byref(awf), byref(c._struct))
     return list(awf[0 : wf_len.value])
 
-def gen_complex_tone(
-    c: GNConfig
-) -> List[float]:
+
+def gen_complex_tone(c: GNConfig) -> List[float]:
     """Generate single-tone or multi-tone complex waveform
     :param c: GNConfig object
     :return: single-/multi-tone complex waveform as (I and Q) lists of floats
@@ -709,10 +661,8 @@ def gen_complex_tone(
     _gn_gen_complex_tone(byref(awf_i), byref(awf_q), byref(c._struct))
     return (list(awf_i[0 : wf_len.value]), list(awf_q[0 : wf_len.value]))
 
-def quantize(
-    in_awf: list,
-    c: GNConfig
-) -> List[int]:
+
+def quantize(in_awf: list, c: GNConfig) -> List[int]:
     """Quantize real waveform
     :param c: GNConfig object
     :return: Quantized floating-point waveform as list of ints
@@ -725,11 +675,8 @@ def quantize(
     _gn_quantize(byref(qwf), in_awf_ptr, byref(c._struct))
     return list(qwf[0 : wf_len.value])
 
-def fftz(
-    in_qwfi: int,
-    in_qwfq: int,
-    c: GNConfig
-) -> List[float]:
+
+def fftz(in_qwfi: int, in_qwfq: int, c: GNConfig) -> List[float]:
     """Compute FFT
     :param in_qwfi: Input quantized waveform (I)
     :param in_qwfq: Input quantized waveform (Q)
@@ -745,15 +692,13 @@ def fftz(
     _gn_fftz(byref(fft_out), in_qwfi, in_qwfq, byref(c._struct))
     fft_len = c_ulong(0)
     _gn_config_get_nfft(byref(fft_len), byref(c._struct))
-    out = list(fft_out[0 : 2*fft_len.value])
+    out = list(fft_out[0 : 2 * fft_len.value])
     fft_out_i = [out[i] for i in range(len(out)) if i % 2 == 0]
     fft_out_q = [out[i] for i in range(len(out)) if i % 2 != 0]
     return fft_out_i, fft_out_q
 
-def histz(
-    in_qwf: int,
-    c: GNConfig
-) -> List[int]:
+
+def histz(in_qwf: int, c: GNConfig) -> List[int]:
     """Compute histogram
     :param in_qwf: Input quantized waveform
     :param c: GNConfig object
@@ -765,13 +710,11 @@ def histz(
     int32_array = c_int32 * wf_len.value
     in_qwf = (int32_array)(*in_qwf)
     hist_len = c_ulong(0)
-    _gn_histz(byref(hist_out), byref(hist_len), in_qwf, byref(c._struct))    
+    _gn_histz(byref(hist_out), byref(hist_len), in_qwf, byref(c._struct))
     return list(hist_out[0 : hist_len.value])
 
-def get_ha_results(
-    hist_in: int,
-    c: GNConfig
-) -> dict:
+
+def get_ha_results(hist_in: int, c: GNConfig) -> dict:
     """Get Fourier analysis results.
     :param hist_in: Input histogram data
     :param: GNConfig object
@@ -784,16 +727,16 @@ def get_ha_results(
     rkeys = POINTER(c_char_p)()
     rvalues = POINTER(c_double)()
     results_size = c_ulong(0)
-    _gn_get_ha_results(byref(rkeys), byref(rvalues), byref(results_size), hist_in, byref(c._struct))
+    _gn_get_ha_results(
+        byref(rkeys), byref(rvalues), byref(results_size), hist_in, byref(c._struct)
+    )
     ha_results = dict()
     for i in range(results_size.value):
-        ha_results[(rkeys[i]).decode('ascii')] = rvalues[i]
+        ha_results[(rkeys[i]).decode("ascii")] = rvalues[i]
     return ha_results
 
-def get_wfa_results(
-    in_qwf: int,
-    c: GNConfig
-) -> dict:
+
+def get_wfa_results(in_qwf: int, c: GNConfig) -> dict:
     """Get Fourier analysis results.
     :param hist_in: Input histogram data
     :param: GNConfig object
@@ -806,17 +749,16 @@ def get_wfa_results(
     rkeys = POINTER(c_char_p)()
     rvalues = POINTER(c_double)()
     results_size = c_ulong(0)
-    _gn_get_wfa_results(byref(rkeys), byref(rvalues), byref(results_size), in_qwf, byref(c._struct))
+    _gn_get_wfa_results(
+        byref(rkeys), byref(rvalues), byref(results_size), in_qwf, byref(c._struct)
+    )
     wfa_results = dict()
     for i in range(results_size.value):
-        wfa_results[(rkeys[i]).decode('ascii')] = rvalues[i]
+        wfa_results[(rkeys[i]).decode("ascii")] = rvalues[i]
     return wfa_results
 
-def get_fa_single_result(
-    metric_name: str,
-    fft_ilv: float,
-    c: GNConfig
-) -> float:
+
+def get_fa_single_result(metric_name: str, fft_ilv: float, c: GNConfig) -> float:
     """Get Fourier analysis results.
     :param fixed_tone_freq: fixed tone frequency
     :param: GNConfig object
@@ -832,10 +774,8 @@ def get_fa_single_result(
     _gn_get_fa_single_result(byref(result), metric_name_enc, fft_ilv, byref(c._struct))
     return result.value
 
-def get_fa_results(
-    fft_ilv: float,
-    c: GNConfig
-) -> dict:
+
+def get_fa_results(fft_ilv: float, c: GNConfig) -> dict:
     """Get Fourier analysis results.
     :param fixed_tone_freq: fixed tone frequency
     :param: GNConfig object
@@ -849,26 +789,24 @@ def get_fa_results(
     rkeys = POINTER(c_char_p)()
     rvalues = POINTER(c_double)()
     results_size = c_ulong(0)
-    _gn_get_fa_results(byref(rkeys), byref(rvalues), byref(results_size), fft_ilv, byref(c._struct))
+    _gn_get_fa_results(
+        byref(rkeys), byref(rvalues), byref(results_size), fft_ilv, byref(c._struct)
+    )
     fa_results = dict()
     for i in range(results_size.value):
-        fa_results[(rkeys[i]).decode('ascii')] = rvalues[i]
+        fa_results[(rkeys[i]).decode("ascii")] = rvalues[i]
     return fa_results
 
-def config_set_sample_rate(
-    sample_rate: float,
-    c: GNConfig
-) -> None:
+
+def config_set_sample_rate(sample_rate: float, c: GNConfig) -> None:
     """Set sample rate.
     :param sample_rate: Sample rate in Hz
     :param c: GNConfig object
     """
     _gn_config_set_sample_rate(sample_rate, byref(c._struct))
 
-def config_code_format(
-    code_format: int,
-    c: GNConfig
-) -> None:
+
+def config_code_format(code_format: int, c: GNConfig) -> None:
     """Configure code format.
     :param code_format: code format (Offset binary, Twos complement)
     :param c: GNConfig object
@@ -883,8 +821,17 @@ class WaveformGen:
     _tone_phase = [0, 0, 0]  # tone phase
     _noise = 0.0
 
-    def __init__(self, npts: int, freq: int, code_fmt: int, res: int, v_ref_n: float, v_ref_p: float, v_min: float,
-                 v_max: float):
+    def __init__(
+        self,
+        npts: int,
+        freq: int,
+        code_fmt: int,
+        res: int,
+        v_ref_n: float,
+        v_ref_p: float,
+        v_min: float,
+        v_max: float,
+    ):
         """Constructor for WaveformGen class.
 
         :param npts: number of points required per waveform cycle
@@ -921,7 +868,9 @@ class WaveformGen:
     def v_min(self, value):
         """v_min: Set Lower required voltage limit"""
         if value < self._v_ref_n:
-            raise Exception("required lower voltage cannot be less than lower voltage reference")
+            raise Exception(
+                "required lower voltage cannot be less than lower voltage reference"
+            )
         self._v_min = value
 
     @property
@@ -933,7 +882,9 @@ class WaveformGen:
     def v_max(self, value):
         """v_max: Set Upper required voltage limit"""
         if value > self._v_ref_p:
-            raise Exception("required upper voltage cannot be greater than upper voltage reference")
+            raise Exception(
+                "required upper voltage cannot be greater than upper voltage reference"
+            )
         self._v_max = value
 
     def __prepare_waveform_gen(self):
@@ -943,7 +894,9 @@ class WaveformGen:
         self.__vp_p = self.v_max - self.v_min
         self.__mp_fsr = (self._v_ref_p + self._v_ref_n) / 2
         self.__mp_vreq = (self.v_max + self.v_min) / 2
-        self.__offset = int(((self.__mp_vreq - self.__mp_fsr) / self.__v_fsr) * self.__maxcode)
+        self.__offset = int(
+            ((self.__mp_vreq - self.__mp_fsr) / self.__v_fsr) * self.__maxcode
+        )
         self.__v_bias = ((abs(self._v_ref_n) + self.__mp_vreq) * 2) / self.__v_fsr
         self.__amplitude = (2 ** (self.res - 1)) - 1
 
@@ -959,7 +912,15 @@ class WaveformGen:
         self.__prepare_waveform_gen()
 
         # Generate real tone
-        c = config_gen_tone(tone_type, self.npts, self.freq, 3, self.__tone_freq, self.__tone_ampl, self._tone_phase)
+        c = config_gen_tone(
+            tone_type,
+            self.npts,
+            self.freq,
+            3,
+            self.__tone_freq,
+            self.__tone_ampl,
+            self._tone_phase,
+        )
         wf = gen_real_tone(c)
 
         # Configure the waveform quantization
@@ -978,7 +939,7 @@ class WaveformGen:
         return self._data
 
     def __gen_other_waveforms(self):
-        self._data *= (self.__vp_p / self.__v_fsr)
+        self._data *= self.__vp_p / self.__v_fsr
         self._data += self.__v_bias
         self._data *= self.__amplitude
         self._data = np.uint32(self._data)
