@@ -4,3 +4,4 @@ cmake-format
 pytest
 pytest-cov
 numpy
+setuptools
