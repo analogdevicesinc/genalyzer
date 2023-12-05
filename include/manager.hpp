@@ -33,7 +33,7 @@ namespace genalyzer_impl::manager {
  */
 namespace genalyzer_impl::manager {
 
-    static const str_t key_pattern = "[[:alpha:]][[:alnum:]-._]*";
+    static const str_t key_pattern = "[[:alpha:]][[:alnum:]._]*";
 
     void add_object(const str_t& key, object::pointer obj, bool replace);
 
