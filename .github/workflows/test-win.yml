@@ -27,7 +27,6 @@ jobs:
           cd ..\..
           ls deps
           ls deps\fftw3
-          python -m pip install setuptools
           pwd
           echo $GITHUB_WORKSPACE
           echo $GITHUB_ACTION_PATH
