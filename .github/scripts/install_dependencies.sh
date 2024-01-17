@@ -4,9 +4,3 @@ apt-get install -y sudo
 sudo apt-get update
 echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
 sudo apt-get install -q -y cmake tar bzip2 gzip build-essential libfftw3-dev python3-pip doxygen graphviz
-
-if [ -z "$1" ]; then
-    SU="sudo"
-fi
-$SU pip3 install -r requirements_test.txt
-$SU pip3 install -r requirements_doc.txt

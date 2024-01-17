@@ -110,7 +110,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake .. -DPYTHON_BINDINGS=ON -DBUILD_TESTS_EXAMPLES=ON -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
+          cmake .. -DBUILD_TESTS_EXAMPLES=ON -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
           make -j4
           make coverage
 
@@ -157,11 +157,10 @@ jobs:
         run: |
           bash ./.github/scripts/install_dependencies.sh
           bash ./.github/scripts/install_genalyzer.sh
+          pip install -r requirements_test.txt
 
       - name: Test
         run: |
-          cd build/bindings/python
-          sudo pip3 install .
-          cd ../../..
           cd bindings/python
-          pytest -vs tests
+          pip install ".[tools]"
+          python -m pytest -vs tests
