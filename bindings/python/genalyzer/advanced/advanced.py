@@ -1,4 +1,4 @@
-'''
+"""
 * cgenalyzer_advanced - genalyzer (advanced) API header file
 *
 * Copyright (C) 2022 Analog Devices, Inc.
@@ -17,8 +17,8 @@
 * You should have received a copy of the GNU General Public License
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-'''
- 
+"""
+
 """
 Python wrapper for Data Converter Analysis Library (genalyzer_plus_plus)
 """
@@ -62,12 +62,12 @@ elif "win32" == _sys.platform:
     if not _libpath:
         _libpath = _find_library("libgenalyzer.dll")
     try:
-        _lib = _ctypes.cdll.LoadLibrary(_libpath)           # seems to work for Python3.9
+        _lib = _ctypes.cdll.LoadLibrary(_libpath)  # seems to work for Python3.9
     except OSError:
         if "add_dll_directory" in dir(_os):
-            _os.add_dll_directory(_module_dir)              # for Python3.8 (?)
+            _os.add_dll_directory(_module_dir)  # for Python3.8 (?)
         else:
-            _os.environ["PATH"] += (';' + _module_dir)      # for Python3.7 and earlier
+            _os.environ["PATH"] += ";" + _module_dir  # for Python3.7 and earlier
         _lib = _ctypes.cdll.LoadLibrary(_libpath)
 else:
     raise Exception("Platform '{}' is not supported.".format(_sys.platform))
@@ -88,7 +88,9 @@ def _check_ndarray(a, dtype):
         raise TypeError("Expected numpy.ndarray, got {}".format(type(a).__name__))
     if type(dtype) in [list, tuple]:
         if a.dtype not in dtype:
-            raise TypeError("Expected dtype in [{}], got {}".format(', '.join(dtype), a.dtype))
+            raise TypeError(
+                "Expected dtype in [{}], got {}".format(", ".join(dtype), a.dtype)
+            )
     elif dtype != a.dtype:
         raise TypeError("Expected dtype '{}', got {}".format(dtype, a.dtype))
     return a.dtype
@@ -101,7 +103,9 @@ def _raise_exception_on_failure(result=1):
         buf = _ctypes.create_string_buffer(size.value)
         result = _lib.gn_error_string(buf, len(buf))
         if result:
-            msg2 = "An error was reported, but the error message could not be retrieved."
+            msg2 = (
+                "An error was reported, but the error message could not be retrieved."
+            )
         else:
             msg2 = buf.value.decode("utf-8")
             if not msg2:
@@ -129,7 +133,9 @@ def _get_analysis_containers(analysis_type):
     keys = (_c_char_p * size)()
     values = (_c_double * size)()
     for i in range(size):
-        keys[i] = _ctypes.cast(_ctypes.create_string_buffer(int(key_sizes[i])), _c_char_p)
+        keys[i] = _ctypes.cast(
+            _ctypes.create_string_buffer(int(key_sizes[i])), _c_char_p
+        )
     return keys, values
 
 
@@ -141,7 +147,9 @@ def _get_key_value_arrays(d):
     ckeys = (_c_char_p * size)()
     cvalues = (_c_double * size)()
     for i in range(size):
-        ckeys[i] = _ctypes.cast(_ctypes.create_string_buffer(bytes(keys[i], "utf-8")), _c_char_p)
+        ckeys[i] = _ctypes.cast(
+            _ctypes.create_string_buffer(bytes(keys[i], "utf-8")), _c_char_p
+        )
         cvalues[i] = values[i]
     return ckeys, cvalues
 
@@ -247,12 +255,12 @@ def _version_string():
 Array Operations
 """
 
-_lib.gn_abs.argtypes   = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
+_lib.gn_abs.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
 _lib.gn_angle.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
-_lib.gn_db.argtypes    = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
-_lib.gn_db10.argtypes  = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
-_lib.gn_db20.argtypes  = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
-_lib.gn_norm.argtypes  = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
+_lib.gn_db.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
+_lib.gn_db10.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
+_lib.gn_db20.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
+_lib.gn_norm.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
 
 
 def abs(a):
@@ -268,9 +276,9 @@ def abs(a):
     out :
 
     """
-    _check_ndarray(a, 'complex128')
-    out = _np.empty(a.size, dtype='float64')
-    af64 = a.view('float64')
+    _check_ndarray(a, "complex128")
+    out = _np.empty(a.size, dtype="float64")
+    af64 = a.view("float64")
     result = _lib.gn_abs(out, out.size, af64, af64.size)
     _raise_exception_on_failure(result)
     return out
@@ -289,9 +297,9 @@ def angle(a):
     out :
 
     """
-    _check_ndarray(a, 'complex128')
-    out = _np.empty(a.size, dtype='float64')
-    af64 = a.view('float64')
+    _check_ndarray(a, "complex128")
+    out = _np.empty(a.size, dtype="float64")
+    af64 = a.view("float64")
     result = _lib.gn_angle(out, out.size, af64, af64.size)
     _raise_exception_on_failure(result)
     return out
@@ -310,9 +318,9 @@ def db(a):
     out :
 
     """
-    _check_ndarray(a, 'complex128')
-    out = _np.empty(a.size, dtype='float64')
-    af64 = a.view('float64')
+    _check_ndarray(a, "complex128")
+    out = _np.empty(a.size, dtype="float64")
+    af64 = a.view("float64")
     result = _lib.gn_db(out, out.size, af64, af64.size)
     _raise_exception_on_failure(result)
     return out
@@ -331,8 +339,8 @@ def db10(a):
     out :
 
     """
-    _check_ndarray(a, 'float64')
-    out = _np.empty(a.size, dtype='float64')
+    _check_ndarray(a, "float64")
+    out = _np.empty(a.size, dtype="float64")
     result = _lib.gn_db10(out, out.size, a, a.size)
     _raise_exception_on_failure(result)
     return out
@@ -351,8 +359,8 @@ def db20(a):
     out :
 
     """
-    _check_ndarray(a, 'float64')
-    out = _np.empty(a.size, dtype='float64')
+    _check_ndarray(a, "float64")
+    out = _np.empty(a.size, dtype="float64")
     result = _lib.gn_db20(out, out.size, a, a.size)
     _raise_exception_on_failure(result)
     return out
@@ -371,9 +379,9 @@ def norm(a):
     out :
 
     """
-    _check_ndarray(a, 'complex128')
-    out = _np.empty(a.size, dtype='float64')
-    af64 = a.view('float64')
+    _check_ndarray(a, "complex128")
+    out = _np.empty(a.size, dtype="float64")
+    af64 = a.view("float64")
     result = _lib.gn_norm(out, out.size, af64, af64.size)
     _raise_exception_on_failure(result)
     return out
@@ -388,16 +396,85 @@ _lib.gn_code_axisx.argtypes = [_ndptr_f64_1d, _c_size_t, _c_int64, _c_int64]
 _lib.gn_code_density_size.argtypes = [_c_size_t_p, _c_int, _c_int]
 _lib.gn_code_densityx_size.argtypes = [_c_size_t_p, _c_int64, _c_int64]
 _lib.gn_dnl.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_u64_1d, _c_size_t, _c_int]
-_lib.gn_dnl_analysis.argtypes = [_c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _ndptr_f64_1d, _c_size_t]
-_lib.gn_hist16.argtypes = [_ndptr_u64_1d, _c_size_t, _ndptr_i16_1d, _c_size_t, _c_int, _c_int, _c_bool]
-_lib.gn_hist32.argtypes = [_ndptr_u64_1d, _c_size_t, _ndptr_i32_1d, _c_size_t, _c_int, _c_int, _c_bool]
-_lib.gn_hist64.argtypes = [_ndptr_u64_1d, _c_size_t, _ndptr_i64_1d, _c_size_t, _c_int, _c_int, _c_bool]
-_lib.gn_histx16.argtypes = [_ndptr_u64_1d, _c_size_t, _ndptr_i16_1d, _c_size_t, _c_int64, _c_int64, _c_bool]
-_lib.gn_histx32.argtypes = [_ndptr_u64_1d, _c_size_t, _ndptr_i32_1d, _c_size_t, _c_int64, _c_int64, _c_bool]
-_lib.gn_histx64.argtypes = [_ndptr_u64_1d, _c_size_t, _ndptr_i64_1d, _c_size_t, _c_int64, _c_int64, _c_bool]
-_lib.gn_hist_analysis.argtypes = [_c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _ndptr_u64_1d, _c_size_t]
+_lib.gn_dnl_analysis.argtypes = [
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+]
+_lib.gn_hist16.argtypes = [
+    _ndptr_u64_1d,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+    _c_int,
+    _c_int,
+    _c_bool,
+]
+_lib.gn_hist32.argtypes = [
+    _ndptr_u64_1d,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+    _c_int,
+    _c_int,
+    _c_bool,
+]
+_lib.gn_hist64.argtypes = [
+    _ndptr_u64_1d,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+    _c_int,
+    _c_int,
+    _c_bool,
+]
+_lib.gn_histx16.argtypes = [
+    _ndptr_u64_1d,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+    _c_int64,
+    _c_int64,
+    _c_bool,
+]
+_lib.gn_histx32.argtypes = [
+    _ndptr_u64_1d,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+    _c_int64,
+    _c_int64,
+    _c_bool,
+]
+_lib.gn_histx64.argtypes = [
+    _ndptr_u64_1d,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+    _c_int64,
+    _c_int64,
+    _c_bool,
+]
+_lib.gn_hist_analysis.argtypes = [
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _ndptr_u64_1d,
+    _c_size_t,
+]
 _lib.gn_inl.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _c_int]
-_lib.gn_inl_analysis.argtypes = [_c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _ndptr_f64_1d, _c_size_t]
+_lib.gn_inl_analysis.argtypes = [
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+]
 
 
 def code_axis(n, fmt=CodeFormat.TWOS_COMPLEMENT):
@@ -417,7 +494,7 @@ def code_axis(n, fmt=CodeFormat.TWOS_COMPLEMENT):
     size = _c_size_t(0)
     result = _lib.gn_code_density_size(_ctypes.byref(size), n, fmt)
     _raise_exception_on_failure(result)
-    out = _np.empty(size.value, dtype='float64')
+    out = _np.empty(size.value, dtype="float64")
     result = _lib.gn_code_axis(out, out.size, n, fmt)
     _raise_exception_on_failure(result)
     return out
@@ -440,7 +517,7 @@ def code_axisx(min_code, max_code):
     size = _c_size_t(0)
     result = _lib.gn_code_densityx_size(_ctypes.byref(size), min_code, max_code)
     _raise_exception_on_failure(result)
-    out = _np.empty(size.value, dtype='float64')
+    out = _np.empty(size.value, dtype="float64")
     result = _lib.gn_code_axisx(out, out.size, min_code, max_code)
     _raise_exception_on_failure(result)
     return out
@@ -461,8 +538,8 @@ def dnl(a, signal_type=DnlSignal.TONE):
     out : ndarray of type 'float64'
           DNL data
     """
-    _check_ndarray(a, 'uint64')
-    out = _np.empty(a.size, dtype='float64')
+    _check_ndarray(a, "uint64")
+    out = _np.empty(a.size, dtype="float64")
     result = _lib.gn_dnl(out, out.size, a, a.size, signal_type)
     _raise_exception_on_failure(result)
     return out
@@ -495,7 +572,7 @@ def dnl_analysis(a):
         ====================================================================================
 
     """
-    _check_ndarray(a, 'float64')
+    _check_ndarray(a, "float64")
     keys, values = _get_analysis_containers(_AnalysisType.DNL)
     result = _lib.gn_dnl_analysis(keys, len(keys), values, len(values), a, a.size)
     _raise_exception_on_failure(result)
@@ -518,14 +595,14 @@ def hist(a, n, fmt=CodeFormat.TWOS_COMPLEMENT):
     out :
 
     """
-    dtype = _check_ndarray(a, ['int16', 'int32', 'int64'])
+    dtype = _check_ndarray(a, ["int16", "int32", "int64"])
     size = _c_size_t(0)
     result = _lib.gn_code_density_size(_ctypes.byref(size), n, fmt)
     _raise_exception_on_failure(result)
-    out = _np.zeros(size.value, dtype='uint64')
-    if 'int16' == dtype:
+    out = _np.zeros(size.value, dtype="uint64")
+    if "int16" == dtype:
         result = _lib.gn_hist16(out, out.size, a, a.size, n, fmt, False)
-    elif 'int32' == dtype:
+    elif "int32" == dtype:
         result = _lib.gn_hist32(out, out.size, a, a.size, n, fmt, False)
     else:
         result = _lib.gn_hist64(out, out.size, a, a.size, n, fmt, False)
@@ -548,14 +625,14 @@ def histx(a, min_code, max_code):
     out :
 
     """
-    dtype = _check_ndarray(a, ['int16', 'int32', 'int64'])
+    dtype = _check_ndarray(a, ["int16", "int32", "int64"])
     size = _c_size_t(0)
     result = _lib.gn_code_densityx_size(_ctypes.byref(size), min_code, max_code)
     _raise_exception_on_failure(result)
-    out = _np.zeros(size.value, dtype='uint64')
-    if 'int16' == dtype:
+    out = _np.zeros(size.value, dtype="uint64")
+    if "int16" == dtype:
         result = _lib.gn_histx16(out, out.size, a, a.size, min, max, False)
-    elif 'int32' == dtype:
+    elif "int32" == dtype:
         result = _lib.gn_histx32(out, out.size, a, a.size, min, max, False)
     else:
         result = _lib.gn_histx64(out, out.size, a, a.size, min, max, False)
@@ -585,7 +662,7 @@ def hist_analysis(a):
         ================================================================================
 
     """
-    _check_ndarray(a, 'uint64')
+    _check_ndarray(a, "uint64")
     keys, values = _get_analysis_containers(_AnalysisType.HISTOGRAM)
     result = _lib.gn_hist_analysis(keys, len(keys), values, len(values), a, a.size)
     _raise_exception_on_failure(result)
@@ -609,8 +686,8 @@ def inl(a, fit=InlLineFit.BEST_FIT):
     out : ndarray of type 'float64'
           INL data
     """
-    _check_ndarray(a, 'float64')
-    out = _np.empty(a.size, dtype='float64')
+    _check_ndarray(a, "float64")
+    out = _np.empty(a.size, dtype="float64")
     result = _lib.gn_inl(out, out.size, a, a.size, fit)
     _raise_exception_on_failure(result)
     return out
@@ -638,7 +715,7 @@ def inl_analysis(a):
         ===========================================================
 
     """
-    _check_ndarray(a, 'float64')
+    _check_ndarray(a, "float64")
     keys, values = _get_analysis_containers(_AnalysisType.INL)
     result = _lib.gn_inl_analysis(keys, len(keys), values, len(values), a, a.size)
     _raise_exception_on_failure(result)
@@ -650,9 +727,30 @@ def inl_analysis(a):
 Fourier Analysis
 """
 
-_lib.gn_fft_analysis.argtypes = [_c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _c_char_p, _ndptr_f64_1d, _c_size_t, _c_size_t, _c_int]
-_lib.gn_fft_analysis_results_key_sizes.argtypes = [_c_size_t_p, _c_size_t, _c_char_p, _c_size_t, _c_size_t]
-_lib.gn_fft_analysis_results_size.argtypes = [_c_size_t_p, _c_char_p, _c_size_t, _c_size_t]
+_lib.gn_fft_analysis.argtypes = [
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _c_char_p,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+]
+_lib.gn_fft_analysis_results_key_sizes.argtypes = [
+    _c_size_t_p,
+    _c_size_t,
+    _c_char_p,
+    _c_size_t,
+    _c_size_t,
+]
+_lib.gn_fft_analysis_results_size.argtypes = [
+    _c_size_t_p,
+    _c_char_p,
+    _c_size_t,
+    _c_size_t,
+]
 
 
 def fft_analysis(cfg_id, a, nfft, axis_type=FreqAxisType.DC_LEFT):
@@ -711,20 +809,28 @@ def fft_analysis(cfg_id, a, nfft, axis_type=FreqAxisType.DC_LEFT):
 
     """
     cfg_id = bytes(cfg_id, "utf-8")
-    dtype = _check_ndarray(a, ['complex128', 'float64'])
-    af64 = a.view('float64') if 'complex128' == dtype else a
+    dtype = _check_ndarray(a, ["complex128", "float64"])
+    af64 = a.view("float64") if "complex128" == dtype else a
     size = _c_size_t(0)
-    result = _lib.gn_fft_analysis_results_size(_ctypes.byref(size), cfg_id, af64.size, nfft)
+    result = _lib.gn_fft_analysis_results_size(
+        _ctypes.byref(size), cfg_id, af64.size, nfft
+    )
     _raise_exception_on_failure(result)
     size = size.value
     key_sizes = (_c_size_t * size)()
-    result = _lib.gn_fft_analysis_results_key_sizes(key_sizes, size, cfg_id, af64.size, nfft)
+    result = _lib.gn_fft_analysis_results_key_sizes(
+        key_sizes, size, cfg_id, af64.size, nfft
+    )
     _raise_exception_on_failure(result)
     keys = (_c_char_p * size)()
     values = (_c_double * size)()
     for i in range(size):
-        keys[i] = _ctypes.cast(_ctypes.create_string_buffer(int(key_sizes[i])), _c_char_p)
-    result = _lib.gn_fft_analysis(keys, size, values, size, cfg_id, af64, af64.size, nfft, axis_type)
+        keys[i] = _ctypes.cast(
+            _ctypes.create_string_buffer(int(key_sizes[i])), _c_char_p
+        )
+    result = _lib.gn_fft_analysis(
+        keys, size, values, size, cfg_id, af64, af64.size, nfft, axis_type
+    )
     _raise_exception_on_failure(result)
     results = _make_results_dict(keys, values)
     return results
@@ -767,7 +873,7 @@ def fa_analysis_band(obj_key, center, width):
 
 def fa_clk(obj_key, x, as_noise=False):
     obj_key = bytes(obj_key, "utf-8")
-    x = _np.array(x, dtype='int32')
+    x = _np.array(x, dtype="int32")
     result = _lib.gn_fa_clk(obj_key, x, x.size, as_noise)
     _raise_exception_on_failure(result)
 
@@ -845,7 +951,7 @@ def fa_hd(obj_key, n):
 
 def fa_ilv(obj_key, x, as_noise=False):
     obj_key = bytes(obj_key, "utf-8")
-    x = _np.array(x, dtype='int32')
+    x = _np.array(x, dtype="int32")
     result = _lib.gn_fa_ilv(obj_key, x, x.size, as_noise)
     _raise_exception_on_failure(result)
 
@@ -949,8 +1055,23 @@ def fa_wo(obj_key, n):
 Fourier Analysis Results
 """
 
-_lib.gn_fa_result_string.argtypes = [_c_char_p, _c_size_t, _c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _c_char_p]
-_lib.gn_fa_result_string_size.argtypes = [_c_size_t_p, _c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _c_char_p]
+_lib.gn_fa_result_string.argtypes = [
+    _c_char_p,
+    _c_size_t,
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _c_char_p,
+]
+_lib.gn_fa_result_string_size.argtypes = [
+    _c_size_t_p,
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _c_char_p,
+]
 
 
 def _get_annot_boxes(axis_type, datasize, bottom, height, x1, x2, xscalar):
@@ -980,7 +1101,9 @@ def _get_annot_boxes(axis_type, datasize, bottom, height, x1, x2, xscalar):
     return boxes
 
 
-def fa_annotations(result_dict, axis_type=FreqAxisType.DC_LEFT, axis_format=FreqAxisFormat.FREQ):
+def fa_annotations(
+    result_dict, axis_type=FreqAxisType.DC_LEFT, axis_format=FreqAxisFormat.FREQ
+):
     if not isinstance(result_dict, dict):
         raise TypeError("Expected dict, got {}".format(type(result_dict).__name__))
     if _AnalysisType.FOURIER != result_dict["analysistype"]:
@@ -1015,7 +1138,7 @@ def fa_annotations(result_dict, axis_type=FreqAxisType.DC_LEFT, axis_format=Freq
         if x in label_dict:
             if label_dict[x][0] < y:
                 label_dict[x][0] = y
-            label_dict[x][1] += '\n' + tk
+            label_dict[x][1] += "\n" + tk
         else:
             label_dict[x] = [y, tk]
     labels = []
@@ -1038,7 +1161,9 @@ def fa_annotations(result_dict, axis_type=FreqAxisType.DC_LEFT, axis_format=Freq
         height = 600
         x1 = result_dict["ab_i2"] + 1  # "invert" the analysis band
         x2 = result_dict["ab_i1"] - 1  # to draw *excluded* spectrum
-        ab_boxes += _get_annot_boxes(axis_type, datasize, bottom, height, x1, x2, fbin*xscalar)
+        ab_boxes += _get_annot_boxes(
+            axis_type, datasize, bottom, height, x1, x2, fbin * xscalar
+        )
     #
     # Tone Boxes = (xleft, ybottom, width, height)
     #
@@ -1046,11 +1171,18 @@ def fa_annotations(result_dict, axis_type=FreqAxisType.DC_LEFT, axis_format=Freq
     for tk in tone_keys:
         bottom = -300
         height = result_dict[tk + ":mag_dbfs"] - bottom
-        x1     = result_dict[tk + ":i1"]
-        x2     = result_dict[tk + ":i2"]
-        tone_boxes += _get_annot_boxes(axis_type, datasize, bottom, height, x1, x2, fbin*xscalar)
+        x1 = result_dict[tk + ":i1"]
+        x2 = result_dict[tk + ":i2"]
+        tone_boxes += _get_annot_boxes(
+            axis_type, datasize, bottom, height, x1, x2, fbin * xscalar
+        )
 
-    annots = {"labels": labels, "lines": lines, "ab_boxes": ab_boxes, "tone_boxes": tone_boxes}
+    annots = {
+        "labels": labels,
+        "lines": lines,
+        "ab_boxes": ab_boxes,
+        "tone_boxes": tone_boxes,
+    }
     return annots
 
 
@@ -1058,11 +1190,15 @@ def fa_result_string(result_dict, result_key):
     ckeys, cvalues = _get_key_value_arrays(result_dict)
     result_key = bytes(result_key, "utf-8")
     size = _c_size_t(0)
-    result = _lib.gn_fa_result_string_size(_ctypes.byref(size), ckeys, len(ckeys), cvalues, len(cvalues), result_key)
+    result = _lib.gn_fa_result_string_size(
+        _ctypes.byref(size), ckeys, len(ckeys), cvalues, len(cvalues), result_key
+    )
     _raise_exception_on_failure(result)
     size = size.value
     buf = _ctypes.create_string_buffer(size)
-    result = _lib.gn_fa_result_string(buf, size, ckeys, len(ckeys), cvalues, len(cvalues), result_key)
+    result = _lib.gn_fa_result_string(
+        buf, size, ckeys, len(ckeys), cvalues, len(cvalues), result_key
+    )
     _raise_exception_on_failure(result)
     return buf.value.decode("utf-8")
 
@@ -1071,15 +1207,103 @@ def fa_result_string(result_dict, result_key):
 Fourier Transforms
 """
 
-_lib.gn_fft.argtypes   = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _c_size_t, _c_size_t, _c_int]
-_lib.gn_fft16.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_i16_1d, _c_size_t, _ndptr_i16_1d, _c_size_t, _c_int, _c_size_t, _c_size_t, _c_int, _c_int]
-_lib.gn_fft32.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_i32_1d, _c_size_t, _ndptr_i32_1d, _c_size_t, _c_int, _c_size_t, _c_size_t, _c_int, _c_int]
-_lib.gn_fft64.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_i64_1d, _c_size_t, _ndptr_i64_1d, _c_size_t, _c_int, _c_size_t, _c_size_t, _c_int, _c_int]
+_lib.gn_fft.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+]
+_lib.gn_fft16.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+    _c_int,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+    _c_int,
+]
+_lib.gn_fft32.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+    _c_int,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+    _c_int,
+]
+_lib.gn_fft64.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+    _c_int,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+    _c_int,
+]
 _lib.gn_fft_size.argtypes = [_c_size_t_p, _c_size_t, _c_size_t, _c_size_t, _c_size_t]
-_lib.gn_rfft.argtypes   = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _c_size_t, _c_size_t, _c_int, _c_int]
-_lib.gn_rfft16.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_i16_1d, _c_size_t, _c_int, _c_size_t, _c_size_t, _c_int, _c_int, _c_int]
-_lib.gn_rfft32.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_i32_1d, _c_size_t, _c_int, _c_size_t, _c_size_t, _c_int, _c_int, _c_int]
-_lib.gn_rfft64.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_i64_1d, _c_size_t, _c_int, _c_size_t, _c_size_t, _c_int, _c_int, _c_int]
+_lib.gn_rfft.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+    _c_int,
+]
+_lib.gn_rfft16.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+    _c_int,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+    _c_int,
+    _c_int,
+]
+_lib.gn_rfft32.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+    _c_int,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+    _c_int,
+    _c_int,
+]
+_lib.gn_rfft64.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+    _c_int,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+    _c_int,
+    _c_int,
+]
 _lib.gn_rfft_size.argtypes = [_c_size_t_p, _c_size_t, _c_size_t, _c_size_t]
 
 
@@ -1112,15 +1336,15 @@ def fft(a, *args):
     out : complex ndarray
 
     """
-    dtype = _check_ndarray(a, ['complex128', 'float64', 'int16', 'int32', 'int64'])
+    dtype = _check_ndarray(a, ["complex128", "float64", "int16", "int32", "int64"])
     nargs = len(args)
     q_data = _np.empty(0, dtype=dtype)
     q_size = 0
     base_index = 0
-    if dtype in ['complex128', 'float64']:  # normalized samples
-        if 'complex128' == dtype:
-            i_data = a.view('float64')
-            q_data.dtype = 'float64'
+    if dtype in ["complex128", "float64"]:  # normalized samples
+        if "complex128" == dtype:
+            i_data = a.view("float64")
+            q_data.dtype = "float64"
         else:
             i_data = a
             if 0 < nargs and isinstance(args[0], _np.ndarray):  # arg[0] is Q data
@@ -1148,22 +1372,64 @@ def fft(a, *args):
         navg = 1 if nargs <= base_index + 1 else args[base_index + 1]
         nfft = 0 if nargs <= base_index + 2 else args[base_index + 2]
         window = Window.NO_WINDOW if nargs <= base_index + 3 else args[base_index + 3]
-        fmt = CodeFormat.TWOS_COMPLEMENT if nargs <= base_index + 4 else args[base_index + 4]
+        fmt = (
+            CodeFormat.TWOS_COMPLEMENT
+            if nargs <= base_index + 4
+            else args[base_index + 4]
+        )
     out_size = _c_size_t(0)
     navg = max(0, navg)
     nfft = max(0, nfft)
     result = _lib.gn_fft_size(_ctypes.byref(out_size), i_size, q_size, navg, nfft)
     _raise_exception_on_failure(result)
-    out = _np.empty(out_size.value // 2, dtype='complex128')
-    outf64 = out.view('float64')
-    if 'int16' == dtype:
-        result = _lib.gn_fft16(outf64, outf64.size, i_data, i_size, q_data, q_size, n, navg, nfft, window, fmt)
-    elif 'int32' == dtype:
-        result = _lib.gn_fft32(outf64, outf64.size, i_data, i_size, q_data, q_size, n, navg, nfft, window, fmt)
-    elif 'int64' == dtype:
-        result = _lib.gn_fft64(outf64, outf64.size, i_data, i_size, q_data, q_size, n, navg, nfft, window, fmt)
+    out = _np.empty(out_size.value // 2, dtype="complex128")
+    outf64 = out.view("float64")
+    if "int16" == dtype:
+        result = _lib.gn_fft16(
+            outf64,
+            outf64.size,
+            i_data,
+            i_size,
+            q_data,
+            q_size,
+            n,
+            navg,
+            nfft,
+            window,
+            fmt,
+        )
+    elif "int32" == dtype:
+        result = _lib.gn_fft32(
+            outf64,
+            outf64.size,
+            i_data,
+            i_size,
+            q_data,
+            q_size,
+            n,
+            navg,
+            nfft,
+            window,
+            fmt,
+        )
+    elif "int64" == dtype:
+        result = _lib.gn_fft64(
+            outf64,
+            outf64.size,
+            i_data,
+            i_size,
+            q_data,
+            q_size,
+            n,
+            navg,
+            nfft,
+            window,
+            fmt,
+        )
     else:
-        result = _lib.gn_fft(outf64, outf64.size, i_data, i_size, q_data, q_size, navg, nfft, window)
+        result = _lib.gn_fft(
+            outf64, outf64.size, i_data, i_size, q_data, q_size, navg, nfft, window
+        )
     _raise_exception_on_failure(result)
     return out
 
@@ -1200,9 +1466,9 @@ def rfft(a, *args):
     out : complex ndarray
 
     """
-    dtype = _check_ndarray(a, ['float64', 'int16', 'int32', 'int64'])
+    dtype = _check_ndarray(a, ["float64", "int16", "int32", "int64"])
     nargs = len(args)
-    if 'float64' == dtype:
+    if "float64" == dtype:
         # normalized samples
         navg = 1 if nargs == 0 else args[0]
         nfft = 0 if nargs <= 1 else args[1]
@@ -1225,14 +1491,20 @@ def rfft(a, *args):
     nfft = max(0, nfft)
     result = _lib.gn_rfft_size(_ctypes.byref(out_size), a.size, navg, nfft)
     _raise_exception_on_failure(result)
-    out = _np.empty(out_size.value // 2, dtype='complex128')
-    outf64 = out.view('float64')
-    if 'int16' == dtype:
-        result = _lib.gn_rfft16(outf64, outf64.size, a, a.size, n, navg, nfft, window, fmt, scale)
-    elif 'int32' == dtype:
-        result = _lib.gn_rfft32(outf64, outf64.size, a, a.size, n, navg, nfft, window, fmt, scale)
-    elif 'int64' == dtype:
-        result = _lib.gn_rfft64(outf64, outf64.size, a, a.size, n, navg, nfft, window, fmt, scale)
+    out = _np.empty(out_size.value // 2, dtype="complex128")
+    outf64 = out.view("float64")
+    if "int16" == dtype:
+        result = _lib.gn_rfft16(
+            outf64, outf64.size, a, a.size, n, navg, nfft, window, fmt, scale
+        )
+    elif "int32" == dtype:
+        result = _lib.gn_rfft32(
+            outf64, outf64.size, a, a.size, n, navg, nfft, window, fmt, scale
+        )
+    elif "int64" == dtype:
+        result = _lib.gn_rfft64(
+            outf64, outf64.size, a, a.size, n, navg, nfft, window, fmt, scale
+        )
     else:
         result = _lib.gn_rfft(outf64, outf64.size, a, a.size, navg, nfft, window, scale)
     _raise_exception_on_failure(result)
@@ -1245,9 +1517,16 @@ Fourier Utilities
 
 _lib.gn_alias.argtypes = [_c_double_p, _c_double, _c_double, _c_int]
 _lib.gn_coherent.argtypes = [_c_double_p, _c_size_t, _c_double, _c_double]
-_lib.gn_freq_axis.argtypes = [_ndptr_f64_1d, _c_size_t, _c_size_t, _c_int, _c_double, _c_int]
+_lib.gn_freq_axis.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_size_t,
+    _c_int,
+    _c_double,
+    _c_int,
+]
 _lib.gn_freq_axis_size.argtypes = [_c_size_t_p, _c_size_t, _c_int]
-_lib.gn_fftshift.argtypes  = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
+_lib.gn_fftshift.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
 _lib.gn_ifftshift.argtypes = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
 
 
@@ -1306,8 +1585,8 @@ def fftshift(a):
     out :
 
     """
-    _check_ndarray(a, 'float64')
-    out = _np.empty(a.size, dtype='float64')
+    _check_ndarray(a, "float64")
+    out = _np.empty(a.size, dtype="float64")
     result = _lib.gn_fftshift(out, out.size, a, a.size)
     _raise_exception_on_failure(result)
     return out
@@ -1332,7 +1611,7 @@ def freq_axis(nfft, axis_type, fs=1.0, axis_format=FreqAxisFormat.FREQ):
     out_size = _c_size_t()
     result = _lib.gn_freq_axis_size(_ctypes.byref(out_size), nfft, axis_type)
     _raise_exception_on_failure(result)
-    out = _np.empty(out_size.value, dtype='float64')
+    out = _np.empty(out_size.value, dtype="float64")
     result = _lib.gn_freq_axis(out, out.size, nfft, axis_type, fs, axis_format)
     _raise_exception_on_failure(result)
     return out
@@ -1351,8 +1630,8 @@ def ifftshift(a):
     out :
 
     """
-    _check_ndarray(a, 'float64')
-    out = _np.empty(a.size, dtype='float64')
+    _check_ndarray(a, "float64")
+    out = _np.empty(a.size, dtype="float64")
     result = _lib.gn_ifftshift(out, out.size, a, a.size)
     _raise_exception_on_failure(result)
     return out
@@ -1440,44 +1719,177 @@ def mgr_type(key):
 Signal Processing
 """
 
-_lib.gn_downsample.argtypes   = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _c_int, _c_bool]
-_lib.gn_downsample16.argtypes = [_ndptr_i16_1d, _c_size_t, _ndptr_i16_1d, _c_size_t, _c_int, _c_bool]
-_lib.gn_downsample32.argtypes = [_ndptr_i32_1d, _c_size_t, _ndptr_i32_1d, _c_size_t, _c_int, _c_bool]
-_lib.gn_downsample64.argtypes = [_ndptr_i64_1d, _c_size_t, _ndptr_i64_1d, _c_size_t, _c_int, _c_bool]
-_lib.gn_fshift.argtypes       = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _c_double, _c_double]
-_lib.gn_fshift16.argtypes     = [_ndptr_i16_1d, _c_size_t, _ndptr_i16_1d, _c_size_t, _ndptr_i16_1d, _c_size_t, _c_int, _c_double, _c_double, _c_int]
-_lib.gn_fshift32.argtypes     = [_ndptr_i32_1d, _c_size_t, _ndptr_i32_1d, _c_size_t, _ndptr_i32_1d, _c_size_t, _c_int, _c_double, _c_double, _c_int]
-_lib.gn_fshift64.argtypes     = [_ndptr_i64_1d, _c_size_t, _ndptr_i64_1d, _c_size_t, _ndptr_i64_1d, _c_size_t, _c_int, _c_double, _c_double, _c_int]
-_lib.gn_normalize16.argtypes  = [_ndptr_f64_1d, _c_size_t, _ndptr_i16_1d, _c_size_t, _c_int, _c_int]
-_lib.gn_normalize32.argtypes  = [_ndptr_f64_1d, _c_size_t, _ndptr_i32_1d, _c_size_t, _c_int, _c_int]
-_lib.gn_normalize64.argtypes  = [_ndptr_f64_1d, _c_size_t, _ndptr_i64_1d, _c_size_t, _c_int, _c_int]
-_lib.gn_polyval.argtypes      = [_ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t]
-_lib.gn_quantize16.argtypes   = [_ndptr_i16_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _c_double, _c_int, _c_double, _c_int]
-_lib.gn_quantize32.argtypes   = [_ndptr_i32_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _c_double, _c_int, _c_double, _c_int]
-_lib.gn_quantize64.argtypes   = [_ndptr_i64_1d, _c_size_t, _ndptr_f64_1d, _c_size_t, _c_double, _c_int, _c_double, _c_int]
+_lib.gn_downsample.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_int,
+    _c_bool,
+]
+_lib.gn_downsample16.argtypes = [
+    _ndptr_i16_1d,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+    _c_int,
+    _c_bool,
+]
+_lib.gn_downsample32.argtypes = [
+    _ndptr_i32_1d,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+    _c_int,
+    _c_bool,
+]
+_lib.gn_downsample64.argtypes = [
+    _ndptr_i64_1d,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+    _c_int,
+    _c_bool,
+]
+_lib.gn_fshift.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_double,
+    _c_double,
+]
+_lib.gn_fshift16.argtypes = [
+    _ndptr_i16_1d,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+    _c_int,
+    _c_double,
+    _c_double,
+    _c_int,
+]
+_lib.gn_fshift32.argtypes = [
+    _ndptr_i32_1d,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+    _c_int,
+    _c_double,
+    _c_double,
+    _c_int,
+]
+_lib.gn_fshift64.argtypes = [
+    _ndptr_i64_1d,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+    _c_int,
+    _c_double,
+    _c_double,
+    _c_int,
+]
+_lib.gn_normalize16.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+    _c_int,
+    _c_int,
+]
+_lib.gn_normalize32.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+    _c_int,
+    _c_int,
+]
+_lib.gn_normalize64.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+    _c_int,
+    _c_int,
+]
+_lib.gn_polyval.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+]
+_lib.gn_quantize16.argtypes = [
+    _ndptr_i16_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_double,
+    _c_int,
+    _c_double,
+    _c_int,
+]
+_lib.gn_quantize32.argtypes = [
+    _ndptr_i32_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_double,
+    _c_int,
+    _c_double,
+    _c_int,
+]
+_lib.gn_quantize64.argtypes = [
+    _ndptr_i64_1d,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_double,
+    _c_int,
+    _c_double,
+    _c_int,
+]
 
 
 def downsample(a, ratio, interleaved=False):
-    dtype = _check_ndarray(a, ['complex128', 'float64', 'int16', 'int32', 'int64'])
+    dtype = _check_ndarray(a, ["complex128", "float64", "int16", "int32", "int64"])
     ratio = int(ratio)
-    if 'complex128' == dtype:       # parameter 'interleaved' is ignored because 'complex128' is
+    if (
+        "complex128" == dtype
+    ):  # parameter 'interleaved' is ignored because 'complex128' is
         out_size = _c_size_t(0)
-        af64 = a.view('float64')
-        result = _lib.gn_downsample_size(_ctypes.byref(out_size), af64.size, ratio, True)
+        af64 = a.view("float64")
+        result = _lib.gn_downsample_size(
+            _ctypes.byref(out_size), af64.size, ratio, True
+        )
         _raise_exception_on_failure(result)
-        out = _np.empty(out_size.value // 2, dtype='complex128')
-        outf64 = out.view('float64')
-        result = _lib.gn_downsample(outf64, outf64.size, af64, af64.size, ratio, interleaved)
+        out = _np.empty(out_size.value // 2, dtype="complex128")
+        outf64 = out.view("float64")
+        result = _lib.gn_downsample(
+            outf64, outf64.size, af64, af64.size, ratio, interleaved
+        )
     else:
         out_size = _c_size_t(0)
-        result = _lib.gn_downsample_size(_ctypes.byref(out_size), a.size, ratio, interleaved)
+        result = _lib.gn_downsample_size(
+            _ctypes.byref(out_size), a.size, ratio, interleaved
+        )
         _raise_exception_on_failure(result)
         out = _np.empty(out_size.value, dtype=dtype)
-        if 'int16' == dtype:
+        if "int16" == dtype:
             result = _lib.gn_downsample16(out, out.size, a, a.size, ratio, interleaved)
-        elif 'int32' == dtype:
+        elif "int32" == dtype:
             result = _lib.gn_downsample32(out, out.size, a, a.size, ratio, interleaved)
-        elif 'int64' == dtype:
+        elif "int64" == dtype:
             result = _lib.gn_downsample64(out, out.size, a, a.size, ratio, interleaved)
         else:
             result = _lib.gn_downsample(out, out.size, a, a.size, ratio, interleaved)
@@ -1513,15 +1925,15 @@ def fshift(a, *args):
           The output is always interleaved.  The output dtype is the same as the input dtype.
 
     """
-    dtype = _check_ndarray(a, ['complex128', 'float64', 'int16', 'int32', 'int64'])
+    dtype = _check_ndarray(a, ["complex128", "float64", "int16", "int32", "int64"])
     nargs = len(args)
     q_data = _np.empty(0, dtype=dtype)
     q_size = 0
     base_index = 0
-    if dtype in ['complex128', 'float64']:  # normalized samples
-        if 'complex128' == dtype:
-            i_data = a.view('float64')
-            q_data.dtype = 'float64'
+    if dtype in ["complex128", "float64"]:  # normalized samples
+        if "complex128" == dtype:
+            i_data = a.view("float64")
+            q_data.dtype = "float64"
         else:
             i_data = a
             if 0 < nargs and isinstance(args[0], _np.ndarray):  # arg[0] is Q data
@@ -1537,13 +1949,17 @@ def fshift(a, *args):
         out_size = _c_size_t(0)
         result = _lib.gn_fshift_size(_ctypes.byref(out_size), i_size, q_size)
         _raise_exception_on_failure(result)
-        if 'complex128' == dtype:
+        if "complex128" == dtype:
             out = _np.empty(out_size.value // 2, dtype=dtype)
-            outf64 = out.view('float64')
-            result = _lib.gn_fshift(outf64, outf64.size, i_data, i_size, q_data, q_size, fs, fshift_)
+            outf64 = out.view("float64")
+            result = _lib.gn_fshift(
+                outf64, outf64.size, i_data, i_size, q_data, q_size, fs, fshift_
+            )
         else:
             out = _np.empty(out_size.value, dtype=dtype)
-            result = _lib.gn_fshift(out, out.size, i_data, i_size, q_data, q_size, fs, fshift_)
+            result = _lib.gn_fshift(
+                out, out.size, i_data, i_size, q_data, q_size, fs, fshift_
+            )
     else:  # quantized samples
         i_data = a
         i_size = i_data.size
@@ -1557,17 +1973,27 @@ def fshift(a, *args):
         n = args[base_index]
         fs = args[base_index + 1]
         fshift_ = args[base_index + 2]
-        fmt = CodeFormat.TWOS_COMPLEMENT if nargs <= base_index + 3 else args[base_index + 3]
+        fmt = (
+            CodeFormat.TWOS_COMPLEMENT
+            if nargs <= base_index + 3
+            else args[base_index + 3]
+        )
         out_size = _c_size_t(0)
         result = _lib.gn_fshift_size(_ctypes.byref(out_size), i_size, q_size)
         _raise_exception_on_failure(result)
         out = _np.empty(out_size.value, dtype=dtype)
-        if 'int16' == dtype:
-            result = _lib.gn_fshift16(out, out.size, i_data, i_size, q_data, q_size, n, fs, fshift_, fmt)
-        elif 'int32' == dtype:
-            result = _lib.gn_fshift32(out, out.size, i_data, i_size, q_data, q_size, n, fs, fshift_, fmt)
+        if "int16" == dtype:
+            result = _lib.gn_fshift16(
+                out, out.size, i_data, i_size, q_data, q_size, n, fs, fshift_, fmt
+            )
+        elif "int32" == dtype:
+            result = _lib.gn_fshift32(
+                out, out.size, i_data, i_size, q_data, q_size, n, fs, fshift_, fmt
+            )
         else:  # 'int64'
-            result = _lib.gn_fshift64(out, out.size, i_data, i_size, q_data, q_size, n, fs, fshift_, fmt)
+            result = _lib.gn_fshift64(
+                out, out.size, i_data, i_size, q_data, q_size, n, fs, fshift_, fmt
+            )
     _raise_exception_on_failure(result)
     return out
 
@@ -1587,11 +2013,11 @@ def normalize(a, n, fmt=CodeFormat.TWOS_COMPLEMENT):
     out :
 
     """
-    dtype = _check_ndarray(a, ['int16', 'int32', 'int64'])
-    out = _np.empty(a.size, dtype='float64')
-    if 'int16' == dtype:
+    dtype = _check_ndarray(a, ["int16", "int32", "int64"])
+    out = _np.empty(a.size, dtype="float64")
+    if "int16" == dtype:
         result = _lib.gn_normalize16(out, out.size, a, a.size, n, fmt)
-    elif 'int32' == dtype:
+    elif "int32" == dtype:
         result = _lib.gn_normalize32(out, out.size, a, a.size, n, fmt)
     else:
         result = _lib.gn_normalize64(out, out.size, a, a.size, n, fmt)
@@ -1613,9 +2039,9 @@ def polyval(a, c):
     out :
 
     """
-    _check_ndarray(a, 'float64')
-    c = _np.array(c, dtype='float64')
-    out = _np.empty(a.size, dtype='float64')
+    _check_ndarray(a, "float64")
+    c = _np.array(c, dtype="float64")
+    out = _np.empty(a.size, dtype="float64")
     result = _lib.gn_polyval(out, out.size, a, a.size, c, c.size)
     _raise_exception_on_failure(result)
     return out
@@ -1638,8 +2064,8 @@ def quantize16(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
     out :
 
     """
-    _check_ndarray(a, 'float64')
-    out = _np.empty(a.size, dtype='int16')
+    _check_ndarray(a, "float64")
+    out = _np.empty(a.size, dtype="int16")
     result = _lib.gn_quantize16(out, out.size, a, a.size, fsr, n, noise, fmt)
     _raise_exception_on_failure(result)
     return out
@@ -1662,8 +2088,8 @@ def quantize32(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
     out :
 
     """
-    _check_ndarray(a, 'float64')
-    out = _np.empty(a.size, dtype='int32')
+    _check_ndarray(a, "float64")
+    out = _np.empty(a.size, dtype="int32")
     result = _lib.gn_quantize32(out, out.size, a, a.size, fsr, n, noise, fmt)
     _raise_exception_on_failure(result)
     return out
@@ -1686,8 +2112,8 @@ def quantize64(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
     out :
 
     """
-    _check_ndarray(a, 'float64')
-    out = _np.empty(a.size, dtype='int64')
+    _check_ndarray(a, "float64")
+    out = _np.empty(a.size, dtype="int64")
     result = _lib.gn_quantize64(out, out.size, a, a.size, fsr, n, noise, fmt)
     _raise_exception_on_failure(result)
     return out
@@ -1720,14 +2146,60 @@ def quantize(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
 Waveforms
 """
 
-_lib.gn_cos.argtypes      = [_ndptr_f64_1d, _c_size_t, _c_double, _c_double, _c_double, _c_double, _c_double, _c_double]
+_lib.gn_cos.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_double,
+    _c_double,
+    _c_double,
+    _c_double,
+    _c_double,
+    _c_double,
+]
 _lib.gn_gaussian.argtypes = [_ndptr_f64_1d, _c_size_t, _c_double, _c_double]
-_lib.gn_ramp.argtypes     = [_ndptr_f64_1d, _c_size_t, _c_double, _c_double, _c_double]
-_lib.gn_sin.argtypes      = [_ndptr_f64_1d, _c_size_t, _c_double, _c_double, _c_double, _c_double, _c_double, _c_double]
-_lib.gn_wf_analysis.argtypes   = [_c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _ndptr_f64_1d, _c_size_t]
-_lib.gn_wf_analysis16.argtypes = [_c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _ndptr_i16_1d, _c_size_t]
-_lib.gn_wf_analysis32.argtypes = [_c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _ndptr_i32_1d, _c_size_t]
-_lib.gn_wf_analysis64.argtypes = [_c_char_p_p, _c_size_t, _c_double_p, _c_size_t, _ndptr_i64_1d, _c_size_t]
+_lib.gn_ramp.argtypes = [_ndptr_f64_1d, _c_size_t, _c_double, _c_double, _c_double]
+_lib.gn_sin.argtypes = [
+    _ndptr_f64_1d,
+    _c_size_t,
+    _c_double,
+    _c_double,
+    _c_double,
+    _c_double,
+    _c_double,
+    _c_double,
+]
+_lib.gn_wf_analysis.argtypes = [
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _ndptr_f64_1d,
+    _c_size_t,
+]
+_lib.gn_wf_analysis16.argtypes = [
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _ndptr_i16_1d,
+    _c_size_t,
+]
+_lib.gn_wf_analysis32.argtypes = [
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _ndptr_i32_1d,
+    _c_size_t,
+]
+_lib.gn_wf_analysis64.argtypes = [
+    _c_char_p_p,
+    _c_size_t,
+    _c_double_p,
+    _c_size_t,
+    _ndptr_i64_1d,
+    _c_size_t,
+]
 
 
 def cos(size, fs, ampl, freq, phase=0.0, td=0.0, tj=0.0):
@@ -1749,7 +2221,7 @@ def cos(size, fs, ampl, freq, phase=0.0, td=0.0, tj=0.0):
     out :
 
     """
-    out = _np.empty(size, 'float64')
+    out = _np.empty(size, "float64")
     result = _lib.gn_cos(out, out.size, fs, ampl, freq, phase, td, tj)
     _raise_exception_on_failure(result)
     return out
@@ -1770,7 +2242,7 @@ def gaussian(size, mean, sd):
     out :
 
     """
-    out = _np.empty(size, 'float64')
+    out = _np.empty(size, "float64")
     result = _lib.gn_gaussian(out, out.size, mean, sd)
     _raise_exception_on_failure(result)
     return out
@@ -1792,7 +2264,7 @@ def ramp(size, start, stop, noise):
     out :
 
     """
-    out = _np.empty(size, 'float64')
+    out = _np.empty(size, "float64")
     result = _lib.gn_ramp(out, out.size, start, stop, noise)
     _raise_exception_on_failure(result)
     return out
@@ -1817,7 +2289,7 @@ def sin(size, fs, ampl, freq, phase=0.0, td=0.0, tj=0.0):
     out :
 
     """
-    out = _np.empty(size, 'float64')
+    out = _np.empty(size, "float64")
     result = _lib.gn_sin(out, out.size, fs, ampl, freq, phase, td, tj)
     _raise_exception_on_failure(result)
     return out
@@ -1851,13 +2323,13 @@ def wf_analysis(a):
         ===========================================================
 
     """
-    dtype = _check_ndarray(a, ['float', 'int16', 'int32', 'int64'])
+    dtype = _check_ndarray(a, ["float", "int16", "int32", "int64"])
     keys, values = _get_analysis_containers(_AnalysisType.WAVEFORM)
-    if 'int16' == dtype:
+    if "int16" == dtype:
         result = _lib.gn_wf_analysis16(keys, len(keys), values, len(values), a, a.size)
-    elif 'int32' == dtype:
+    elif "int32" == dtype:
         result = _lib.gn_wf_analysis32(keys, len(keys), values, len(values), a, a.size)
-    elif 'int64' == dtype:
+    elif "int64" == dtype:
         result = _lib.gn_wf_analysis64(keys, len(keys), values, len(values), a, a.size)
     else:
         result = _lib.gn_wf_analysis(keys, len(keys), values, len(values), a, a.size)

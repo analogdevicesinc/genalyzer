@@ -18,14 +18,13 @@ jobs:
           bash ./.github/scripts/install_dependencies.sh USER
           bash ./.github/scripts/install_genalyzer.sh
           sudo rm -rf build
-          mkdir build && cd build && cmake .. -DPYTHON_BINDINGS=ON && cd ..
           pip install setuptools wheel twine build
 
       - name: Update to dev version and build test release
         run: |
           pip install invoke
           invoke bumpversion-test
-          cd build/bindings/python
+          cd bindings/python
           python -m build
           
       - uses: pypa/gh-action-pypi-publish@release/v1
