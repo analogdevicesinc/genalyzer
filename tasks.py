@@ -25,20 +25,20 @@ def bumpversion_test(c, filename=None):
     import time
 
     if filename is None:
-        filename = "build/bindings/python/setup.py"
+        filename = "bindings/python/pyproject.toml"
 
     if not os.path.isfile(filename):
         raise FileNotFoundError(filename)
 
     for line in fileinput.input(filename, inplace=True):
-        if line.find("version=") > -1:
-            s = line.find("version=")
-            l = line[s+len("version=") + 1 :].strip()[:-2].split(".")
+        if line.find("version = ") > -1:
+            s = line.find("version = ")
+            l = line[s+len("version = ") + 1 :].strip()[:-2].split(".")
             major = int(l[0])
             minor = int(l[1])
             rev = int(l[2])
             seconds = int(time.time())
-            line = ' '*s+'version="{}.{}.{}.dev.{}",\n'.format(
+            line = ' '*s+'version = "{}.{}.{}.dev.{}",\n'.format(
                 major, minor, rev, seconds
             )
             ver_string = "{}.{}.{}.dev.{}".format(major, minor, rev, seconds)
