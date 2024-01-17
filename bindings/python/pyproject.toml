@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=40.6.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "genalyzer"
+version = "0.0.1"
+dynamic = ["readme"]
+description = "Python bindings for genalyzer converter analysis library"
+license = {text = "ADI BSD"}
+classifiers = [
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules"]
+requires-python = ">=3.7"
+authors = [
+    {name = "Peter Derounian", email="peter.derounian@analog.com"},
+    {name = "Srikanth Pagadarai", email="srikanth.pagadarai@analog.com"},
+    {name = "Travis Collins", email="travis.collins@analog.com"},
+]
+maintainers = [
+    {name = "Srikanth Pagadarai", email="srikanth.pagadarai@analog.com"},
+    {name = "Travis Collins", email="travis.collins@analog.com"},
+    {name = "Analog Devices, Inc"}
+]
+dependencies = [
+    'numpy >= 1.20',
+]
+
+[tool.setuptools.dynamic]
+readme = {file = "README.md", content-type = "text/markdown"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["genalyzer"]
+exclude = ["tests*"]
+namespaces = true
+
+[project.optional-dependencies]
+tools = ["scipy"]
+
+[project.urls]
+homepage = "https://analogdevicesinc.github.io/genalyzer/"
+documentation = "https://analogdevicesinc.github.io/genalyzer/"
+repository = "https://github/analogdevicesinc/genalyzer"
+
+[tool.isort]
+multi_line_output=3
+include_trailing_comma="True"
+force_grid_wrap=0
+use_parentheses="True"
+line_length=88
+
+[tool.mypy]
+ignore_missing_imports="true"
