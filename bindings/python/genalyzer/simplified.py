@@ -596,33 +596,36 @@ def config_fftz(
     return c
 
 
-def config_fa(fixed_tone_freq: float, *args) -> GNConfig:
+def config_fa(fixed_tone_freq: float, c: GNConfig = None) -> GNConfig:
     """Configure GNConfig struct for Fourier analysis.
     :param fixed_tone_freq: fixed tone frequency
     :return: GNConfig object
     """
-    if len(args) == 0:
+    if c is None:
         c = GNConfig()
-    elif len(args) == 1:
-        c = args[0]
 
     fixed_tone_freq = c_double(fixed_tone_freq)
 
-    _gn_config_fa(fixed_tone_freq, byref(c._struct))
+    ret = _gn_config_fa(fixed_tone_freq, byref(c._struct))
+    if ret != 0:
+        raise Exception("gn_config_fa failed")
     return c
 
 
-def gn_config_fa_auto(ssb_width: int, c: GNConfig):
+def gn_config_fa_auto(ssb_width: int, c: GNConfig = None):
     """Configure GNConfig struct for Fourier analysis where tones are
     automatically found.
     :param ssb_width: SSB width
     :param c: GNConfig object
     """
+    if c is None:
+        c = GNConfig()
     ssb_width = c_uint8(ssb_width)
 
     ret = _gn_config_fa_auto(ssb_width, byref(c._struct))
     if ret != 0:
         raise Exception("gn_config_fa_auto failed")
+    return c
 
 
 def gen_ramp(c: GNConfig) -> List[float]:
