@@ -25,14 +25,16 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include "cJSON.h"
 
-typedef enum datatype { INT32,
+typedef enum datatype {INT16,
+    INT32,
     INT64,
     UINT32,
     UINT64,
-    DOUBLE } datatype;
+    DOUBLE} datatype;
 
 static inline bool floats_almost_equal(double a, double b, size_t num_digits)
 {
@@ -133,14 +135,16 @@ int extract_scalar(void *val, const char* file_name, const char* token_name, dat
     }
 
     token = cJSON_GetObjectItemCaseSensitive(file_name_json, token_name);
-    if (result_type == INT32)
-        *(int*)val = token->valueint;
+    if (result_type == INT16)
+        *(int16_t*)val = token->valueint;
+    else if (result_type == INT32)
+        *(int32_t*)val = token->valueint;
     else if (result_type == INT64)
-        *(long int*)val = token->valueint;
+        *(int64_t*)val = token->valueint;
     else if (result_type == UINT32)
-        *(unsigned long*)val = token->valueint;
+        *(uint32_t*)val = token->valueint;
     else if (result_type == UINT64)
-        *(unsigned long long*)val = token->valueint;
+        *(uint64_t*)val = token->valueint;
     else if (result_type == DOUBLE) {        
         *(double*)val = token->valuedouble;
     }
@@ -171,41 +175,50 @@ int extract_array(void *val, const char* file_name, const char* token_name, data
 
     token = cJSON_GetObjectItemCaseSensitive(file_name_json, token_name);
     const cJSON *count = NULL;
-    size_t i = 0;        
-    if (result_type == INT32) {
-        int *tmp = (int*)malloc(len*sizeof(int));
+    size_t i = 0;
+    if (result_type == INT16) {
+        int16_t *tmp = (int16_t*)malloc(len*sizeof(int16_t));
         cJSON_ArrayForEach(count, token) {
             tmp[i] = count->valueint;
             i++;
         }
-        memcpy(val, tmp, len*sizeof(int));
+        memcpy(val, tmp, len*sizeof(int16_t));
+        free(tmp);
+    }
+    else if (result_type == INT32) {
+        int32_t *tmp = (int32_t*)malloc(len*sizeof(int32_t));
+        cJSON_ArrayForEach(count, token) {
+            tmp[i] = count->valueint;
+            i++;
+        }
+        memcpy(val, tmp, len*sizeof(int32_t));
         free(tmp);
     }
     else if (result_type == INT64) {
-        long int *tmp = (long int*)malloc(len*sizeof(long int));
+        int64_t *tmp = (int64_t*)malloc(len*sizeof(int64_t));
         cJSON_ArrayForEach(count, token) {
             tmp[i] = count->valueint;
             i++;
         }
-        memcpy(val, tmp, len*sizeof(long int));
+        memcpy(val, tmp, len*sizeof(int64_t));
         free(tmp);
     }
     else if (result_type == UINT32) {
-        unsigned long *tmp = (unsigned long*)malloc(len*sizeof(unsigned long));
+        uint32_t *tmp = (uint32_t*)malloc(len*sizeof(uint32_t));
         cJSON_ArrayForEach(count, token) {
             tmp[i] = count->valueint;
             i++;
         }
-        memcpy(val, tmp, len*sizeof(unsigned long));
+        memcpy(val, tmp, len*sizeof(uint32_t));
         free(tmp);
     }
     else if (result_type == UINT64) {
-        unsigned long long *tmp = (unsigned long long*)malloc(len*sizeof(unsigned long long));
+        uint64_t *tmp = (uint64_t*)malloc(len*sizeof(uint64_t));
         cJSON_ArrayForEach(count, token) {
             tmp[i] = count->valueint;
             i++;
         }
-        memcpy(val, tmp, len*sizeof(unsigned long long));
+        memcpy(val, tmp, len*sizeof(uint64_t));
         free(tmp);
     }
     else if (result_type == DOUBLE) {                
@@ -250,22 +263,26 @@ int read_scalar_from_json_file(const char* file_name, const char* param_name, vo
 {
     int err_code;
         
-    if (result_type == INT32) {
-        int i32_result;
+    if (result_type == INT16) {
+        int16_t i16_result;
+        err_code = extract_scalar((void*)(&i16_result), file_name, param_name, result_type);
+        *(int16_t*)result = i16_result;
+    } else if (result_type == INT32) {
+        int32_t i32_result;
         err_code = extract_scalar((void*)(&i32_result), file_name, param_name, result_type);
-        *(int*)result = i32_result;
+        *(int32_t*)result = i32_result;
     } else if (result_type == INT64) {
-        long int i64_result;
+        int64_t i64_result;
         err_code = extract_scalar((void*)(&i64_result), file_name, param_name, result_type);
-        *(long int*)result = i64_result;
+        *(int64_t*)result = i64_result;
     } else if (result_type == UINT32) {
-        unsigned long ui32_result;
+        uint32_t ui32_result;
         err_code = extract_scalar((void*)(&ui32_result), file_name, param_name, result_type);
-        *(unsigned long*)result = ui32_result;
+        *(uint32_t*)result = ui32_result;
     } else if (result_type == UINT64) {
-        unsigned long long ui64_result;
+        uint64_t ui64_result;
         err_code = extract_scalar((void*)(&ui64_result), file_name, param_name, result_type);
-        *(unsigned long long*)result = ui64_result;
+        *(uint64_t*)result = ui64_result;
     } else if (result_type == DOUBLE) {
         double d_result;
         err_code = extract_scalar((void*)(&d_result), file_name, param_name, result_type);
@@ -278,25 +295,31 @@ int read_array_from_json_file(const char* file_name, const char* param_name, voi
 {
     int err_code;
         
-    if (result_type == INT32) {
-        int *i32_result = (int*)malloc(len*sizeof(int));
+    if (result_type == INT16) {
+        int16_t *i16_result = (int16_t*)malloc(len*sizeof(int16_t));
+        err_code = extract_array(i16_result, file_name, param_name, result_type, len);
+        memcpy (result, i16_result, len*sizeof(int16_t));
+        free(i16_result);
+    }
+    else if (result_type == INT32) {
+        int32_t *i32_result = (int32_t*)malloc(len*sizeof(int32_t));
         err_code = extract_array(i32_result, file_name, param_name, result_type, len);
-        memcpy (result, i32_result, len*sizeof(int));
+        memcpy (result, i32_result, len*sizeof(int32_t));
         free(i32_result);
     } else if (result_type == INT64) {
-        long int *i64_result = (long int*)malloc(len*sizeof(long int));
+        int64_t *i64_result = (int64_t*)malloc(len*sizeof(int64_t));
         err_code = extract_array(i64_result, file_name, param_name, result_type, len);
-        memcpy (result, i64_result, len*sizeof(long int));
+        memcpy (result, i64_result, len*sizeof(int64_t));
         free(i64_result);
     } else if (result_type == UINT32) {
-        unsigned long *ui32_result = (unsigned long*)malloc(len*sizeof(unsigned long));
+        uint32_t *ui32_result = (uint32_t*)malloc(len*sizeof(uint32_t));
         err_code = extract_array(ui32_result, file_name, param_name, result_type, len);
-        memcpy (result, ui32_result, len*sizeof(unsigned long));
+        memcpy (result, ui32_result, len*sizeof(uint32_t));
         free(ui32_result);
     } else if (result_type == UINT64) {
-        unsigned long long *ui64_result = (unsigned long long*)malloc(len*sizeof(unsigned long long));
+        uint64_t *ui64_result = (uint64_t*)malloc(len*sizeof(uint64_t));
         err_code = extract_array(ui64_result, file_name, param_name, result_type, len);
-        memcpy (result, ui64_result, len*sizeof(unsigned long long));
+        memcpy (result, ui64_result, len*sizeof(uint64_t));
         free(ui64_result);
     } else if (result_type == DOUBLE) {
         double *d_result = (double*)malloc(len*sizeof(double));
