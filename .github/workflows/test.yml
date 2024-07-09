@@ -51,41 +51,41 @@ jobs:
           name: ${{ matrix.label }}-Build
           path: libs/
 
-  TestCCentOS:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        images: ["tfcollins/libiio_centos_7-ci:latest"]
+#  TestCCentOS:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        images: ["tfcollins/libiio_centos_7-ci:latest"]
 
-    container:
-      image: ${{ matrix.images }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: |
-          bash ./.github/scripts/install_dependencies_rhel.sh
+#    container:
+#      image: ${{ matrix.images }}
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Install dependencies
+#        run: |
+#          bash ./.github/scripts/install_dependencies_rhel.sh
 
-      - name: Build and test
-        run: |
-          mkdir -p build
-          cd build
-          source scl_source enable devtoolset-7 && cmake -DBUILD_TESTS_EXAMPLES=ON ..
-          make -j4
-          make test ARGS="-VV"
-          cd ..
-          mkdir -p libs
-          cp build/bindings/c/src/libgenalyzer.so* libs/
-          cp build/src/libgenalyzer_plus_plus.a* libs/
-          cp bindings/c/include/cgenalyzer.h libs/
-          cp bindings/c/include/cgenalyzer_advanced.h libs/
-          cp bindings/matlab/genalyzer.m libs/
+#      - name: Build and test
+#        run: |
+#          mkdir -p build
+#          cd build
+#          source scl_source enable devtoolset-7 && cmake -DBUILD_TESTS_EXAMPLES=ON ..
+#          make -j4
+#          make test ARGS="-VV"
+#          cd ..
+#          mkdir -p libs
+#          cp build/bindings/c/src/libgenalyzer.so* libs/
+#          cp build/src/libgenalyzer_plus_plus.a* libs/
+#          cp bindings/c/include/cgenalyzer.h libs/
+#          cp bindings/c/include/cgenalyzer_advanced.h libs/
+#          cp bindings/matlab/genalyzer.m libs/
 
-      - name: Archive generated SOs
-        uses: actions/upload-artifact@v2
-        with:
-          name: RHEL_7-Build
-          path: libs/
+#      - name: Archive generated SOs
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: RHEL_7-Build
+#          path: libs/
 
   CoverageTest:
     runs-on: ubuntu-latest
