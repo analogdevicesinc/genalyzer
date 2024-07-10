@@ -464,22 +464,23 @@ def config_free(
     _gn_config_free(byref(c._struct))
 
 
-def config_gen_ramp(npts: int, ramp_start: int, ramp_stop: int, *args) -> GNConfig:
+def config_gen_ramp(npts: int, ramp_start: int, ramp_stop: int, c: GNConfig = None) -> GNConfig:
     """Configure GNConfig struct to generate tone.
     :param npts: number of sample points in the waveform
     :param ramp_start: Input start value of ramp
     :param ramp_stop: Input stop value of ramp
     :return: GNConfig object
     """
-    if len(args) == 0:
+    if c is None:
         c = GNConfig()
-    elif len(args) == 1:
-        c = args[0]
+    
     npts = c_ulong(npts)
     ramp_start = c_ulong(ramp_start)
     ramp_stop = c_ulong(ramp_stop)
 
-    _gn_config_gen_ramp(npts, ramp_start, ramp_stop, byref(c._struct))
+    ret = _gn_config_gen_ramp(npts, ramp_start, ramp_stop, byref(c._struct))
+    if ret != 0:
+        raise Exception("config_gen_ramp failed")
     return c
 
 
@@ -491,7 +492,7 @@ def config_gen_tone(
     tone_freq: float,
     tone_ampl: float,
     tone_phase: float,
-    *args
+    c: GNConfig = None
 ) -> GNConfig:
     """Configure GNConfig struct to generate tone.
     :param ttype: tone type
@@ -503,10 +504,9 @@ def config_gen_tone(
     :param tone_phase: tone phase
     :return: GNConfig object
     """
-    if len(args) == 0:
+    if c is None:
         c = GNConfig()
-    elif len(args) == 1:
-        c = args[0]
+    
     ttype = c_uint(ttype)
     npts = c_ulong(npts)
     sample_rate = c_double(sample_rate)
@@ -516,7 +516,7 @@ def config_gen_tone(
     tone_ampl = (double_array)(*tone_ampl)
     tone_phase = (double_array)(*tone_phase)
 
-    _gn_config_gen_tone(
+    ret = _gn_config_gen_tone(
         ttype,
         npts,
         sample_rate,
@@ -526,10 +526,12 @@ def config_gen_tone(
         tone_phase,
         byref(c._struct),
     )
+    if ret != 0:
+        raise Exception("config_gen_tone failed")
     return c
 
 
-def config_quantize(npts: int, fsr: float, qres: int, qnoise: float, *args) -> GNConfig:
+def config_quantize(npts: int, fsr: float, qres: int, qnoise: float, c: GNConfig = None) -> GNConfig:
     """Configure GNConfig struct to perform quantization.
     :param npts: number of sample points in the waveform
     :param fsr: full-scale range
@@ -537,21 +539,21 @@ def config_quantize(npts: int, fsr: float, qres: int, qnoise: float, *args) -> G
     :param qnoise: quantization noise
     :return: GNConfig object
     """
-    if len(args) == 0:
+    if c is None:
         c = GNConfig()
-    elif len(args) == 1:
-        c = args[0]
-
+    
     npts = c_ulong(npts)
     fsr = c_double(fsr)
     qres = c_int(qres)
     qnoise = c_double(qnoise)
 
-    _gn_config_quantize(npts, fsr, qres, qnoise, byref(c._struct))
+    ret = _gn_config_quantize(npts, fsr, qres, qnoise, byref(c._struct))
+    if ret != 0:
+        raise Exception("config quantize failed")
     return c
 
 
-def config_histz_nla(npts: int, qres: int, *args) -> GNConfig:
+def config_histz_nla(npts: int, qres: int, c: GNConfig = None) -> GNConfig:
     """Configure GNConfig struct to compute histogram or perform non-linearity analysis.
     :param npts: number of sample points in the waveform
     :param fsr: full-scale range
@@ -559,20 +561,20 @@ def config_histz_nla(npts: int, qres: int, *args) -> GNConfig:
     :param qnoise: quantization noise
     :return: GNConfig object
     """
-    if len(args) == 0:
+    if c is None:
         c = GNConfig()
-    elif len(args) == 1:
-        c = args[0]
-
+    
     npts = c_ulong(npts)
     qres = c_int(qres)
 
-    _gn_config_histz_nla(npts, qres, byref(c._struct))
+    ret = _gn_config_histz_nla(npts, qres, byref(c._struct))
+    if ret != 0:
+        raise Exception("config_histz_nla failed")
     return c
 
 
 def config_fftz(
-    npts: int, qres: int, navg: int, nfft: int, win: int, *args
+    npts: int, qres: int, navg: int, nfft: int, win: int, c: GNConfig = None
 ) -> GNConfig:
     """Configure GNConfig struct to compute FFT.
     :param npts: number of sample points in the waveform
@@ -581,18 +583,18 @@ def config_fftz(
     :param qnoise: quantization noise
     :return: GNConfig object
     """
-    if len(args) == 0:
+    if c is None:
         c = GNConfig()
-    elif len(args) == 1:
-        c = args[0]
-
+    
     npts = c_ulong(npts)
     qres = c_int(qres)
     navg = c_ulong(navg)
     nfft = c_ulong(nfft)
     win = c_uint(win)
 
-    _gn_config_fftz(npts, qres, navg, nfft, win, byref(c._struct))
+    ret = _gn_config_fftz(npts, qres, navg, nfft, win, byref(c._struct))
+    if ret != 0:
+        raise Exception("config_fftz failed")
     return c
 
 
@@ -608,7 +610,7 @@ def config_fa(fixed_tone_freq: float, c: GNConfig = None) -> GNConfig:
 
     ret = _gn_config_fa(fixed_tone_freq, byref(c._struct))
     if ret != 0:
-        raise Exception("gn_config_fa failed")
+        raise Exception("config_fa failed")
     return c
 
 
@@ -624,7 +626,7 @@ def gn_config_fa_auto(ssb_width: int, c: GNConfig = None):
 
     ret = _gn_config_fa_auto(ssb_width, byref(c._struct))
     if ret != 0:
-        raise Exception("gn_config_fa_auto failed")
+        raise Exception("config_fa_auto failed")
     return c
 
 

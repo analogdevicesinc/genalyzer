@@ -23,8 +23,6 @@
 #ifndef CGENALYZER_H
 #define CGENALYZER_H
 #include "cgenalyzer_advanced.h"
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
