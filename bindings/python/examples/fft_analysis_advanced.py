@@ -1,6 +1,6 @@
 def main():
     import numpy as np
-    import genalyzer_advanced as gn
+    import genalyzer.advanced as gn
 
     # print("Library path: {}".format(gn._genalyzer._libpath))
     # print("Version: {}\n".format(gn.__version__))

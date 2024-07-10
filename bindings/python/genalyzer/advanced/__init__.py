@@ -70,4 +70,13 @@ from .advanced import (
     ramp,
     sin,
     wf_analysis,
+    CodeFormat,
+    DnlSignal,
+    FaCompTag,
+    FaSsb,
+    FreqAxisFormat,
+    FreqAxisType,
+    InlLineFit,
+    RfftScale,
+    Window,
 )
