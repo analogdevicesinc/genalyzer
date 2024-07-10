@@ -4,16 +4,14 @@
 extern "C" {
     int gn_config_free(gn_config *c)
     {
-        if (!((*c)->obj_key))
+        if ((*c)->obj_key){
+            gn_mgr_remove((*c)->obj_key);
             free((*c)->obj_key);
-        if (!((*c)->comp_key))
+        }
+        if ((*c)->comp_key){
+            gn_fa_remove_comp((*c)->obj_key, (*c)->comp_key);
             free((*c)->comp_key);
-        if (!((*c)->tone_freq))
-            free((*c)->tone_freq);
-        if (!((*c)->tone_ampl))
-            free((*c)->tone_ampl);
-        if (!((*c)->tone_phase))
-            free((*c)->tone_phase);
+        }
         if (((*c)->_fa_results_size) > 0)
         {
             for (size_t i = 0; i < (*c)->_fa_results_size; i++)
