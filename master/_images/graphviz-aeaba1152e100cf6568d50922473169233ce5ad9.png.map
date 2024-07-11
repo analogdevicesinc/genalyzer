@@ -1,0 +1,15 @@
+<map id="%3" name="%3">
+<area shape="rect" id="node1" title="stdbool.h" alt="" coords="365,197,475,245"/>
+<area shape="rect" id="node2" title="stdint.h" alt="" coords="500,197,596,245"/>
+<area shape="rect" id="node3" title="stdlib.h" alt="" coords="197,101,291,149"/>
+<area shape="rect" id="node4" title="stddef.h" alt="" coords="620,197,719,245"/>
+<area shape="rect" id="node5" title="/home/runner/work/genalyzer/genalyzer/bindings/c/include/cgenalyzer.h" alt="" coords="5,5,712,53"/>
+<area shape="poly" id="edge3" title="include" alt="" coords="332,56,284,95,281,91,329,52"/>
+<area shape="rect" id="node6" title="stdio.h" alt="" coords="315,101,402,149"/>
+<area shape="poly" id="edge2" title="include" alt="" coords="361,54,361,88,356,88,356,54"/>
+<area shape="rect" id="node7" title="cgenalyzer_advanced.h" alt="" coords="427,101,669,149"/>
+<area shape="poly" id="edge1" title="include" alt="" coords="406,51,491,93,488,98,404,56"/>
+<area shape="poly" id="edge4" title="include" alt="" coords="518,152,464,191,461,187,515,148"/>
+<area shape="poly" id="edge6" title="include" alt="" coords="551,150,551,184,545,184,545,150"/>
+<area shape="poly" id="edge5" title="include" alt="" coords="580,148,630,187,627,191,576,152"/>
+</map>
