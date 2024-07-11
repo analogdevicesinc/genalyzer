@@ -614,7 +614,7 @@ def config_fa(fixed_tone_freq: float, c: GNConfig = None) -> GNConfig:
     return c
 
 
-def gn_config_fa_auto(ssb_width: int, c: GNConfig = None):
+def config_fa_auto(ssb_width: int, c: GNConfig = None):
     """Configure GNConfig struct for Fourier analysis where tones are
     automatically found.
     :param ssb_width: SSB width

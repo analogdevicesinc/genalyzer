@@ -29,7 +29,7 @@ c = genalyzer.config_fftz(
 genalyzer.config_set_sample_rate(data["fs"], c)
 
 # Find tones
-genalyzer.gn_config_fa_auto(ssb_width=120, c=c)
+genalyzer.config_fa_auto(ssb_width=120, c=c)
 
 # compute FFT
 fft_out_i, fft_out_q = genalyzer.fftz(qwfi, qwfq, c)

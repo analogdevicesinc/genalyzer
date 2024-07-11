@@ -13,7 +13,7 @@ from .simplified import (
     config_histz_nla,
     config_fftz,
     config_fa,
-    gn_config_fa_auto,
+    config_fa_auto,
     gen_ramp,
     gen_real_tone,
     gen_complex_tone,
