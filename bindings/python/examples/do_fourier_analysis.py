@@ -21,6 +21,7 @@ c = genalyzer.config_fftz(
 )
 fft_out_i, fft_out_q = genalyzer.fftz(qwfi, qwfq, c)
 fft_out = [val for pair in zip(fft_out_i, fft_out_q) for val in pair]
+genalyzer.config_set_sample_rate(data["fs"], c)
 genalyzer.config_fa(freq_list[0], c)
 all_results = genalyzer.get_fa_results(fft_out, c)
 pprint.pprint(all_results)
