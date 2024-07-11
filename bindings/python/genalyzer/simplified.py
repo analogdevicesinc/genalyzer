@@ -284,8 +284,8 @@ _gn_config_gen_ramp = _libgen.gn_config_gen_ramp
 _gn_config_gen_ramp.restype = c_int
 _gn_config_gen_ramp.argtypes = [
     c_ulong,
-    c_ulong,
-    c_ulong,
+    c_double,
+    c_double,
     POINTER(_GNConfigPtr),
 ]
 
@@ -475,8 +475,8 @@ def config_gen_ramp(npts: int, ramp_start: int, ramp_stop: int, c: GNConfig = No
         c = GNConfig()
     
     npts = c_ulong(npts)
-    ramp_start = c_ulong(ramp_start)
-    ramp_stop = c_ulong(ramp_stop)
+    ramp_start = c_double(ramp_start)
+    ramp_stop = c_double(ramp_stop)
 
     ret = _gn_config_gen_ramp(npts, ramp_start, ramp_stop, byref(c._struct))
     if ret != 0:
