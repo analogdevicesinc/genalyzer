@@ -14,7 +14,11 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../bindings/c/include'))
 sys.path.insert(0, os.path.abspath('../bindings/python'))
+sys.path.insert(0, os.path.dirname(__file__))
 
+# Generate API page for documentation
+from gen_api_page import gen_pages
+gen_pages()
 
 # -- Project information -----------------------------------------------------
 

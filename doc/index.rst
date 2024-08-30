@@ -29,6 +29,7 @@ Reference
    .. 02_using_genalyzer
    03_examples
    reference
+   reference_advanced
 
 
 
