@@ -1,9 +1,0 @@
-<map id="%3" name="%3">
-<area shape="rect" id="node1" title="stdbool.h" alt="" coords="225,101,336,149"/>
-<area shape="rect" id="node2" title="stdint.h" alt="" coords="361,101,457,149"/>
-<area shape="rect" id="node3" title="stddef.h" alt="" coords="481,101,579,149"/>
-<area shape="rect" id="node4" title="/home/runner/work/genalyzer/genalyzer/bindings/c/include/cgenalyzer_advanced.h" alt="" coords="5,5,812,53"/>
-<area shape="poly" id="edge1" title="include" alt="" coords="379,56,325,95,322,91,375,52"/>
-<area shape="poly" id="edge3" title="include" alt="" coords="411,54,411,88,406,88,406,54"/>
-<area shape="poly" id="edge2" title="include" alt="" coords="440,52,491,91,488,95,437,56"/>
-</map>
