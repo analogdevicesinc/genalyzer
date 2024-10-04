@@ -28,6 +28,7 @@ Reference
    examples.md
    .. 02_using_genalyzer
    03_examples
+   working_example
    reference
    reference_advanced
    python/genalyzer

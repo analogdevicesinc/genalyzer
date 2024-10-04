@@ -4,7 +4,7 @@ The workflow of Genalyzer is best understood with the help of a working example.
 <br/><br/>
 
 ### Compute FFT
-We begin with the initial steps involved, that is, setting up the configuration parameters, importing data from the json file containing the data, and performing FFT on this data. Since Genalyzer fundamentally relies of spectral analysis, computing FFT is the first important step. Expand the code-snippet below for details.
+We begin with the initial steps involved, that is, initializing the configuration parameters, importing data from the json file containing the data, and performing FFT on this data. Since Genalyzer fundamentally relies of spectral analysis, computing FFT is the first important step. Expand the code-snippet below for details.
 <details>
   <summary>Code Snippet</summary>
 
@@ -50,7 +50,11 @@ We will expand this code snippet as we go along understanding the various capabi
 
 Upon loading the ``.json`` file containing captured data and importing the I/Q sample sinto ``numpy`` arrays, we compute the FFT. A couple of points to note for this call from the above snippet. 
 
-For computing the FFT of integer data presumably extracted from a data-converter, users need to configure the corresponding code-format. Genalyzer supports two code formats for this purpose: offset binary and two's-complement. The enumerations that map to these formats are shown [here] (https://analogdevicesinc.github.io/genalyzer/master/reference_advanced.html#_CPPv412GnCodeFormat). The corresponding enumerations to use in C and MATLAB are shown here and here.
+For computing the FFT of integer data presumably extracted from a data-converter, users need to configure the corresponding code-format. 
+
+```{note}
+Genalyzer supports two code formats for this purpose: offset binary and two's-complement. The enumerations that map to these formats are shown [here] (https://analogdevicesinc.github.io/genalyzer/master/reference_advanced.html#_CPPv412GnCodeFormat). The corresponding enumerations to use in C and MATLAB are shown here and here.
+```
 
 Similarly, Genalyzer supports three window types that can be applied to the signal whose FFT is being computed. The supported types are: Blackman-Harris, Hanning, and rectangular (labeled no-window within Genalyzer) windows. The enumerations that map to these window types are shown [here] (https://analogdevicesinc.github.io/genalyzer/master/reference_advanced.html#_CPPv48GnWindow). The corresponding enumerations to use in C and MATLAB are shown here and here.
 

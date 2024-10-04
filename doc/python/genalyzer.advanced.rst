@@ -1,8 +1,10 @@
 Advanced API
 ============
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Table of Contents
 
-.. automodule:: genalyzer.advanced.advanced
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   enumerations
+   fourier_analysis
+   fourier_transforms
