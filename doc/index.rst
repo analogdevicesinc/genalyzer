@@ -30,6 +30,7 @@ Reference
    03_examples
    reference
    reference_advanced
+   python/genalyzer
 
 
 
