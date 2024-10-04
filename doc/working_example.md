@@ -400,16 +400,28 @@ def main():
     
     # plot
     scale_MHz = 1e-6
+    principal_tone_Hz = annots["labels"][1][0]
+    principal_tone_bin = annots["labels"][1][0]/(fs/nfft)
+    principal_tone_mag = fft_db[int(principal_tone_bin+0.5*nfft)]
     fig = pl.figure(1)
     fig.clf()
     pl.plot(freq_axis*scale_MHz, fft_db)
+    pl.plot(principal_tone_Hz*scale_MHz, principal_tone_mag, 'r.')
     pl.grid(True)
     pl.xlabel('frequency (MHz)')
     pl.ylabel('magnitude (dBFs)')
     pl.xlim(freq_axis[0]*scale_MHz, freq_axis[-1]*scale_MHz)
     pl.ylim(-140.0, 20.0)
     for x, y, label in annots["labels"]:
-        pl.annotate(label, xy=(x*scale_MHz, y), ha="center", va="bottom")
+        if label == 'A':
+            pl.annotate(label+": ["+f"{principal_tone_Hz:.2f}"+" ,"+f"{principal_tone_mag:.2f}"+"]", 
+                        xy=(x*scale_MHz, 0.9*principal_tone_mag), 
+                        xytext=(x*scale_MHz, -1.1*y), 
+                        horizontalalignment="center",
+                        arrowprops=dict(arrowstyle='->',lw=1))
+            pl.axvspan(c1[1]*scale_MHz, (c1[1]+c2[1])*scale_MHz, alpha=0.5, color='red')
+        else:
+            pl.annotate(label, xy=(x*scale_MHz, y), ha="center", va="bottom")
     pl.savefig('foo.png')
 
 if __name__ == "__main__":
