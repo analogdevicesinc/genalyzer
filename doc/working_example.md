@@ -128,7 +128,7 @@ Set the sample-rate of the data vector.
 <br/><br/>
 
 ##### Identify Principal Tone
-The next step is to identify the principal tone and label it. This is done by calling either ``fa_fixed_tone()`` or ``fa_max_tone()`` functions. In both cases, the first two arguments are *keys*. The first *key* is the key-value to the ``fourier_analysis`` object that will contain a list of measurements to be computed through Genalyzer and the second *key* is a string that is to be associated with the principal signal component for computing these measurements. In both cases, the third argument is a tag which maps to the component type. The available tags are shown [here] (https://analogdevicesinc.github.io/genalyzer/master/reference_advanced.html#_CPPv411GnFACompTag). To identify a component as the principal tone, we use ``GnFACompTagSignal``. 
+The next step is to identify the principal tone and label it. This is done by calling either ``fa_fixed_tone()`` or ``fa_max_tone()`` functions. In both cases, the first two arguments are *keys*. The first *key* is the key-value to the ``fourier_analysis`` object that will contain a list of measurements to be computed through Genalyzer and the second *key* is a string that is to be associated with the principal signal component for computing these measurements. In both cases, the third argument is a tag which maps to the component type. The available tags are shown [here] (https://python/enumerations.html#genalyzer.advanced.advanced.FaCompTag). To identify a component as the principal tone, we use ``GnFACompTagSignal``. 
 
 The magnitude of the principal tone is measured and used subsequently as the signal component in various metrics.
 
