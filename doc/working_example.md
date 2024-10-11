@@ -551,19 +551,19 @@ annots["labels"]:
 +------------------+--------------------+-------------------+
 |   frequency (Hz) |   magnitude (dBFs) | component label   |
 +==================+====================+===================+
-|                0 |          -68.9666  | dc                |
+|                0 |         -69.231    | dc                |
 +------------------+--------------------+-------------------+
-|           300000 |           -1.00007 | A                 |
+|           300000 |          -0.999975 | A                 |
 +------------------+--------------------+-------------------+
-|          -300000 |          -99.5654  | -A                |
+|          -300000 |        -105.711    | -A                |
 +------------------+--------------------+-------------------+
-|           600000 |         -101.935   | 2A                |
+|           600000 |        -107.723    | 2A                |
 +------------------+--------------------+-------------------+
-|          -600000 |         -100.505   | -2A               |
+|          -600000 |        -108.192    | -2A               |
 +------------------+--------------------+-------------------+
-|          -900000 |         -107.95    | -3A               |
+|          -900000 |        -106.19     | -3A               |
 +------------------+--------------------+-------------------+
-|           207400 |          -92.0502  | wo                |
+|           216800 |         -91.624    | wo                |
 +------------------+--------------------+-------------------+
 
 annots["tone_boxes"]:
@@ -582,7 +582,7 @@ annots["tone_boxes"]:
 +--------------------------+--------------+
 |                  -900050 |          100 |
 +--------------------------+--------------+
-|                   207350 |          100 |
+|                   216750 |          100 |
 +--------------------------+--------------+
 
 +----------------+
@@ -594,13 +594,13 @@ results dictionary
  '-2A:i1': 24000.0,
  '-2A:i2': 24000.0,
  '-2A:inband': 1.0,
- '-2A:mag': 9.434890845975468e-06,
- '-2A:mag_dbc': -99.50518903408367,
- '-2A:mag_dbfs': -100.50526239808858,
+ '-2A:mag': 3.894039999419707e-06,
+ '-2A:mag_dbc': -107.19201724160015,
+ '-2A:mag_dbfs': -108.19199183475817,
  '-2A:nbins': 1.0,
  '-2A:orderindex': 4.0,
- '-2A:phase': 3.005204456500258,
- '-2A:phase_c': 3.0052038532940872,
+ '-2A:phase': -0.15801304707963199,
+ '-2A:phase_c': -0.1580081988755687,
  '-2A:tag': 2.0,
  '-3A:ffinal': -900000.0,
  '-3A:freq': -900000.0,
@@ -608,13 +608,13 @@ results dictionary
  '-3A:i1': 21000.0,
  '-3A:i2': 21000.0,
  '-3A:inband': 1.0,
- '-3A:mag': 4.004268010873613e-06,
- '-3A:mag_dbc': -106.94946388248604,
- '-3A:mag_dbfs': -107.94953724649096,
+ '-3A:mag': 4.903305605217485e-06,
+ '-3A:mag_dbc': -105.19024616511464,
+ '-3A:mag_dbfs': -106.19022075827266,
  '-3A:nbins': 1.0,
  '-3A:orderindex': 5.0,
- '-3A:phase': -2.326366493705043,
- '-3A:phase_c': -2.3263670969112136,
+ '-3A:phase': -0.13778424236938866,
+ '-3A:phase_c': -0.13777939416532536,
  '-3A:tag': 2.0,
  '-A:ffinal': -300000.0,
  '-A:freq': -300000.0,
@@ -622,13 +622,13 @@ results dictionary
  '-A:i1': 27000.0,
  '-A:i2': 27000.0,
  '-A:inband': 1.0,
- '-A:mag': 1.0513032226581935e-05,
- '-A:mag_dbc': -98.56536672200804,
- '-A:mag_dbfs': -99.56544008601296,
+ '-A:mag': 5.181463519759733e-06,
+ '-A:mag_dbc': -104.71097651006858,
+ '-A:mag_dbfs': -105.71095110322659,
  '-A:nbins': 1.0,
  '-A:orderindex': 2.0,
- '-A:phase': 2.2048368960072615,
- '-A:phase_c': 2.2048362928010907,
+ '-A:phase': 2.745213082647473,
+ '-A:phase_c': 2.745217930851536,
  '-A:tag': 2.0,
  '2A:ffinal': 600000.0,
  '2A:freq': 600000.0,
@@ -636,13 +636,13 @@ results dictionary
  '2A:i1': 6000.0,
  '2A:i2': 6000.0,
  '2A:inband': 1.0,
- '2A:mag': 8.002954665841895e-06,
- '2A:mag_dbc': -100.93491950074112,
- '2A:mag_dbfs': -101.93499286474602,
+ '2A:mag': 4.110110243028916e-06,
+ '2A:mag_dbc': -106.72295598977306,
+ '2A:mag_dbfs': -107.72293058293107,
  '2A:nbins': 1.0,
  '2A:orderindex': 3.0,
- '2A:phase': 1.423636147305043,
- '2A:phase_c': 1.423635544098872,
+ '2A:phase': -1.7377695604903687,
+ '2A:phase_c': -1.7377647122863054,
  '2A:tag': 2.0,
  'A:ffinal': 300000.0,
  'A:freq': 300000.0,
@@ -650,20 +650,20 @@ results dictionary
  'A:i1': 3000.0,
  'A:i2': 3000.0,
  'A:inband': 1.0,
- 'A:mag': 0.8912434103542334,
+ 'A:mag': 0.891253545109636,
  'A:mag_dbc': 0.0,
- 'A:mag_dbfs': -1.0000733640049044,
+ 'A:mag_dbfs': -0.9999745931580131,
  'A:nbins': 1.0,
  'A:orderindex': 1.0,
- 'A:phase': 6.032061709187057e-07,
+ 'A:phase': -4.848204063289533e-06,
  'A:phase_c': 0.0,
  'A:tag': 1.0,
  'ab_i1': 0.0,
  'ab_i2': 29999.0,
  'ab_nbins': 30000.0,
- 'ab_rss': 0.8912446200746625,
+ 'ab_rss': 0.8912547636150009,
  'ab_width': 3000000.0,
- 'abn': -101.69716420698276,
+ 'abn': -101.64742235889281,
  'analysistype': 1.0,
  'carrierindex': 1.0,
  'clk_nbins': 0.0,
@@ -675,23 +675,23 @@ results dictionary
  'dc:i1': 0.0,
  'dc:i2': 0.0,
  'dc:inband': 1.0,
- 'dc:mag': 0.00035618075465590563,
- 'dc:mag_dbc': -67.96651764128578,
- 'dc:mag_dbfs': -68.96659100529067,
+ 'dc:mag': 0.0003455004004883887,
+ 'dc:mag_dbc': -68.23105430434262,
+ 'dc:mag_dbfs': -69.23102889750064,
  'dc:nbins': 1.0,
  'dc:orderindex': 0.0,
- 'dc:phase': -2.3886413942939453,
- 'dc:phase_c': -2.388641997500116,
+ 'dc:phase': -2.351864070892235,
+ 'dc:phase_c': -2.351859222688172,
  'dc:tag': 0.0,
  'dist_nbins': 4.0,
- 'dist_rss': 1.6721915487139874e-05,
+ 'dist_rss': 9.107498218044842e-06,
  'fbin': 100.0,
  'fdata': 3000000.0,
  'fsample': 3000000.0,
  'fshift': 0.0,
- 'fsnr': 56.92682033562042,
+ 'fsnr': 56.87707848753048,
  'hd_nbins': 4.0,
- 'hd_rss': 1.6721915487139874e-05,
+ 'hd_rss': 9.107498218044842e-06,
  'ilgt_nbins': 0.0,
  'ilgt_rss': 0.0,
  'ilos_nbins': 0.0,
@@ -702,34 +702,34 @@ results dictionary
  'imd_rss': 0.0,
  'maxspurindex': 6.0,
  'nad_nbins': 29998.0,
- 'nad_rss': 0.001424586762147455,
+ 'nad_rss': 0.001432698646864715,
  'nfft': 30000.0,
  'noise_nbins': 29994.0,
- 'noise_rss': 0.0014244886171634404,
- 'nsd': -121.69803288281705,
- 'sfdr': 91.05011572972714,
+ 'noise_rss': 0.0014326696989202339,
+ 'nsd': -121.64829103472711,
+ 'sfdr': 90.62403535765044,
  'signal_nbins': 1.0,
- 'signal_rss': 0.8912434103542334,
+ 'signal_rss': 0.891253545109636,
  'signaltype': 1.0,
- 'sinad': 55.92614854834724,
- 'snr': 55.9267469716155,
+ 'sinad': 55.87692839257257,
+ 'snr': 55.87710389437247,
  'thd_nbins': 4.0,
- 'thd_rss': 1.6721915487139874e-05,
+ 'thd_rss': 9.107498218044842e-06,
  'userdist_nbins': 0.0,
  'userdist_rss': 0.0,
- 'wo:ffinal': 207400.0,
- 'wo:freq': 207400.0,
+ 'wo:ffinal': 216800.0,
+ 'wo:freq': 216800.0,
  'wo:fwavg': 0.0,
- 'wo:i1': 2074.0,
- 'wo:i2': 2074.0,
+ 'wo:i1': 2168.0,
+ 'wo:i2': 2168.0,
  'wo:inband': 1.0,
- 'wo:mag': 2.497414019308623e-05,
- 'wo:mag_dbc': -91.05011572972714,
- 'wo:mag_dbfs': -92.05018909373203,
+ 'wo:mag': 2.623007319313372e-05,
+ 'wo:mag_dbc': -90.62403535765044,
+ 'wo:mag_dbfs': -91.62400995080846,
  'wo:nbins': 1.0,
  'wo:orderindex': 6.0,
- 'wo:phase': -1.1553922251552897,
- 'wo:phase_c': -1.1553928283614607,
+ 'wo:phase': 1.54886652868337,
+ 'wo:phase_c': 1.5488713768874334,
  'wo:tag': 8.0}
 ```
 </details>
@@ -800,8 +800,25 @@ For example, the key-value pairs in the above format for ``-A`` component are as
 
 which provide all the relevant information concerning ``-A`` component and its contribution to the metrics computed.
 
-```{figure} ../../../bindings/python/foo1.png
+We also see ``13`` sets of key-value pairs which have the following format:
+
+``{PREFIX}_nbins`` : Number of bins associated with PREFIX
+
+``{PREFIX}_rss`` : Root-sum-square associated with PREFIX
+
+where, ``{PREFIX}`` is ``ab`` (analysis band), ``clk`` (clock component), ``dist`` (total distortion), ``hd`` (harmonic distortion), ``ilgt`` (interleaving gain/timing/BW component), ``ilos`` (interleaving offset component), ``ilv`` (ILOS and ILGT components), ``imd`` (Intermodulation Distortion), ``nad`` (noise and distortion), ``noise`` (total noise), ``signal`` (signal component), ``thd`` (Total Harmonic Distortion), and ``userdist`` (user designated sitortion). Note that we haven't yet configured Genalyzer to calculate many of these components. 
+
+As an example, the key-value pairs in the above format for ``dist`` component are as follows:
+
+``'dist_nbins': 4.0,``
+
+``'dist_rss': 1.6721915487139874e-05,``
+
+where, as expected, the number of bins associated with distortion are ``4``, and the root-sum-square of all distortion is seen to be ``1.6721915487139874e-05`` (``-95.5343 dB``). We can similarly read from the conducted analysis that ``noise_rss`` is ``0014244886171634404`` (``-56.9268 dB``), and  ``nad_rss`` is ``0.001424586762147455`` (``-56.9262 dB``), which equals ``dist_rss + noise_rss``. To see how genalyzer computes ``snr``, we see first that ``signal_rss`` is ``0.8912434103542334`` (``-1 dB``). Together with the value of ``noise_rss`` in ``dB``, we can verify that, ``SNR (dB) = 20*log10(signal_rss/noise_rss) = 55.9267469716155 dB``, which matches the value in the console output above. The magnitude spectrum plot labeled with  DC, signal, and harmonic components is shown below.
+
+```{figure} ../../../bindings/python/foo.png
 
 Magnitude spectrum of the FFT showing signal, harmonic, DC, and WO components.
 ```
-<br/><br/>
+
+In a similar manner, genalyzer computes ``SINAD (dB)`` as ``20*log10(signal_rss/nad_rss)``, ``FSNR (dB)`` as `` 20*log10(1.0/noise_rss)``, ``SFDR (dB)`` as ``20*log10(signal_rss/wo:mag)``, ``NSD (dB)`` as ``10*log10(signal_rss*signal_rss/ab_width)``
