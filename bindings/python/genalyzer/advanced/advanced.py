@@ -903,11 +903,9 @@ def fft_analysis(object_key, a, nfft, axis_type=FreqAxisType.DC_LEFT):
 
             ``{PREFIX}_rss`` : Root-sum-square associated with PREFIX
 
-            ``{TONEKEY}:orderindex`` : Tone order index
+            ``{TONEKEY}:ffinal`` : Tone final frequency (Hz)
 
             ``{TONEKEY}:freq`` : Tone frequency (Hz)
-
-            ``{TONEKEY}:ffinal`` : Tone final frequency (Hz)
 
             ``{TONEKEY}:fwavg`` : Tone weighted-average frequency (Hz)
 
@@ -915,19 +913,23 @@ def fft_analysis(object_key, a, nfft, axis_type=FreqAxisType.DC_LEFT):
 
             ``{TONEKEY}:i2`` : Tone last index
 
-            ``{TONEKEY}:nbins`` : Tone number of bins
-
-            ``{TONEKEY}:inband`` : 0: tone is in-band; 1: tone is out-of-band
+            ``{TONEKEY}:inband`` : 1: tone is in-band; 0: tone is out-of-band
 
             ``{TONEKEY}:mag`` : Tone magnitude
 
+            ``{TONEKEY}:mag_dbc`` : Tone magnitude relative to carrier (dBc)
+
             ``{TONEKEY}:mag_dbfs`` : Tone magnitude relative to full-scale (dBFS)
 
-            ``{TONEKEY}:mag_dbc`` : Tone magnitude relative to carrier (dBc)
+            ``{TONEKEY}:nbins`` : Tone number of bins
+
+            ``{TONEKEY}:orderindex`` : Tone order index
 
             ``{TONEKEY}:phase`` : Tone phase (rad)
 
             ``{TONEKEY}:phase_c`` : Tone phase relative to carrier (rad)
+
+            ``{TONEKEY}:tag`` : Tone tag
     """
     object_key = bytes(object_key, "utf-8")
     dtype = _check_ndarray(a, ["complex128", "float64"])
@@ -1694,7 +1696,7 @@ def fft(a, *args):
 
                 In this case, ``a`` is interpreted to contain interleaved quantized samples.
 
-            4. If ``a`` is of type "int16", "int32", or "int64", then compute the FFT of split quantized samples with the following interpretation.
+            4. If ``a`` is of type ``int16``, ``int32``, or ``int64``, then compute the FFT of split quantized samples with the following interpretation.
 
                 ``q`` (``int16``, ``int32``, or ``int64``) : Quadrature component 
 
