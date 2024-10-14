@@ -111,7 +111,7 @@ jobs:
           make coverage
 
       - name: Coveralls
-        uses: coverallsapp/github-action@v1
+        uses: coverallsapp/github-action@v4
         with:
           path-to-lcov: build/main_coverage.info
 
