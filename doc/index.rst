@@ -28,7 +28,7 @@ Reference
    examples.md
    .. 02_using_genalyzer
    03_examples
-   working_example
+   spectral_analysis
    reference
    reference_advanced
    python/genalyzer

@@ -1,5 +1,5 @@
-Simplified API
-============
+Simplified API (Beta)
+=====================
 
 .. automodule:: genalyzer.simplified
    :members:

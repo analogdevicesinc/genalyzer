@@ -5,3 +5,5 @@ myst-parser
 sphinx-tabs
 graphviz
 sphinx_inline_tabs
+sphinxcontrib-mermaid
+sphinx-togglebutton

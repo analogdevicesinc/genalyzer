@@ -9,3 +9,5 @@ Advanced API
    fourier_analysis
    fourier_configuration
    fourier_transforms
+   waveforms
+   signal_processing

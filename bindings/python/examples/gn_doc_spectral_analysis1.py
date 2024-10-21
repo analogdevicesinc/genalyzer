@@ -50,22 +50,20 @@ fft_cplx = gn.fft(qwfi, qwfq, qres, navg, nfft, window, code_fmt)
 #
 # Fourier analysis configuration
 #
-object_key = "fa"
-signal_tone_key = 'A'
-gn.mgr_remove(object_key)
-gn.fa_create(object_key)
-gn.fa_fsample(object_key, fs)
-gn.fa_max_tone(object_key, signal_tone_key, gn.FaCompTag.SIGNAL, ssb_fund)
-gn.fa_hd(object_key, num_harmonics)
-gn.fa_ssb(object_key, gn.FaSsb.DEFAULT, ssb_rest)
-gn.fa_ssb(object_key, gn.FaSsb.DC, ssb_dc)
-gn.fa_ssb(object_key, gn.FaSsb.WO, ssb_wo)
+test_label = "fa"
+gn.fa_create(test_label)
+signal_component_label = 'A'
+gn.fa_max_tone(test_label, signal_component_label, gn.FaCompTag.SIGNAL, ssb_fund)
+gn.fa_fsample(test_label, fs)
+gn.fa_hd(test_label, num_harmonics)
+gn.fa_ssb(test_label, gn.FaSsb.DEFAULT, ssb_rest)
+gn.fa_ssb(test_label, gn.FaSsb.DC, ssb_dc)
+gn.fa_ssb(test_label, gn.FaSsb.WO, ssb_wo)
 
 #
 # Fourier analysis execution
 #
-results = gn.fft_analysis(object_key, fft_cplx, nfft, axis_type)
-print('type of results is - ', type(results),"\n")
+results = gn.fft_analysis(test_label, fft_cplx, nfft, axis_type)
 
 #
 # Print results and plot
@@ -76,8 +74,6 @@ if gn.FreqAxisType.DC_CENTER == axis_type:
     fft_db = gn.fftshift(fft_db)
 
 annots = gn.fa_annotations(results, axis_type, axis_fmt)
-print("annotation keys in results dictionary:", annots.keys(),"\n")
-
 print('annots["labels"]: ')
 labels_head = ('frequency (Hz)', 'magnitude (dBFs)', 'component label')
 labels_table = tabulate(annots["labels"], headers=labels_head, tablefmt="grid")
