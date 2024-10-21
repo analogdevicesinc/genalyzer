@@ -15,7 +15,7 @@ The workflow we follow in this tutorial is generally what is to be followed to u
           C1[Configure] -->C2[Run];
         end
 
-        style SA fill:#e4d9ff
+        style SA fill:#ffffff
 ```
 
 In this tutorial, we will generate the tone waveform mentioned previously. In another example shown here (provide link), we will import a tone waveform captured using ADALM-PLUTO and perform spectral analysis using Genalyzer.
@@ -33,7 +33,7 @@ In this tutorial, we will generate the tone waveform mentioned previously. In an
           C1[Configure] -->C2[Run];
         end
 
-        style SA fill:#e4d9ff
+        style SA fill:#ffffff
 
         style A fill:#9fa4fc
 ```
@@ -57,7 +57,7 @@ Time-domain plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
           C1[Configure] -->C2[Run];
         end
 
-        style SA fill:#e4d9ff
+        style SA fill:#ffffff
 
       style B fill:#9fa4fc
 ```
@@ -115,7 +115,7 @@ Conducting spectral analysis using Genalyzer involves two steps: configuration a
         end
 
       style C1 fill:#9fa4fc
-      style SA fill:#e4d9ff
+      style SA fill:#ffffff
 ```
 We configure Genalyzer for spectral analysis by creating a _test_ followed by associating _components_ to this _test_. 
 #### Create a _test_
@@ -131,7 +131,7 @@ The ``test_label`` ``string`` is key to all further configuration, and for compu
 Under the hood, Genalyzer adds a key-value pair to a  ``static`` ``map`` container to manage the metrics to be computed. The key is the string argument passed through ``fa_create()``, and the mapped value is a shared-pointer to an instance of ``fourier_analysis`` class. This key is then used to further configure Genalyzer, and to compute and retrieve the metrics through ``fourier_analysis`` class. The intent behind using a ``map`` container is to be easily able to associate multiple keys to different snapshots of the data being analyzed and to have the metrics for each of those snapshots available. 
 ```
 
-#### Associate signal _component_ with an existing _test_
+#### Add signal _component_ to an existing _test_
 The next step is to identify the signal tone with another label and associate it with the ``test_label`` we created earlier. To do this, simply call [``fa_max_tone()``](#genalyzer.advanced.advanced.fa_max_tone) as follows:
 ```{code-block} python
 signal_component_label = 'A'
@@ -158,7 +158,7 @@ The number of single-side bins (SSBs) for a _component_ is an important configur
         end
 
       style C2 fill:#9fa4fc
-      style SA fill:#e4d9ff
+      style SA fill:#ffffff
 ```
 
 In [this](https://github.com/analogdevicesinc/genalyzer/blob/doc-update-working-example/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, FFT analysis is run by the following line:
@@ -232,7 +232,7 @@ From ``annots["tone_boxes"]`` table, we see that each of the ``7`` components sp
 The choice of the number of single-side bins (SSBs) is important when the signal is not coherently sampled and when the sample-rate is not an integer multiple of the FFT-order. 
 ```
 
-#### Spectral analysis results and ``snr``
+#### Spectral analysis results
 Finally, the ``results`` dictionary is shown below. Note that since a random quantization noise is added to the signal, the console output will be different.
 ```{admonition} results
 :class: dropdown
