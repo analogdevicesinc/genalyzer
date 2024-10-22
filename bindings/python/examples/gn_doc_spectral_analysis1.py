@@ -116,8 +116,12 @@ toneWO_mag = fft_db[int(toneWO_bin+0.5*nfft)]
 
 sfdr = results["sfdr"]
 nsd = results["nsd"]
+abn = results["abn"]
+snr = results["snr"]
+fsnr = results["fsnr"]
+sinad = results["sinad"]
 scale_MHz = 1e-6
-fig = pl.figure(1)
+fig, ax = pl.subplots()
 fig.clf()
 pl.plot(freq_axis*scale_MHz, fft_db)
 pl.grid(True)
@@ -188,10 +192,22 @@ pl.annotate('SFDR'+": "+f"{sfdr:.2f}"+' dB',
             xytext=(1.25, -40), 
             verticalalignment="center",
             rotation=270)
+pl.axhline(y = abn, color = 'r', linestyle = '-')
+pl.annotate('ABN'+": "+f"{abn:.2f}"+' dB',
+            xy=(0.5, -100), 
+            xytext=(0.5, -100), 
+            color = 'red',
+            ha="center")
 pl.axhline(y = nsd, color = 'r', linestyle = '-')
 pl.annotate('NSD'+": "+f"{nsd:.2f}"+' dB',
             xy=(0.5, -120), 
             xytext=(0.5, -120), 
             color = 'red',
             ha="center")
-pl.savefig('foo.png')
+textstr = '\n'.join((
+    'SNR'+": "+f"{snr:.2f}"+' dB',
+    'FSNR'+": "+f"{fsnr:.2f}"+' dB',
+    'SINAD'+": "+f"{sinad:.2f}"+' dB'))
+props = dict(boxstyle='round', facecolor='wheat', alpha=0)
+ax.text(0.5, 0.5, textstr, fontsize=14, bbox=props)
+pl.savefig('spectral_analysis_summary.png')
