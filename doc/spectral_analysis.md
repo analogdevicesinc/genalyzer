@@ -39,7 +39,7 @@ We first generate (or import) a waveform to be analyzed, compute its FFT, and fi
 ```
 Genalyzer supports [sine](#genalyzer.advanced.advanced.sin), [cosine](#genalyzer.advanced.advanced.cos), [ramp](#genalyzer.advanced.advanced.ramp), and [Gaussian](#genalyzer.advanced.advanced.gaussian) random waveforms. It also contains a [waveform analysis](#genalyzer.advanced.advanced.wf_analysis) utility to summarize a waveform, generated or otherwise. Please see [this](https://github.com/analogdevicesinc/genalyzer/blob/doc-update-working-example/bindings/python/examples/gn_doc_tone_gen.py) Python script for more details. A time-domain plot of the complex-sinusoidal tone for which we compute FFT in the next step is shown below for reference. 
 
-```{figure} ../../../bindings/python/complex_sinusoidal_waveform.png
+```{figure} ../../../doc/figures/complex_sinusoidal_waveform.png
 
 Time-domain plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
 ```
@@ -79,7 +79,7 @@ Genalyzer's ``fft()`` computes FFT for complex-valued data only. To compute FFT 
 ```
 
 The FFT plot of the complex-sinusoidal tone in our working example is shown below for reference. Please see [this](https://github.com/analogdevicesinc/genalyzer/blob/doc-update-working-example/bindings/python/examples/gn_doc_fft.py) Python script for more details. 
-```{figure} ../../../bindings/python/fft.png
+```{figure} ../../../doc/figures/fft.png
 
 FFT plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
 ```
@@ -477,7 +477,7 @@ Please refer to the documentation page for [``fft_analysis()``](#genalyzer.advan
 
 In summary, the magnitude spectrum plot for the working example considered so far, with DC, signal, and harmonic components labeled, is shown below. 
 
-```{figure} ../../../bindings/python/spectral_analysis_summary.png
+```{figure} ../../../doc/figures/spectral_analysis_summary.png
 
 Magnitude spectrum of the FFT showing signal, harmonic, DC, and WO components.
 ```
