@@ -209,7 +209,7 @@ extern "C"
   /**
    * @brief set configuration struct member: noise_rms
    * @return 0 on success, non-zero otherwise
-   * @param qres Quantization noise
+   * @param noise_rms RMS Noise
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_noise_rms(
@@ -253,7 +253,7 @@ extern "C"
   /**
    * @brief set configuration struct member: navg
    * @return 0 on success, non-zero otherwise
-   * @param navg Num. of FFTs to average
+   * @param fft_navg Num. of FFTs to average
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_set_fft_navg(
@@ -352,7 +352,7 @@ extern "C"
   /**
    * @brief get configuration struct member: _code_density_size
    * @return 0 on success, non-zero otherwise
-   * @param ramp_stop stop value of ramp
+   * @param code_density_size code density size
    * @param c genalyzer Configuration struct
    */
   __api int gn_config_get_code_density_size(
