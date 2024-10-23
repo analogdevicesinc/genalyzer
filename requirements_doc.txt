@@ -7,3 +7,4 @@ graphviz
 sphinx_inline_tabs
 sphinxcontrib-mermaid
 sphinx-togglebutton
+numpy
