@@ -1,5 +1,5 @@
 Fourier Analysis
 ----------------
 
-.. automodule:: genalyzer.advanced.advanced
+.. automodule:: genalyzer
    :members: fft_analysis
