@@ -46,8 +46,6 @@ from platform import system as _system
 from ctypes.util import find_library
 import os
 
-# import genalyzer_advanced as advanced
-
 if "Windows" in _system():
     _libgen = "libgenalyzer.dll"
 else:
