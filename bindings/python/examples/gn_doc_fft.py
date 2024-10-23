@@ -1,5 +1,5 @@
 import numpy as np
-import genalyzer.advanced as gn
+import genalyzer as gn
 import matplotlib.pyplot as pl
 
 #

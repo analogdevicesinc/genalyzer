@@ -1,5 +1,5 @@
 """
-* cgenalyzer_advanced - genalyzer (advanced) API header file
+* pygenalyzer - genalyzer API header file
 *
 * Copyright (C) 2022 Analog Devices, Inc.
 * Author: Peter Derounian
@@ -20,7 +20,7 @@
 """
 
 """
-Python wrapper for Data Converter Analysis Library (genalyzer_plus_plus)
+Python wrapper for Genalyzer Library (genalyzer_plus_plus)
 """
 import ctypes as _ctypes
 from ctypes.util import find_library as _find_library

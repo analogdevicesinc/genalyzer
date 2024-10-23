@@ -1,4 +1,4 @@
-from .. import (
+from ..simplified_beta import (
     config_gen_tone,
     gen_real_tone,
     config_quantize,
