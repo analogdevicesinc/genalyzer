@@ -23,6 +23,8 @@ jobs:
           mkdir -p build
           cd build
           cmake .. -DBUILD_DOC=ON
+          make -j4
+          sudo make install
           make Sphinx
 
 
