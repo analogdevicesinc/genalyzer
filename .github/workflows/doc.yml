@@ -27,6 +27,7 @@ jobs:
           sudo make install
           cd ../bindings/python
           pip install ".[tools]"
+          cd ../../build
           make Sphinx
 
 
