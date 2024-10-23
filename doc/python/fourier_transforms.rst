@@ -1,5 +1,7 @@
 Fourier Transforms
 ------------------
+.. module:: genalyzer
 
-.. automodule:: genalyzer
-   :members: fft, rfft
+.. autofunction:: fft
+
+.. autofunction:: rfft

@@ -1,5 +1,6 @@
 Fourier Analysis
 ----------------
 
-.. automodule:: genalyzer
-   :members: fft_analysis
+.. module:: genalyzer
+
+.. autofunction:: fft_analysis

@@ -1,5 +1,18 @@
 Signal Processing
 -----------------
 
-.. automodule:: genalyzer
-   :members: downsample, fshift, normalize, polyval, quantize16, quantize32, quantize64, quantize
+.. module:: genalyzer
+
+.. autofunction:: downsample
+
+.. autofunction:: fshift
+
+.. autofunction:: normalize
+
+.. autofunction:: polyval
+
+.. autofunction:: quantize16
+
+.. autofunction:: quantize32
+
+.. autofunction:: quantize64

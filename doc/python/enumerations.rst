@@ -1,5 +1,22 @@
 Enumerations
 ------------
 
-.. automodule:: genalyzer
-   :members: CodeFormat, DnlSignal, FaCompTag, FaSsb, FreqAxisFormat, FreqAxisType, InlLineFit, RfftScale, Window
+.. module:: genalyzer
+
+.. autofunction:: CodeFormat
+
+.. autofunction:: DnlSignal
+
+.. autofunction:: FaCompTag
+
+.. autofunction:: FaSsb
+
+.. autofunction:: FreqAxisFormat
+
+.. autofunction:: FreqAxisType
+
+.. autofunction:: InlLineFit
+
+.. autofunction:: RfftScale
+
+.. autofunction:: Window

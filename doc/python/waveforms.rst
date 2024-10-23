@@ -1,5 +1,14 @@
 Waveforms
 ---------
 
-.. automodule:: genalyzer
-   :members: cos, gaussian, ramp, sin, wf_analysis
+.. module:: genalyzer
+
+   .. autofunction:: cos
+
+   .. autofunction:: gaussian
+
+   .. autofunction:: ramp
+
+   .. autofunction:: sin
+
+   .. autofunction:: wf_analysis
