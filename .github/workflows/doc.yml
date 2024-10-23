@@ -25,6 +25,8 @@ jobs:
           cmake .. -DBUILD_DOC=ON
           make -j4
           sudo make install
+          cd ../bindings/python
+          pip install ".[tools]"
           make Sphinx
 
 
