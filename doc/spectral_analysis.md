@@ -35,7 +35,7 @@ We first generate (or import) a waveform to be analyzed, compute its FFT, and fi
 
         style A fill:#9fa4fc
 ```
-Genalyzer supports [sine](#genalyzer.advanced.advanced.sin), [cosine](#genalyzer.advanced.advanced.cos), [ramp](#genalyzer.advanced.advanced.ramp), and [Gaussian](#genalyzer.advanced.advanced.gaussian) random waveforms. It also contains a [waveform analysis](#genalyzer.advanced.advanced.wf_analysis) utility to summarize a waveform, generated or otherwise. Please see [this](../../../bindings/python/examples/gn_doc_tone_gen.py) Python script for more details. A time-domain plot of the complex-sinusoidal tone for which we compute FFT in the next step is shown below for reference. 
+Genalyzer supports [sine](#genalyzer.sin), [cosine](#genalyzer.cos), [ramp](#genalyzer.ramp), and [Gaussian](#genalyzer.gaussian) random waveforms. It also contains a [waveform analysis](#genalyzer.wf_analysis) utility to summarize a waveform, generated or otherwise. Please see [this](https://github.com/analogdevicesinc/genalyzer/blob/master/bindings/python/examples/gn_doc_tone_gen.py) Python script for more details. A time-domain plot of the complex-sinusoidal tone for which we compute FFT in the next step is shown below for reference. 
 
 ```{figure} https://github.com/analogdevicesinc/genalyzer/blob/master/doc/figures/complex_sinusoidal_waveform.png
 
@@ -60,19 +60,19 @@ Time-domain plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
 ```
 We compute FFT of the sinusoidal tone since spectral analysis of a waveform is in essence an analysis of its FFT. 
 
-The API for Genalyzer's ``fft()`` can be found [here](#genalyzer.advanced.advanced.fft). It supports several usecases depending on whether the samples are represented in floating- or fixed-point, and on whether the samples are represented as complex-valued, or interleaved I/Q, or split into I and Q streams.
+The API for Genalyzer's ``fft()`` can be found [here](#genalyzer.fft). It supports several usecases depending on whether the samples are represented in floating- or fixed-point, and on whether the samples are represented as complex-valued, or interleaved I/Q, or split into I and Q streams.
 
 ```{note}
-Genalyzer supports two fixed-point data formats: offset binary and two's-complement. See [here](#genalyzer.advanced.advanced.CodeFormat).
+Genalyzer supports two fixed-point data formats: offset binary and two's-complement. See [here](#genalyzer.CodeFormat).
 ```
 ```{note}
-Genalyzer supports three window types that can be applied to the signal prior to computing FFT: Blackman-Harris, Hanning, and rectangular. See [here](#genalyzer.advanced.advanced.Window).
+Genalyzer supports three window types that can be applied to the signal prior to computing FFT: Blackman-Harris, Hanning, and rectangular. See [here](#genalyzer.Window).
 ```
 ```{important}
 Genalyzer doesn't support an overlap window between different snapshots that are averaged to generate the FFT. As a result, ``fft()`` expects the number of complex-valued samples in the input to be equal to the product of the number of averages and the FFT order.
 ```
 ```{seealso}
-Genalyzer's ``fft()`` computes FFT for complex-valued data only. To compute FFT for real-valued data, use ``rfft()``. Additional details [here](#genalyzer.advanced.advanced.rfft).
+Genalyzer's ``fft()`` computes FFT for complex-valued data only. To compute FFT for real-valued data, use ``rfft()``. Additional details [here](#genalyzer.rfft).
 ```
 
 The FFT plot of the complex-sinusoidal tone in our working example is shown below for reference. Please see [this](https://github.com/analogdevicesinc/genalyzer/blob/master/bindings/python/examples/gn_doc_fft.py) Python script for more details. 
@@ -114,7 +114,7 @@ Conducting spectral analysis using Genalyzer involves two steps: configuration a
 ```
 We configure Genalyzer for spectral analysis by creating a _test_ followed by associating _components_ to this _test_. 
 #### Create a _test_
-To create a _test_, simply call [``fa_create()``](#genalyzer.advanced.advanced.fa_create) as follows:
+To create a _test_, simply call [``fa_create()``](#genalyzer.fa_create) as follows:
 ```{code-block} python
 test_label = "fa"
 gn.fa_create(test_label)
@@ -127,14 +127,14 @@ Under the hood, Genalyzer adds a key-value pair to a  ``static`` ``map`` contain
 ```
 
 #### Add a _component_ to a _test_
-The next step is to identify a tone, give it a label, tag it with a component tag, and add it to the _test_ being run. In this working example, we will consider only the signal tone for illustration purposes. We pick the label, ``A`` for the signal component and associate it with the test labeled ``fa`` from above. To do this, simply call [``fa_max_tone()``](#genalyzer.advanced.advanced.fa_max_tone) as follows:
+The next step is to identify a tone, give it a label, tag it with a component tag, and add it to the _test_ being run. In this working example, we will consider only the signal tone for illustration purposes. We pick the label, ``A`` for the signal component and associate it with the test labeled ``fa`` from above. To do this, simply call [``fa_max_tone()``](#genalyzer.fa_max_tone) as follows:
 ```{code-block} python
 signal_component_label = 'A'
 gn.fa_max_tone(test_label, signal_component_label, gn.FaCompTag.SIGNAL, ssb_fund)
 ```
-As the name indicates, ``fa_max_tone()`` above interprets the tone with the highest magnitude as the signal component. For a more general way of informing Genalyzer to link a certain tone with a tag, use [``fa_fixed_tone()``](#genalyzer.advanced.advanced.fa_fixed_tone).
+As the name indicates, ``fa_max_tone()`` above interprets the tone with the highest magnitude as the signal component. For a more general way of informing Genalyzer to link a certain tone with a tag, use [``fa_fixed_tone()``](#genalyzer.fa_fixed_tone).
 ```{note}
-Genalyzer supports several _tags_ for Fourier analysis. See [here](#genalyzer.advanced.advanced.FaCompTag).
+Genalyzer supports several _tags_ for Fourier analysis. See [here](#genalyzer.FaCompTag).
 ```
 
 The number of single-side bins (SSBs) for a _component_ is an important configuration step, and it will be explained in sufficient detail in another subsection. 
@@ -159,12 +159,12 @@ In [this](https://github.com/analogdevicesinc/genalyzer/blob/master/bindings/pyt
 ```{code-block} python
 results = gn.fft_analysis(test_label, fft_cplx, nfft, axis_type)
 ```
-See more details on ``fft_analysis()`` [here](#genalyzer.advanced.advanced.fft_analysis).
+See more details on ``fft_analysis()`` [here](#genalyzer.fft_analysis).
 ```{note}
-The enumerations for frequency-axis type are [here](#genalyzer.advanced.advanced.FreqAxisType).
+The enumerations for frequency-axis type are [here](#genalyzer.FreqAxisType).
 ```
 
-The Python script prints two tables and a dictionary to the console output. With the help of the tables, we will first see how Genalyzer identifies signal tone, its harmonics (and other components), their locations, and their magnitudes. Next, we will look at the dictionary of key-value pairs that [``fft_analysis()``](#genalyzer.advanced.advanced.fft_analysis) returns. It contains all the necessary information gathered by Genalyzer to compute various performance metrics. Towards the end of this discussion, we consider one metric, ``snr`` and verify how it is computed by Genalyzer.
+The Python script prints two tables and a dictionary to the console output. With the help of the tables, we will first see how Genalyzer identifies signal tone, its harmonics (and other components), their locations, and their magnitudes. Next, we will look at the dictionary of key-value pairs that [``fft_analysis()``](#genalyzer.fft_analysis) returns. It contains all the necessary information gathered by Genalyzer to compute various performance metrics. Towards the end of this discussion, we consider one metric, ``snr`` and verify how it is computed by Genalyzer.
 
 #### Tone labels
 The first table we look at is the ``labels`` table.
@@ -447,7 +447,7 @@ For example, the key-value pairs in the above format for ``-A`` component are as
 
 ``'-A:tag': 2.0,``
 
-which provide all the relevant information concerning ``-A`` component and how its contribution to the metrics is computed. More details concerning the key-value pairs in the ``results`` dictionary are available [here](#genalyzer.advanced.advanced.fft_analysis).
+which provide all the relevant information concerning ``-A`` component and how its contribution to the metrics is computed. More details concerning the key-value pairs in the ``results`` dictionary are available [here](#genalyzer.fft_analysis).
 
 In this manner, Genalyzer collates the information concerning all the components to account for, calculates the various performance metrics, and logs them to the ``results`` dictionary. To give an example of how genalyzer computes ``sfdr``, consider the following key-value pair from the ``results`` dictionary:
 
@@ -467,7 +467,7 @@ which indicate that aside from ``6`` components (``A``, ``-A``, ``2A``, ``-2A``,
 
 * ``ABN (dB) = 10*log10(noise_ss/noise_nbins)``
 
-Please refer to the documentation page for [``fft_analysis()``](#genalyzer.advanced.advanced.fft_analysis) for further details.
+Please refer to the documentation page for [``fft_analysis()``](#genalyzer.fft_analysis) for further details.
 
 In summary, the magnitude spectrum plot for the working example considered so far, with DC, signal, and harmonic components labeled, is shown below. 
 
