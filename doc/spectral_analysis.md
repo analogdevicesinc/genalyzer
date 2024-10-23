@@ -1,7 +1,7 @@
 # Spectral Analysis
 In this tutorial, we will use Genalyzer to conduct spectral analysis of a waveform. The waveform we analyze will be a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``. The only impairment in this waveform will be quantization noise. At the end of this tutorial, the reader will have gained an understanding on how to utilize Genalyzer to compute various RF performance metrics such as SFDR, FSNR, SNR, NSD etc. 
 
-The workflow we follow in this tutorial is generally what is to be followed to use Genalyzer for spectral analysis. It consists of three stages shown in the graph below.
+The workflow we follow in this tutorial is generally what is to be followed to use Genalyzer for spectral analysis. It consists of three stages shown in the diagram below.
 
 ```{eval-rst} 
 .. mermaid::
