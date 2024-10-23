@@ -37,7 +37,7 @@ We first generate (or import) a waveform to be analyzed, compute its FFT, and fi
 
         style A fill:#9fa4fc
 ```
-Genalyzer supports [sine](#genalyzer.advanced.advanced.sin), [cosine](#genalyzer.advanced.advanced.cos), [ramp](#genalyzer.advanced.advanced.ramp), and [Gaussian](#genalyzer.advanced.advanced.gaussian) random waveforms. It also contains a [waveform analysis](#genalyzer.advanced.advanced.wf_analysis) utility to summarize a waveform, generated or otherwise. Please see [this](https://github.com/analogdevicesinc/genalyzer/blob/doc-update-working-example/bindings/python/examples/gn_doc_tone_gen.py) Python script for more details. A time-domain plot of the complex-sinusoidal tone for which we compute FFT in the next step is shown below for reference. 
+Genalyzer supports [sine](#genalyzer.advanced.advanced.sin), [cosine](#genalyzer.advanced.advanced.cos), [ramp](#genalyzer.advanced.advanced.ramp), and [Gaussian](#genalyzer.advanced.advanced.gaussian) random waveforms. It also contains a [waveform analysis](#genalyzer.advanced.advanced.wf_analysis) utility to summarize a waveform, generated or otherwise. Please see [this](../../../bindings/python/examples/gn_doc_tone_gen.py) Python script for more details. A time-domain plot of the complex-sinusoidal tone for which we compute FFT in the next step is shown below for reference. 
 
 ```{figure} ../../../doc/figures/complex_sinusoidal_waveform.png
 
@@ -78,7 +78,7 @@ Genalyzer doesn't support an overlap window between different snapshots that are
 Genalyzer's ``fft()`` computes FFT for complex-valued data only. To compute FFT for real-valued data, use ``rfft()``. Additional details [here](#genalyzer.advanced.advanced.rfft).
 ```
 
-The FFT plot of the complex-sinusoidal tone in our working example is shown below for reference. Please see [this](https://github.com/analogdevicesinc/genalyzer/blob/doc-update-working-example/bindings/python/examples/gn_doc_fft.py) Python script for more details. 
+The FFT plot of the complex-sinusoidal tone in our working example is shown below for reference. Please see [this](../../../bindings/python/examples/gn_doc_fft.py) Python script for more details. 
 ```{figure} ../../../doc/figures/fft.png
 
 FFT plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
@@ -99,7 +99,7 @@ FFT plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
 
       style SA fill:#9fa4fc
 ```
-Conducting spectral analysis using Genalyzer involves two steps: configuration and analysis. Please refer to [this](https://github.com/analogdevicesinc/genalyzer/blob/doc-update-working-example/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script to follow the discussion in this subsection.
+Conducting spectral analysis using Genalyzer involves two steps: configuration and analysis. Please refer to [this](../../../bindings/python/examples/gn_doc_spectral_analysis1.py) Python script to follow the discussion in this subsection.
 
 ### Configure Genalyzer
 ```{eval-rst} 
@@ -161,7 +161,7 @@ The number of single-side bins (SSBs) for a _component_ is an important configur
       style SA fill:#ffffff
 ```
 
-In [this](https://github.com/analogdevicesinc/genalyzer/blob/doc-update-working-example/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, FFT analysis is run by the following line:
+In [this](../../../bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, FFT analysis is run by the following line:
 ```{code-block} python
 results = gn.fft_analysis(test_label, fft_cplx, nfft, axis_type)
 ```
@@ -197,7 +197,7 @@ The first table we look at is the ``labels`` table.
 +------------------+--------------------+-------------------+
 ```
 
-Notice that this table shows ``7`` frequencies, their magnitudes, and their labels. In addition to the auto-configured ``dc`` component, with the help of the manually configured signal component, Genalyzer has identified ``4`` others: the image, two second-order harmonics, and one third-order harmonic. We also see a ``wo`` (worst-other) component which, as the name indicates, is the component of the highest magnitude excluding the ones listed so far. By default, Genalyzer identifies harmonics upto the `6`th order. In [this](https://github.com/analogdevicesinc/genalyzer/blob/doc-update-working-example/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, we set the the number of harmonics to take into account to ``3`` with the following line:
+Notice that this table shows ``7`` frequencies, their magnitudes, and their labels. In addition to the auto-configured ``dc`` component, with the help of the manually configured signal component, Genalyzer has identified ``4`` others: the image, two second-order harmonics, and one third-order harmonic. We also see a ``wo`` (worst-other) component which, as the name indicates, is the component of the highest magnitude excluding the ones listed so far. By default, Genalyzer identifies harmonics upto the `6`th order. In [this](../../../bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, we set the the number of harmonics to take into account to ``3`` with the following line:
 ```{code-block} python
 gn.fa_hd(test_label, num_harmonics)
 ```
@@ -231,7 +231,7 @@ Next, we look at the ``tone_boxes`` table.
 +--------------------------+--------------+
 ```
 
-From this table, we see that each of the ``7`` components spans a width of ``100 Hz``. This value equals sample-rate divided by the FFT order we chose in the working example. Because the tone is coherently sampled and we chose the sample-rate to be an integer multiple of the FFT-order, all the power corresponding to a component is located in exactly one bin. This is the reason why, in [this](https://github.com/analogdevicesinc/genalyzer/blob/doc-update-working-example/bindings/python/examples/gn_doc_spectral_analysis1.py) example, we set the number of single-side bins (SSBs) for every component to ``0``. So, Genalyzer takes into account the magnitude value corresponding to exactly one bin (and ``0`` bins on either side) as that component's contribution in various metrics computed. In a subsequent example, we consider the case when it becomes necessary to set the number of SSBs to a value greater than ``0``.
+From this table, we see that each of the ``7`` components spans a width of ``100 Hz``. This value equals sample-rate divided by the FFT order we chose in the working example. Because the tone is coherently sampled and we chose the sample-rate to be an integer multiple of the FFT-order, all the power corresponding to a component is located in exactly one bin. This is the reason why, in [this](../../../bindings/python/examples/gn_doc_spectral_analysis1.py) example, we set the number of single-side bins (SSBs) for every component to ``0``. So, Genalyzer takes into account the magnitude value corresponding to exactly one bin (and ``0`` bins on either side) as that component's contribution in various metrics computed. In a subsequent example, we consider the case when it becomes necessary to set the number of SSBs to a value greater than ``0``.
 ```{caution}
 The choice of the number of single-side bins (SSBs) is important when the signal is not coherently sampled and when the sample-rate is not an integer multiple of the FFT-order. 
 ```
