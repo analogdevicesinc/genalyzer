@@ -28,7 +28,7 @@ jobs:
           cd ../bindings/python
           pip install ".[tools]"
           cd ../../build
-          make Sphinx
+          make clean Sphinx
 
 
   MasterDocDeploy:
