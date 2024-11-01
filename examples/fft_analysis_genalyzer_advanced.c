@@ -1,5 +1,5 @@
+#include <cgenalyzer_simplified_beta.h>
 #include <cgenalyzer.h>
-#include <cgenalyzer_advanced.h>
 
 #include <stdbool.h>
 #include <math.h>
