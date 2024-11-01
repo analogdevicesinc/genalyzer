@@ -1,18 +1,18 @@
 Signal Processing
 -----------------
 
-.. module:: genalyzer
+.. autofunction:: genalyzer.downsample
 
-.. autofunction:: downsample
+.. autofunction:: genalyzer.fshift
 
-.. autofunction:: fshift
+.. autofunction:: genalyzer.normalize
 
-.. autofunction:: normalize
+.. autofunction:: genalyzer.polyval
 
-.. autofunction:: polyval
+.. autofunction:: genalyzer.quantize16
 
-.. autofunction:: quantize16
+.. autofunction:: genalyzer.quantize32
 
-.. autofunction:: quantize32
+.. autofunction:: genalyzer.quantize64
 
-.. autofunction:: quantize64
+.. autofunction:: genalyzer.quantize

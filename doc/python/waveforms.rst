@@ -1,14 +1,12 @@
 Waveforms
 ---------
 
-.. module:: genalyzer
+.. autofunction:: genalyzer.cos
 
-   .. autofunction:: cos
+.. autofunction:: genalyzer.gaussian
 
-   .. autofunction:: gaussian
+.. autofunction:: genalyzer.ramp
 
-   .. autofunction:: ramp
+.. autofunction:: genalyzer.sin
 
-   .. autofunction:: sin
-
-   .. autofunction:: wf_analysis
+.. autofunction:: genalyzer.wf_analysis

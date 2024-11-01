@@ -1,5 +1,5 @@
 /*
- * cgenalyzer - genalyzer API header file
+ * cgenalyzer - genalyzer (beta) simplified API header file
  *
  * Copyright (C) 2022 Analog Devices, Inc.
  * Author: Srikanth Pagadarai

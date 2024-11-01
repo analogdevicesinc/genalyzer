@@ -1,5 +1,5 @@
 /*
- * cgenalyzer_advanced - genalyzer (advanced) API header file
+ * cgenalyzer - genalyzer API header file
  *
  * Copyright (C) 2022 Analog Devices, Inc.
  * Author: Peter Derounian

@@ -76,7 +76,7 @@ def gen_pages():
     page += "- [Generate Functions](#generate-functions)\n"
     page += "- [Operation Functions](#operation-functions)\n\n"
 
-    page += "## Structs\n\n"
+    #page += "## Structs\n\n"
 
 
     def gen_functions(functions):

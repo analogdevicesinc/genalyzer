@@ -12,6 +12,7 @@ Advanced API Reference for Genalyzer library. This API is meant for advanced use
 
 ```{eval-rst}
 .. doxygengroup:: Enumerations
+   :no-link: 
 ```
 
 ## API Utilities

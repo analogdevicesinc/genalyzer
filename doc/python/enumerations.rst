@@ -1,22 +1,20 @@
 Enumerations
 ------------
 
-.. module:: genalyzer
+.. autofunction:: genalyzer.CodeFormat
 
-.. autofunction:: CodeFormat
+.. autofunction:: genalyzer.DnlSignal
 
-.. autofunction:: DnlSignal
+.. autofunction:: genalyzer.FaCompTag
 
-.. autofunction:: FaCompTag
+.. autofunction:: genalyzer.FaSsb
 
-.. autofunction:: FaSsb
+.. autofunction:: genalyzer.FreqAxisFormat
 
-.. autofunction:: FreqAxisFormat
+.. autofunction:: genalyzer.FreqAxisType
 
-.. autofunction:: FreqAxisType
+.. autofunction:: genalyzer.InlLineFit
 
-.. autofunction:: InlLineFit
+.. autofunction:: genalyzer.RfftScale
 
-.. autofunction:: RfftScale
-
-.. autofunction:: Window
+.. autofunction:: genalyzer.Window
