@@ -20,7 +20,7 @@
  * */
 
 
-#include <cgenalyzer.h>
+#include <cgenalyzer_simplified_beta.h>
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>
