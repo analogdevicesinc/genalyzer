@@ -24,7 +24,7 @@ jobs:
           cd build
           cmake .. -DBUILD_DOC=ON
           make genalyzer -j4
-          sudo make install
+          sudo make install genalyzer
           sudo ldconfig
           cd ../bindings/python
           pip install ".[tools]"
