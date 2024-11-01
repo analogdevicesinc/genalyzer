@@ -64,7 +64,7 @@ def gen_pages():
     # Generate md file for breathe
     page = "<!--- This file is auto-generated. Do not edit -->\n\n"
 
-    page += "# Simplified API Reference\n\n"
+    page += "# (Beta) Simplified API Reference\n\n"
     page += "This page contains the (beta) simplified API reference for the Genalyzer library.\n\n"
 
     # Table of contents
