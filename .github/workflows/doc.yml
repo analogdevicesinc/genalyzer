@@ -25,6 +25,7 @@ jobs:
           cmake .. -DBUILD_DOC=ON
           make -j4
           sudo make install
+          sudo ldconfig
           cd ../bindings/python
           pip install ".[tools]"
           cd ../../build
