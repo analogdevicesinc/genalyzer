@@ -23,7 +23,7 @@ jobs:
           mkdir -p build
           cd build
           cmake .. -DBUILD_DOC=ON
-          make -j4
+          make genalyzer -j4
           sudo make install
           sudo ldconfig
           cd ../bindings/python
