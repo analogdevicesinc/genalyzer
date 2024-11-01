@@ -3,7 +3,7 @@ import os
 
 def gen_pages():
     header = os.path.join(
-        os.path.dirname(__file__), "..", "bindings", "c", "include", "cgenalyzer.h"
+        os.path.dirname(__file__), "..", "bindings", "c", "include", "cgenalyzer_simplified_beta.h"
     )
 
     if not os.path.exists(header):
@@ -64,8 +64,8 @@ def gen_pages():
     # Generate md file for breathe
     page = "<!--- This file is auto-generated. Do not edit -->\n\n"
 
-    page += "# API Reference\n\n"
-    page += "This page contains the API reference for the Genalyzer library.\n\n"
+    page += "# Simplified API Reference\n\n"
+    page += "This page contains the (beta) simplified API reference for the Genalyzer library.\n\n"
 
     # Table of contents
 
@@ -107,7 +107,7 @@ def gen_pages():
     page += "## Operation Functions\n\n"
     page += gen_functions(operation_functions)
 
-    with open("reference.md", "w") as f:
+    with open("reference_simplified.md", "w") as f:
         f.write(page)
     print("API page generated")
 

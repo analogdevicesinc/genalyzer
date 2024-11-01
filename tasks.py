@@ -13,7 +13,7 @@ def lint(c):
     files = glob.glob("./**/CMakeLists.txt") + ["CMakeLists.txt"]
     cmd = ["cmake-format -i"] + files
     c.run(" ".join(cmd))
-    c.run("clang-format -style=file -i bindings/c/include/cgenalyzer.h")
+    c.run("clang-format -style=file -i bindings/c/include/cgenalyzer_simplified_beta.h")
     c.run("black bindings/python")
 
 @task

@@ -24,7 +24,7 @@ Reference
    setup
    spectral_analysis
    reference
-   reference_advanced
+   reference_simplified
    python/genalyzer
 
 

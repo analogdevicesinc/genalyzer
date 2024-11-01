@@ -1,4 +1,4 @@
-#include "cgenalyzer.h"
+#include "cgenalyzer_simplified_beta.h"
 #include "test_genalyzer.h"
 #include <assert.h>
 #include <stdbool.h>
