@@ -17,7 +17,7 @@ The workflow we follow in this tutorial is generally what is to be followed to u
         style SA fill:#ffffff
 ```
 
-We first generate (or import) a waveform to be analyzed, compute its FFT, and finally, calculate various performance metrics by running spectral analysis. In this tutorial, we will generate the tone waveform using Genalyzer. In another example, we will import a tone waveform captured using ADALM-PLUTO to perform spectral analysis.
+We first generate (or import) a waveform to be analyzed, compute its FFT, and finally, calculate various performance metrics by running spectral analysis. In this tutorial, we will generate the tone waveform using Genalyzer. In another example, we will import a tone waveform captured using ADALM-PLUTO to perform spectral analysis. Please refer to the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script to follow the discussion on this page.
 
 ## Tone Generation
 ```{eval-rst} 
@@ -35,12 +35,28 @@ We first generate (or import) a waveform to be analyzed, compute its FFT, and fi
 
         style A fill:#9fa4fc
 ```
-Genalyzer supports [sine](#genalyzer.sin), [cosine](#genalyzer.cos), [ramp](#genalyzer.ramp), and [Gaussian](#genalyzer.gaussian) random waveforms. It also contains a [waveform analysis](#genalyzer.wf_analysis) utility to summarize a waveform, generated or otherwise. To generate a cosine-waveform, call [``cos()``](#genalyzer.cos) as follows:
+Genalyzer supports [sine](#genalyzer.sin), [cosine](#genalyzer.cos), [ramp](#genalyzer.ramp), and [Gaussian](#genalyzer.gaussian) random waveforms. It also contains a [waveform analysis](#genalyzer.wf_analysis) utility to summarize a waveform, generated or otherwise. For example, in the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, to generate a cosine-waveform, we called [``cos()``](#genalyzer.cos) as follows:
 ```{code-block} python
+# signal configuration
+npts = 30000 # number of points in the signal
+fs = 3e6 # sample-rate of the data
+freq = 300000 # tone frequency
+phase = 0.0 # tone phase
+ampl_dbfs = -1.0 # amplitude of the tone in dBFS
+ampl = (fsr / 2) * 10 ** (ampl_dbfs / 20) # amplitude of the tone in linear scale
+
+# generate signal for analysis
 wf = gn.cos(npts, fs, ampl, freq, phase)
 ```
-See the [tone-generation example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_tone_gen.py) Python script for more details. Note that we also use [``quantize()``](#genalyzer.quantize) to convert a floating-point waveform to fixed-point. Its usage is as follows:
+Note that we also used [``quantize()``](#genalyzer.quantize) to convert a floating-point waveform to fixed-point. Its usage is as follows:
 ```{code-block} python
+# quantization settings
+fsr = 2.0 # full-scale range of I/Q components of the complex tone
+qres = 12  # data resolution
+qnoise = 10 ** (qnoise_dbfs / 20) # quantizer noise in linear scale
+code_fmt = gn.CodeFormat.TWOS_COMPLEMENT # integer data format
+
+# quantize signal
 qwf = gn.quantize(wf, fsr, qres, qnoise, code_fmt)
 ```
 A time-domain plot of the complex-sinusoidal tone for which we compute FFT in the next step is shown below for reference. 
@@ -68,11 +84,37 @@ Time-domain plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
 ```
 Next, we compute FFT of the sinusoidal tone since spectral analysis of a waveform is in essence an analysis of its FFT. 
 
-Genalyzer's [``fft()``](#genalyzer.fft) supports several usecases depending on whether the samples are represented in floating- or fixed-point, and on whether the samples are represented as complex-valued, or interleaved I/Q, or split into I and Q streams. One usecase to compute the complex, floating-point FFT of a complex, fixed-point input waveform represented as separate I and Q streams is as follows:
+Genalyzer's [``fft()``](#genalyzer.fft) supports several usecases depending on whether the samples are represented in floating- or fixed-point, and on whether the samples are represented as complex-valued, or interleaved I/Q, or split into I and Q streams. In the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, we compute the complex, floating-point FFT of a complex, fixed-point input waveform represented as separate I and Q streams in the following manner:
 ```{code-block} python
+# signal configuration
+npts = 30000 # number of points in the signal
+fs = 3e6 # sample-rate of the data
+freq = 300000 # tone frequency
+phase = 0.0 # tone phase
+ampl_dbfs = -1.0 # amplitude of the tone in dBFS
+qnoise_dbfs = -60.0  # quantizer noise in dBFS
+fsr = 2.0 # full-scale range of I/Q components of the complex tone
+ampl = (fsr / 2) * 10 ** (ampl_dbfs / 20) # amplitude of the tone in linear scale
+qnoise = 10 ** (qnoise_dbfs / 20) # quantizer noise in linear scale
+qres = 12  # data resolution
+code_fmt = gn.CodeFormat.TWOS_COMPLEMENT # integer data format
+
+# FFT configuration
+navg = 1 # number of FFT averages
+nfft = int(npts/navg) # FFT-order
+window = gn.Window.NO_WINDOW # window function to apply
+axis_type = gn.FreqAxisType.DC_CENTER # axis type
+
+# generate signal for analysis
+awfi = gn.cos(npts, fs, ampl, freq, phase)
+awfq = gn.sin(npts, fs, ampl, freq, phase)
+qwfi = gn.quantize(awfi, fsr, qres, qnoise, code_fmt)
+qwfq = gn.quantize(awfq, fsr, qres, qnoise, code_fmt)
+
+# compute FFT
 fft_cplx = gn.fft(qwfi, qwfq, qres, navg, nfft, window, code_fmt)
 ```
-More details can be found on the API page for ``fft()``.
+More details can be found on the API page for [``fft()``](#genalyzer.fft).
 ```{note}
 Genalyzer supports two fixed-point data formats: offset binary and two's-complement. See [here](#genalyzer.CodeFormat).
 ```
@@ -86,7 +128,7 @@ Genalyzer doesn't support an overlap window between different snapshots that are
 Genalyzer's ``fft()`` computes FFT for complex-valued data only. To compute FFT for real-valued data, use ``rfft()``. Additional details [here](#genalyzer.rfft).
 ```
 
-The FFT plot of the complex-sinusoidal tone in our working example is shown below for reference. Please see the [compute-FFT example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_fft.py) Python script for more details. 
+The FFT plot of the complex-sinusoidal tone in our working example is shown below for reference. 
 ```{figure} figures/fft.png
 
 FFT plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
@@ -106,7 +148,7 @@ FFT plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
 
       style SA fill:#9fa4fc
 ```
-Conducting spectral analysis using Genalyzer involves two steps: configuration and analysis. Please refer to the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script to follow the discussion in this subsection.
+Conducting spectral analysis using Genalyzer involves two steps: configuration and analysis. 
 
 ### Configure Genalyzer
 ```{eval-rst} 
@@ -125,8 +167,9 @@ Conducting spectral analysis using Genalyzer involves two steps: configuration a
 ```
 We configure Genalyzer for spectral analysis by creating a _test_ followed by associating _components_ to this _test_. 
 #### Create a _test_
-To create a _test_, simply call [``fa_create()``](#genalyzer.fa_create) as follows:
+In the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, to create a _test_, we called [``fa_create()``](#genalyzer.fa_create) as follows:
 ```{code-block} python
+# Fourier analysis configuration
 test_label = "fa"
 gn.fa_create(test_label)
 ```
@@ -138,8 +181,11 @@ Under the hood, Genalyzer adds a key-value pair to a  ``static`` ``map`` contain
 ```
 
 #### Add a _component_ to a _test_
-The next step is to identify a tone, give it a label, tag it with a component tag, and add it to the _test_ being run. In this working example, we will consider only the signal tone for illustration purposes. We pick the label, ``A`` for the signal component and associate it with the test labeled ``fa`` from above. To do this, simply call [``fa_max_tone()``](#genalyzer.fa_max_tone) as follows:
+The next step is to identify a tone, give it a label, tag it with a component tag, and add it to the _test_ being run. In this working example, we will consider only the signal tone for illustration purposes. We pick the label, ``A`` for the signal component and associate it with the test labeled ``fa`` from above. To do this, call [``fa_max_tone()``](#genalyzer.fa_max_tone) as follows:
 ```{code-block} python
+# Fourier analysis configuration
+test_label = "fa"
+gn.fa_create(test_label)
 signal_component_label = 'A'
 gn.fa_max_tone(test_label, signal_component_label, gn.FaCompTag.SIGNAL, ssb_fund)
 ```
@@ -168,6 +214,7 @@ The number of single-side bins (SSBs) for a _component_ is an important configur
 
 In the [spectral-analyis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, FFT analysis is run by the following line:
 ```{code-block} python
+# Fourier analysis execution
 results = gn.fft_analysis(test_label, fft_cplx, nfft, axis_type)
 ```
 See more details on ``fft_analysis()`` [here](#genalyzer.fft_analysis).
@@ -202,8 +249,10 @@ The first table we look at is the ``labels`` table.
 +------------------+--------------------+-------------------+
 ```
 
-Notice that this table shows ``7`` frequencies, their magnitudes, and their labels. In addition to the auto-configured ``dc`` component, with the help of the manually configured signal component, Genalyzer has identified ``4`` others: the image, two second-order harmonics, and one third-order harmonic. We also see a ``wo`` (worst-other) component which, as the name indicates, is the component of the highest magnitude excluding the ones listed so far. By default, Genalyzer identifies harmonics upto the `6`th order. In the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, we set the the number of harmonics to take into account to ``3`` with the following line:
+Notice that this table shows ``7`` frequencies, their magnitudes, and their labels. In addition to the auto-configured ``dc`` component, with the help of the manually configured signal component, Genalyzer has identified ``4`` others: the image, two second-order harmonics, and one third-order harmonic. We also see a ``wo`` (worst-other) component which, as the name indicates, is the component of the highest magnitude excluding the ones listed so far. By default, Genalyzer identifies harmonics upto the `6`th order. In the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, we set the the number of harmonics to take into account to ``3`` with the following lines:
 ```{code-block} python
+num_harmonics = 3 # number of harmonics to analyze
+...
 gn.fa_hd(test_label, num_harmonics)
 ```
 
