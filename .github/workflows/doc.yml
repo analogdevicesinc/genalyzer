@@ -29,7 +29,8 @@ jobs:
           cd ../bindings/python
           pip install ".[tools]"
           cd ../../build
-          make clean 
+          rm -rf *
+          cmake .. -DBUILD_DOC=ON
           make Sphinx
 
 
