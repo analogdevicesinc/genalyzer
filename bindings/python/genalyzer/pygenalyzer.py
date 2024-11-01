@@ -56,21 +56,15 @@ del _ndptr
 _module_dir = _os.path.dirname(__file__)
 if "linux" == _sys.platform:
     _libpath = _find_library("genalyzer")
-    _lib = _ctypes.cdll.LoadLibrary(_libpath)
 elif "win32" == _sys.platform:
     _libpath = _find_library(_os.path.join(_module_dir, "genalyzer"))
-    if not _libpath:
-        _libpath = _find_library("libgenalyzer.dll")
-    try:
-        _lib = _ctypes.cdll.LoadLibrary(_libpath)  # seems to work for Python3.9
-    except OSError:
-        if "add_dll_directory" in dir(_os):
-            _os.add_dll_directory(_module_dir)  # for Python3.8 (?)
-        else:
-            _os.environ["PATH"] += ";" + _module_dir  # for Python3.7 and earlier
-        _lib = _ctypes.cdll.LoadLibrary(_libpath)
 else:
     raise Exception("Platform '{}' is not supported.".format(_sys.platform))
+
+if _libpath is None:
+    raise OSError(2, "Could not find genalyzer C library")
+_lib = _ctypes.cdll.LoadLibrary(_libpath)
+
 del _find_library, _os, _sys
 
 _lib.gn_set_string_termination(True)
