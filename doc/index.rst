@@ -20,7 +20,7 @@ Reference
    :maxdepth: 2
    :caption: Contents:
 
-   01_introduction
+   introduction
    setup
    spectral_analysis
    reference
