@@ -1,1 +1,1 @@
-install(FILES cgenalyzer.h cgenalyzer_advanced.h DESTINATION include/)
+install(FILES cgenalyzer_simplified_beta.h cgenalyzer.h DESTINATION include/)
