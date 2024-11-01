@@ -42,7 +42,7 @@ jobs:
           cp build/bindings/c/src/libgenalyzer.so* libs/
           cp build/src/libgenalyzer_plus_plus.a* libs/
           cp bindings/c/include/cgenalyzer.h libs/
-          cp bindings/c/include/cgenalyzer_advanced.h libs/
+          cp bindings/c/include/cgenalyzer_simplified_beta.h libs/
           cp bindings/matlab/genalyzer.m libs/
 
       - name: Archive generated SOs
@@ -78,7 +78,7 @@ jobs:
 #          cp build/bindings/c/src/libgenalyzer.so* libs/
 #          cp build/src/libgenalyzer_plus_plus.a* libs/
 #          cp bindings/c/include/cgenalyzer.h libs/
-#          cp bindings/c/include/cgenalyzer_advanced.h libs/
+#          cp bindings/c/include/cgenalyzer_simplified_beta.h libs/
 #          cp bindings/matlab/genalyzer.m libs/
 
 #      - name: Archive generated SOs
