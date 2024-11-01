@@ -30,6 +30,7 @@ jobs:
           pip install ".[tools]"
           cd ../../build
           sudo rm -rf *
+          sudo rm ../doc/reference_simplified.md
           cmake .. -DBUILD_DOC=ON
           make Sphinx
 
