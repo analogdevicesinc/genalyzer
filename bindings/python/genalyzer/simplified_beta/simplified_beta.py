@@ -463,12 +463,6 @@ def config_free(
 
 
 def config_gen_ramp(npts: int, ramp_start: int, ramp_stop: int, c: GNConfig = None) -> GNConfig:
-    """Configure GNConfig struct to generate tone.
-    :param npts: number of sample points in the waveform
-    :param ramp_start: Input start value of ramp
-    :param ramp_stop: Input stop value of ramp
-    :return: GNConfig object
-    """
     if c is None:
         c = GNConfig()
     
@@ -492,16 +486,6 @@ def config_gen_tone(
     tone_phase: float,
     c: GNConfig = None
 ) -> GNConfig:
-    """Configure GNConfig struct to generate tone.
-    :param ttype: tone type
-    :param npts: number of sample points in the waveform
-    :param sample_rate: sampling frequency
-    :param num_tones: number of tones
-    :param tone_freq: tone frequency
-    :param tone_ampl: tone amplitude
-    :param tone_phase: tone phase
-    :return: GNConfig object
-    """
     if c is None:
         c = GNConfig()
     
@@ -530,13 +514,6 @@ def config_gen_tone(
 
 
 def config_quantize(npts: int, fsr: float, qres: int, qnoise: float, c: GNConfig = None) -> GNConfig:
-    """Configure GNConfig struct to perform quantization.
-    :param npts: number of sample points in the waveform
-    :param fsr: full-scale range
-    :param qres: quantization resolution
-    :param qnoise: quantization noise
-    :return: GNConfig object
-    """
     if c is None:
         c = GNConfig()
     
@@ -552,13 +529,6 @@ def config_quantize(npts: int, fsr: float, qres: int, qnoise: float, c: GNConfig
 
 
 def config_histz_nla(npts: int, qres: int, c: GNConfig = None) -> GNConfig:
-    """Configure GNConfig struct to compute histogram or perform non-linearity analysis.
-    :param npts: number of sample points in the waveform
-    :param fsr: full-scale range
-    :param qres: quantization resolution
-    :param qnoise: quantization noise
-    :return: GNConfig object
-    """
     if c is None:
         c = GNConfig()
     
@@ -574,13 +544,6 @@ def config_histz_nla(npts: int, qres: int, c: GNConfig = None) -> GNConfig:
 def config_fftz(
     npts: int, qres: int, navg: int, nfft: int, win: int, c: GNConfig = None
 ) -> GNConfig:
-    """Configure GNConfig struct to compute FFT.
-    :param npts: number of sample points in the waveform
-    :param fsr: full-scale range
-    :param qres: quantization resolution
-    :param qnoise: quantization noise
-    :return: GNConfig object
-    """
     if c is None:
         c = GNConfig()
     
@@ -597,10 +560,6 @@ def config_fftz(
 
 
 def config_fa(fixed_tone_freq: float, c: GNConfig = None) -> GNConfig:
-    """Configure GNConfig struct for Fourier analysis.
-    :param fixed_tone_freq: fixed tone frequency
-    :return: GNConfig object
-    """
     if c is None:
         c = GNConfig()
 
@@ -613,11 +572,6 @@ def config_fa(fixed_tone_freq: float, c: GNConfig = None) -> GNConfig:
 
 
 def config_fa_auto(ssb_width: int, c: GNConfig = None):
-    """Configure GNConfig struct for Fourier analysis where tones are
-    automatically found.
-    :param ssb_width: SSB width
-    :param c: GNConfig object
-    """
     if c is None:
         c = GNConfig()
     ssb_width = c_uint8(ssb_width)
@@ -629,10 +583,6 @@ def config_fa_auto(ssb_width: int, c: GNConfig = None):
 
 
 def gen_ramp(c: GNConfig) -> List[float]:
-    """Generate floating-point ramp waveform
-    :param c: GNConfig object
-    :return: real ramp waveform as list of floats
-    """
     awf = POINTER(c_double)()
     wf_len = c_ulong(0)
     _gn_config_get_npts(byref(wf_len), byref(c._struct))
@@ -641,10 +591,6 @@ def gen_ramp(c: GNConfig) -> List[float]:
 
 
 def gen_real_tone(c: GNConfig) -> List[float]:
-    """Generate single-tone or multi-tone floating-point waveform
-    :param c: GNConfig object
-    :return: single-/multi-tone real waveform as list of floats
-    """
     awf = POINTER(c_double)()
     wf_len = c_ulong(0)
     _gn_config_get_npts(byref(wf_len), byref(c._struct))
@@ -653,10 +599,6 @@ def gen_real_tone(c: GNConfig) -> List[float]:
 
 
 def gen_complex_tone(c: GNConfig) -> List[float]:
-    """Generate single-tone or multi-tone complex waveform
-    :param c: GNConfig object
-    :return: single-/multi-tone complex waveform as (I and Q) lists of floats
-    """
     awf_i = POINTER(c_double)()
     awf_q = POINTER(c_double)()
     wf_len = c_ulong(0)
@@ -666,10 +608,6 @@ def gen_complex_tone(c: GNConfig) -> List[float]:
 
 
 def quantize(in_awf: list, c: GNConfig) -> List[int]:
-    """Quantize real waveform
-    :param c: GNConfig object
-    :return: Quantized floating-point waveform as list of ints
-    """
     qwf = POINTER(c_int32)()
     wf_len = c_ulong(0)
     _gn_config_get_npts(byref(wf_len), byref(c._struct))
@@ -680,12 +618,6 @@ def quantize(in_awf: list, c: GNConfig) -> List[int]:
 
 
 def fftz(in_qwfi: int, in_qwfq: int, c: GNConfig) -> List[float]:
-    """Compute FFT
-    :param in_qwfi: Input quantized waveform (I)
-    :param in_qwfq: Input quantized waveform (Q)
-    :param c: GNConfig object
-    :return: FFT of the input waveform as list of floats
-    """
     fft_out = POINTER(c_double)()
     wf_len = c_ulong(0)
     _gn_config_get_npts(byref(wf_len), byref(c._struct))
@@ -702,11 +634,6 @@ def fftz(in_qwfi: int, in_qwfq: int, c: GNConfig) -> List[float]:
 
 
 def histz(in_qwf: int, c: GNConfig) -> List[int]:
-    """Compute histogram
-    :param in_qwf: Input quantized waveform
-    :param c: GNConfig object
-    :return: Histogram of the input waveform as list of floats
-    """
     hist_out = POINTER(c_uint64)()
     wf_len = c_ulong(0)
     _gn_config_get_npts(byref(wf_len), byref(c._struct))
@@ -718,11 +645,6 @@ def histz(in_qwf: int, c: GNConfig) -> List[int]:
 
 
 def get_ha_results(hist_in: int, c: GNConfig) -> dict:
-    """Get Fourier analysis results.
-    :param hist_in: Input histogram data
-    :param: GNConfig object
-    :return: Results as dict
-    """
     cd_len = c_ulong(0)
     _gn_config_get_code_density_size(byref(cd_len), byref(c._struct))
     uint64_array = c_uint64 * cd_len.value
@@ -740,11 +662,6 @@ def get_ha_results(hist_in: int, c: GNConfig) -> dict:
 
 
 def get_wfa_results(in_qwf: int, c: GNConfig) -> dict:
-    """Get Fourier analysis results.
-    :param hist_in: Input histogram data
-    :param: GNConfig object
-    :return: Results as dict
-    """
     wf_len = c_ulong(0)
     _gn_config_get_npts(byref(wf_len), byref(c._struct))
     int32_array = c_int32 * wf_len.value
@@ -762,11 +679,6 @@ def get_wfa_results(in_qwf: int, c: GNConfig) -> dict:
 
 
 def get_fa_single_result(metric_name: str, fft_ilv: float, c: GNConfig) -> float:
-    """Get Fourier analysis results.
-    :param fixed_tone_freq: fixed tone frequency
-    :param: GNConfig object
-    :return: Results as dict
-    """
     fft_len = c_ulong(0)
     _gn_config_get_nfft(byref(fft_len), byref(c._struct))
     fft_ilv_len = 2 * fft_len.value
@@ -779,10 +691,16 @@ def get_fa_single_result(metric_name: str, fft_ilv: float, c: GNConfig) -> float
 
 
 def get_fa_results(fft_ilv: float, c: GNConfig) -> dict:
-    """Get Fourier analysis results.
-    :param fixed_tone_freq: fixed tone frequency
-    :param: GNConfig object
-    :return: Results as dict
+    """
+    Get Fourier analysis results.
+    
+    Args:
+        ``fixed_tone_freq``: fixed tone frequency
+        
+        ``c``: GNConfig object
+
+    Returns:
+        Results as dict
     """
     fft_len = c_ulong(0)
     _gn_config_get_nfft(byref(fft_len), byref(c._struct))
@@ -802,24 +720,34 @@ def get_fa_results(fft_ilv: float, c: GNConfig) -> dict:
 
 
 def config_set_sample_rate(sample_rate: float, c: GNConfig) -> None:
-    """Set sample rate.
-    :param sample_rate: Sample rate in Hz
-    :param c: GNConfig object
+    """
+    Set sample rate.
+    
+    Args:
+        ``sample_rate``: Sample rate in Hz
+        
+        ``c``: GNConfig object
     """
     _gn_config_set_sample_rate(sample_rate, byref(c._struct))
 
 
 def config_code_format(code_format: int, c: GNConfig) -> None:
-    """Configure code format.
-    :param code_format: code format (Offset binary, Twos complement)
-    :param c: GNConfig object
+    """
+    Configure code format.
+    
+    Args:
+        ``code_format``: code format (Offset binary, Twos complement)
+
+        ``c``: GNConfig object
     """
     code_format = c_uint(code_format)
     _gn_config_set_code_format(code_format, byref(c._struct))
 
 
 class WaveformGen:
-    """Waveform data generation for transmit devices"""
+    """
+    Waveform data generation for transmit devices
+    """
 
     _tone_phase = [0, 0, 0]  # tone phase
     _noise = 0.0
@@ -835,21 +763,35 @@ class WaveformGen:
         v_min: float,
         v_max: float,
     ):
-        """Constructor for WaveformGen class.
+        """
+        Constructor for WaveformGen class.
 
-        :param npts: number of points required per waveform cycle
-        :param freq: output frequency required in hz
-        :param code_fmt: code format to get data in
-            0: for binary offset
-            1: for 2's complement
-        :param res: code resolution
-        :param v_ref_n: negative reference voltage
-            Can be zero(0) for unipolar device
-        :param v_ref_p: positive reference voltage
-        :param v_min: minimum required voltage to generate
-            Must be in the accepted reference voltage range
-        :param v_max: maximum required voltage to generate
-            Must be in the accepted reference voltage range
+        Args:
+            ``npts`` (``int``): number of points required per waveform cycle
+
+            ``freq`` (``int``): output frequency required in hz
+
+            ``code_fmt`` (``int``): code format to get data in
+                
+                0: for binary offset
+                
+                1: for 2's complement
+            
+            ``res`` (``int``): code resolution
+            
+            ``v_ref_n`` (``float``): negative reference voltage
+                
+                Can be zero(0) for unipolar device
+            
+            ``v_ref_p`` (``float``): positive reference voltage
+            
+            ``v_min`` (``float``): minimum required voltage to generate
+                
+                Must be in the accepted reference voltage range
+            
+            ``v_max`` (``float``): maximum required voltage to generate
+            
+                Must be in the accepted reference voltage range
         """
 
         self._data = []
@@ -864,12 +806,19 @@ class WaveformGen:
 
     @property
     def v_min(self):
-        """v_min: Lower required voltage limit"""
+        """
+        Lower required voltage limit
+        """
         return self._v_min
 
     @v_min.setter
     def v_min(self, value):
-        """v_min: Set Lower required voltage limit"""
+        """
+        Set Lower required voltage limit
+        
+        Args:
+            ``value`` (``float``): Lower required voltage limit
+        """
         if value < self._v_ref_n:
             raise Exception(
                 "required lower voltage cannot be less than lower voltage reference"
@@ -878,12 +827,19 @@ class WaveformGen:
 
     @property
     def v_max(self):
-        """v_max: Upper required voltage limit"""
+        """
+        Upper required voltage limit
+        """
         return self._v_max
 
     @v_max.setter
     def v_max(self, value):
-        """v_max: Set Upper required voltage limit"""
+        """
+        Set Upper required voltage limit
+
+        Args:
+            ``value`` (``float``): Upper required voltage limit
+        """
         if value > self._v_ref_p:
             raise Exception(
                 "required upper voltage cannot be greater than upper voltage reference"
@@ -956,43 +912,54 @@ class WaveformGen:
         self._data = []
 
     def gen_sine_wave(self):
-        """Generate sine wave data
+        """
+        Generate sine wave data
 
-        :return: waveform as list of ints
+        Returns: 
+            Waveform as list of ints
         """
         return self.__gen_sine_cosine(1)
 
     def gen_cosine_wave(self):
-        """Generate cosine wave data
+        """
+        Generate cosine wave data
 
-        :return: waveform as list of ints
+        Returns: 
+            Waveform as list of ints
         """
         return self.__gen_sine_cosine(0)
 
     def gen_triangular_wave(self):
-        """Generate triangular wave data
+        """
+        Generate triangular wave data
 
-        :return: waveform as list of ints
+        Returns: 
+            Waveform as list of ints
         """
         self.__prepare_waveform_gen()
         self._data = signal.sawtooth(2 * np.pi * self.freq * self.__t, 0.5)
         return self.__gen_other_waveforms()
 
     def gen_square_wave(self):
-        """Generate square wave data
+        """
+        Generate square wave data
 
-        :return: waveform as list of ints
+        Returns: 
+            Waveform as list of ints
         """
         self.__prepare_waveform_gen()
         self._data = signal.square(2 * np.pi * self.freq * self.__t, 0.5)
         return self.__gen_other_waveforms()
 
     def gen_pwm_wave(self, duty_cycle):
-        """Generate pwm wave data
-        :param duty_cycle: Duty cycle required
-            Must be in between 0 and 1 with a precision of unto two decimals.
-            e.g. 0.25 for 25% duty-cycle
-        :return: waveform as list of ints
+        """
+        Generate pwm wave data
+
+        Args: 
+            ``duty_cycle`` (``float``): Duty cycle required. Must be in between 0 and 1.
+
+        Returns: 
+            Waveform as list of ints
         """
         self.__prepare_waveform_gen()
         self._data = signal.square(2 * np.pi * self.freq * self.__t, duty_cycle)

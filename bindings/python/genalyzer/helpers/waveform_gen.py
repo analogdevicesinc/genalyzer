@@ -148,43 +148,54 @@ class WaveformGen:
         self._data = []
 
     def gen_sine_wave(self):
-        """Generate sine wave data
+        """
+        Generate sine wave data
 
-        :return: waveform as list of ints
+        Returns: 
+            Waveform as list of ints
         """
         return self.__gen_sine_cosine(1)
 
     def gen_cosine_wave(self):
-        """Generate cosine wave data
+        """
+        Generate cosine wave data
 
-        :return: waveform as list of ints
+        Returns: 
+            Waveform as list of ints
         """
         return self.__gen_sine_cosine(0)
 
     def gen_triangular_wave(self):
-        """Generate triangular wave data
+        """
+        Generate triangular wave data
 
-        :return: waveform as list of ints
+        Returns: 
+            Waveform as list of ints
         """
         self.__prepare_waveform_gen()
         self._data = signal.sawtooth(2 * np.pi * self.freq * self.__t, 0.5)
         return self.__gen_other_waveforms()
 
     def gen_square_wave(self):
-        """Generate square wave data
+        """
+        Generate square wave data
 
-        :return: waveform as list of ints
+        Returns: 
+            Waveform as list of ints
         """
         self.__prepare_waveform_gen()
         self._data = signal.square(2 * np.pi * self.freq * self.__t, 0.5)
         return self.__gen_other_waveforms()
 
     def gen_pwm_wave(self, duty_cycle):
-        """Generate pwm wave data
-        :param duty_cycle: Duty cycle required
-            Must be in between 0 and 1 with a precision of unto two decimals.
-            e.g. 0.25 for 25% duty-cycle
-        :return: waveform as list of ints
+        """
+        Generate pwm wave data
+
+        Args: 
+            ``duty_cycle`` (``float``): Duty cycle required. Must be in between 0 and 1.
+
+        Returns: 
+            Waveform as list of ints
         """
         self.__prepare_waveform_gen()
         self._data = signal.square(2 * np.pi * self.freq * self.__t, duty_cycle)
