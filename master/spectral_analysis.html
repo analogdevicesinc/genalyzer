@@ -1,0 +1,858 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Advanced API Reference" href="reference.html" /><link rel="prev" title="Installation" href="setup.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>Spectral Analysis - Genalyzer v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Genalyzer v0.0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Genalyzer v0.0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Installation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Advanced API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_simplified.html">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="python/genalyzer.html">Python Bindings</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Python Bindings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="python/pygenalyzer.html">pygenalizer</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of pygenalizer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="python/enumerations.html">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/fourier_analysis.html">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/fourier_configuration.html">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/fourier_transforms.html">Fourier Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/waveforms.html">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/signal_processing.html">Signal Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python/pygenalyzer.simplified.html">pygenalizer.simplified (Beta)</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/spectral_analysis.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="spectral-analysis">
+<h1>Spectral Analysis<a class="headerlink" href="#spectral-analysis" title="Link to this heading">¶</a></h1>
+<p>In this tutorial, we will use Genalyzer to conduct spectral analysis of a waveform. The waveform we analyze will be a <code class="docutils literal notranslate"><span class="pre">300</span> <span class="pre">KHz</span></code> complex sinusoidal tone sampled at <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">MSPS</span></code>. The only impairment in this waveform will be quantization noise. At the end of this tutorial, the reader will have gained an understanding on how to utilize Genalyzer to compute various RF performance metrics such as SFDR, FSNR, SNR, NSD etc.</p>
+<p>The workflow we follow in this tutorial is generally what is to be followed to use Genalyzer for spectral analysis. It consists of three stages shown in the diagram below.</p>
+<pre  class="mermaid">
+        graph LR;
+    A[Generate/Import Waveform] --&gt; B[Compute FFT];
+    B --&gt;C1[Configure Spectral Analysis];
+
+    subgraph SA[Spectral Analysis]
+      C1[Configure] --&gt;C2[Run];
+    end
+
+    style SA fill:#ffffff
+    </pre><p>We first generate (or import) a waveform to be analyzed, compute its FFT, and finally, calculate various performance metrics by running spectral analysis. In this tutorial, we will generate the tone waveform using Genalyzer. In another example, we will import a tone waveform captured using ADALM-PLUTO to perform spectral analysis. Please refer to the <a class="reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py">spectral-analysis example</a> Python script to follow the discussion on this page.</p>
+<section id="tone-generation">
+<h2>Tone Generation<a class="headerlink" href="#tone-generation" title="Link to this heading">¶</a></h2>
+<pre  class="mermaid">
+        graph LR;
+    A[Generate/Import Waveform] --&gt; B[Compute FFT];
+    B --&gt;C1[Configure Spectral Analysis];
+
+    subgraph SA[Spectral Analysis]
+      C1[Configure] --&gt;C2[Run];
+    end
+
+    style SA fill:#ffffff
+
+    style A fill:#9fa4fc
+    </pre><p>Genalyzer supports <a class="reference internal" href="#genalyzer.sin"><span class="xref myst">sine</span></a>, <a class="reference internal" href="#genalyzer.cos"><span class="xref myst">cosine</span></a>, <a class="reference internal" href="#genalyzer.ramp"><span class="xref myst">ramp</span></a>, and <a class="reference internal" href="#genalyzer.gaussian"><span class="xref myst">Gaussian</span></a> random waveforms. It also contains a <a class="reference internal" href="#genalyzer.wf_analysis"><span class="xref myst">waveform analysis</span></a> utility to summarize a waveform, generated or otherwise. For example, in the <a class="reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py">spectral-analysis example</a> Python script, to generate a cosine-waveform, we called <a class="reference internal" href="#genalyzer.cos"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">cos()</span></code></span></a> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># signal configuration</span>
+<span class="n">npts</span> <span class="o">=</span> <span class="mi">30000</span> <span class="c1"># number of points in the signal</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="mf">3e6</span> <span class="c1"># sample-rate of the data</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="mi">300000</span> <span class="c1"># tone frequency</span>
+<span class="n">phase</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># tone phase</span>
+<span class="n">ampl_dbfs</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="c1"># amplitude of the tone in dBFS</span>
+<span class="n">ampl</span> <span class="o">=</span> <span class="p">(</span><span class="n">fsr</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="n">ampl_dbfs</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span> <span class="c1"># amplitude of the tone in linear scale</span>
+
+<span class="c1"># generate signal for analysis</span>
+<span class="n">wf</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">npts</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">ampl</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that we also used <a class="reference internal" href="#genalyzer.quantize"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">quantize()</span></code></span></a> to convert a floating-point waveform to fixed-point. Its usage is as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># quantization settings</span>
+<span class="n">fsr</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="c1"># full-scale range of I/Q components of the complex tone</span>
+<span class="n">qres</span> <span class="o">=</span> <span class="mi">12</span>  <span class="c1"># data resolution</span>
+<span class="n">qnoise</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="n">qnoise_dbfs</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span> <span class="c1"># quantizer noise in linear scale</span>
+<span class="n">code_fmt</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">CodeFormat</span><span class="o">.</span><span class="n">TWOS_COMPLEMENT</span> <span class="c1"># integer data format</span>
+
+<span class="c1"># quantize signal</span>
+<span class="n">qwf</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">wf</span><span class="p">,</span> <span class="n">fsr</span><span class="p">,</span> <span class="n">qres</span><span class="p">,</span> <span class="n">qnoise</span><span class="p">,</span> <span class="n">code_fmt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A time-domain plot of the complex-sinusoidal tone for which we compute FFT in the next step is shown below for reference.</p>
+<figure class="align-default" id="id2">
+<img alt="_images/complex_sinusoidal_waveform.png" src="_images/complex_sinusoidal_waveform.png" />
+<figcaption>
+<p><span class="caption-text">Time-domain plot of a <code class="docutils literal notranslate"><span class="pre">300</span> <span class="pre">KHz</span></code> complex sinusoidal tone sampled at <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">MSPS</span></code>.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="compute-fft">
+<h2>Compute FFT<a class="headerlink" href="#compute-fft" title="Link to this heading">¶</a></h2>
+<pre  class="mermaid">
+        graph LR;
+    A[Generate/Import Waveform] --&gt; B[Compute FFT];
+    B --&gt;C1[Configure Spectral Analysis];
+
+    subgraph SA[Spectral Analysis]
+      C1[Configure] --&gt;C2[Run];
+    end
+
+    style SA fill:#ffffff
+
+  style B fill:#9fa4fc
+    </pre><p>Next, we compute FFT of the sinusoidal tone since spectral analysis of a waveform is in essence an analysis of its FFT.</p>
+<p>Genalyzer’s <a class="reference internal" href="#genalyzer.fft"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">fft()</span></code></span></a> supports several usecases depending on whether the samples are represented in floating- or fixed-point, and on whether the samples are represented as complex-valued, or interleaved I/Q, or split into I and Q streams. In the <a class="reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py">spectral-analysis example</a> Python script, we compute the complex, floating-point FFT of a complex, fixed-point input waveform represented as separate I and Q streams in the following manner:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># signal configuration</span>
+<span class="n">npts</span> <span class="o">=</span> <span class="mi">30000</span> <span class="c1"># number of points in the signal</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="mf">3e6</span> <span class="c1"># sample-rate of the data</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="mi">300000</span> <span class="c1"># tone frequency</span>
+<span class="n">phase</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># tone phase</span>
+<span class="n">ampl_dbfs</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="c1"># amplitude of the tone in dBFS</span>
+<span class="n">qnoise_dbfs</span> <span class="o">=</span> <span class="o">-</span><span class="mf">60.0</span>  <span class="c1"># quantizer noise in dBFS</span>
+<span class="n">fsr</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="c1"># full-scale range of I/Q components of the complex tone</span>
+<span class="n">ampl</span> <span class="o">=</span> <span class="p">(</span><span class="n">fsr</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="n">ampl_dbfs</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span> <span class="c1"># amplitude of the tone in linear scale</span>
+<span class="n">qnoise</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="n">qnoise_dbfs</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span> <span class="c1"># quantizer noise in linear scale</span>
+<span class="n">qres</span> <span class="o">=</span> <span class="mi">12</span>  <span class="c1"># data resolution</span>
+<span class="n">code_fmt</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">CodeFormat</span><span class="o">.</span><span class="n">TWOS_COMPLEMENT</span> <span class="c1"># integer data format</span>
+
+<span class="c1"># FFT configuration</span>
+<span class="n">navg</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># number of FFT averages</span>
+<span class="n">nfft</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">npts</span><span class="o">/</span><span class="n">navg</span><span class="p">)</span> <span class="c1"># FFT-order</span>
+<span class="n">window</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">Window</span><span class="o">.</span><span class="n">NO_WINDOW</span> <span class="c1"># window function to apply</span>
+<span class="n">axis_type</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">FreqAxisType</span><span class="o">.</span><span class="n">DC_CENTER</span> <span class="c1"># axis type</span>
+
+<span class="c1"># generate signal for analysis</span>
+<span class="n">awfi</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">npts</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">ampl</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+<span class="n">awfq</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">npts</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">ampl</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+<span class="n">qwfi</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">awfi</span><span class="p">,</span> <span class="n">fsr</span><span class="p">,</span> <span class="n">qres</span><span class="p">,</span> <span class="n">qnoise</span><span class="p">,</span> <span class="n">code_fmt</span><span class="p">)</span>
+<span class="n">qwfq</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">awfq</span><span class="p">,</span> <span class="n">fsr</span><span class="p">,</span> <span class="n">qres</span><span class="p">,</span> <span class="n">qnoise</span><span class="p">,</span> <span class="n">code_fmt</span><span class="p">)</span>
+
+<span class="c1"># compute FFT</span>
+<span class="n">fft_cplx</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">qwfi</span><span class="p">,</span> <span class="n">qwfq</span><span class="p">,</span> <span class="n">qres</span><span class="p">,</span> <span class="n">navg</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">code_fmt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>More details can be found on the API page for <a class="reference internal" href="#genalyzer.fft"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">fft()</span></code></span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Genalyzer supports two fixed-point data formats: offset binary and two’s-complement. See <a class="reference internal" href="#genalyzer.CodeFormat"><span class="xref myst">here</span></a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Genalyzer supports three window types that can be applied to the signal prior to computing FFT: Blackman-Harris, Hanning, and rectangular. See <a class="reference internal" href="#genalyzer.Window"><span class="xref myst">here</span></a>.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Genalyzer doesn’t support an overlap window between different snapshots that are averaged to generate the FFT. As a result, <code class="docutils literal notranslate"><span class="pre">fft()</span></code> expects the number of complex-valued samples in the input to be equal to the product of the number of averages and the FFT order.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Genalyzer’s <code class="docutils literal notranslate"><span class="pre">fft()</span></code> computes FFT for complex-valued data only. To compute FFT for real-valued data, use <code class="docutils literal notranslate"><span class="pre">rfft()</span></code>. Additional details <a class="reference internal" href="#genalyzer.rfft"><span class="xref myst">here</span></a>.</p>
+</div>
+<p>The FFT plot of the complex-sinusoidal tone in our working example is shown below for reference.</p>
+<figure class="align-default" id="id3">
+<img alt="_images/fft.png" src="_images/fft.png" />
+<figcaption>
+<p><span class="caption-text">FFT plot of a <code class="docutils literal notranslate"><span class="pre">300</span> <span class="pre">KHz</span></code> complex sinusoidal tone sampled at <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">MSPS</span></code>.</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="run-spectral-analysis">
+<h2>Run Spectral Analysis<a class="headerlink" href="#run-spectral-analysis" title="Link to this heading">¶</a></h2>
+<pre  class="mermaid">
+        graph LR;
+    A[Generate/Import Waveform] --&gt; B[Compute FFT];
+    B --&gt;C1[Configure Spectral Analysis];
+
+    subgraph SA[Spectral Analysis]
+      C1[Configure] --&gt;C2[Run];
+    end
+
+  style SA fill:#9fa4fc
+    </pre><p>Conducting spectral analysis using Genalyzer involves two steps: configuration and analysis.</p>
+<section id="configure-genalyzer">
+<h3>Configure Genalyzer<a class="headerlink" href="#configure-genalyzer" title="Link to this heading">¶</a></h3>
+<pre  class="mermaid">
+        graph LR;
+    A[Generate/Import Waveform] --&gt; B[Compute FFT];
+    B --&gt;C1[Configure Spectral Analysis];
+
+    subgraph SA[Spectral Analysis]
+      C1[Configure] --&gt;C2[Run];
+    end
+
+  style C1 fill:#9fa4fc
+  style SA fill:#ffffff
+    </pre><p>We configure Genalyzer for spectral analysis by creating a <em>test</em> followed by associating <em>components</em> to this <em>test</em>.</p>
+<section id="create-a-test">
+<h4>Create a <em>test</em><a class="headerlink" href="#create-a-test" title="Link to this heading">¶</a></h4>
+<p>In the <a class="reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py">spectral-analysis example</a> Python script, to create a <em>test</em>, we called <a class="reference internal" href="#genalyzer.fa_create"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">fa_create()</span></code></span></a> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fourier analysis configuration</span>
+<span class="n">test_label</span> <span class="o">=</span> <span class="s2">&quot;fa&quot;</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">fa_create</span><span class="p">(</span><span class="n">test_label</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">test_label</span></code> <code class="docutils literal notranslate"><span class="pre">string</span></code> is key to all further configuration, and for computing and retrieving the metrics.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Aside</p>
+<p>Under the hood, Genalyzer adds a key-value pair to a  <code class="docutils literal notranslate"><span class="pre">static</span></code> <code class="docutils literal notranslate"><span class="pre">map</span></code> container to manage the metrics to be computed. The key is the string argument passed through <code class="docutils literal notranslate"><span class="pre">fa_create()</span></code>, and the mapped value is a shared-pointer to an instance of <code class="docutils literal notranslate"><span class="pre">fourier_analysis</span></code> class. This key is then used to further configure Genalyzer, and to compute and retrieve the metrics through <code class="docutils literal notranslate"><span class="pre">fourier_analysis</span></code> class. The intent behind using a <code class="docutils literal notranslate"><span class="pre">map</span></code> container is to be easily able to associate multiple keys to different snapshots of the data being analyzed and to have the metrics for each of those snapshots available.</p>
+</div>
+</section>
+<section id="add-a-component-to-a-test">
+<h4>Add a <em>component</em> to a <em>test</em><a class="headerlink" href="#add-a-component-to-a-test" title="Link to this heading">¶</a></h4>
+<p>The next step is to identify a tone, give it a label, tag it with a component tag, and add it to the <em>test</em> being run. In this working example, we will consider only the signal tone for illustration purposes. We pick the label, <code class="docutils literal notranslate"><span class="pre">A</span></code> for the signal component and associate it with the test labeled <code class="docutils literal notranslate"><span class="pre">fa</span></code> from above. To do this, call <a class="reference internal" href="#genalyzer.fa_max_tone"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">fa_max_tone()</span></code></span></a> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fourier analysis configuration</span>
+<span class="n">test_label</span> <span class="o">=</span> <span class="s2">&quot;fa&quot;</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">fa_create</span><span class="p">(</span><span class="n">test_label</span><span class="p">)</span>
+<span class="n">signal_component_label</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">fa_max_tone</span><span class="p">(</span><span class="n">test_label</span><span class="p">,</span> <span class="n">signal_component_label</span><span class="p">,</span> <span class="n">gn</span><span class="o">.</span><span class="n">FaCompTag</span><span class="o">.</span><span class="n">SIGNAL</span><span class="p">,</span> <span class="n">ssb_fund</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As the name indicates, <code class="docutils literal notranslate"><span class="pre">fa_max_tone()</span></code> above interprets the tone with the highest magnitude as the signal component. For a more general way of informing Genalyzer to link a certain tone with a tag, use <a class="reference internal" href="#genalyzer.fa_fixed_tone"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">fa_fixed_tone()</span></code></span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Genalyzer supports several <em>tags</em> for Fourier analysis. See <a class="reference internal" href="#genalyzer.FaCompTag"><span class="xref myst">here</span></a>.</p>
+</div>
+<p>The number of single-side bins (SSBs) for a <em>component</em> is an important configuration step, and it will be explained in sufficient detail in another subsection.</p>
+</section>
+</section>
+<section id="id1">
+<h3>Run Spectral Analysis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<pre  class="mermaid">
+        graph LR;
+    A[Generate/Import Waveform] --&gt; B[Compute FFT];
+    B --&gt;C1[Configure Spectral Analysis];
+
+    subgraph SA[Spectral Analysis]
+      C1[Configure] --&gt;C2[Run];
+    end
+
+  style C2 fill:#9fa4fc
+  style SA fill:#ffffff
+    </pre><p>In the <a class="reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py">spectral-analyis example</a> Python script, FFT analysis is run by the following line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fourier analysis execution</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">fft_analysis</span><span class="p">(</span><span class="n">test_label</span><span class="p">,</span> <span class="n">fft_cplx</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">axis_type</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See more details on <code class="docutils literal notranslate"><span class="pre">fft_analysis()</span></code> <a class="reference internal" href="#genalyzer.fft_analysis"><span class="xref myst">here</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The enumerations for frequency-axis type are <a class="reference internal" href="#genalyzer.FreqAxisType"><span class="xref myst">here</span></a>.</p>
+</div>
+<p>The Python script prints two tables and a dictionary to the console output. With the help of the tables, we will first see how Genalyzer identifies signal tone, its harmonics (and other components), their locations, and their magnitudes. Next, we will look at the dictionary of key-value pairs that <a class="reference internal" href="#genalyzer.fft_analysis"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">fft_analysis()</span></code></span></a> returns. It contains all the necessary information gathered by Genalyzer to compute various performance metrics. Towards the end of this discussion, we consider one metric, <code class="docutils literal notranslate"><span class="pre">snr</span></code> and verify how it is computed by Genalyzer.</p>
+<section id="tone-labels">
+<h4>Tone labels<a class="headerlink" href="#tone-labels" title="Link to this heading">¶</a></h4>
+<p>The first table we look at is the <code class="docutils literal notranslate"><span class="pre">labels</span></code> table.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">annots[“labels”] from console output</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">+------------------+--------------------+-------------------+</span>
+<span class="go">|   frequency (Hz) |   magnitude (dBFs) | component label   |</span>
+<span class="go">+==================+====================+===================+</span>
+<span class="go">|       0          |          -69.1449  | dc                |</span>
+<span class="go">+------------------+--------------------+-------------------+</span>
+<span class="go">|  300000          |           -1.00002 | A                 |</span>
+<span class="go">+------------------+--------------------+-------------------+</span>
+<span class="go">| -300000          |          -96.918   | -A                |</span>
+<span class="go">+------------------+--------------------+-------------------+</span>
+<span class="go">|  600000          |         -102.544   | 2A                |</span>
+<span class="go">+------------------+--------------------+-------------------+</span>
+<span class="go">| -600000          |          -99.6542  | -2A               |</span>
+<span class="go">+------------------+--------------------+-------------------+</span>
+<span class="go">| -900000          |         -104.414   | -3A               |</span>
+<span class="go">+------------------+--------------------+-------------------+</span>
+<span class="go">|       1.1641e+06 |          -91.308   | wo                |</span>
+<span class="go">+------------------+--------------------+-------------------+</span>
+</pre></div>
+</div>
+</div>
+<p>Notice that this table shows <code class="docutils literal notranslate"><span class="pre">7</span></code> frequencies, their magnitudes, and their labels. In addition to the auto-configured <code class="docutils literal notranslate"><span class="pre">dc</span></code> component, with the help of the manually configured signal component, Genalyzer has identified <code class="docutils literal notranslate"><span class="pre">4</span></code> others: the image, two second-order harmonics, and one third-order harmonic. We also see a <code class="docutils literal notranslate"><span class="pre">wo</span></code> (worst-other) component which, as the name indicates, is the component of the highest magnitude excluding the ones listed so far. By default, Genalyzer identifies harmonics upto the <code class="docutils literal notranslate"><span class="pre">6</span></code>th order. In the <a class="reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py">spectral-analysis example</a> Python script, we set the the number of harmonics to take into account to <code class="docutils literal notranslate"><span class="pre">3</span></code> with the following lines:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_harmonics</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># number of harmonics to analyze</span>
+<span class="o">...</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">fa_hd</span><span class="p">(</span><span class="n">test_label</span><span class="p">,</span> <span class="n">num_harmonics</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For odd-ordered harmonics, <code class="docutils literal notranslate"><span class="pre">3</span></code>rd, <code class="docutils literal notranslate"><span class="pre">5</span></code>th, and so on, Genalyzer considers only the maximum of the harmonic and its image, whereas for an even-ordered harmonic, both are taken into account.</p>
+</div>
+</section>
+<section id="tone-boxes">
+<h4>Tone boxes<a class="headerlink" href="#tone-boxes" title="Link to this heading">¶</a></h4>
+<p>Next, we look at the <code class="docutils literal notranslate"><span class="pre">tone_boxes</span></code> table.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">annots[“tone_boxes”] from console output</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">+--------------------------+--------------+</span>
+<span class="go">|   box left boundary (Hz) |   width (Hz) |</span>
+<span class="go">+==========================+==============+</span>
+<span class="go">|                      -50 |          100 |</span>
+<span class="go">+--------------------------+--------------+</span>
+<span class="go">|                   299950 |          100 |</span>
+<span class="go">+--------------------------+--------------+</span>
+<span class="go">|                  -300050 |          100 |</span>
+<span class="go">+--------------------------+--------------+</span>
+<span class="go">|                   599950 |          100 |</span>
+<span class="go">+--------------------------+--------------+</span>
+<span class="go">|                  -600050 |          100 |</span>
+<span class="go">+--------------------------+--------------+</span>
+<span class="go">|                  -900050 |          100 |</span>
+<span class="go">+--------------------------+--------------+</span>
+<span class="go">|                   401050 |          100 |</span>
+<span class="go">+--------------------------+--------------+</span>
+</pre></div>
+</div>
+</div>
+<p>From this table, we see that each of the <code class="docutils literal notranslate"><span class="pre">7</span></code> components spans a width of <code class="docutils literal notranslate"><span class="pre">100</span> <span class="pre">Hz</span></code>. This value equals sample-rate divided by the FFT order we chose in the working example. Because the tone is coherently sampled and we chose the sample-rate to be an integer multiple of the FFT-order, all the power corresponding to a component is located in exactly one bin. This is the reason why, in <a class="reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py">this</a> example, we set the number of single-side bins (SSBs) for every component to <code class="docutils literal notranslate"><span class="pre">0</span></code>. So, Genalyzer takes into account the magnitude value corresponding to exactly one bin (and <code class="docutils literal notranslate"><span class="pre">0</span></code> bins on either side) as that component’s contribution in various metrics computed. In a subsequent example, we consider the case when it becomes necessary to set the number of SSBs to a value greater than <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The choice of the number of single-side bins (SSBs) is important when the signal is not coherently sampled and when the sample-rate is not an integer multiple of the FFT-order.</p>
+</div>
+</section>
+<section id="spectral-analysis-results">
+<h4>Spectral analysis results<a class="headerlink" href="#spectral-analysis-results" title="Link to this heading">¶</a></h4>
+<p>Finally, we take a brief look at the <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary. This dictionary can be thought of as a comprehensive summary gathered by Genalyzer for the snapshot of the sinusoidal tone we wished to analyze.</p>
+<p>The results dictionary printed to the console output is shown below. Note that since a random quantization noise is added to the signal, the console output will be different when you run the Python script.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">results</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">+----------------+</span>
+<span class="go">results dictionary</span>
+<span class="go">+----------------+</span>
+<span class="go">{&#39;-2A:ffinal&#39;: -600000.0,</span>
+<span class="go"> &#39;-2A:freq&#39;: -600000.0,</span>
+<span class="go"> &#39;-2A:fwavg&#39;: 0.0,</span>
+<span class="go"> &#39;-2A:i1&#39;: 24000.0,</span>
+<span class="go"> &#39;-2A:i2&#39;: 24000.0,</span>
+<span class="go"> &#39;-2A:inband&#39;: 1.0,</span>
+<span class="go"> &#39;-2A:mag&#39;: 1.0406152385295209e-05,</span>
+<span class="go"> &#39;-2A:mag_dbc&#39;: -98.65417884167778,</span>
+<span class="go"> &#39;-2A:mag_dbfs&#39;: -99.654196373704,</span>
+<span class="go"> &#39;-2A:nbins&#39;: 1.0,</span>
+<span class="go"> &#39;-2A:orderindex&#39;: 4.0,</span>
+<span class="go"> &#39;-2A:phase&#39;: -0.9269628993478889,</span>
+<span class="go"> &#39;-2A:phase_c&#39;: -0.9269652814760975,</span>
+<span class="go"> &#39;-2A:tag&#39;: 2.0,</span>
+<span class="go"> &#39;-3A:ffinal&#39;: -900000.0,</span>
+<span class="go"> &#39;-3A:freq&#39;: -900000.0,</span>
+<span class="go"> &#39;-3A:fwavg&#39;: 0.0,</span>
+<span class="go"> &#39;-3A:i1&#39;: 21000.0,</span>
+<span class="go"> &#39;-3A:i2&#39;: 21000.0,</span>
+<span class="go"> &#39;-3A:inband&#39;: 1.0,</span>
+<span class="go"> &#39;-3A:mag&#39;: 6.016169853525572e-06,</span>
+<span class="go"> &#39;-3A:mag_dbc&#39;: -103.41358068555886,</span>
+<span class="go"> &#39;-3A:mag_dbfs&#39;: -104.41359821758508,</span>
+<span class="go"> &#39;-3A:nbins&#39;: 1.0,</span>
+<span class="go"> &#39;-3A:orderindex&#39;: 5.0,</span>
+<span class="go"> &#39;-3A:phase&#39;: 2.094523867798375,</span>
+<span class="go"> &#39;-3A:phase_c&#39;: 2.0945214856701666,</span>
+<span class="go"> &#39;-3A:tag&#39;: 2.0,</span>
+<span class="go"> &#39;-A:ffinal&#39;: -300000.0,</span>
+<span class="go"> &#39;-A:freq&#39;: -300000.0,</span>
+<span class="go"> &#39;-A:fwavg&#39;: 0.0,</span>
+<span class="go"> &#39;-A:i1&#39;: 27000.0,</span>
+<span class="go"> &#39;-A:i2&#39;: 27000.0,</span>
+<span class="go"> &#39;-A:inband&#39;: 1.0,</span>
+<span class="go"> &#39;-A:mag&#39;: 1.4259315029324203e-05,</span>
+<span class="go"> &#39;-A:mag_dbc&#39;: -95.91800918925517,</span>
+<span class="go"> &#39;-A:mag_dbfs&#39;: -96.9180267212814,</span>
+<span class="go"> &#39;-A:nbins&#39;: 1.0,</span>
+<span class="go"> &#39;-A:orderindex&#39;: 2.0,</span>
+<span class="go"> &#39;-A:phase&#39;: -1.0654410825386686,</span>
+<span class="go"> &#39;-A:phase_c&#39;: -1.0654434646668773,</span>
+<span class="go"> &#39;-A:tag&#39;: 2.0,</span>
+<span class="go"> &#39;2A:ffinal&#39;: 600000.0,</span>
+<span class="go"> &#39;2A:freq&#39;: 600000.0,</span>
+<span class="go"> &#39;2A:fwavg&#39;: 0.0,</span>
+<span class="go"> &#39;2A:i1&#39;: 6000.0,</span>
+<span class="go"> &#39;2A:i2&#39;: 6000.0,</span>
+<span class="go"> &#39;2A:inband&#39;: 1.0,</span>
+<span class="go"> &#39;2A:mag&#39;: 7.461346264425087e-06,</span>
+<span class="go"> &#39;2A:mag_dbc&#39;: -101.54363856607857,</span>
+<span class="go"> &#39;2A:mag_dbfs&#39;: -102.54365609810476,</span>
+<span class="go"> &#39;2A:nbins&#39;: 1.0,</span>
+<span class="go"> &#39;2A:orderindex&#39;: 3.0,</span>
+<span class="go"> &#39;2A:phase&#39;: 1.1796502560980227,</span>
+<span class="go"> &#39;2A:phase_c&#39;: 1.179647873969814,</span>
+<span class="go"> &#39;2A:tag&#39;: 2.0,</span>
+<span class="go"> &#39;A:ffinal&#39;: 300000.0,</span>
+<span class="go"> &#39;A:freq&#39;: 300000.0,</span>
+<span class="go"> &#39;A:fwavg&#39;: 0.0,</span>
+<span class="go"> &#39;A:i1&#39;: 3000.0,</span>
+<span class="go"> &#39;A:i2&#39;: 3000.0,</span>
+<span class="go"> &#39;A:inband&#39;: 1.0,</span>
+<span class="go"> &#39;A:mag&#39;: 0.8912491391908985,</span>
+<span class="go"> &#39;A:mag_dbc&#39;: 0.0,</span>
+<span class="go"> &#39;A:mag_dbfs&#39;: -1.0000175320262066,</span>
+<span class="go"> &#39;A:nbins&#39;: 1.0,</span>
+<span class="go"> &#39;A:orderindex&#39;: 1.0,</span>
+<span class="go"> &#39;A:phase&#39;: 2.3821282085798884e-06,</span>
+<span class="go"> &#39;A:phase_c&#39;: 0.0,</span>
+<span class="go"> &#39;A:tag&#39;: 1.0,</span>
+<span class="go"> &#39;ab_i1&#39;: 0.0,</span>
+<span class="go"> &#39;ab_i2&#39;: 29999.0,</span>
+<span class="go"> &#39;ab_nbins&#39;: 30000.0,</span>
+<span class="go"> &#39;ab_rss&#39;: 0.891250360126791,</span>
+<span class="go"> &#39;ab_width&#39;: 3000000.0,</span>
+<span class="go"> &#39;abn&#39;: -101.6440166036007,</span>
+<span class="go"> &#39;analysistype&#39;: 1.0,</span>
+<span class="go"> &#39;carrierindex&#39;: 1.0,</span>
+<span class="go"> &#39;clk_nbins&#39;: 0.0,</span>
+<span class="go"> &#39;clk_rss&#39;: 0.0,</span>
+<span class="go"> &#39;datasize&#39;: 30000.0,</span>
+<span class="go"> &#39;dc:ffinal&#39;: 0.0,</span>
+<span class="go"> &#39;dc:freq&#39;: 0.0,</span>
+<span class="go"> &#39;dc:fwavg&#39;: 0.0,</span>
+<span class="go"> &#39;dc:i1&#39;: 0.0,</span>
+<span class="go"> &#39;dc:i2&#39;: 0.0,</span>
+<span class="go"> &#39;dc:inband&#39;: 1.0,</span>
+<span class="go"> &#39;dc:mag&#39;: 0.00034894329171477126,</span>
+<span class="go"> &#39;dc:mag_dbc&#39;: -68.14488539563568,</span>
+<span class="go"> &#39;dc:mag_dbfs&#39;: -69.1449029276619,</span>
+<span class="go"> &#39;dc:nbins&#39;: 1.0,</span>
+<span class="go"> &#39;dc:orderindex&#39;: 0.0,</span>
+<span class="go"> &#39;dc:phase&#39;: -2.3326100677671495,</span>
+<span class="go"> &#39;dc:phase_c&#39;: -2.332612449895358,</span>
+<span class="go"> &#39;dc:tag&#39;: 0.0,</span>
+<span class="go"> &#39;dist_nbins&#39;: 4.0,</span>
+<span class="go"> &#39;dist_rss&#39;: 2.0086862879892827e-05,</span>
+<span class="go"> &#39;fbin&#39;: 100.0,</span>
+<span class="go"> &#39;fdata&#39;: 3000000.0,</span>
+<span class="go"> &#39;fsample&#39;: 3000000.0,</span>
+<span class="go"> &#39;fshift&#39;: 0.0,</span>
+<span class="go"> &#39;fsnr&#39;: 56.873672732238376,</span>
+<span class="go"> &#39;hd_nbins&#39;: 4.0,</span>
+<span class="go"> &#39;hd_rss&#39;: 2.0086862879892827e-05,</span>
+<span class="go"> &#39;ilgt_nbins&#39;: 0.0,</span>
+<span class="go"> &#39;ilgt_rss&#39;: 0.0,</span>
+<span class="go"> &#39;ilos_nbins&#39;: 0.0,</span>
+<span class="go"> &#39;ilos_rss&#39;: 0.0,</span>
+<span class="go"> &#39;ilv_nbins&#39;: 0.0,</span>
+<span class="go"> &#39;ilv_rss&#39;: 0.0,</span>
+<span class="go"> &#39;imd_nbins&#39;: 0.0,</span>
+<span class="go"> &#39;imd_rss&#39;: 0.0,</span>
+<span class="go"> &#39;maxspurindex&#39;: 6.0,</span>
+<span class="go"> &#39;nad_nbins&#39;: 29998.0,</span>
+<span class="go"> &#39;nad_rss&#39;: 0.0014333723144579046,</span>
+<span class="go"> &#39;nfft&#39;: 30000.0,</span>
+<span class="go"> &#39;noise_nbins&#39;: 29994.0,</span>
+<span class="go"> &#39;noise_rss&#39;: 0.0014332315618189736,</span>
+<span class="go"> &#39;nsd&#39;: -121.64488527943499,</span>
+<span class="go"> &#39;sfdr&#39;: 90.30795361676347,</span>
+<span class="go"> &#39;signal_nbins&#39;: 1.0,</span>
+<span class="go"> &#39;signal_rss&#39;: 0.8912491391908985,</span>
+<span class="go"> &#39;signaltype&#39;: 1.0,</span>
+<span class="go"> &#39;sinad&#39;: 55.87280223137394,</span>
+<span class="go"> &#39;snr&#39;: 55.87365520021216,</span>
+<span class="go"> &#39;thd_nbins&#39;: 4.0,</span>
+<span class="go"> &#39;thd_rss&#39;: 2.0086862879892827e-05,</span>
+<span class="go"> &#39;userdist_nbins&#39;: 0.0,</span>
+<span class="go"> &#39;userdist_rss&#39;: 0.0,</span>
+<span class="go"> &#39;wo:ffinal&#39;: 1164100.0,</span>
+<span class="go"> &#39;wo:freq&#39;: 1164100.0,</span>
+<span class="go"> &#39;wo:fwavg&#39;: 0.0,</span>
+<span class="go"> &#39;wo:i1&#39;: 11641.0,</span>
+<span class="go"> &#39;wo:i2&#39;: 11641.0,</span>
+<span class="go"> &#39;wo:inband&#39;: 1.0,</span>
+<span class="go"> &#39;wo:mag&#39;: 2.7202037974481932e-05,</span>
+<span class="go"> &#39;wo:mag_dbc&#39;: -90.30795361676347,</span>
+<span class="go"> &#39;wo:mag_dbfs&#39;: -91.30797114878968,</span>
+<span class="go"> &#39;wo:nbins&#39;: 1.0,</span>
+<span class="go"> &#39;wo:orderindex&#39;: 6.0,</span>
+<span class="go"> &#39;wo:phase&#39;: -2.1560142655481678,</span>
+<span class="go"> &#39;wo:phase_c&#39;: -2.1560166476763762,</span>
+<span class="go"> &#39;wo:tag&#39;: 8.0}</span>
+</pre></div>
+</div>
+</div>
+<p>From the results dictionary, we see a number of key-value pairs that are computed by Genalyzer. Among them, <code class="docutils literal notranslate"><span class="pre">7</span></code> sets of key-value pairs corresponding to the <code class="docutils literal notranslate"><span class="pre">7</span></code> components listed in the third column of the <code class="docutils literal notranslate"><span class="pre">labels</span></code> table in the console output above have the following format:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:ffinal</span></code> : Tone final frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:freq</span></code> : Tone frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:fwavg</span></code> : Tone weighted-average frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:i1</span></code> : Tone first index</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:i2</span></code> : Tone last index</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:inband</span></code> : 1: tone is in-band; 0: tone is out-of-band</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:mag</span></code> : Tone magnitude</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:mag_dbc</span></code> : Tone magnitude relative to carrier (dBc)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:mag_dbfs</span></code> : Tone magnitude relative to full-scale (dBFS)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:nbins</span></code> : Tone number of bins</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:orderindex</span></code> : Tone order index</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:phase</span></code> : Tone phase (rad)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:phase_c</span></code> : Tone phase relative to carrier (rad)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:tag</span></code> : Tone tag</p>
+<p>For example, the key-value pairs in the above format for <code class="docutils literal notranslate"><span class="pre">-A</span></code> component are as follows:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:ffinal':</span> <span class="pre">-300000.0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:freq':</span> <span class="pre">-300000.0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:fwavg':</span> <span class="pre">0.0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:i1':</span> <span class="pre">27000.0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:i2':</span> <span class="pre">27000.0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:inband':</span> <span class="pre">1.0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:mag':</span> <span class="pre">1.0513032226581935e-05,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:mag_dbc':</span> <span class="pre">-98.56536672200804,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:mag_dbfs':</span> <span class="pre">-99.56544008601296,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:nbins':</span> <span class="pre">1.0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:orderindex':</span> <span class="pre">2.0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:phase':</span> <span class="pre">2.2048368960072615,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:phase_c':</span> <span class="pre">2.2048362928010907,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'-A:tag':</span> <span class="pre">2.0,</span></code></p>
+<p>which provide all the relevant information concerning <code class="docutils literal notranslate"><span class="pre">-A</span></code> component and how its contribution to the metrics is computed. More details concerning the key-value pairs in the <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary are available <a class="reference internal" href="#genalyzer.fft_analysis"><span class="xref myst">here</span></a>.</p>
+<p>In this manner, Genalyzer collates the information concerning all the components to account for, calculates the various performance metrics, and logs them to the <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary. To give an example of how genalyzer computes <code class="docutils literal notranslate"><span class="pre">sfdr</span></code>, consider the following key-value pair from the <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'noise_nbins':</span> <span class="pre">29994.0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">'noise_rss':</span> <span class="pre">0.0014332315618189736,</span></code></p>
+<p>which indicate that aside from <code class="docutils literal notranslate"><span class="pre">6</span></code> components (<code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">-A</span></code>, <code class="docutils literal notranslate"><span class="pre">2A</span></code>, <code class="docutils literal notranslate"><span class="pre">-2A</span></code>, <code class="docutils literal notranslate"><span class="pre">-3A</span></code>, and <code class="docutils literal notranslate"><span class="pre">wo</span></code>), all other bins have been accumulated and the root-sum-square value was computed to be <code class="docutils literal notranslate"><span class="pre">0.0014332315618189736</span></code> (<code class="docutils literal notranslate"><span class="pre">-56.8737</span> <span class="pre">dB</span></code>). In our working example, we set the signal amplitude of the tone to be <code class="docutils literal notranslate"><span class="pre">-1</span> <span class="pre">dBFS</span></code> (confirmed by <code class="docutils literal notranslate"><span class="pre">'signal_rss':</span> <span class="pre">0.8912491391908985</span></code>). Hence, we can verify that <code class="docutils literal notranslate"><span class="pre">SNR</span> <span class="pre">(dB)</span> <span class="pre">=</span> <span class="pre">20*log10(signal_rss/noise_rss)</span> <span class="pre">=</span> <span class="pre">55.87365520021216</span> <span class="pre">dB</span></code>, which matches the value in the console output above. In a similar manner, we can verify several other metrics as shown below:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SINAD</span> <span class="pre">(dB)</span> <span class="pre">=</span> <span class="pre">20*log10(signal_rss/nad_rss)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FSNR</span> <span class="pre">(dB)</span> <span class="pre">=</span> <span class="pre">20*log10(1.0/noise_rss)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SFDR</span> <span class="pre">(dB)</span> <span class="pre">=</span> <span class="pre">20*log10(signal_rss/wo:mag)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NSD</span> <span class="pre">(dB)</span> <span class="pre">=</span> <span class="pre">10*log10(noise_rss*noise_rss/ab_width)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ABN</span> <span class="pre">(dB)</span> <span class="pre">=</span> <span class="pre">10*log10(noise_ss/noise_nbins)</span></code></p></li>
+</ul>
+<p>Please refer to the documentation page for <a class="reference internal" href="#genalyzer.fft_analysis"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">fft_analysis()</span></code></span></a> for further details.</p>
+<p>In summary, the magnitude spectrum plot for the working example considered so far, with DC, signal, and harmonic components labeled, is shown below.</p>
+<figure class="align-default" id="id4">
+<img alt="_images/spectral_analysis_summary.png" src="_images/spectral_analysis_summary.png" />
+<figcaption>
+<p><span class="caption-text">Magnitude spectrum of the FFT showing signal, harmonic, DC, and WO components.</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="reference.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Advanced API Reference</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="setup.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021, Analog Devices, Inc.
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Spectral Analysis</a><ul>
+<li><a class="reference internal" href="#tone-generation">Tone Generation</a></li>
+<li><a class="reference internal" href="#compute-fft">Compute FFT</a></li>
+<li><a class="reference internal" href="#run-spectral-analysis">Run Spectral Analysis</a><ul>
+<li><a class="reference internal" href="#configure-genalyzer">Configure Genalyzer</a><ul>
+<li><a class="reference internal" href="#create-a-test">Create a <em>test</em></a></li>
+<li><a class="reference internal" href="#add-a-component-to-a-test">Add a <em>component</em> to a <em>test</em></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">Run Spectral Analysis</a><ul>
+<li><a class="reference internal" href="#tone-labels">Tone labels</a></li>
+<li><a class="reference internal" href="#tone-boxes">Tone boxes</a></li>
+<li><a class="reference internal" href="#spectral-analysis-results">Spectral analysis results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=2fea6348"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    </body>
+</html>

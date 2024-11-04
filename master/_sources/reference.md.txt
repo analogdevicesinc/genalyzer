@@ -1,281 +1,119 @@
-<!--- This file is auto-generated. Do not edit -->
+# Advanced API Reference
 
-# API Reference
+Advanced API Reference for Genalyzer library. This API is meant for advanced users who want to use the library functions for more complex tasks.
 
-This page contains the API reference for the Genalyzer library.
+## Table of Contents
 
-## Function Groups
-
-- [Set Functions](#set-functions)
-- [Get Functions](#get-functions)
-- [Config Functions](#config-functions)
-- [Generate Functions](#generate-functions)
-- [Operation Functions](#operation-functions)
-
-## Structs
-
----
-
-## Set Functions
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_set_ttype
-
+```{contents}
+:class: this-will-duplicate-information-and-it-is-still-useful-here
 ```
 
-```{eval-rst}
-.. doxygenfunction:: gn_config_set_npts
-
-```
+## Enumerations
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_sample_rate
-
+.. doxygengroup:: Enumerations
+   :no-link: 
 ```
+
+## API Utilities
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_data_rate
-
+.. doxygengroup:: APIUtilities
 ```
+
+## Array Operations
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_shift_freq
-
+.. doxygengroup:: ArrayOperations
 ```
+
+## Code Density
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_num_tones
-
+.. doxygengroup:: CodeDensity
 ```
+
+
+## Code Density Helpers
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_tone_freq
-
+.. doxygengroup:: CodeDensityHelpers
 ```
+
+## Fourier Analysis
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_tone_ampl
-
+.. doxygengroup:: FourierAnalysis
 ```
+
+## Fourier Analysis Configuration
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_tone_phase
-
+.. doxygengroup:: FourierAnalysisConfiguration
 ```
+
+## Fourier Analysis Results
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_fsr
-
+.. doxygengroup:: FourierAnalysisResults
 ```
+
+## Fourier Analysis Helpers
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_qres
-
+.. doxygengroup:: FourierAnalysisHelpers
 ```
+
+## Fourier Transforms
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_noise_rms
-
+.. doxygengroup:: FourierTransforms
 ```
+
+## Fourier Transform Helpers
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_code_format
-
+.. doxygengroup:: FourierTransformHelpers
 ```
+
+## Fourier Utilities
+    
+```{eval-rst}
+.. doxygengroup:: FourierUtilities
+```
+
+## Fourier Utility Helpers
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_nfft
-
+.. doxygengroup:: FourierUtilityHelpers
 ```
+
+## Manager
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_fft_navg
-
+.. doxygengroup:: Manager
 ```
+
+## Manager Helpers
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_win
-
+.. doxygengroup:: ManagerHelpers
 ```
+
+## Signal Processing
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_ssb_fund
-
+.. doxygengroup:: SignalProcessing
 ```
+
+## Signal Processing Helpers
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_ssb_rest
-
+.. doxygengroup:: SignalProcessingHelpers
 ```
+
+## Waveforms
 
 ```{eval-rst}
-.. doxygenfunction:: gn_config_set_max_harm_order
-
+.. doxygengroup:: Waveforms
 ```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_set_dnla_signal_type
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_set_inla_fit
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_set_ramp_start
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_set_ramp_stop
-
-```
-
----
-
-## Get Functions
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_get_npts
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_get_sample_rate
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_get_nfft
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_get_code_density_size
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_get_wfa_results
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_get_ha_results
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_get_dnla_results
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_get_inla_results
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_get_fa_single_result
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_get_fa_results
-
-```
-
----
-
-## Config Functions
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_free
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_gen_tone
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_gen_ramp
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_quantize
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_histz_nla
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_fftz
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_fa
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_config_fa_auto
-
-```
-
----
-
-## Generate Functions
-
-```{eval-rst}
-.. doxygenfunction:: gn_gen_ramp
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_gen_real_tone
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_gen_complex_tone
-
-```
-
----
-
-## Operation Functions
-
-```{eval-rst}
-.. doxygenfunction:: gn_quantize
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_fftz
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_histz
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_dnlz
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_inlz
-
-```
-

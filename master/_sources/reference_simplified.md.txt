@@ -1,0 +1,279 @@
+<!--- This file is auto-generated. Do not edit -->
+
+# (Beta) Simplified API Reference
+
+This page contains the (beta) simplified API reference for the Genalyzer library.
+
+## Function Groups
+
+- [Set Functions](#set-functions)
+- [Get Functions](#get-functions)
+- [Config Functions](#config-functions)
+- [Generate Functions](#generate-functions)
+- [Operation Functions](#operation-functions)
+
+---
+
+## Set Functions
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_ttype
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_npts
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_sample_rate
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_data_rate
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_shift_freq
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_num_tones
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_tone_freq
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_tone_ampl
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_tone_phase
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_fsr
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_qres
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_noise_rms
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_code_format
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_nfft
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_fft_navg
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_win
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_ssb_fund
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_ssb_rest
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_max_harm_order
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_dnla_signal_type
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_inla_fit
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_ramp_start
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_set_ramp_stop
+
+```
+
+---
+
+## Get Functions
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_get_npts
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_get_sample_rate
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_get_nfft
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_get_code_density_size
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_get_wfa_results
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_get_ha_results
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_get_dnla_results
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_get_inla_results
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_get_fa_single_result
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_get_fa_results
+
+```
+
+---
+
+## Config Functions
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_free
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_gen_tone
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_gen_ramp
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_quantize
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_histz_nla
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_fftz
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_fa
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config_fa_auto
+
+```
+
+---
+
+## Generate Functions
+
+```{eval-rst}
+.. doxygenfunction:: gn_gen_ramp
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_gen_real_tone
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_gen_complex_tone
+
+```
+
+---
+
+## Operation Functions
+
+```{eval-rst}
+.. doxygenfunction:: gn_quantize
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_fftz
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_histz
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_dnlz
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_inlz
+
+```
+

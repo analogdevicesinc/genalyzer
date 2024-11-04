@@ -1,15 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 --><title>Index - Genalyzer v0.0.1 documentation</title>
-<link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
-    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 --><title>Index - Genalyzer v0.0.1 documentation</title>
+<link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     
     
 
@@ -68,7 +69,7 @@
   <symbol id="svg-sun" viewBox="0 0 24 24">
     <title>Light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
       <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -83,22 +84,63 @@
   <symbol id="svg-moon" viewBox="0 0 24 24">
     <title>Dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
 </svg>
@@ -111,6 +153,8 @@
 <label class="overlay toc-overlay" for="__toc">
   <div class="visually-hidden">Hide table of contents sidebar</div>
 </label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
 
 
@@ -129,7 +173,8 @@
       <div class="theme-toggle-container theme-toggle-header">
         <button class="theme-toggle">
           <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
           <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
@@ -156,14 +201,24 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="01_introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="theory.html">Usage Model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sim.html">Simulation Based Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Language Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference_advanced.html">Advanced API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spectral_analysis.html">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Advanced API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_simplified.html">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="python/genalyzer.html">Python Bindings</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Python Bindings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="python/pygenalyzer.html">pygenalizer</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of pygenalizer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="python/enumerations.html">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/fourier_analysis.html">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/fourier_configuration.html">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/fourier_transforms.html">Fourier Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/waveforms.html">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python/signal_processing.html">Signal Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python/pygenalyzer.simplified.html">pygenalizer.simplified (Beta)</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -186,7 +241,8 @@
           <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
               <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
@@ -196,7 +252,7 @@
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
-        <article role="main">
+        <article role="main" id="furo-main-content">
           
 <section class="genindex-section">
   <h1 id="index">Index</h1>
@@ -206,475 +262,341 @@
   <h2>G</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference_advanced.html#_CPPv46gn_absPd6size_tPKd6size_t">gn_abs (C++ function)</a>
+        <li><a href="reference.html#_CPPv46gn_absPd6size_tPKd6size_t">gn_abs (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv48gn_aliasPddd14GnFreqAxisType">gn_alias (C++ function)</a>
+        <li><a href="reference.html#_CPPv48gn_aliasPddd14GnFreqAxisType">gn_alias (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv429gn_analysis_results_key_sizesP6size_t6size_t14GnAnalysisType">gn_analysis_results_key_sizes (C++ function)</a>
+        <li><a href="reference.html#_CPPv429gn_analysis_results_key_sizesP6size_t6size_t14GnAnalysisType">gn_analysis_results_key_sizes (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv424gn_analysis_results_sizeP6size_t14GnAnalysisType">gn_analysis_results_size (C++ function)</a>
+        <li><a href="reference.html#_CPPv424gn_analysis_results_sizeP6size_t14GnAnalysisType">gn_analysis_results_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv48gn_anglePd6size_tPKd6size_t">gn_angle (C++ function)</a>
+        <li><a href="reference.html#_CPPv48gn_anglePd6size_tPKd6size_t">gn_angle (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv412gn_code_axisPd6size_ti12GnCodeFormat">gn_code_axis (C++ function)</a>
+        <li><a href="reference.html#_CPPv412gn_code_axisPd6size_ti12GnCodeFormat">gn_code_axis (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_code_axisxPd6size_t7int64_t7int64_t">gn_code_axisx (C++ function)</a>
+        <li><a href="reference.html#_CPPv413gn_code_axisxPd6size_t7int64_t7int64_t">gn_code_axisx (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv420gn_code_density_sizeP6size_ti12GnCodeFormat">gn_code_density_size (C++ function)</a>
+        <li><a href="reference.html#_CPPv420gn_code_density_sizeP6size_ti12GnCodeFormat">gn_code_density_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv421gn_code_densityx_sizeP6size_t7int64_t7int64_t">gn_code_densityx_size (C++ function)</a>
+        <li><a href="reference.html#_CPPv421gn_code_densityx_sizeP6size_t7int64_t7int64_t">gn_code_densityx_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv411gn_coherentPd6size_tdd">gn_coherent (C++ function)</a>
+        <li><a href="reference.html#_CPPv411gn_coherentPd6size_tdd">gn_coherent (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv412gn_config_fadP9gn_config">gn_config_fa (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv412gn_config_fadP9gn_config">gn_config_fa (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv417gn_config_fa_auto7uint8_tP9gn_config">gn_config_fa_auto (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv417gn_config_fa_auto7uint8_tP9gn_config">gn_config_fa_auto (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv414gn_config_fftz6size_ti6size_t6size_t8GnWindowP9gn_config">gn_config_fftz (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv414gn_config_fftz6size_ti6size_t6size_t8GnWindowP9gn_config">gn_config_fftz (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv414gn_config_freeP9gn_config">gn_config_free (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv414gn_config_freeP9gn_config">gn_config_free (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv418gn_config_gen_ramp6size_tddP9gn_config">gn_config_gen_ramp (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv418gn_config_gen_ramp6size_tddP9gn_config">gn_config_gen_ramp (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv418gn_config_gen_tone9tone_type6size_td6size_tPdPdPdP9gn_config">gn_config_gen_tone (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv418gn_config_gen_tone9tone_type6size_td6size_tPdPdPdP9gn_config">gn_config_gen_tone (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv431gn_config_get_code_density_sizeP6size_tP9gn_config">gn_config_get_code_density_size (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv431gn_config_get_code_density_sizeP6size_tP9gn_config">gn_config_get_code_density_size (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv418gn_config_get_nfftP6size_tP9gn_config">gn_config_get_nfft (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv418gn_config_get_nfftP6size_tP9gn_config">gn_config_get_nfft (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv418gn_config_get_nptsP6size_tP9gn_config">gn_config_get_npts (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv418gn_config_get_nptsP6size_tP9gn_config">gn_config_get_npts (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv425gn_config_get_sample_ratePdP9gn_config">gn_config_get_sample_rate (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv425gn_config_get_sample_ratePdP9gn_config">gn_config_get_sample_rate (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv419gn_config_histz_nla6size_tiP9gn_config">gn_config_histz_nla (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv419gn_config_histz_nla6size_tiP9gn_config">gn_config_histz_nla (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv418gn_config_quantize6size_tdidP9gn_config">gn_config_quantize (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv418gn_config_quantize6size_tdidP9gn_config">gn_config_quantize (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv425gn_config_set_code_format12GnCodeFormatP9gn_config">gn_config_set_code_format (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv425gn_config_set_code_format12GnCodeFormatP9gn_config">gn_config_set_code_format (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv423gn_config_set_data_ratedP9gn_config">gn_config_set_data_rate (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv423gn_config_set_data_ratedP9gn_config">gn_config_set_data_rate (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv430gn_config_set_dnla_signal_type11GnDnlSignalP9gn_config">gn_config_set_dnla_signal_type (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv430gn_config_set_dnla_signal_type11GnDnlSignalP9gn_config">gn_config_set_dnla_signal_type (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv422gn_config_set_fft_navg6size_tP9gn_config">gn_config_set_fft_navg (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv422gn_config_set_fft_navg6size_tP9gn_config">gn_config_set_fft_navg (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv417gn_config_set_fsrdP9gn_config">gn_config_set_fsr (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv417gn_config_set_fsrdP9gn_config">gn_config_set_fsr (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv422gn_config_set_inla_fit12GnInlLineFitP9gn_config">gn_config_set_inla_fit (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv422gn_config_set_inla_fit12GnInlLineFitP9gn_config">gn_config_set_inla_fit (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv428gn_config_set_max_harm_orderiP9gn_config">gn_config_set_max_harm_order (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv428gn_config_set_max_harm_orderiP9gn_config">gn_config_set_max_harm_order (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv418gn_config_set_nfft6size_tP9gn_config">gn_config_set_nfft (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv418gn_config_set_nfft6size_tP9gn_config">gn_config_set_nfft (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv423gn_config_set_noise_rmsdP9gn_config">gn_config_set_noise_rms (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv423gn_config_set_noise_rmsdP9gn_config">gn_config_set_noise_rms (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv418gn_config_set_npts6size_tP9gn_config">gn_config_set_npts (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv418gn_config_set_npts6size_tP9gn_config">gn_config_set_npts (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv423gn_config_set_num_tones6size_tP9gn_config">gn_config_set_num_tones (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv423gn_config_set_num_tones6size_tP9gn_config">gn_config_set_num_tones (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv418gn_config_set_qresiP9gn_config">gn_config_set_qres (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv418gn_config_set_qresiP9gn_config">gn_config_set_qres (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv424gn_config_set_ramp_startdP9gn_config">gn_config_set_ramp_start (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv424gn_config_set_ramp_startdP9gn_config">gn_config_set_ramp_start (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv423gn_config_set_ramp_stopdP9gn_config">gn_config_set_ramp_stop (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv423gn_config_set_ramp_stopdP9gn_config">gn_config_set_ramp_stop (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv425gn_config_set_sample_ratedP9gn_config">gn_config_set_sample_rate (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv425gn_config_set_sample_ratedP9gn_config">gn_config_set_sample_rate (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv424gn_config_set_shift_freqdP9gn_config">gn_config_set_shift_freq (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv424gn_config_set_shift_freqdP9gn_config">gn_config_set_shift_freq (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv422gn_config_set_ssb_fundiP9gn_config">gn_config_set_ssb_fund (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv422gn_config_set_ssb_fundiP9gn_config">gn_config_set_ssb_fund (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv422gn_config_set_ssb_restiP9gn_config">gn_config_set_ssb_rest (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv422gn_config_set_ssb_restiP9gn_config">gn_config_set_ssb_rest (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv423gn_config_set_tone_amplPdP9gn_config">gn_config_set_tone_ampl (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv423gn_config_set_tone_amplPdP9gn_config">gn_config_set_tone_ampl (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv423gn_config_set_tone_freqPdP9gn_config">gn_config_set_tone_freq (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv423gn_config_set_tone_freqPdP9gn_config">gn_config_set_tone_freq (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv424gn_config_set_tone_phasePdP9gn_config">gn_config_set_tone_phase (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv424gn_config_set_tone_phasePdP9gn_config">gn_config_set_tone_phase (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv419gn_config_set_ttype9tone_typeP9gn_config">gn_config_set_ttype (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv419gn_config_set_ttype9tone_typeP9gn_config">gn_config_set_ttype (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv417gn_config_set_win8GnWindowP9gn_config">gn_config_set_win (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv417gn_config_set_win8GnWindowP9gn_config">gn_config_set_win (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv46gn_cosPd6size_tdddddd">gn_cos (C++ function)</a>
+        <li><a href="reference.html#_CPPv46gn_cosPd6size_tdddddd">gn_cos (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv45gn_dbPd6size_tPKd6size_t">gn_db (C++ function)</a>
+        <li><a href="reference.html#_CPPv45gn_dbPd6size_tPKd6size_t">gn_db (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv47gn_db10Pd6size_tPKd6size_t">gn_db10 (C++ function)</a>
+        <li><a href="reference.html#_CPPv47gn_db10Pd6size_tPKd6size_t">gn_db10 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv47gn_db20Pd6size_tPKd6size_t">gn_db20 (C++ function)</a>
+        <li><a href="reference.html#_CPPv47gn_db20Pd6size_tPKd6size_t">gn_db20 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv46gn_dnlPd6size_tPK8uint64_t6size_t11GnDnlSignal">gn_dnl (C++ function)</a>
+        <li><a href="reference.html#_CPPv46gn_dnlPd6size_tPK8uint64_t6size_t11GnDnlSignal">gn_dnl (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv415gn_dnl_analysisPPc6size_tPd6size_tPKd6size_t">gn_dnl_analysis (C++ function)</a>
+        <li><a href="reference.html#_CPPv415gn_dnl_analysisPPc6size_tPd6size_tPKd6size_t">gn_dnl_analysis (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv47gn_dnlzPPdP6size_tPK8uint64_tP9gn_config">gn_dnlz (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv47gn_dnlzPPdP6size_tPK8uint64_tP9gn_config">gn_dnlz (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_downsamplePd6size_tPKd6size_tib">gn_downsample (C++ function)</a>
+        <li><a href="reference.html#_CPPv413gn_downsamplePd6size_tPKd6size_tib">gn_downsample (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv415gn_downsample16P7int16_t6size_tPK7int16_t6size_tib">gn_downsample16 (C++ function)</a>
+        <li><a href="reference.html#_CPPv415gn_downsample16P7int16_t6size_tPK7int16_t6size_tib">gn_downsample16 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv415gn_downsample32P7int32_t6size_tPK7int32_t6size_tib">gn_downsample32 (C++ function)</a>
+        <li><a href="reference.html#_CPPv415gn_downsample32P7int32_t6size_tPK7int32_t6size_tib">gn_downsample32 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv415gn_downsample64P7int64_t6size_tPK7int64_t6size_tib">gn_downsample64 (C++ function)</a>
+        <li><a href="reference.html#_CPPv415gn_downsample64P7int64_t6size_tPK7int64_t6size_tib">gn_downsample64 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv418gn_downsample_sizeP6size_t6size_tib">gn_downsample_size (C++ function)</a>
+        <li><a href="reference.html#_CPPv418gn_downsample_sizeP6size_t6size_tib">gn_downsample_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_enum_valuePiPKcPKc">gn_enum_value (C++ function)</a>
+        <li><a href="reference.html#_CPPv413gn_enum_valuePiPKcPKc">gn_enum_value (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414gn_error_checkPb">gn_error_check (C++ function)</a>
+        <li><a href="reference.html#_CPPv414gn_error_checkPb">gn_error_check (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414gn_error_clearv">gn_error_clear (C++ function)</a>
+        <li><a href="reference.html#_CPPv414gn_error_clearv">gn_error_clear (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv415gn_error_stringPc6size_t">gn_error_string (C++ function)</a>
+        <li><a href="reference.html#_CPPv415gn_error_stringPc6size_t">gn_error_string (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv419gn_fa_analysis_bandPKcdd">gn_fa_analysis_band (C++ function)</a>
+        <li><a href="reference.html#_CPPv419gn_fa_analysis_bandPKcdd">gn_fa_analysis_band (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv421gn_fa_analysis_band_ePKcPKcPKc">gn_fa_analysis_band_e (C++ function)</a>
+        <li><a href="reference.html#_CPPv421gn_fa_analysis_band_ePKcPKcPKc">gn_fa_analysis_band_e (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv49gn_fa_clkPKcPKi6size_tb">gn_fa_clk (C++ function)</a>
+        <li><a href="reference.html#_CPPv49gn_fa_clkPKcPKi6size_tb">gn_fa_clk (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv417gn_fa_conv_offsetPKcb">gn_fa_conv_offset (C++ function)</a>
+        <li><a href="reference.html#_CPPv417gn_fa_conv_offsetPKcb">gn_fa_conv_offset (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv412gn_fa_createPKc">gn_fa_create (C++ function)</a>
+        <li><a href="reference.html#_CPPv412gn_fa_createPKc">gn_fa_create (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv48gn_fa_dcPKcb">gn_fa_dc (C++ function)</a>
+        <li><a href="reference.html#_CPPv48gn_fa_dcPKcb">gn_fa_dc (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv411gn_fa_fdataPKcd">gn_fa_fdata (C++ function)</a>
+        <li><a href="reference.html#_CPPv411gn_fa_fdataPKcd">gn_fa_fdata (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_fa_fdata_ePKcPKc">gn_fa_fdata_e (C++ function)</a>
+        <li><a href="reference.html#_CPPv413gn_fa_fdata_ePKcPKc">gn_fa_fdata_e (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv416gn_fa_fixed_tonePKcPKc11GnFACompTagdi">gn_fa_fixed_tone (C++ function)</a>
+        <li><a href="reference.html#_CPPv416gn_fa_fixed_tonePKcPKc11GnFACompTagdi">gn_fa_fixed_tone (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv418gn_fa_fixed_tone_ePKcPKc11GnFACompTagPKci">gn_fa_fixed_tone_e (C++ function)</a>
+        <li><a href="reference.html#_CPPv418gn_fa_fixed_tone_ePKcPKc11GnFACompTagPKci">gn_fa_fixed_tone_e (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_fa_fsamplePKcd">gn_fa_fsample (C++ function)</a>
+        <li><a href="reference.html#_CPPv413gn_fa_fsamplePKcd">gn_fa_fsample (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv415gn_fa_fsample_ePKcPKc">gn_fa_fsample_e (C++ function)</a>
+        <li><a href="reference.html#_CPPv415gn_fa_fsample_ePKcPKc">gn_fa_fsample_e (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv412gn_fa_fshiftPKcd">gn_fa_fshift (C++ function)</a>
+        <li><a href="reference.html#_CPPv412gn_fa_fshiftPKcd">gn_fa_fshift (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414gn_fa_fshift_ePKcPKc">gn_fa_fshift_e (C++ function)</a>
+        <li><a href="reference.html#_CPPv414gn_fa_fshift_ePKcPKc">gn_fa_fshift_e (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv417gn_fa_fund_imagesPKcb">gn_fa_fund_images (C++ function)</a>
+        <li><a href="reference.html#_CPPv417gn_fa_fund_imagesPKcb">gn_fa_fund_images (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv48gn_fa_hdPKci">gn_fa_hd (C++ function)</a>
+        <li><a href="reference.html#_CPPv48gn_fa_hdPKci">gn_fa_hd (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv49gn_fa_ilvPKcPKi6size_tb">gn_fa_ilv (C++ function)</a>
+        <li><a href="reference.html#_CPPv49gn_fa_ilvPKcPKi6size_tb">gn_fa_ilv (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv49gn_fa_imdPKci">gn_fa_imd (C++ function)</a>
+        <li><a href="reference.html#_CPPv49gn_fa_imdPKci">gn_fa_imd (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv410gn_fa_loadPc6size_tPKcPKc">gn_fa_load (C++ function)</a>
+        <li><a href="reference.html#_CPPv410gn_fa_loadPc6size_tPKcPKc">gn_fa_load (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv419gn_fa_load_key_sizeP6size_tPKcPKc">gn_fa_load_key_size (C++ function)</a>
+        <li><a href="reference.html#_CPPv419gn_fa_load_key_sizeP6size_tPKcPKc">gn_fa_load_key_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414gn_fa_max_tonePKcPKc11GnFACompTagi">gn_fa_max_tone (C++ function)</a>
+        <li><a href="reference.html#_CPPv414gn_fa_max_tonePKcPKc11GnFACompTagi">gn_fa_max_tone (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_fa_previewPc6size_tPKcb">gn_fa_preview (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv418gn_fa_preview_sizeP6size_tPKcb">gn_fa_preview_size (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv417gn_fa_quad_errorsPKcb">gn_fa_quad_errors (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv417gn_fa_remove_compPKcPKc">gn_fa_remove_comp (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv411gn_fa_resetPKc">gn_fa_reset (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv412gn_fa_resultPdPPKc6size_tPKd6size_tPKc">gn_fa_result (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv419gn_fa_result_stringPc6size_tPPKc6size_tPKd6size_tPKc">gn_fa_result_string (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv424gn_fa_result_string_sizeP6size_tPPKc6size_tPKd6size_tPKc">gn_fa_result_string_size (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv49gn_fa_ssbPKc7GnFASsbi">gn_fa_ssb (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv49gn_fa_varPKcPKcd">gn_fa_var (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv48gn_fa_woPKci">gn_fa_wo (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv46gn_fftPd6size_tPKd6size_tPKd6size_t6size_t6size_t8GnWindow">gn_fft (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv48gn_fft16Pd6size_tPK7int16_t6size_tPK7int16_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat">gn_fft16 (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv48gn_fft32Pd6size_tPK7int32_t6size_tPK7int32_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat">gn_fft32 (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv48gn_fft64Pd6size_tPK7int64_t6size_tPK7int64_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat">gn_fft64 (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv415gn_fft_analysisPPc6size_tPd6size_tPKcPKd6size_t6size_t14GnFreqAxisType">gn_fft_analysis (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv433gn_fft_analysis_results_key_sizesP6size_t6size_tPKc6size_t6size_t">gn_fft_analysis_results_key_sizes (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv428gn_fft_analysis_results_sizeP6size_tPKc6size_t6size_t">gn_fft_analysis_results_size (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv422gn_fft_analysis_selectPd6size_tPKcPPKc6size_tPKd6size_t6size_t14GnFreqAxisType">gn_fft_analysis_select (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv422gn_fft_analysis_singlePdPKcPKcPKd6size_t6size_t14GnFreqAxisType">gn_fft_analysis_single (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv411gn_fft_sizeP6size_t6size_t6size_t6size_t6size_t">gn_fft_size (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv411gn_fftshiftPd6size_tPKd6size_t">gn_fftshift (C++ function)</a>
-</li>
-        <li><a href="reference.html#_CPPv47gn_fftzPPdPK7int32_tPK7int32_tP9gn_config">gn_fftz (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv412gn_freq_axisPd6size_t6size_t14GnFreqAxisTyped16GnFreqAxisFormat">gn_freq_axis (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv417gn_freq_axis_sizeP6size_t6size_t14GnFreqAxisType">gn_freq_axis_size (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv49gn_fshiftPd6size_tPKd6size_tPKd6size_tdd">gn_fshift (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv411gn_fshift16P7int16_t6size_tPK7int16_t6size_tPK7int16_t6size_tidd12GnCodeFormat">gn_fshift16 (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv411gn_fshift32P7int32_t6size_tPK7int32_t6size_tPK7int32_t6size_tidd12GnCodeFormat">gn_fshift32 (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv411gn_fshift64P7int64_t6size_tPK7int64_t6size_tPK7int64_t6size_tidd12GnCodeFormat">gn_fshift64 (C++ function)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv414gn_fshift_sizeP6size_t6size_t6size_t">gn_fshift_size (C++ function)</a>
+        <li><a href="reference.html#_CPPv413gn_fa_previewPc6size_tPKcb">gn_fa_preview (C++ function)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference_advanced.html#_CPPv411gn_gaussianPd6size_tdd">gn_gaussian (C++ function)</a>
+        <li><a href="reference.html#_CPPv418gn_fa_preview_sizeP6size_tPKcb">gn_fa_preview_size (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv419gn_gen_complex_tonePPdPPdP9gn_config">gn_gen_complex_tone (C++ function)</a>
+        <li><a href="reference.html#_CPPv417gn_fa_quad_errorsPKcb">gn_fa_quad_errors (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv411gn_gen_rampPPdP9gn_config">gn_gen_ramp (C++ function)</a>
+        <li><a href="reference.html#_CPPv417gn_fa_remove_compPKcPKc">gn_fa_remove_comp (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv416gn_gen_real_tonePPdP9gn_config">gn_gen_real_tone (C++ function)</a>
+        <li><a href="reference.html#_CPPv411gn_fa_resetPKc">gn_fa_reset (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv419gn_get_dnla_resultsPPPcPPdP6size_tPKdP9gn_config">gn_get_dnla_results (C++ function)</a>
+        <li><a href="reference.html#_CPPv412gn_fa_resultPdPPKc6size_tPKd6size_tPKc">gn_fa_result (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv417gn_get_fa_resultsPPPcPPdP6size_tPdP9gn_config">gn_get_fa_results (C++ function)</a>
+        <li><a href="reference.html#_CPPv419gn_fa_result_stringPc6size_tPPKc6size_tPKd6size_tPKc">gn_fa_result_string (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv423gn_get_fa_single_resultPdPKcPdP9gn_config">gn_get_fa_single_result (C++ function)</a>
+        <li><a href="reference.html#_CPPv424gn_fa_result_string_sizeP6size_tPPKc6size_tPKd6size_tPKc">gn_fa_result_string_size (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv417gn_get_ha_resultsPPPcPPdP6size_tPK8uint64_tP9gn_config">gn_get_ha_results (C++ function)</a>
+        <li><a href="reference.html#_CPPv49gn_fa_ssbPKc7GnFASsbi">gn_fa_ssb (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv419gn_get_inla_resultsPPPcPPdP6size_tPKdP9gn_config">gn_get_inla_results (C++ function)</a>
+        <li><a href="reference.html#_CPPv49gn_fa_varPKcPKcd">gn_fa_var (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv418gn_get_wfa_resultsPPPcPPdP6size_tPK7int32_tP9gn_config">gn_get_wfa_results (C++ function)</a>
+        <li><a href="reference.html#_CPPv48gn_fa_woPKci">gn_fa_wo (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv49gn_hist16P8uint64_t6size_tPK7int16_t6size_ti12GnCodeFormatb">gn_hist16 (C++ function)</a>
+        <li><a href="reference.html#_CPPv46gn_fftPd6size_tPKd6size_tPKd6size_t6size_t6size_t8GnWindow">gn_fft (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv49gn_hist32P8uint64_t6size_tPK7int32_t6size_ti12GnCodeFormatb">gn_hist32 (C++ function)</a>
+        <li><a href="reference.html#_CPPv48gn_fft16Pd6size_tPK7int16_t6size_tPK7int16_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat">gn_fft16 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv49gn_hist64P8uint64_t6size_tPK7int64_t6size_ti12GnCodeFormatb">gn_hist64 (C++ function)</a>
+        <li><a href="reference.html#_CPPv48gn_fft32Pd6size_tPK7int32_t6size_tPK7int32_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat">gn_fft32 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv416gn_hist_analysisPPc6size_tPd6size_tPK8uint64_t6size_t">gn_hist_analysis (C++ function)</a>
+        <li><a href="reference.html#_CPPv48gn_fft64Pd6size_tPK7int64_t6size_tPK7int64_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat">gn_fft64 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv410gn_histx16P8uint64_t6size_tPK7int16_t6size_t7int64_t7int64_tb">gn_histx16 (C++ function)</a>
+        <li><a href="reference.html#_CPPv415gn_fft_analysisPPc6size_tPd6size_tPKcPKd6size_t6size_t14GnFreqAxisType">gn_fft_analysis (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv410gn_histx32P8uint64_t6size_tPK7int32_t6size_t7int64_t7int64_tb">gn_histx32 (C++ function)</a>
+        <li><a href="reference.html#_CPPv433gn_fft_analysis_results_key_sizesP6size_t6size_tPKc6size_t6size_t">gn_fft_analysis_results_key_sizes (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv410gn_histx64P8uint64_t6size_tPK7int64_t6size_t7int64_t7int64_tb">gn_histx64 (C++ function)</a>
+        <li><a href="reference.html#_CPPv428gn_fft_analysis_results_sizeP6size_tPKc6size_t6size_t">gn_fft_analysis_results_size (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv48gn_histzPP8uint64_tP6size_tPK7int32_tP9gn_config">gn_histz (C++ function)</a>
+        <li><a href="reference.html#_CPPv422gn_fft_analysis_selectPd6size_tPKcPPKc6size_tPKd6size_t6size_t14GnFreqAxisType">gn_fft_analysis_select (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv412gn_ifftshiftPd6size_tPKd6size_t">gn_ifftshift (C++ function)</a>
+        <li><a href="reference.html#_CPPv422gn_fft_analysis_singlePdPKcPKcPKd6size_t6size_t14GnFreqAxisType">gn_fft_analysis_single (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv46gn_inlPd6size_tPKd6size_t12GnInlLineFit">gn_inl (C++ function)</a>
+        <li><a href="reference.html#_CPPv411gn_fft_sizeP6size_t6size_t6size_t6size_t6size_t">gn_fft_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv415gn_inl_analysisPPc6size_tPd6size_tPKd6size_t">gn_inl_analysis (C++ function)</a>
+        <li><a href="reference.html#_CPPv411gn_fftshiftPd6size_tPKd6size_t">gn_fftshift (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv47gn_inlzPPdP6size_tPKdP9gn_config">gn_inlz (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv47gn_fftzPPdPK7int32_tPK7int32_tP9gn_config">gn_fftz (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv412gn_mgr_clearv">gn_mgr_clear (C++ function)</a>
+        <li><a href="reference.html#_CPPv412gn_freq_axisPd6size_t6size_t14GnFreqAxisTyped16GnFreqAxisFormat">gn_freq_axis (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414gn_mgr_comparePbPKcPKc">gn_mgr_compare (C++ function)</a>
+        <li><a href="reference.html#_CPPv417gn_freq_axis_sizeP6size_t6size_t14GnFreqAxisType">gn_freq_axis_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv415gn_mgr_containsPbPKc">gn_mgr_contains (C++ function)</a>
+        <li><a href="reference.html#_CPPv49gn_fshiftPd6size_tPKd6size_tPKd6size_tdd">gn_fshift (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_mgr_removePKc">gn_mgr_remove (C++ function)</a>
+        <li><a href="reference.html#_CPPv411gn_fshift16P7int16_t6size_tPK7int16_t6size_tPK7int16_t6size_tidd12GnCodeFormat">gn_fshift16 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv411gn_mgr_savePc6size_tPKcPKc">gn_mgr_save (C++ function)</a>
+        <li><a href="reference.html#_CPPv411gn_fshift32P7int32_t6size_tPK7int32_t6size_tPK7int32_t6size_tidd12GnCodeFormat">gn_fshift32 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv425gn_mgr_save_filename_sizeP6size_tPKcPKc">gn_mgr_save_filename_size (C++ function)</a>
+        <li><a href="reference.html#_CPPv411gn_fshift64P7int64_t6size_tPK7int64_t6size_tPK7int64_t6size_tidd12GnCodeFormat">gn_fshift64 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv411gn_mgr_sizeP6size_t">gn_mgr_size (C++ function)</a>
+        <li><a href="reference.html#_CPPv414gn_fshift_sizeP6size_t6size_t6size_t">gn_fshift_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv416gn_mgr_to_stringPc6size_tPKc">gn_mgr_to_string (C++ function)</a>
+        <li><a href="reference.html#_CPPv411gn_gaussianPd6size_tdd">gn_gaussian (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv421gn_mgr_to_string_sizeP6size_tPKc">gn_mgr_to_string_size (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv419gn_gen_complex_tonePPdPPdP9gn_config">gn_gen_complex_tone (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv411gn_mgr_typePc6size_tPKc">gn_mgr_type (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv411gn_gen_rampPPdP9gn_config">gn_gen_ramp (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv416gn_mgr_type_sizeP6size_tPKc">gn_mgr_type_size (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv416gn_gen_real_tonePPdP9gn_config">gn_gen_real_tone (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv47gn_normPd6size_tPKd6size_t">gn_norm (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv419gn_get_dnla_resultsPPPcPPdP6size_tPKdP9gn_config">gn_get_dnla_results (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414gn_normalize16Pd6size_tPK7int16_t6size_ti12GnCodeFormat">gn_normalize16 (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv417gn_get_fa_resultsPPPcPPdP6size_tPdP9gn_config">gn_get_fa_results (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414gn_normalize32Pd6size_tPK7int32_t6size_ti12GnCodeFormat">gn_normalize32 (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv423gn_get_fa_single_resultPdPKcPdP9gn_config">gn_get_fa_single_result (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414gn_normalize64Pd6size_tPK7int64_t6size_ti12GnCodeFormat">gn_normalize64 (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv417gn_get_ha_resultsPPPcPPdP6size_tPK8uint64_tP9gn_config">gn_get_ha_results (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv410gn_polyvalPd6size_tPKd6size_tPKd6size_t">gn_polyval (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv419gn_get_inla_resultsPPPcPPdP6size_tPKdP9gn_config">gn_get_inla_results (C++ function)</a>
 </li>
-        <li><a href="reference.html#_CPPv411gn_quantizePP7int32_tPKdP9gn_config">gn_quantize (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv418gn_get_wfa_resultsPPPcPPdP6size_tPK7int32_tP9gn_config">gn_get_wfa_results (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_quantize16P7int16_t6size_tPKd6size_tdid12GnCodeFormat">gn_quantize16 (C++ function)</a>
+        <li><a href="reference.html#_CPPv49gn_hist16P8uint64_t6size_tPK7int16_t6size_ti12GnCodeFormatb">gn_hist16 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_quantize32P7int32_t6size_tPKd6size_tdid12GnCodeFormat">gn_quantize32 (C++ function)</a>
+        <li><a href="reference.html#_CPPv49gn_hist32P8uint64_t6size_tPK7int32_t6size_ti12GnCodeFormatb">gn_hist32 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv413gn_quantize64P7int64_t6size_tPKd6size_tdid12GnCodeFormat">gn_quantize64 (C++ function)</a>
+        <li><a href="reference.html#_CPPv49gn_hist64P8uint64_t6size_tPK7int64_t6size_ti12GnCodeFormatb">gn_hist64 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv47gn_rampPd6size_tddd">gn_ramp (C++ function)</a>
+        <li><a href="reference.html#_CPPv416gn_hist_analysisPPc6size_tPd6size_tPK8uint64_t6size_t">gn_hist_analysis (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv47gn_rfftPd6size_tPKd6size_t6size_t6size_t8GnWindow11GnRfftScale">gn_rfft (C++ function)</a>
+        <li><a href="reference.html#_CPPv410gn_histx16P8uint64_t6size_tPK7int16_t6size_t7int64_t7int64_tb">gn_histx16 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv49gn_rfft16Pd6size_tPK7int16_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat11GnRfftScale">gn_rfft16 (C++ function)</a>
+        <li><a href="reference.html#_CPPv410gn_histx32P8uint64_t6size_tPK7int32_t6size_t7int64_t7int64_tb">gn_histx32 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv49gn_rfft32Pd6size_tPK7int32_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat11GnRfftScale">gn_rfft32 (C++ function)</a>
+        <li><a href="reference.html#_CPPv410gn_histx64P8uint64_t6size_tPK7int64_t6size_t7int64_t7int64_tb">gn_histx64 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv49gn_rfft64Pd6size_tPK7int64_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat11GnRfftScale">gn_rfft64 (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv48gn_histzPP8uint64_tP6size_tPK7int32_tP9gn_config">gn_histz (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv412gn_rfft_sizeP6size_t6size_t6size_t6size_t">gn_rfft_size (C++ function)</a>
+        <li><a href="reference.html#_CPPv412gn_ifftshiftPd6size_tPKd6size_t">gn_ifftshift (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv425gn_set_string_terminationb">gn_set_string_termination (C++ function)</a>
+        <li><a href="reference.html#_CPPv46gn_inlPd6size_tPKd6size_t12GnInlLineFit">gn_inl (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv46gn_sinPd6size_tdddddd">gn_sin (C++ function)</a>
+        <li><a href="reference.html#_CPPv415gn_inl_analysisPPc6size_tPd6size_tPKd6size_t">gn_inl_analysis (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv417gn_version_stringPc6size_t">gn_version_string (C++ function)</a>
+        <li><a href="reference_simplified.html#_CPPv47gn_inlzPPdP6size_tPKdP9gn_config">gn_inlz (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414gn_wf_analysisPPc6size_tPd6size_tPKd6size_t">gn_wf_analysis (C++ function)</a>
+        <li><a href="reference.html#_CPPv412gn_mgr_clearv">gn_mgr_clear (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv416gn_wf_analysis16PPc6size_tPd6size_tPK7int16_t6size_t">gn_wf_analysis16 (C++ function)</a>
+        <li><a href="reference.html#_CPPv414gn_mgr_comparePbPKcPKc">gn_mgr_compare (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv416gn_wf_analysis32PPc6size_tPd6size_tPK7int32_t6size_t">gn_wf_analysis32 (C++ function)</a>
+        <li><a href="reference.html#_CPPv415gn_mgr_containsPbPKc">gn_mgr_contains (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv416gn_wf_analysis64PPc6size_tPd6size_tPK7int64_t6size_t">gn_wf_analysis64 (C++ function)</a>
+        <li><a href="reference.html#_CPPv413gn_mgr_removePKc">gn_mgr_remove (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv414GnAnalysisType">GnAnalysisType (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv414GnAnalysisType">(C++ type)</a>
+        <li><a href="reference.html#_CPPv411gn_mgr_savePc6size_tPKcPKc">gn_mgr_save (C++ function)</a>
 </li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N14GnAnalysisType17GnAnalysisTypeDNLE">GnAnalysisType::GnAnalysisTypeDNL (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv425gn_mgr_save_filename_sizeP6size_tPKcPKc">gn_mgr_save_filename_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N14GnAnalysisType21GnAnalysisTypeFourierE">GnAnalysisType::GnAnalysisTypeFourier (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv411gn_mgr_sizeP6size_t">gn_mgr_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N14GnAnalysisType23GnAnalysisTypeHistogramE">GnAnalysisType::GnAnalysisTypeHistogram (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv416gn_mgr_to_stringPc6size_tPKc">gn_mgr_to_string (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N14GnAnalysisType17GnAnalysisTypeINLE">GnAnalysisType::GnAnalysisTypeINL (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv421gn_mgr_to_string_sizeP6size_tPKc">gn_mgr_to_string_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N14GnAnalysisType22GnAnalysisTypeWaveformE">GnAnalysisType::GnAnalysisTypeWaveform (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv411gn_mgr_typePc6size_tPKc">gn_mgr_type (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv412GnCodeFormat">GnCodeFormat (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv412GnCodeFormat">(C++ type)</a>
+        <li><a href="reference.html#_CPPv416gn_mgr_type_sizeP6size_tPKc">gn_mgr_type_size (C++ function)</a>
 </li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N12GnCodeFormat24GnCodeFormatOffsetBinaryE">GnCodeFormat::GnCodeFormatOffsetBinary (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv47gn_normPd6size_tPKd6size_t">gn_norm (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N12GnCodeFormat26GnCodeFormatTwosComplementE">GnCodeFormat::GnCodeFormatTwosComplement (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv414gn_normalize16Pd6size_tPK7int16_t6size_ti12GnCodeFormat">gn_normalize16 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv411GnDnlSignal">GnDnlSignal (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv411GnDnlSignal">(C++ type)</a>
+        <li><a href="reference.html#_CPPv414gn_normalize32Pd6size_tPK7int32_t6size_ti12GnCodeFormat">gn_normalize32 (C++ function)</a>
 </li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnDnlSignal15GnDnlSignalRampE">GnDnlSignal::GnDnlSignalRamp (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv414gn_normalize64Pd6size_tPK7int64_t6size_ti12GnCodeFormat">gn_normalize64 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnDnlSignal15GnDnlSignalToneE">GnDnlSignal::GnDnlSignalTone (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv410gn_polyvalPd6size_tPKd6size_tPKd6size_t">gn_polyval (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv411GnFACompTag">GnFACompTag (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv411GnFACompTag">(C++ type)</a>
+        <li><a href="reference_simplified.html#_CPPv411gn_quantizePP7int32_tPKdP9gn_config">gn_quantize (C++ function)</a>
 </li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnFACompTag14GnFACompTagCLKE">GnFACompTag::GnFACompTagCLK (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv413gn_quantize16P7int16_t6size_tPKd6size_tdid12GnCodeFormat">gn_quantize16 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnFACompTag13GnFACompTagDCE">GnFACompTag::GnFACompTagDC (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv413gn_quantize32P7int32_t6size_tPKd6size_tdid12GnCodeFormat">gn_quantize32 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnFACompTag13GnFACompTagHDE">GnFACompTag::GnFACompTagHD (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv413gn_quantize64P7int64_t6size_tPKd6size_tdid12GnCodeFormat">gn_quantize64 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnFACompTag15GnFACompTagILGTE">GnFACompTag::GnFACompTagILGT (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv47gn_rampPd6size_tddd">gn_ramp (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnFACompTag15GnFACompTagILOSE">GnFACompTag::GnFACompTagILOS (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv47gn_rfftPd6size_tPKd6size_t6size_t6size_t8GnWindow11GnRfftScale">gn_rfft (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnFACompTag14GnFACompTagIMDE">GnFACompTag::GnFACompTagIMD (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv49gn_rfft16Pd6size_tPK7int16_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat11GnRfftScale">gn_rfft16 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnFACompTag16GnFACompTagNoiseE">GnFACompTag::GnFACompTagNoise (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv49gn_rfft32Pd6size_tPK7int32_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat11GnRfftScale">gn_rfft32 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnFACompTag17GnFACompTagSignalE">GnFACompTag::GnFACompTagSignal (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv49gn_rfft64Pd6size_tPK7int64_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat11GnRfftScale">gn_rfft64 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnFACompTag19GnFACompTagUserDistE">GnFACompTag::GnFACompTagUserDist (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv412gn_rfft_sizeP6size_t6size_t6size_t6size_t">gn_rfft_size (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv47GnFASsb">GnFASsb (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv47GnFASsb">(C++ type)</a>
+        <li><a href="reference.html#_CPPv425gn_set_string_terminationb">gn_set_string_termination (C++ function)</a>
 </li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N7GnFASsb9GnFASsbDCE">GnFASsb::GnFASsbDC (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv46gn_sinPd6size_tdddddd">gn_sin (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N7GnFASsb14GnFASsbDefaultE">GnFASsb::GnFASsbDefault (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv417gn_version_stringPc6size_t">gn_version_string (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N7GnFASsb13GnFASsbSignalE">GnFASsb::GnFASsbSignal (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv414gn_wf_analysisPPc6size_tPd6size_tPKd6size_t">gn_wf_analysis (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv4N7GnFASsb9GnFASsbWOE">GnFASsb::GnFASsbWO (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv416gn_wf_analysis16PPc6size_tPd6size_tPK7int16_t6size_t">gn_wf_analysis16 (C++ function)</a>
 </li>
-        <li><a href="reference_advanced.html#_CPPv416GnFreqAxisFormat">GnFreqAxisFormat (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv416GnFreqAxisFormat">(C++ type)</a>
+        <li><a href="reference.html#_CPPv416gn_wf_analysis32PPc6size_tPd6size_tPK7int32_t6size_t">gn_wf_analysis32 (C++ function)</a>
 </li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N16GnFreqAxisFormat20GnFreqAxisFormatBinsE">GnFreqAxisFormat::GnFreqAxisFormatBins (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N16GnFreqAxisFormat20GnFreqAxisFormatFreqE">GnFreqAxisFormat::GnFreqAxisFormatFreq (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N16GnFreqAxisFormat20GnFreqAxisFormatNormE">GnFreqAxisFormat::GnFreqAxisFormatNorm (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv414GnFreqAxisType">GnFreqAxisType (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv414GnFreqAxisType">(C++ type)</a>
-</li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N14GnFreqAxisType22GnFreqAxisTypeDcCenterE">GnFreqAxisType::GnFreqAxisTypeDcCenter (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N14GnFreqAxisType20GnFreqAxisTypeDcLeftE">GnFreqAxisType::GnFreqAxisTypeDcLeft (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N14GnFreqAxisType18GnFreqAxisTypeRealE">GnFreqAxisType::GnFreqAxisTypeReal (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv412GnInlLineFit">GnInlLineFit (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv412GnInlLineFit">(C++ type)</a>
-</li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N12GnInlLineFit19GnInlLineFitBestFitE">GnInlLineFit::GnInlLineFitBestFit (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N12GnInlLineFit18GnInlLineFitEndFitE">GnInlLineFit::GnInlLineFitEndFit (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N12GnInlLineFit17GnInlLineFitNoFitE">GnInlLineFit::GnInlLineFitNoFit (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv411GnRfftScale">GnRfftScale (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv411GnRfftScale">(C++ type)</a>
-</li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnRfftScale17GnRfftScaleDbfsDcE">GnRfftScale::GnRfftScaleDbfsDc (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnRfftScale18GnRfftScaleDbfsSinE">GnRfftScale::GnRfftScaleDbfsSin (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N11GnRfftScale17GnRfftScaleNativeE">GnRfftScale::GnRfftScaleNative (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv48GnWindow">GnWindow (C++ enum)</a>
-
-        <ul>
-          <li><a href="reference_advanced.html#_CPPv48GnWindow">(C++ type)</a>
-</li>
-        </ul></li>
-        <li><a href="reference_advanced.html#_CPPv4N8GnWindow22GnWindowBlackmanHarrisE">GnWindow::GnWindowBlackmanHarris (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N8GnWindow12GnWindowHannE">GnWindow::GnWindowHann (C++ enumerator)</a>
-</li>
-        <li><a href="reference_advanced.html#_CPPv4N8GnWindow16GnWindowNoWindowE">GnWindow::GnWindowNoWindow (C++ enumerator)</a>
+        <li><a href="reference.html#_CPPv416gn_wf_analysis64PPc6size_tPd6size_tPK7int64_t6size_t">gn_wf_analysis64 (C++ function)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -712,13 +634,24 @@
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/furo.js"></script>
-    <script src="_static/tabs.js"></script>
+</div><script src="_static/documentation_options.js?v=2fea6348"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     </body>
 </html>
