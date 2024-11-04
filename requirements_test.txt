@@ -6,3 +6,4 @@ pytest-cov
 numpy
 setuptools
 matplotlib
+tabulate

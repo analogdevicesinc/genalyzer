@@ -22,7 +22,7 @@
 
 #ifndef CGENALYZER_PRIVATE_H
 #define CGENALYZER_PRIVATE_H
-#include "cgenalyzer.h"
+#include "cgenalyzer_simplified_beta.h"
 
 #include <array_ops.hpp>
 #include <code_density.hpp>

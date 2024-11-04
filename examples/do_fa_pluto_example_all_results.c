@@ -1,4 +1,4 @@
-#include "cgenalyzer.h"
+#include "cgenalyzer_simplified_beta.h"
 #include "../tests/test_genalyzer.h"
 #include "../tests/cJSON.h"
 #include <stdlib.h>

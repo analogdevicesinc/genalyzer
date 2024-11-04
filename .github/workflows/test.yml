@@ -20,9 +20,9 @@ jobs:
     container:
       image: ${{ matrix.images }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python 3.7
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.7
 
@@ -42,11 +42,11 @@ jobs:
           cp build/bindings/c/src/libgenalyzer.so* libs/
           cp build/src/libgenalyzer_plus_plus.a* libs/
           cp bindings/c/include/cgenalyzer.h libs/
-          cp bindings/c/include/cgenalyzer_advanced.h libs/
+          cp bindings/c/include/cgenalyzer_simplified_beta.h libs/
           cp bindings/matlab/genalyzer.m libs/
 
       - name: Archive generated SOs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.label }}-Build
           path: libs/
@@ -61,7 +61,7 @@ jobs:
 #    container:
 #      image: ${{ matrix.images }}
 #    steps:
-#      - uses: actions/checkout@v2
+#      - uses: actions/checkout@v4
 #      - name: Install dependencies
 #        run: |
 #          bash ./.github/scripts/install_dependencies_rhel.sh
@@ -78,11 +78,11 @@ jobs:
 #          cp build/bindings/c/src/libgenalyzer.so* libs/
 #          cp build/src/libgenalyzer_plus_plus.a* libs/
 #          cp bindings/c/include/cgenalyzer.h libs/
-#          cp bindings/c/include/cgenalyzer_advanced.h libs/
+#          cp bindings/c/include/cgenalyzer_simplified_beta.h libs/
 #          cp bindings/matlab/genalyzer.m libs/
 
 #      - name: Archive generated SOs
-#        uses: actions/upload-artifact@v2
+#        uses: actions/upload-artifact@v4
 #        with:
 #          name: RHEL_7-Build
 #          path: libs/
@@ -91,9 +91,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python 3.7
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: 3.7
 
@@ -111,7 +111,7 @@ jobs:
           make coverage
 
       - name: Coveralls
-        uses: coverallsapp/github-action@v1
+        uses: coverallsapp/github-action@v2
         with:
           path-to-lcov: build/main_coverage.info
 
@@ -119,9 +119,9 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
 
@@ -143,9 +143,9 @@ jobs:
         python-version: [3.7, 3.8, 3.9]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 

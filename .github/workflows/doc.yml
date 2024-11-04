@@ -7,11 +7,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.7
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
@@ -23,6 +23,15 @@ jobs:
           mkdir -p build
           cd build
           cmake .. -DBUILD_DOC=ON
+          make genalyzer -j4
+          sudo make install genalyzer
+          sudo ldconfig
+          cd ../bindings/python
+          pip install ".[tools]"
+          cd ../../build
+          sudo rm -rf *
+          sudo rm ../doc/reference_simplified.md
+          cmake .. -DBUILD_DOC=ON
           make Sphinx
 
 
@@ -32,11 +41,11 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.7
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |

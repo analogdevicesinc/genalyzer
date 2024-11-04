@@ -37,7 +37,7 @@ def test_gen_real_tone(filename):
             scale_list = data["scale"]
             phase_list = data["phase"]
 
-        c = genalyzer.config_gen_tone(
+        c = genalyzer.simplified_beta.simplified_beta.config_gen_tone(
             data["wf_type"],
             data["npts"],
             data["fs"],
@@ -46,8 +46,8 @@ def test_gen_real_tone(filename):
             scale_list,
             phase_list,
         )
-        awf = genalyzer.gen_real_tone(c)
-        genalyzer.config_free(c)
+        awf = genalyzer.simplified_beta.simplified_beta.gen_real_tone(c)
+        genalyzer.simplified_beta.simplified_beta.config_free(c)
         assert len(awf) != 0, "the list is non empty"
 
 
@@ -64,7 +64,7 @@ def test_gen_complex_tone(filename):
             scale_list = data["scale"]
             phase_list = data["phase"]
 
-        c = genalyzer.config_gen_tone(
+        c = genalyzer.simplified_beta.simplified_beta.config_gen_tone(
             data["wf_type"],
             data["npts"],
             data["fs"],
@@ -73,8 +73,8 @@ def test_gen_complex_tone(filename):
             scale_list,
             phase_list,
         )
-        awfi, awfq = genalyzer.gen_complex_tone(c)
-        genalyzer.config_free(c)
+        awfi, awfq = genalyzer.simplified_beta.simplified_beta.gen_complex_tone(c)
+        genalyzer.simplified_beta.simplified_beta.config_free(c)
         assert len(awfi) != 0, "the list is non empty"
         assert len(awfq) != 0, "the list is non empty"
 
@@ -84,11 +84,11 @@ def test_quantize_real_tone(filename):
     with open(filename) as f:
         data = json.load(f)
         awf = data["test_vec"]
-        c = genalyzer.config_quantize(
+        c = genalyzer.simplified_beta.simplified_beta.config_quantize(
             data["npts"], data["fsr"], data["qres"], data["qnoise"]
         )
-        qwf = genalyzer.quantize(awf, c)
-        genalyzer.config_free(c)
+        qwf = genalyzer.simplified_beta.simplified_beta.quantize(awf, c)
+        genalyzer.simplified_beta.simplified_beta.config_free(c)
         assert qwf != 0, "the list is non empty"
 
 
@@ -98,12 +98,12 @@ def test_quantize_complex_tone(filename):
         data = json.load(f)
         awfi = data["test_vec_i"]
         awfq = data["test_vec_q"]
-        c = genalyzer.config_quantize(
+        c = genalyzer.simplified_beta.simplified_beta.config_quantize(
             data["npts"], data["fsr"], data["qres"], data["qnoise"]
         )
-        qwfi = genalyzer.quantize(awfi, c)
-        qwfq = genalyzer.quantize(awfq, c)
-        genalyzer.config_free(c)
+        qwfi = genalyzer.simplified_beta.simplified_beta.quantize(awfi, c)
+        qwfq = genalyzer.simplified_beta.quantize(awfq, c)
+        genalyzer.simplified_beta.simplified_beta.config_free(c)
         assert qwfi != 0, "the list is non empty"
         assert qwfq != 0, "the list is non empty"
 
@@ -116,11 +116,11 @@ def test_fft(filename):
         qwfi = [int(i) for i in qwfi]
         qwfq = data["test_vecq_q"]
         qwfq = [int(i) for i in qwfq]
-        c = genalyzer.config_fftz(
+        c = genalyzer.simplified_beta.simplified_beta.config_fftz(
             data["npts"], data["qres"], data["navg"], data["nfft"], data["win"] - 1
         )
-        out = genalyzer.fftz(qwfi, qwfq, c)
-        genalyzer.config_free(c)
+        out = genalyzer.simplified_beta.simplified_beta.fftz(qwfi, qwfq, c)
+        genalyzer.simplified_beta.simplified_beta.config_free(c)
         assert out != 0, "the list is non empty"
 
 
@@ -137,15 +137,15 @@ def test_get_fa_results(filename):
         qwfi = [int(i) for i in qwfi]
         qwfq = data["test_vecq_q"]
         qwfq = [int(i) for i in qwfq]
-        c = genalyzer.config_fftz(
+        c = genalyzer.simplified_beta.simplified_beta.config_fftz(
             data["npts"], data["qres"], data["navg"], data["nfft"], data["win"] - 1
         )
-        fft_out_i, fft_out_q = genalyzer.fftz(qwfi, qwfq, c)
+        fft_out_i, fft_out_q = genalyzer.simplified_beta.simplified_beta.fftz(qwfi, qwfq, c)
         fft_out = [val for pair in zip(fft_out_i, fft_out_q) for val in pair]
-        genalyzer.config_set_sample_rate(data["fs"], c)
-        genalyzer.config_fa(freq_list[0], c)
-        fa_results = genalyzer.get_fa_results(fft_out, c)
-        genalyzer.config_free(c)
+        genalyzer.simplified_beta.simplified_beta.config_set_sample_rate(data["fs"], c)
+        genalyzer.simplified_beta.simplified_beta.config_fa(freq_list[0], c)
+        fa_results = genalyzer.simplified_beta.simplified_beta.get_fa_results(fft_out, c)
+        genalyzer.simplified_beta.simplified_beta.config_free(c)
         assert bool(fa_results), "the dict is non empty"
 
 
@@ -162,15 +162,15 @@ def test_get_fa_single_result(filename):
         qwfi = [int(i) for i in qwfi]
         qwfq = data["test_vecq_q"]
         qwfq = [int(i) for i in qwfq]
-        c = genalyzer.config_fftz(
+        c = genalyzer.simplified_beta.config_fftz(
             data["npts"], data["qres"], data["navg"], data["nfft"], data["win"] - 1
         )
-        fft_out_i, fft_out_q = genalyzer.fftz(qwfi, qwfq, c)
+        fft_out_i, fft_out_q = genalyzer.simplified_beta.fftz(qwfi, qwfq, c)
         fft_out = [val for pair in zip(fft_out_i, fft_out_q) for val in pair]
-        genalyzer.config_set_sample_rate(data["fs"], c)
-        genalyzer.config_fa(freq_list[0], c)
-        sfdr = genalyzer.get_fa_single_result("sfdr", fft_out, c)
-        genalyzer.config_free(c)
+        genalyzer.simplified_beta.config_set_sample_rate(data["fs"], c)
+        genalyzer.simplified_beta.config_fa(freq_list[0], c)
+        sfdr = genalyzer.simplified_beta.get_fa_single_result("sfdr", fft_out, c)
+        genalyzer.simplified_beta.config_free(c)
         assert sfdr != 0, "the value is non zero"
 
 
@@ -180,12 +180,12 @@ def test_get_ha_results(filename):
         data = json.load(f)
         qwf = data["test_vecq"]
         qwf = [int(i) for i in qwf]
-        c = genalyzer.config_quantize(
+        c = genalyzer.simplified_beta.config_quantize(
             data["npts"], data["fsr"], data["qres"], data["qnoise"]
         )
-        hist_qwf = genalyzer.histz(qwf, c)
-        ha_results = genalyzer.get_ha_results(hist_qwf, c)
-        genalyzer.config_free(c)
+        hist_qwf = genalyzer.simplified_beta.histz(qwf, c)
+        ha_results = genalyzer.simplified_beta.get_ha_results(hist_qwf, c)
+        genalyzer.simplified_beta.config_free(c)
         assert bool(ha_results), "the dict is non empty"
 
 
@@ -195,11 +195,11 @@ def test_get_wfa_results(filename):
         data = json.load(f)
         qwf = data["test_vecq"]
         qwf = [int(i) for i in qwf]
-        c = genalyzer.config_quantize(
+        c = genalyzer.simplified_beta.config_quantize(
             data["npts"], data["fsr"], data["qres"], data["qnoise"]
         )
-        wfa_results = genalyzer.get_wfa_results(qwf, c)
-        genalyzer.config_free(c)
+        wfa_results = genalyzer.simplified_beta.get_wfa_results(qwf, c)
+        genalyzer.simplified_beta.config_free(c)
         assert bool(wfa_results), "the dict is non empty"
 
 

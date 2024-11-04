@@ -20,16 +20,12 @@ Reference
    :maxdepth: 2
    :caption: Contents:
 
-   .. c/configs
-   01_introduction
+   introduction
    setup
-   theory
-   sim
-   examples.md
-   .. 02_using_genalyzer
-   03_examples
+   spectral_analysis
    reference
-   reference_advanced
+   reference_simplified
+   python/genalyzer
 
 
 

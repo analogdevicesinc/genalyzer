@@ -1,5 +1,5 @@
 def main():
-    import genalyzer.advanced as gn
+    import genalyzer as gn
 
     # print("Library path: {}".format(gn._genalyzer._libpath))
     # print("Version: {}\n".format(gn.__version__))

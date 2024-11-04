@@ -1,5 +1,5 @@
 """
-* cgenalyzer_advanced - genalyzer (advanced) API header file
+* pygenalyzer - genalyzer API header file
 *
 * Copyright (C) 2022 Analog Devices, Inc.
 * Author: Peter Derounian
@@ -20,7 +20,7 @@
 """
 
 """
-Python wrapper for Data Converter Analysis Library (genalyzer_plus_plus)
+Python wrapper for Genalyzer Library (genalyzer_plus_plus)
 """
 import ctypes as _ctypes
 from ctypes.util import find_library as _find_library
@@ -56,21 +56,15 @@ del _ndptr
 _module_dir = _os.path.dirname(__file__)
 if "linux" == _sys.platform:
     _libpath = _find_library("genalyzer")
-    _lib = _ctypes.cdll.LoadLibrary(_libpath)
 elif "win32" == _sys.platform:
     _libpath = _find_library(_os.path.join(_module_dir, "genalyzer"))
-    if not _libpath:
-        _libpath = _find_library("libgenalyzer.dll")
-    try:
-        _lib = _ctypes.cdll.LoadLibrary(_libpath)  # seems to work for Python3.9
-    except OSError:
-        if "add_dll_directory" in dir(_os):
-            _os.add_dll_directory(_module_dir)  # for Python3.8 (?)
-        else:
-            _os.environ["PATH"] += ";" + _module_dir  # for Python3.7 and earlier
-        _lib = _ctypes.cdll.LoadLibrary(_libpath)
 else:
     raise Exception("Platform '{}' is not supported.".format(_sys.platform))
+
+if _libpath is None:
+    raise OSError(2, "Could not find genalyzer C library")
+_lib = _ctypes.cdll.LoadLibrary(_libpath)
+
 del _find_library, _os, _sys
 
 _lib.gn_set_string_termination(True)
@@ -176,16 +170,51 @@ class _AnalysisType(_IntEnum):  # Intentionally private
 
 
 class CodeFormat(_IntEnum):
+    """Enumerates binary code formats
+
+    Attributes:
+        ``OFFSET_BINARY`` : Offset Binary
+
+        ``TWOS_COMPLEMENT`` : Two's Complement
+    """
     OFFSET_BINARY = _enum_value("CodeFormat", "OffsetBinary")
     TWOS_COMPLEMENT = _enum_value("CodeFormat", "TwosComplement")
 
 
 class DnlSignal(_IntEnum):
+    """Enumerates signal types for which DNL can be computed
+
+    Attributes:
+        ``RAMP`` : Ramp
+
+        ``TONE`` : Tone (Sinusoid)
+    """
     RAMP = _enum_value("DnlSignal", "Ramp")
     TONE = _enum_value("DnlSignal", "Tone")
 
 
 class FaCompTag(_IntEnum):
+    """Enumerates Fourier analysis component tags
+
+    Attributes:
+        ``DC`` : DC component (always Bin 0)
+
+        ``SIGNAL`` : Signal component
+
+        ``HD`` : Harmonic distortion
+
+        ``IMD`` : Intermodulation distortion
+
+        ``ILOS`` : Interleaving offset component
+
+        ``ILGT`` : Interleaving gain/timing/BW component
+
+        ``CLK`` : Clock component
+
+        ``USERDIST`` : User-designated distortion
+
+        ``NOISE`` : Noise component (e.g. WorstOther)
+    """
     DC = _enum_value("FACompTag", "DC")
     SIGNAL = _enum_value("FACompTag", "Signal")
     HD = _enum_value("FACompTag", "HD")
@@ -198,6 +227,17 @@ class FaCompTag(_IntEnum):
 
 
 class FaSsb(_IntEnum):
+    """Enumerates the component categories for which the number of single side bins (SSB) can be set
+
+    Attributes:
+        ``DEFAULT`` : Default SSB (applies to auto-generated components)
+
+        ``DC`` : SSB for DC component
+
+        ``SIGNAL`` : SSB for Signal components
+
+        ``WO`` : SSB for WorstOther components
+    """
     DEFAULT = _enum_value("FASsb", "Default")
     DC = _enum_value("FASsb", "DC")
     SIGNAL = _enum_value("FASsb", "Signal")
@@ -205,30 +245,75 @@ class FaSsb(_IntEnum):
 
 
 class FreqAxisFormat(_IntEnum):
+    """Enumerates frequency axis formats
+
+    Attributes:
+        ``BINS`` : Bins
+
+        ``FREQ`` : Frequency
+
+        ``NORM`` : Normalized
+    """
     BINS = _enum_value("FreqAxisFormat", "Bins")
     FREQ = _enum_value("FreqAxisFormat", "Freq")
     NORM = _enum_value("FreqAxisFormat", "Norm")
 
 
 class FreqAxisType(_IntEnum):
+    """Enumerates frequency axis types
+
+    Attributes:
+        ``DC_CENTER`` : DC centered, e.g. [-fs/2, fs/2) (complex FFT only)
+
+        ``DC_LEFT`` : DC on left, e.g. [0, fs) (complex FFT only)
+
+        ``REAL`` : Real axis, e.g. [0, fs/2] (real FFT only)
+    """
     DC_CENTER = _enum_value("FreqAxisType", "DcCenter")
     DC_LEFT = _enum_value("FreqAxisType", "DcLeft")
     REAL = _enum_value("FreqAxisType", "Real")
 
 
 class InlLineFit(_IntEnum):
+    """Enumerates INL line fitting options
+
+    Attributes:
+        ``BEST_FIT`` : Best fit
+
+        ``END_FIT`` : End fit
+
+        ``NO_FIT`` : No fit
+    """
     BEST_FIT = _enum_value("InlLineFit", "BestFit")
     END_FIT = _enum_value("InlLineFit", "EndFit")
     NO_FIT = _enum_value("InlLineFit", "NoFit")
 
 
 class RfftScale(_IntEnum):
+    """Enumerates real FFT scaling options
+
+    Attributes:
+        ``DBFS_DC`` : Full-scale sinusoid measures -3 dBFS
+
+        ``DBFS_SIN`` : Full-scale sinusoid measures  0 dBFS
+
+        ``NATIVE`` : Full-scale sinusoid measures -6 dBFS
+    """
     DBFS_DC = _enum_value("RfftScale", "DbfsDc")
     DBFS_SIN = _enum_value("RfftScale", "DbfsSin")
     NATIVE = _enum_value("RfftScale", "Native")
 
 
 class Window(_IntEnum):
+    """Enumerates window functions
+
+    Attributes:
+        ``BLACKMAN_HARRIS`` : Blackman-Harris
+
+        ``HANN`` : Hann ("Hanning")
+
+        ``NO_WINDOW`` : No window (Rectangular)
+    """
     BLACKMAN_HARRIS = _enum_value("Window", "BlackmanHarris")
     HANN = _enum_value("Window", "Hann")
     NO_WINDOW = _enum_value("Window", "NoWindow")
@@ -753,73 +838,105 @@ _lib.gn_fft_analysis_results_size.argtypes = [
 ]
 
 
-def fft_analysis(cfg_id, a, nfft, axis_type=FreqAxisType.DC_LEFT):
+def fft_analysis(test_key, a, nfft, axis_type=FreqAxisType.DC_LEFT):
+    """Returns all Fourier analysis results
+
+    Args:
+        ``test_key`` (``string``) : Key value to the Fourier Analysis object created (through gn_fa_create)
+
+        ``a`` (``ndarray``) : FFT data of type 'complex128' or 'float64'
+
+        ``nfft`` (``int``) : FFT size
+
+        axis_type (``FreqAxisType``) : Frequency axis type
+
+    Returns:
+        ``results`` (``dict``) : Dictionary containing all Fourier analysis results
+
+    Notes:
+        Every Key:Value pair in the dictionary is ``str``:``float``.
+
+        The dictionary contains the following keys:
+            ``signaltype`` : Signal type: 0=Real, 1=Complex
+
+            ``nfft`` : FFT size
+
+            ``datasize`` : Data size
+
+            ``fbin`` : Frequency bin size (Hz)
+
+            ``fdata`` : Data rate (S/s)
+
+            ``fsample`` : Sample rate (S/s)
+
+            ``fshift`` : Shift frequency (Hz)
+
+            ``fsnr`` : Full-scale-to-noise ratio (a.k.a. "SNRFS") (dB)
+
+            ``snr`` : Signal-to-noise ratio (dB)
+
+            ``sinad`` : Signal-to-noise-and-distortion ratio (dB)
+
+            ``sfdr`` : Spurious-free dynamic range (dB)
+
+            ``abn`` : Average bin noise (dBFS)
+
+            ``nsd`` : Noise spectral density (dBFS/Hz)
+
+            ``carrierindex`` : Order index of the Carrier tone
+
+            ``maxspurindex`` : Order index of the MaxSpur tone
+
+            ``ab_width`` : Analysis band width (Hz)
+
+            ``ab_i1`` : Analysis band first index
+
+            ``ab_i2`` : Analysis band last index
+
+            ``{PREFIX}_nbins`` : Number of bins associated with PREFIX
+
+            ``{PREFIX}_rss`` : Root-sum-square associated with PREFIX
+
+            ``{TONEKEY}:ffinal`` : Tone final frequency (Hz)
+
+            ``{TONEKEY}:freq`` : Tone frequency (Hz)
+
+            ``{TONEKEY}:fwavg`` : Tone weighted-average frequency (Hz)
+
+            ``{TONEKEY}:i1`` : Tone first index
+
+            ``{TONEKEY}:i2`` : Tone last index
+
+            ``{TONEKEY}:inband`` : 1: tone is in-band; 0: tone is out-of-band
+
+            ``{TONEKEY}:mag`` : Tone magnitude
+
+            ``{TONEKEY}:mag_dbc`` : Tone magnitude relative to carrier (dBc)
+
+            ``{TONEKEY}:mag_dbfs`` : Tone magnitude relative to full-scale (dBFS)
+
+            ``{TONEKEY}:nbins`` : Tone number of bins
+
+            ``{TONEKEY}:orderindex`` : Tone order index
+
+            ``{TONEKEY}:phase`` : Tone phase (rad)
+
+            ``{TONEKEY}:phase_c`` : Tone phase relative to carrier (rad)
+
+            ``{TONEKEY}:tag`` : Tone tag
     """
-    fft_analysis
-
-    Parameters
-    ----------
-    cfg_id
-    a
-    nfft
-    axis_type
-
-    Returns
-    -------
-    results : dict
-        Every Key:Value pair in the dictionary is str:float.
-
-        ===================================================================================
-          Key                   |  Description                                 |  Units
-        ===================================================================================
-          signaltype            |  Signal type: 0=Real, 1=Complex              |
-          nfft                  |  FFT size                                    |
-          datasize              |  Data size                                   |
-          fbin                  |  Frequency bin size                          |  Hz
-          fdata                 |  Data rate                                   |  S/s
-          fsample               |  Sample rate                                 |  S/s
-          fshift                |  Shift frequency                             |  Hz
-          fsnr                  |  Full-scale-to-noise ratio (a.k.a. "SNRFS")  |  dB
-          snr                   |  Signal-to-noise ratio                       |  dB
-          sinad                 |  Signal-to-noise-and-distortion ratio        |  dB
-          sfdr                  |  Spurious-free dynamic range                 |  dB
-          abn                   |  Average bin noise                           |  dBFS
-          nsd                   |  Noise spectral density                      |  dBFS/Hz
-          carrierindex          |  Order index of the Carrier tone             |
-          maxspurindex          |  Order index of the MaxSpur tone             |
-          ab_width              |  Analysis band width                         |  Hz
-          ab_i1                 |  Analysis band first index                   |
-          ab_i2                 |  Analysis band last index                    |
-          {PREFIX}_nbins        |  Number of bins associated with PREFIX       |
-          {PREFIX}_rss          |  Root-sum-square associated with PREFIX      |
-          {TONEKEY}:orderindex  |  Tone order index                            |
-          {TONEKEY}:freq        |  Tone frequency                              |  Hz
-          {TONEKEY}:ffinal      |  Tone final frequency                        |  Hz
-          {TONEKEY}:fwavg       |  Tone weighted-average frequency             |  Hz
-          {TONEKEY}:i1          |  Tone first index                            |
-          {TONEKEY}:i2          |  Tone last index                             |
-          {TONEKEY}:nbins       |  Tone number of bins                         |
-          {TONEKEY}:inband      |  0: tone is in-band; 1: tone is out-of-band  |
-          {TONEKEY}:mag         |  Tone magnitude                              |
-          {TONEKEY}:mag_dbfs    |  Tone magnitude relative to full-scale       |  dBFS
-          {TONEKEY}:mag_dbc     |  Tone magnitude relative to carrier          |  dBc
-          {TONEKEY}:phase       |  Tone phase                                  |  rad
-          {TONEKEY}:phase_c     |  Tone phase relative to carrier              |  rad
-        ===================================================================================
-
-    """
-    cfg_id = bytes(cfg_id, "utf-8")
+    test_key = bytes(test_key, "utf-8")
     dtype = _check_ndarray(a, ["complex128", "float64"])
     af64 = a.view("float64") if "complex128" == dtype else a
     size = _c_size_t(0)
     result = _lib.gn_fft_analysis_results_size(
-        _ctypes.byref(size), cfg_id, af64.size, nfft
+        _ctypes.byref(size), test_key, af64.size, nfft
     )
     _raise_exception_on_failure(result)
     size = size.value
     key_sizes = (_c_size_t * size)()
     result = _lib.gn_fft_analysis_results_key_sizes(
-        key_sizes, size, cfg_id, af64.size, nfft
+        key_sizes, size, test_key, af64.size, nfft
     )
     _raise_exception_on_failure(result)
     keys = (_c_char_p * size)()
@@ -829,7 +946,7 @@ def fft_analysis(cfg_id, a, nfft, axis_type=FreqAxisType.DC_LEFT):
             _ctypes.create_string_buffer(int(key_sizes[i])), _c_char_p
         )
     result = _lib.gn_fft_analysis(
-        keys, size, values, size, cfg_id, af64, af64.size, nfft, axis_type
+        keys, size, values, size, test_key, af64, af64.size, nfft, axis_type
     )
     _raise_exception_on_failure(result)
     results = _make_results_dict(keys, values)
@@ -860,194 +977,416 @@ _lib.gn_fa_remove_comp.argtypes = [_c_char_p, _c_char_p]
 _lib.gn_fa_var.argtypes = [_c_char_p, _c_char_p, _c_double]
 
 
-def fa_analysis_band(obj_key, center, width):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_analysis_band(test_key, center, width):
+    """
+    Configure analysis band
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``center`` (``float``) : Analysis band center (Hz)
+
+        ``width`` (``float``) : Analysis band width (Hz)
+    """
+    test_key = bytes(test_key, "utf-8")
     if isinstance(center, str) and isinstance(width, str):
         center = bytes(center, "utf-8")
         width = bytes(width, "utf-8")
-        result = _lib.gn_fa_analysis_band_e(obj_key, center, width)
+        result = _lib.gn_fa_analysis_band_e(test_key, center, width)
     else:
-        result = _lib.gn_fa_analysis_band(obj_key, center, width)
+        result = _lib.gn_fa_analysis_band(test_key, center, width)
     _raise_exception_on_failure(result)
 
 
-def fa_clk(obj_key, x, as_noise=False):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_clk(test_key, x, as_noise=False):
+    """
+    Treat clock components as noise
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``x`` (``list``) : Array of clock divisors
+
+        ``as_noise`` (``bool``) : If true, CLK components will be treated as noise
+    """
+    test_key = bytes(test_key, "utf-8")
     x = _np.array(x, dtype="int32")
-    result = _lib.gn_fa_clk(obj_key, x, x.size, as_noise)
+    result = _lib.gn_fa_clk(test_key, x, x.size, as_noise)
     _raise_exception_on_failure(result)
 
 
-def fa_conv_offset(obj_key, enable):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_conv_offset(obj_key, enable)
+def fa_conv_offset(test_key, enable):
+    """
+    Enable converter offset
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``enable`` (``bool``) : If true, enable converter offset
+    """
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_conv_offset(test_key, enable)
     _raise_exception_on_failure(result)
 
 
-def fa_create(obj_key):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_create(obj_key)
+def fa_create(test_key):
+    """
+    Create ``fourier_analysis`` object
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+    """
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_create(test_key)
     _raise_exception_on_failure(result)
 
 
-def fa_dc(obj_key, as_dist):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_dc(obj_key, as_dist)
+def fa_dc(test_key, as_dist):
+    """
+    Treat DC as distortion
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``as_dist`` (``bool``) : If true, treat DC as distortion
+    """
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_dc(test_key, as_dist)
     _raise_exception_on_failure(result)
 
 
-def fa_fdata(obj_key, f):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_fdata(test_key, f):
+    """
+    Configure fdata
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``f`` (``float``) : fdata
+    """
+    test_key = bytes(test_key, "utf-8")
     if isinstance(f, str):
         f = bytes(f, "utf-8")
-        result = _lib.gn_fa_fdata_e(obj_key, f)
+        result = _lib.gn_fa_fdata_e(test_key, f)
     else:
-        result = _lib.gn_fa_fdata(obj_key, f)
+        result = _lib.gn_fa_fdata(test_key, f)
     _raise_exception_on_failure(result)
 
 
-def fa_fixed_tone(obj_key, comp_key, tag, freq, ssb=-1):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_fixed_tone(test_key, comp_key, tag, freq, ssb=-1):
+    """
+    Configure fixed tone
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``comp_key`` (``str``) : Component key
+
+        ``tag`` (``FACompTag``) : Component tag
+
+        ``freq`` (``float``) : Frequency (Hz)
+
+        ``ssb`` (``int``) : Single side bin
+    """
+    test_key = bytes(test_key, "utf-8")
     comp_key = bytes(comp_key, "utf-8")
     if isinstance(freq, str):
         freq = bytes(freq, "utf-8")
-        result = _lib.gn_fa_fixed_tone_e(obj_key, comp_key, tag, freq, ssb)
+        result = _lib.gn_fa_fixed_tone_e(test_key, comp_key, tag, freq, ssb)
     else:
-        result = _lib.gn_fa_fixed_tone(obj_key, comp_key, tag, freq, ssb)
+        result = _lib.gn_fa_fixed_tone(test_key, comp_key, tag, freq, ssb)
     _raise_exception_on_failure(result)
 
 
-def fa_fsample(obj_key, f):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_fsample(test_key, f):
+    """
+    Configure fsample
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``f`` (``float``) : fsample
+    """
+    test_key = bytes(test_key, "utf-8")
     if isinstance(f, str):
         f = bytes(f, "utf-8")
-        result = _lib.gn_fa_fsample_e(obj_key, f)
+        result = _lib.gn_fa_fsample_e(test_key, f)
     else:
-        result = _lib.gn_fa_fsample(obj_key, f)
+        result = _lib.gn_fa_fsample(test_key, f)
     _raise_exception_on_failure(result)
 
 
-def fa_fshift(obj_key, f):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_fshift(test_key, f):
+    """
+    Configure fshift
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``f`` (``float``) : fshift
+    """
+    test_key = bytes(test_key, "utf-8")
     if isinstance(f, str):
         f = bytes(f, "utf-8")
-        result = _lib.gn_fa_fshift_e(obj_key, f)
+        result = _lib.gn_fa_fshift_e(test_key, f)
     else:
-        result = _lib.gn_fa_fshift(obj_key, f)
+        result = _lib.gn_fa_fshift(test_key, f)
     _raise_exception_on_failure(result)
 
 
-def fa_fund_images(obj_key, enable):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_fund_images(obj_key, enable)
+def fa_fund_images(test_key, enable):
+    """
+    Enable fundamental images
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``enable`` (``bool``) : If true, enable fundamental images
+    """
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_fund_images(test_key, enable)
     _raise_exception_on_failure(result)
 
 
-def fa_hd(obj_key, n):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_hd(obj_key, n)
+def fa_hd(test_key, n):
+    """
+    Configure maximum harmonic order
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``n`` (``int``) : Order of harmonic distortion, i.e., the maximum harmonic
+    """
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_hd(test_key, n)
     _raise_exception_on_failure(result)
 
 
-def fa_ilv(obj_key, x, as_noise=False):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_ilv(test_key, x, as_noise=False):
+    """
+    Configure interleaving factors
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``x`` (``list``) : Array of interleaving factors
+
+        ``as_noise`` (``bool``) : If true, interleaving factors will be treated as noise
+    """
+    
+    test_key = bytes(test_key, "utf-8")
     x = _np.array(x, dtype="int32")
-    result = _lib.gn_fa_ilv(obj_key, x, x.size, as_noise)
+    result = _lib.gn_fa_ilv(test_key, x, x.size, as_noise)
     _raise_exception_on_failure(result)
 
 
-def fa_imd(obj_key, n):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_imd(obj_key, n)
+def fa_imd(test_key, n):
+    """
+    Configure maximum intermodulation order
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``n`` (``int``) : Order of intermodulation distortion
+    """    
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_imd(test_key, n)
     _raise_exception_on_failure(result)
 
 
-def fa_load(filename, obj_key=""):
+def fa_load(filename, test_key=""):
+    """
+    Load object-key from file
+
+    Args:
+        ``filename`` (``str``) : File name
+
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+    """    
     filename = bytes(filename, "utf-8")
-    obj_key = bytes(obj_key, "utf-8")
+    test_key = bytes(test_key, "utf-8")
     size = _c_size_t(0)
-    result = _lib.gn_fa_load_key_size(_ctypes.byref(size), filename, obj_key)
+    result = _lib.gn_fa_load_key_size(_ctypes.byref(size), filename, test_key)
     _raise_exception_on_failure(result)
     buf = _ctypes.create_string_buffer(size.value)
-    result = _lib.gn_fa_load(buf, len(buf), filename, obj_key)
+    result = _lib.gn_fa_load(buf, len(buf), filename, test_key)
     _raise_exception_on_failure(result)
     return buf.value.decode("utf-8")
 
 
-def fa_max_tone(obj_key, comp_key, tag, ssb=-1):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_max_tone(test_key, comp_key, tag, ssb=-1):
+    """
+    Configure component-key to select peak tone
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``comp_key`` (``str``) : Component key
+
+        ``tag`` (``FACompTag``) : Tag
+
+        ``ssb`` (``int``) : Number of single-side bins
+    """
+    test_key = bytes(test_key, "utf-8")
     comp_key = bytes(comp_key, "utf-8")
-    result = _lib.gn_fa_max_tone(obj_key, comp_key, tag, ssb)
+    result = _lib.gn_fa_max_tone(test_key, comp_key, tag, ssb)
     _raise_exception_on_failure(result)
 
 
-def fa_preview(cfg_id, cplx=False):
-    cfg_id = bytes(cfg_id, "utf-8")
+def fa_preview(test_key, cplx=False):
+    """
+    Preview ``fourier_analysis`` object
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``cplx`` (``bool``) : If true, preview will include complex components
+    """
+    test_key = bytes(test_key, "utf-8")
     size = _c_size_t(0)
-    result = _lib.gn_fa_preview_size(_ctypes.byref(size), cfg_id, cplx)
+    result = _lib.gn_fa_preview_size(_ctypes.byref(size), test_key, cplx)
     _raise_exception_on_failure(result)
     buf = _ctypes.create_string_buffer(size.value)
-    result = _lib.gn_fa_preview(buf, len(buf), cfg_id, cplx)
+    result = _lib.gn_fa_preview(buf, len(buf), test_key, cplx)
     _raise_exception_on_failure(result)
     return buf.value.decode("utf-8")
 
 
-def fa_quad_errors(obj_key, enable):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_quad_errors(obj_key, enable)
+def fa_quad_errors(test_key, enable):
+    """
+    Enable quadrature errors
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``enable`` (``bool``) : If true, enable quadrature errors
+    """
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_quad_errors(test_key, enable)
     _raise_exception_on_failure(result)
 
 
-def fa_remove_comp(obj_key, comp_key):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_remove_comp(test_key, comp_key):
+    """
+    Remove component
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``comp_key`` (``str``) : Component key
+    """
+    test_key = bytes(test_key, "utf-8")
     comp_key = bytes(comp_key, "utf-8")
-    result = _lib.gn_fa_remove_comp(obj_key, comp_key)
+    result = _lib.gn_fa_remove_comp(test_key, comp_key)
     _raise_exception_on_failure(result)
 
 
-def fa_reset(obj_key):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_reset(obj_key)
+def fa_reset(test_key):
+    """
+    Reset object
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+    """
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_reset(test_key)
     _raise_exception_on_failure(result)
 
 
-def fa_ssb(obj_key, group, n):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_ssb(obj_key, group, n)
+def fa_ssb(test_key, group, n):
+    """
+    Configure number of single-sideband bins
+
+    Args:
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``group`` (``FASsb``) : SSB Group
+
+        ``n`` (``int``) : Number of single-sideband bins
+    """
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_ssb(test_key, group, n)
     _raise_exception_on_failure(result)
 
 
-def fa_ssb_dc(obj_key, n):
-    print("fa_ssb_dc(obj_key, n) is deprecated; use fa_ssb(obj_key, FaSsb.DC, n)")
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_ssb(obj_key, FaSsb.DC, n)
+def fa_ssb_dc(test_key, n):
+    """
+    Configure number of single-sideband bins for DC
+
+    Args:
+
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``n`` (``int``) : Number of single-sideband bins
+    """
+    print("fa_ssb_dc(test_key, n) is deprecated; use fa_ssb(test_key, FaSsb.DC, n)")
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_ssb(test_key, FaSsb.DC, n)
     _raise_exception_on_failure(result)
 
 
-def fa_ssb_def(obj_key, n):
-    print("fa_ssb_def(obj_key, n) is deprecated; use fa_ssb(obj_key, FaSsb.DEFAULT, n)")
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_ssb(obj_key, FaSsb.DEFAULT, n)
+def fa_ssb_def(test_key, n):
+    """
+    Configure default number of single-sideband bins for auto-generated components
+
+    Args:
+    
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``n`` (``int``) : Number of single-sideband bins
+    """
+    print("fa_ssb_def(test_key, n) is deprecated; use fa_ssb(test_key, FaSsb.DEFAULT, n)")
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_ssb(test_key, FaSsb.DEFAULT, n)
     _raise_exception_on_failure(result)
 
 
-def fa_ssb_wo(obj_key, n):
-    print("fa_ssb_wo(obj_key, n) is deprecated; use fa_ssb(obj_key, FaSsb.WO, n)")
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_ssb(obj_key, FaSsb.WO, n)
+def fa_ssb_wo(test_key, n):
+    """
+    Configure number of single-sideband bins for WO component
+
+    Args:
+        
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``n`` (``int``) : Number of single-sideband bins
+    """
+    print("fa_ssb_wo(test_key, n) is deprecated; use fa_ssb(test_key, FaSsb.WO, n)")
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_ssb(test_key, FaSsb.WO, n)
     _raise_exception_on_failure(result)
 
 
-def fa_var(obj_key, name, value):
-    obj_key = bytes(obj_key, "utf-8")
+def fa_var(test_key, name, value):
+    """
+    Set value of variable in object
+
+    Args:
+
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``name`` (``str``) : Variable name
+
+        ``value`` (``float``) : Variable value
+    """
+    test_key = bytes(test_key, "utf-8")
     name = bytes(name, "utf-8")
-    result = _lib.gn_fa_var(obj_key, name, value)
+    result = _lib.gn_fa_var(test_key, name, value)
     _raise_exception_on_failure(result)
 
 
-def fa_wo(obj_key, n):
-    obj_key = bytes(obj_key, "utf-8")
-    result = _lib.gn_fa_wo(obj_key, n)
+def fa_wo(test_key, n):
+    """
+    Configure number of WO components
+
+    Args:
+
+        ``test_key`` (``str``) : Test key (key to a Fourier Analysis object)
+
+        ``n`` (``int``) : Number of worst others
+    """
+    test_key = bytes(test_key, "utf-8")
+    result = _lib.gn_fa_wo(test_key, n)
     _raise_exception_on_failure(result)
 
 
@@ -1309,31 +1648,66 @@ _lib.gn_rfft_size.argtypes = [_c_size_t_p, _c_size_t, _c_size_t, _c_size_t]
 
 def fft(a, *args):
     """
-    1. fft(iq, navg=1, nfft=0, window=Window.NoWindow)
-       Computes the FFT of interleaved normalized samples.  dtype of iq is 'float64' or
-       'complex128'.
+    Compute FFT
 
-    2. fft(i, q, navg=1, nfft=0, window=Window.NoWindow)
-       Computes the FFT of split normalized samples.  dtype of i and q is 'float64'.
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``complex128``, ``float64``, ``int16``, ``int32``, or ``int64``
 
-    3. fft(iq, n, navg=1, nfft=0, window=Window.NoWindow, fmt=CodeFormat.TwosComplement)
-       Computes the FFT of interleaved quantized samples.  dtype of iq is 'int16', 'int32', or
-       'int64'.  Requires the second argument, n, which specifies code width, i.e., quantizer
-       resolution.
+        ``args`` (``list``) : Additional arguments
+            1. If ``a`` is of type ``complex128`` or ``float64``, then compute the FFT of interleaved normalized samples with the following interpretation.
 
-    4. fft(i, q, n, navg=1, nfft=0, window=Window.NoWindow, fmt=CodeFormat.TwosComplement)
-       Computes the FFT of split quantized samples.  dtype of i and q is 'int16', 'int32', or
-       'int64'.  Requires the third argument, n, which represents code width, i.e., quantizer
-       resolution.
+                ``navg`` (``int``) : FFT averaging number
 
-    Parameters
-    ----------
-    a : ndarray
-        Input array, the dtype determines the interpretation of args.
+                ``nfft`` (``int``) : FFT size 
 
-    Returns
-    -------
-    out : complex ndarray
+                ``window`` (``Window``): Window
+
+                In this case, if ``a`` is not complex, then a is interpreted to contain interleaved I/Q samples with the following interpretation.
+
+            2. If ``a`` is of type ``float64``, then compute the FFT of split normalized samples.
+
+                ``q`` (``float64``) : Quadrature component 
+
+                ``navg`` (``int``) : FFT averaging number
+
+                ``nfft`` (``int``) : FFT size 
+
+                ``window`` (``Window``): Window
+
+                In this case, ``a`` is interpreted to be the In-phase component.
+
+            3. If ``a`` is of type ``int16``, ``int32``, or ``int64``, then compute the FFT of interleaved quantized samples with the following interpretation.
+
+                ``n`` (``int``) : Resolution (Bitwidth of a)
+
+                ``navg`` (``int``) : FFT averaging number
+
+                ``nfft`` (``int``) : FFT size 
+
+                ``window`` (``Window``): Window
+
+                ``fmt`` (``CodeFormat``): Code format
+
+                In this case, ``a`` is interpreted to contain interleaved quantized samples.
+
+            4. If ``a`` is of type ``int16``, ``int32``, or ``int64``, then compute the FFT of split quantized samples with the following interpretation.
+
+                ``q`` (``int16``, ``int32``, or ``int64``) : Quadrature component 
+
+                ``n`` (``int``) : Resolution (Bitwidth of ``a``)
+
+                ``navg`` (``int``) : FFT averaging number
+
+                ``nfft`` (``int``) : FFT size 
+
+                ``window`` (``Window``): Window
+
+                ``fmt`` (``CodeFormat``): Code format
+
+                In this case, ``a`` is interpreted to to be the In-phase component.
+
+    Returns:
+        ``out`` (``ndarray``) : FFT result of type ``float64`` with interleaved Re/Im components
 
     """
     dtype = _check_ndarray(a, ["complex128", "float64", "int16", "int32", "int64"])
@@ -1436,35 +1810,38 @@ def fft(a, *args):
 
 def rfft(a, *args):
     """
-    1. rfft(a, navg=1, nfft=0, window=Window.NoWindow, scale=RfftScale.DbfsSin)
-       Computes the FFT of real normalized samples.
+    Compute Real-FFT
 
-    2. rfft(a, n, navg=1, nfft=0, window=Window.NoWindow, fmt=CodeFormat.TwosComplement, scale=RfftScale.DbfsSin)
-       Computes the FFT of real quantized samples.  Requires the second argument, n, which specifies
-       code width, i.e., quantizer resolution.
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``float64``, ``int16``, ``int32``, or ``int64``
 
-    Parameters
-    ----------
-    a : ndarray
-        Input array, the dtype determines the interpretation of args.
-    args :
-        a.dtype = 'float64' :
-            arg[0] : navg
-            arg[1] : nfft
-            arg[2] : window
-            arg[3] : scale
-        a.dtype = 'int16', 'int32', 'int64' :
-            arg[0] : n
-            arg[1] : navg
-            arg[2] : nfft
-            arg[3] : window
-            arg[4] : fmt
-            arg[5] : scale
+        ``args`` (``list``) : Additional arguments
+            1. If ``a`` is of type ``float64``, then compute the real-FFT of normalized samples with the following interpretation.
 
-    Returns
-    -------
-    out : complex ndarray
+                ``navg`` (``int``) : FFT averaging number
 
+                ``nfft`` (``int``) : FFT size 
+
+                ``window`` (``Window``): Window
+
+                ``scale`` (``RfftScale``): Scaling mode
+
+            2. If ``a`` is of type ``int16``, ``int32``, or ``int64``, then compute the FFT of interleaved quantized samples with the following interpretation.
+
+                ``n`` (``int``) : Resolution (Bitwidth of a)
+
+                ``navg`` (``int``) : FFT averaging number
+
+                ``nfft`` (``int``) : FFT size 
+
+                ``window`` (``Window``): Window
+
+                ``fmt`` (``CodeFormat``): Code format
+
+                ``scale`` (``RfftScale``): Scaling mode
+        
+    Returns:
+        ``out`` (``ndarray``) : FFT result of type ``float64`` with interleaved Re/Im components
     """
     dtype = _check_ndarray(a, ["float64", "int16", "int32", "int64"])
     nargs = len(args)
@@ -1861,7 +2238,20 @@ _lib.gn_quantize64.argtypes = [
 ]
 
 
-def downsample(a, ratio, interleaved=False):
+def downsample(a, ratio, interleaved=False):    
+    """
+    Downsample a waveform
+
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``complex128``, ``int16``, ``int32``, or ``int64``
+        
+        ``ratio`` (``int``) : Downsample ratio
+
+        ``interleaved`` (``double``) : If true, ``a`` is interleaved I/Q data
+
+    Returns:
+        ``out`` (``ndarray``) : ``float64``, ``int16``, ``int32``, or ``int64`` ``numpy`` array consisting of downsampled waveform
+    """
     dtype = _check_ndarray(a, ["complex128", "float64", "int16", "int32", "int64"])
     ratio = int(ratio)
     if (
@@ -1899,30 +2289,58 @@ def downsample(a, ratio, interleaved=False):
 
 def fshift(a, *args):
     """
-    1. fshift(iq, fs, fshift_)
-       Performs frequency shift on interleaved normalized samples.  dtype of iq is 'float64' or
-       'complex128'.
+    Perform frequency shift
 
-    2. fshift(i, q, fs, fshift_)
-       Performs frequency shift on split normalized samples.  dtype of i and q is 'float64'.
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``complex128``, ``float64``, ``int16``, ``int32``, or ``int64``
 
-    3. fshift(iq, n, fs, fshift_, fmt=CodeFormat.TWOS_COMPLEMENT)
-       Performs frequency shift on interleaved quantized samples.  dtype of iq is 'int16',
-       'int32', or 'int64'.
+        ``args`` (``list``) : Additional arguments
+            1. If ``a`` is of type ``complex128`` or ``float64``, then perform frequency shift of interleaved normalized samples with the following interpretation.
 
-    4. fshift(i, q, n, fs, fshift_, fmt=CodeFormat.TWOS_COMPLEMENT)
-       Performs frequency shift on split quantized samples.  dtype of i and q is 'int16', 'int32',
-       or 'int64'.
+                ``fs`` (``double``) : Sample rate
 
-    Parameters
-    ----------
-    a : ndarray
-        Input array, the dtype determines the interpretation of args.
+                ``fshift_`` (``double``) : Shift frequency
 
-    Returns
-    -------
-    out : ndarray
-          The output is always interleaved.  The output dtype is the same as the input dtype.
+                In this case, if ``a`` is not complex, then a is interpreted to contain interleaved I/Q samples.
+
+            2. If ``a`` is of type ``float64``, then perform frequency shift of split normalized samples.
+
+                ``q`` (``float64``) : Quadrature component 
+
+                ``fs`` (``double``) : Sample rate
+
+                ``fshift_`` (``double``) : Shift frequency
+
+                In this case, ``a`` is interpreted to be the In-phase component.
+
+            3. If ``a`` is of type ``int16``, ``int32``, or ``int64``, then perform frequency shift of interleaved quantized samples with the following interpretation.
+
+                ``n`` (``int``) : Resolution (Bitwidth of a)
+
+                ``fs`` (``double``) : Sample rate
+
+                ``fshift_`` (``double``) : Shift frequency
+
+                ``fmt`` (``CodeFormat``): Code format
+
+                In this case, ``a`` is interpreted to contain interleaved quantized samples.
+
+            4. If ``a`` is of type ``int16``, ``int32``, or ``int64``, then perform frequency shift of split quantized samples with the following interpretation.
+
+                ``q`` (``int16``, ``int32``, or ``int64``) : Quadrature component 
+
+                ``n`` (``int``) : Resolution (Bitwidth of ``a``)
+
+                ``fs`` (``double``) : Sample rate
+
+                ``fshift_`` (``double``) : Shift frequency
+
+                ``fmt`` (``CodeFormat``): Code format
+
+                In this case, ``a`` is interpreted to to be the In-phase component.
+
+    Returns:
+        ``out`` (``ndarray``) : Frequency-shifted input waveform. The output datatype is the same as the input datatype.
 
     """
     dtype = _check_ndarray(a, ["complex128", "float64", "int16", "int32", "int64"])
@@ -2000,18 +2418,17 @@ def fshift(a, *args):
 
 def normalize(a, n, fmt=CodeFormat.TWOS_COMPLEMENT):
     """
-    normalize
+    Normalize a waveform
 
-    Parameters
-    ----------
-    a :
-    n :
-    fmt :
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``int16``, ``int32``, or ``int64``
+        
+        ``n`` (``int``) : Resolution (Bitwidth of ``a``)
 
-    Returns
-    -------
-    out :
+        ``fmt`` (``CodeFormat``): Code format
 
+    Returns:
+        ``out`` (``ndarray``) : ``float64`` ``numpy`` array consisting of normalized input waveform
     """
     dtype = _check_ndarray(a, ["int16", "int32", "int64"])
     out = _np.empty(a.size, dtype="float64")
@@ -2027,17 +2444,15 @@ def normalize(a, n, fmt=CodeFormat.TWOS_COMPLEMENT):
 
 def polyval(a, c):
     """
-    polyval
+    Apply distortion as a polynomial function
 
-    Parameters
-    ----------
-    a :
-    c :
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``float64``
+        
+        ``c`` (``ndarray``) : Polynomial coefficient array of type ``float64``
 
-    Returns
-    -------
-    out :
-
+    Returns:
+        ``out`` (``ndarray``) : ``float64`` ``numpy`` array consisting of distorted input waveform
     """
     _check_ndarray(a, "float64")
     c = _np.array(c, dtype="float64")
@@ -2049,20 +2464,21 @@ def polyval(a, c):
 
 def quantize16(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
     """
-    quantize16
+    Quantize a floating-point waveform
 
-    Parameters
-    ----------
-    a :
-    fsr :
-    n :
-    noise :
-    fmt :
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``float64``
 
-    Returns
-    -------
-    out :
+        ``fsr`` (``double``) : Full-scale range of the waveform
+        
+        ``n`` (``int``) : Resolution (Bitwidth of ``a``)
 
+        ``noise`` (``double``) : Quantization Noise RMS level
+
+        ``fmt`` (``CodeFormat``): Code format
+
+    Returns:
+        ``out`` (``ndarray``) : ``int16`` ``numpy`` array consisting of quantized input waveform
     """
     _check_ndarray(a, "float64")
     out = _np.empty(a.size, dtype="int16")
@@ -2073,20 +2489,21 @@ def quantize16(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
 
 def quantize32(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
     """
-    quantize32
+    Quantize a floating-point waveform
 
-    Parameters
-    ----------
-    a :
-    fsr :
-    n :
-    noise :
-    fmt :
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``float64``
 
-    Returns
-    -------
-    out :
+        ``fsr`` (``double``) : Full-scale range of the waveform
+        
+        ``n`` (``int``) : Resolution (Bitwidth of ``a``)
 
+        ``noise`` (``double``) : Quantization Noise RMS level
+
+        ``fmt`` (``CodeFormat``): Code format
+
+    Returns:
+        ``out`` (``ndarray``) : ``int32`` ``numpy`` array consisting of quantized input waveform
     """
     _check_ndarray(a, "float64")
     out = _np.empty(a.size, dtype="int32")
@@ -2097,20 +2514,21 @@ def quantize32(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
 
 def quantize64(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
     """
-    quantize64
+    Quantize a floating-point waveform
 
-    Parameters
-    ----------
-    a :
-    fsr :
-    n :
-    noise :
-    fmt :
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``float64``
 
-    Returns
-    -------
-    out :
+        ``fsr`` (``double``) : Full-scale range of the waveform
+        
+        ``n`` (``int``) : Resolution (Bitwidth of ``a``)
 
+        ``noise`` (``double``) : Quantization Noise RMS level
+
+        ``fmt`` (``CodeFormat``): Code format
+
+    Returns:
+        ``out`` (``ndarray``) : ``int64`` ``numpy`` array consisting of quantized input waveform
     """
     _check_ndarray(a, "float64")
     out = _np.empty(a.size, dtype="int64")
@@ -2121,20 +2539,21 @@ def quantize64(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
 
 def quantize(a, fsr, n, noise=0.0, fmt=CodeFormat.TWOS_COMPLEMENT):
     """
-    quantize
+    Quantize a floating-point waveform
 
-    Parameters
-    ----------
-    a :
-    fsr :
-    n :
-    noise :
-    fmt :
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``float64``
 
-    Returns
-    -------
-    out :
+        ``fsr`` (``double``) : Full-scale range of the waveform
+        
+        ``n`` (``int``) : Resolution (Bitwidth of ``a``)
 
+        ``noise`` (``double``) : Quantization Noise RMS level
+
+        ``fmt`` (``CodeFormat``): Code format
+
+    Returns:
+        ``out`` (``ndarray``) : ``numpy`` array consisting of quantized input waveform of datatype ``int16`` if ``n <= 16``, ``int32`` otherwise
     """
     if n < 16 or 16 == n and CodeFormat.TWOS_COMPLEMENT == fmt:
         return quantize16(a, fsr, n, noise, fmt)
@@ -2202,126 +2621,138 @@ _lib.gn_wf_analysis64.argtypes = [
 ]
 
 
-def cos(size, fs, ampl, freq, phase=0.0, td=0.0, tj=0.0):
+def cos(nsamples, fs, ampl, freq, phase=0.0, td=0.0, tj=0.0):
     """
-    cos
+    Generate cosine waveform
 
-    Parameters
-    ----------
-    size :
-    fs :
-    ampl :
-    freq :
-    phase :
-    td :
-    tj :
+    Args:
+        ``nsamples`` (``int``) : Number of samples
 
-    Returns
-    -------
-    out :
+        ``fs`` (``double``) : Sample rate (S/s)
 
+        ``ampl`` (``double``) : Amplitude
+
+        ``freq`` (``double``) : Frequency (Hz)
+
+        ``phase`` (``double``) : Phase (rad)
+
+        ``td`` (``double``) : Time delay (s)
+
+        ``tj`` (``double``) : RMS Aperture jitter (s)
+
+    Returns:
+        ``out`` (``ndarray``) : ``float64`` ``numpy`` array consisting of Cosine waveform
     """
-    out = _np.empty(size, "float64")
+    out = _np.empty(nsamples, "float64")
     result = _lib.gn_cos(out, out.size, fs, ampl, freq, phase, td, tj)
     _raise_exception_on_failure(result)
     return out
 
 
-def gaussian(size, mean, sd):
+def gaussian(nsamples, mean, sd):
     """
-    ramp
+    Generate Gaussian random samples
 
-    Parameters
-    ----------
-    size :
-    mean :
-    sd :
+    Args:
+        ``nsamples`` (``int``) : Number of samples
 
-    Returns
-    -------
-    out :
+        ``mean`` (``double``) : Mean
 
+        ``sd`` (``double``) : Standard deviation
+
+    Returns:
+        ``out`` (``ndarray``) : ``float64`` ``numpy`` array consisting of Gaussian random samples
     """
-    out = _np.empty(size, "float64")
+    out = _np.empty(nsamples, "float64")
     result = _lib.gn_gaussian(out, out.size, mean, sd)
     _raise_exception_on_failure(result)
     return out
 
 
-def ramp(size, start, stop, noise):
+def ramp(nsamples, start, stop, noise):
     """
-    ramp
+    Generate ramp waveform
 
-    Parameters
-    ----------
-    size :
-    start :
-    stop :
-    noise :
+    Args:
+        ``nsamples`` (``int``) : Number of samples
 
-    Returns
-    -------
-    out :
+        ``start`` (``double``) : Start value
 
+        ``stop`` (``double``) : Stop value
+
+        ``noise`` (``double``) : RMS noise
+
+    Returns:
+        ``out`` (``ndarray``) : ``float64`` ``numpy`` array consisting of ramp waveform
     """
-    out = _np.empty(size, "float64")
+    out = _np.empty(nsamples, "float64")
     result = _lib.gn_ramp(out, out.size, start, stop, noise)
     _raise_exception_on_failure(result)
     return out
 
 
-def sin(size, fs, ampl, freq, phase=0.0, td=0.0, tj=0.0):
+def sin(nsamples, fs, ampl, freq, phase=0.0, td=0.0, tj=0.0):
     """
-    sin
+    Generate sine waveform
 
-    Parameters
-    ----------
-    size :
-    fs :
-    ampl :
-    freq :
-    phase :
-    td :
-    tj :
+    Args:
+        ``nsamples`` (``int``) : Number of samples
 
-    Returns
-    -------
-    out :
+        ``fs`` (``double``) : Sample rate (S/s)
 
+        ``ampl`` (``double``) : Amplitude
+
+        ``freq`` (``double``) : Frequency (Hz)
+
+        ``phase`` (``double``) : Phase (rad)
+
+        ``td`` (``double``) : Time delay (s)
+
+        ``tj`` (``double``) : RMS Aperture jitter (s)
+
+    Returns:
+        ``out`` (``ndarray``) : ``float64`` ``numpy`` array consisting of Sine waveform
     """
-    out = _np.empty(size, "float64")
+    out = _np.empty(nsamples, "float64")
     result = _lib.gn_sin(out, out.size, fs, ampl, freq, phase, td, tj)
     _raise_exception_on_failure(result)
     return out
 
 
-def wf_analysis(a):
+def wf_analysis(a):    
     """
-    wf_analysis
+    Run waveform analysis
 
-    Parameters
-    ----------
-    a :
+    Args:
+        ``a`` (``ndarray``) : Input array of type ``int16``, ``int32``, or ``int64``
+        
+    Returns:
+        Returns:
+        ``results`` (``dict``) : Dictionary containing all waveform analysis results
 
-    Returns
-    -------
-    results : dict
-        Every Key:Value pair in the dictionary is str:float.
+    Notes:
+        Every Key:Value pair in the dictionary is ``str``:``float``.
 
-        ===========================================================
-          Key        |  Description
-        ===========================================================
-          min        |  Minumum value
-          max        |  Maximum value
-          mid        |  Middle value ((max + min) / 2)
-          range      |  Range (max - min)
-          avg        |  Average value
-          rms        |  RMS value
-          rmsac      |  RMS value with DC removed
-          min_index  |  Index of first occurence of minimum value
-          max_index  |  Index of first occurence of maximum value
-        ===========================================================
+        The dictionary contains the following keys:
+            ``signaltype`` : Signal type: 0=Real, 1=Complex
 
+            ``min`` : Minumum value
+
+            ``max`` : Maximum value
+
+            ``mid`` : Middle value ((max + min) / 2)
+
+            ``range`` : Range (max - min)
+
+            ``avg`` : Average value
+
+            ``rms`` : RMS value
+
+            ``rmsac`` : RMS value with DC removed
+
+            ``min_index`` : Index of first occurence of minimum value
+
+            ``max_index`` : Index of first occurence of maximum value
     """
     dtype = _check_ndarray(a, ["float", "int16", "int32", "int64"])
     keys, values = _get_analysis_containers(_AnalysisType.WAVEFORM)

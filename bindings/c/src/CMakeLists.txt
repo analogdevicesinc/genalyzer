@@ -1,5 +1,5 @@
 file(GLOB SOURCE_LIST CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/bindings/c/src/*.cpp" "${PROJECT_SOURCE_DIR}/bindings/c/src/*.c")
-set(GENALYZER_MAIN_HEADER "${PROJECT_SOURCE_DIR}/bindings/c/include/cgenalyzer.h")
+set(GENALYZER_MAIN_HEADER "${PROJECT_SOURCE_DIR}/bindings/c/include/cgenalyzer_simplified_beta.h")
 
 add_definitions(-DGENALYZER_EXPORTS)
 

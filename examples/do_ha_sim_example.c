@@ -1,4 +1,4 @@
-#include "cgenalyzer.h"
+#include "cgenalyzer_simplified_beta.h"
 #include <stdlib.h>
 #include <math.h>
 
