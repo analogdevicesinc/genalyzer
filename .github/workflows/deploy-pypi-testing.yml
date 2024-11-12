@@ -22,15 +22,12 @@ jobs:
 
       - name: Update to dev version and build test release
         run: |
-          pip install invoke
-          invoke bumpversion-test
           cd bindings/python
           python -m build
           
-      - uses: pypa/gh-action-pypi-publish@release/v1
-        if: github.ref == 'refs/heads/main'
+      - uses: pypa/gh-action-pypi-publish@master
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         with:
           user: __token__
-          password: ${{ secrets.TEST_PYPI_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          password: ${{ secrets.PYPI_TOKEN }}
           packages_dir: ./bindings/python/dist
