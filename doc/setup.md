@@ -39,14 +39,14 @@ cd genalyzer
 
 ```bash
 sudo apt-get install python3-dev python3-pip
-sudo pip3 install -r requirements_test.txt
+sudo pip3 install numpy
 ```
 ````
 
 ````{tab} macOS
 
 ```bash
-pip3 install -r requirements_test.txt
+pip3 install numpy
 ```
 ````
 
@@ -62,9 +62,8 @@ sudo pip3 install -r requirements_doc.txt
 ```bash
 mkdir build
 cd build
-cmake -DBUILD_TESTS_EXAMPLES=ON ..
-make -j4
-make test ARGS="-VV"
+cmake ..
+make
 sudo make install
 ```
 
@@ -72,7 +71,6 @@ sudo make install
 
 | Option | Description | Default |
 | ------ | ----------- | ------- |
-| `PYTHON_BINDINGS` | Build the Python bindings | `OFF` |
 | `BUILD_DOC` | Build the documentation | `OFF` |
 | `BUILD_TESTS_EXAMPLES` | Build the tests and examples | `OFF` |
 | `COVERAGE` | Enable coverage tracing when testing | `OFF` |
