@@ -14,14 +14,14 @@ For now we do not provide binaries for Linux or macOS. You can build the library
 
 ```bash
 sudo apt-get update
-sudo apt-get install build-essential cmake libfftw3-dev git
+bash ./.github/scripts/install_dependencies.sh
 ```
 ````
 
 ````{tab} macOS
 
 ```bash
-brew install cmake fftw
+brew install cmake gnu-tar bzip2 gzip fftw doxygen
 ```
 ````
 
@@ -39,14 +39,14 @@ cd genalyzer
 
 ```bash
 sudo apt-get install python3-dev python3-pip
-sudo pip3 install numpy
+sudo pip3 install -r requirements_test.txt
 ```
 ````
 
 ````{tab} macOS
 
 ```bash
-pip3 install numpy
+pip3 install -r requirements_test.txt
 ```
 ````
 
@@ -62,8 +62,9 @@ sudo pip3 install -r requirements_doc.txt
 ```bash
 mkdir build
 cd build
-cmake ..
-make
+cmake -DBUILD_TESTS_EXAMPLES=ON ..
+make -j4
+make test ARGS="-VV"
 sudo make install
 ```
 
