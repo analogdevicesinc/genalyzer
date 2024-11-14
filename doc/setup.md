@@ -14,14 +14,14 @@ For now we do not provide binaries for Linux or macOS. You can build the library
 
 ```bash
 sudo apt-get update
-bash ./.github/scripts/install_dependencies.sh
+sudo apt-get install build-essential cmake libfftw3-dev git
 ```
 ````
 
 ````{tab} macOS
 
 ```bash
-brew install cmake gnu-tar bzip2 gzip fftw doxygen
+brew install cmake fftw
 ```
 ````
 
