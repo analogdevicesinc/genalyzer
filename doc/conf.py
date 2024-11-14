@@ -27,7 +27,7 @@ copyright = "2021, Analog Devices, Inc."
 author = "Analog Devices, Inc."
 
 # The full version, including alpha/beta/rc tags
-release = "v0.0.1"
+release = "v0.1"
 
 
 # -- General configuration ---------------------------------------------------
