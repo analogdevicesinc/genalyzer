@@ -181,7 +181,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -206,7 +206,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference.html">Advanced API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference_simplified.html">(Beta) Simplified API Reference</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="genalyzer.html">Python Bindings</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Python Bindings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="pygenalyzer.html">pygenalizer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of pygenalizer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -255,7 +255,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -263,6 +263,162 @@
         <article role="main" id="furo-main-content">
           <section id="signal-processing">
 <h1>Signal Processing<a class="headerlink" href="#signal-processing" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.downsample">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">downsample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interleaved</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.downsample" title="Link to this definition">¶</a></dt>
+<dd><p>Downsample a waveform</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">complex128</span></code>, <code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, or <code class="docutils literal notranslate"><span class="pre">int64</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">ratio</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Downsample ratio</p>
+<p><code class="docutils literal notranslate"><span class="pre">interleaved</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : If true, <code class="docutils literal notranslate"><span class="pre">a</span></code> is interleaved I/Q data</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, or <code class="docutils literal notranslate"><span class="pre">int64</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of downsampled waveform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fshift">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fshift" title="Link to this definition">¶</a></dt>
+<dd><p>Perform frequency shift</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">complex128</span></code>, <code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, or <code class="docutils literal notranslate"><span class="pre">int64</span></code></p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">args</span></code> (<code class="docutils literal notranslate"><span class="pre">list</span></code>)<span class="classifier">Additional arguments</span></dt><dd><ol class="arabic">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">a</span></code> is of type <code class="docutils literal notranslate"><span class="pre">complex128</span></code> or <code class="docutils literal notranslate"><span class="pre">float64</span></code>, then perform frequency shift of interleaved normalized samples with the following interpretation.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">fs</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Sample rate</p>
+<p><code class="docutils literal notranslate"><span class="pre">fshift_</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Shift frequency</p>
+<p>In this case, if <code class="docutils literal notranslate"><span class="pre">a</span></code> is not complex, then a is interpreted to contain interleaved I/Q samples.</p>
+</div></blockquote>
+</li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">a</span></code> is of type <code class="docutils literal notranslate"><span class="pre">float64</span></code>, then perform frequency shift of split normalized samples.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">q</span></code> (<code class="docutils literal notranslate"><span class="pre">float64</span></code>) : Quadrature component</p>
+<p><code class="docutils literal notranslate"><span class="pre">fs</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Sample rate</p>
+<p><code class="docutils literal notranslate"><span class="pre">fshift_</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Shift frequency</p>
+<p>In this case, <code class="docutils literal notranslate"><span class="pre">a</span></code> is interpreted to be the In-phase component.</p>
+</div></blockquote>
+</li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">a</span></code> is of type <code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, or <code class="docutils literal notranslate"><span class="pre">int64</span></code>, then perform frequency shift of interleaved quantized samples with the following interpretation.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Resolution (Bitwidth of a)</p>
+<p><code class="docutils literal notranslate"><span class="pre">fs</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Sample rate</p>
+<p><code class="docutils literal notranslate"><span class="pre">fshift_</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Shift frequency</p>
+<p><code class="docutils literal notranslate"><span class="pre">fmt</span></code> (<code class="docutils literal notranslate"><span class="pre">CodeFormat</span></code>): Code format</p>
+<p>In this case, <code class="docutils literal notranslate"><span class="pre">a</span></code> is interpreted to contain interleaved quantized samples.</p>
+</div></blockquote>
+</li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">a</span></code> is of type <code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, or <code class="docutils literal notranslate"><span class="pre">int64</span></code>, then perform frequency shift of split quantized samples with the following interpretation.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">q</span></code> (<code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, or <code class="docutils literal notranslate"><span class="pre">int64</span></code>) : Quadrature component</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Resolution (Bitwidth of <code class="docutils literal notranslate"><span class="pre">a</span></code>)</p>
+<p><code class="docutils literal notranslate"><span class="pre">fs</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Sample rate</p>
+<p><code class="docutils literal notranslate"><span class="pre">fshift_</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Shift frequency</p>
+<p><code class="docutils literal notranslate"><span class="pre">fmt</span></code> (<code class="docutils literal notranslate"><span class="pre">CodeFormat</span></code>): Code format</p>
+<p>In this case, <code class="docutils literal notranslate"><span class="pre">a</span></code> is interpreted to to be the In-phase component.</p>
+</div></blockquote>
+</li>
+</ol>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Frequency-shifted input waveform. The output datatype is the same as the input datatype.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.normalize">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CodeFormat.TWOS_COMPLEMENT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.normalize" title="Link to this definition">¶</a></dt>
+<dd><p>Normalize a waveform</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, or <code class="docutils literal notranslate"><span class="pre">int64</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Resolution (Bitwidth of <code class="docutils literal notranslate"><span class="pre">a</span></code>)</p>
+<p><code class="docutils literal notranslate"><span class="pre">fmt</span></code> (<code class="docutils literal notranslate"><span class="pre">CodeFormat</span></code>): Code format</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of normalized input waveform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.polyval">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">polyval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.polyval" title="Link to this definition">¶</a></dt>
+<dd><p>Apply distortion as a polynomial function</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">float64</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">c</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Polynomial coefficient array of type <code class="docutils literal notranslate"><span class="pre">float64</span></code></p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of distorted input waveform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.quantize16">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">quantize16</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CodeFormat.TWOS_COMPLEMENT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.quantize16" title="Link to this definition">¶</a></dt>
+<dd><p>Quantize a floating-point waveform</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">float64</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">fsr</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Full-scale range of the waveform</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Resolution (Bitwidth of <code class="docutils literal notranslate"><span class="pre">a</span></code>)</p>
+<p><code class="docutils literal notranslate"><span class="pre">noise</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Quantization Noise RMS level</p>
+<p><code class="docutils literal notranslate"><span class="pre">fmt</span></code> (<code class="docutils literal notranslate"><span class="pre">CodeFormat</span></code>): Code format</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">int16</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of quantized input waveform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.quantize32">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">quantize32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CodeFormat.TWOS_COMPLEMENT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.quantize32" title="Link to this definition">¶</a></dt>
+<dd><p>Quantize a floating-point waveform</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">float64</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">fsr</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Full-scale range of the waveform</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Resolution (Bitwidth of <code class="docutils literal notranslate"><span class="pre">a</span></code>)</p>
+<p><code class="docutils literal notranslate"><span class="pre">noise</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Quantization Noise RMS level</p>
+<p><code class="docutils literal notranslate"><span class="pre">fmt</span></code> (<code class="docutils literal notranslate"><span class="pre">CodeFormat</span></code>): Code format</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">int32</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of quantized input waveform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.quantize64">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">quantize64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CodeFormat.TWOS_COMPLEMENT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.quantize64" title="Link to this definition">¶</a></dt>
+<dd><p>Quantize a floating-point waveform</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">float64</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">fsr</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Full-scale range of the waveform</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Resolution (Bitwidth of <code class="docutils literal notranslate"><span class="pre">a</span></code>)</p>
+<p><code class="docutils literal notranslate"><span class="pre">noise</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Quantization Noise RMS level</p>
+<p><code class="docutils literal notranslate"><span class="pre">fmt</span></code> (<code class="docutils literal notranslate"><span class="pre">CodeFormat</span></code>): Code format</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">int64</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of quantized input waveform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.quantize">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">quantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CodeFormat.TWOS_COMPLEMENT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.quantize" title="Link to this definition">¶</a></dt>
+<dd><p>Quantize a floating-point waveform</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">float64</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">fsr</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Full-scale range of the waveform</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Resolution (Bitwidth of <code class="docutils literal notranslate"><span class="pre">a</span></code>)</p>
+<p><code class="docutils literal notranslate"><span class="pre">noise</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Quantization Noise RMS level</p>
+<p><code class="docutils literal notranslate"><span class="pre">fmt</span></code> (<code class="docutils literal notranslate"><span class="pre">CodeFormat</span></code>): Code format</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of quantized input waveform of datatype <code class="docutils literal notranslate"><span class="pre">int16</span></code> if <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">&lt;=</span> <span class="pre">16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code> otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article>
@@ -308,8 +464,34 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Signal Processing</a><ul>
+<li><a class="reference internal" href="#genalyzer.downsample"><code class="docutils literal notranslate"><span class="pre">downsample()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fshift"><code class="docutils literal notranslate"><span class="pre">fshift()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.polyval"><code class="docutils literal notranslate"><span class="pre">polyval()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.quantize16"><code class="docutils literal notranslate"><span class="pre">quantize16()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.quantize32"><code class="docutils literal notranslate"><span class="pre">quantize32()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.quantize64"><code class="docutils literal notranslate"><span class="pre">quantize64()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.quantize"><code class="docutils literal notranslate"><span class="pre">quantize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

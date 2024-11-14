@@ -181,7 +181,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -206,7 +206,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference.html">Advanced API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference_simplified.html">(Beta) Simplified API Reference</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="genalyzer.html">Python Bindings</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Python Bindings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="pygenalyzer.html">pygenalizer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of pygenalizer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -255,7 +255,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -263,6 +263,99 @@
         <article role="main" id="furo-main-content">
           <section id="waveforms">
 <h1>Waveforms<a class="headerlink" href="#waveforms" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.cos">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsamples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ampl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">td</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.cos" title="Link to this definition">¶</a></dt>
+<dd><p>Generate cosine waveform</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">nsamples</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of samples</p>
+<p><code class="docutils literal notranslate"><span class="pre">fs</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Sample rate (S/s)</p>
+<p><code class="docutils literal notranslate"><span class="pre">ampl</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Amplitude</p>
+<p><code class="docutils literal notranslate"><span class="pre">freq</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">phase</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Phase (rad)</p>
+<p><code class="docutils literal notranslate"><span class="pre">td</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Time delay (s)</p>
+<p><code class="docutils literal notranslate"><span class="pre">tj</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : RMS Aperture jitter (s)</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of Cosine waveform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.gaussian">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsamples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.gaussian" title="Link to this definition">¶</a></dt>
+<dd><p>Generate Gaussian random samples</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">nsamples</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of samples</p>
+<p><code class="docutils literal notranslate"><span class="pre">mean</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Mean</p>
+<p><code class="docutils literal notranslate"><span class="pre">sd</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Standard deviation</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of Gaussian random samples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.ramp">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">ramp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsamples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.ramp" title="Link to this definition">¶</a></dt>
+<dd><p>Generate ramp waveform</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">nsamples</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of samples</p>
+<p><code class="docutils literal notranslate"><span class="pre">start</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Start value</p>
+<p><code class="docutils literal notranslate"><span class="pre">stop</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Stop value</p>
+<p><code class="docutils literal notranslate"><span class="pre">noise</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : RMS noise</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of ramp waveform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.sin">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsamples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ampl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">td</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.sin" title="Link to this definition">¶</a></dt>
+<dd><p>Generate sine waveform</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">nsamples</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of samples</p>
+<p><code class="docutils literal notranslate"><span class="pre">fs</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Sample rate (S/s)</p>
+<p><code class="docutils literal notranslate"><span class="pre">ampl</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Amplitude</p>
+<p><code class="docutils literal notranslate"><span class="pre">freq</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">phase</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Phase (rad)</p>
+<p><code class="docutils literal notranslate"><span class="pre">td</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : Time delay (s)</p>
+<p><code class="docutils literal notranslate"><span class="pre">tj</span></code> (<code class="docutils literal notranslate"><span class="pre">double</span></code>) : RMS Aperture jitter (s)</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array consisting of Sine waveform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.wf_analysis">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">wf_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.wf_analysis" title="Link to this definition">¶</a></dt>
+<dd><p>Run waveform analysis</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, or <code class="docutils literal notranslate"><span class="pre">int64</span></code></p>
+</dd>
+<dt>Returns:</dt><dd><p>Returns:
+<code class="docutils literal notranslate"><span class="pre">results</span></code> (<code class="docutils literal notranslate"><span class="pre">dict</span></code>) : Dictionary containing all waveform analysis results</p>
+</dd>
+<dt>Notes:</dt><dd><p>Every Key:Value pair in the dictionary is <code class="docutils literal notranslate"><span class="pre">str</span></code>:<code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
+<dl>
+<dt>The dictionary contains the following keys:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">signaltype</span></code> : Signal type: 0=Real, 1=Complex</p>
+<p><code class="docutils literal notranslate"><span class="pre">min</span></code> : Minumum value</p>
+<p><code class="docutils literal notranslate"><span class="pre">max</span></code> : Maximum value</p>
+<p><code class="docutils literal notranslate"><span class="pre">mid</span></code> : Middle value ((max + min) / 2)</p>
+<p><code class="docutils literal notranslate"><span class="pre">range</span></code> : Range (max - min)</p>
+<p><code class="docutils literal notranslate"><span class="pre">avg</span></code> : Average value</p>
+<p><code class="docutils literal notranslate"><span class="pre">rms</span></code> : RMS value</p>
+<p><code class="docutils literal notranslate"><span class="pre">rmsac</span></code> : RMS value with DC removed</p>
+<p><code class="docutils literal notranslate"><span class="pre">min_index</span></code> : Index of first occurence of minimum value</p>
+<p><code class="docutils literal notranslate"><span class="pre">max_index</span></code> : Index of first occurence of maximum value</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article>
@@ -308,8 +401,31 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Waveforms</a><ul>
+<li><a class="reference internal" href="#genalyzer.cos"><code class="docutils literal notranslate"><span class="pre">cos()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.ramp"><code class="docutils literal notranslate"><span class="pre">ramp()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.sin"><code class="docutils literal notranslate"><span class="pre">sin()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.wf_analysis"><code class="docutils literal notranslate"><span class="pre">wf_analysis()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

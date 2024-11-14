@@ -206,7 +206,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference.html">Advanced API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference_simplified.html">(Beta) Simplified API Reference</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="genalyzer.html">Python Bindings</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Python Bindings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">pygenalizer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of pygenalizer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -266,12 +266,74 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="enumerations.html">Enumerations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fourier_analysis.html">Fourier Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fourier_configuration.html">Fourier Analysis Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fourier_transforms.html">Fourier Transforms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="waveforms.html">Waveforms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="signal_processing.html">Signal Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enumerations.html">Enumerations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.CodeFormat"><code class="docutils literal notranslate"><span class="pre">CodeFormat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.DnlSignal"><code class="docutils literal notranslate"><span class="pre">DnlSignal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.FaCompTag"><code class="docutils literal notranslate"><span class="pre">FaCompTag()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.FaSsb"><code class="docutils literal notranslate"><span class="pre">FaSsb()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.FreqAxisFormat"><code class="docutils literal notranslate"><span class="pre">FreqAxisFormat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.FreqAxisType"><code class="docutils literal notranslate"><span class="pre">FreqAxisType()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.InlLineFit"><code class="docutils literal notranslate"><span class="pre">InlLineFit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.RfftScale"><code class="docutils literal notranslate"><span class="pre">RfftScale()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.Window"><code class="docutils literal notranslate"><span class="pre">Window()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_analysis.html">Fourier Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fourier_analysis.html#genalyzer.fft_analysis"><code class="docutils literal notranslate"><span class="pre">fft_analysis()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_configuration.html">Fourier Analysis Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_analysis_band"><code class="docutils literal notranslate"><span class="pre">fa_analysis_band()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_clk"><code class="docutils literal notranslate"><span class="pre">fa_clk()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_conv_offset"><code class="docutils literal notranslate"><span class="pre">fa_conv_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_create"><code class="docutils literal notranslate"><span class="pre">fa_create()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_dc"><code class="docutils literal notranslate"><span class="pre">fa_dc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fdata"><code class="docutils literal notranslate"><span class="pre">fa_fdata()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fixed_tone"><code class="docutils literal notranslate"><span class="pre">fa_fixed_tone()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fsample"><code class="docutils literal notranslate"><span class="pre">fa_fsample()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fshift"><code class="docutils literal notranslate"><span class="pre">fa_fshift()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fund_images"><code class="docutils literal notranslate"><span class="pre">fa_fund_images()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_hd"><code class="docutils literal notranslate"><span class="pre">fa_hd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ilv"><code class="docutils literal notranslate"><span class="pre">fa_ilv()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_imd"><code class="docutils literal notranslate"><span class="pre">fa_imd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_load"><code class="docutils literal notranslate"><span class="pre">fa_load()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_max_tone"><code class="docutils literal notranslate"><span class="pre">fa_max_tone()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_preview"><code class="docutils literal notranslate"><span class="pre">fa_preview()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_quad_errors"><code class="docutils literal notranslate"><span class="pre">fa_quad_errors()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_remove_comp"><code class="docutils literal notranslate"><span class="pre">fa_remove_comp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_reset"><code class="docutils literal notranslate"><span class="pre">fa_reset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ssb"><code class="docutils literal notranslate"><span class="pre">fa_ssb()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ssb_dc"><code class="docutils literal notranslate"><span class="pre">fa_ssb_dc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ssb_def"><code class="docutils literal notranslate"><span class="pre">fa_ssb_def()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ssb_wo"><code class="docutils literal notranslate"><span class="pre">fa_ssb_wo()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_var"><code class="docutils literal notranslate"><span class="pre">fa_var()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_wo"><code class="docutils literal notranslate"><span class="pre">fa_wo()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_transforms.html">Fourier Transforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fourier_transforms.html#genalyzer.fft"><code class="docutils literal notranslate"><span class="pre">fft()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fourier_transforms.html#genalyzer.rfft"><code class="docutils literal notranslate"><span class="pre">rfft()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="waveforms.html">Waveforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.cos"><code class="docutils literal notranslate"><span class="pre">cos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.ramp"><code class="docutils literal notranslate"><span class="pre">ramp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.sin"><code class="docutils literal notranslate"><span class="pre">sin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.wf_analysis"><code class="docutils literal notranslate"><span class="pre">wf_analysis()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="signal_processing.html">Signal Processing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.downsample"><code class="docutils literal notranslate"><span class="pre">downsample()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.fshift"><code class="docutils literal notranslate"><span class="pre">fshift()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.polyval"><code class="docutils literal notranslate"><span class="pre">polyval()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.quantize16"><code class="docutils literal notranslate"><span class="pre">quantize16()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.quantize32"><code class="docutils literal notranslate"><span class="pre">quantize32()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.quantize64"><code class="docutils literal notranslate"><span class="pre">quantize64()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.quantize"><code class="docutils literal notranslate"><span class="pre">quantize()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>

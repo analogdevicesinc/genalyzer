@@ -71,7 +71,6 @@ sudo make install
 
 | Option | Description | Default |
 | ------ | ----------- | ------- |
-| `PYTHON_BINDINGS` | Build the Python bindings | `OFF` |
 | `BUILD_DOC` | Build the documentation | `OFF` |
 | `BUILD_TESTS_EXAMPLES` | Build the tests and examples | `OFF` |
 | `COVERAGE` | Enable coverage tracing when testing | `OFF` |

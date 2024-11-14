@@ -181,7 +181,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -206,7 +206,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference.html">Advanced API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference_simplified.html">(Beta) Simplified API Reference</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="genalyzer.html">Python Bindings</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Python Bindings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="pygenalyzer.html">pygenalizer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of pygenalizer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -255,7 +255,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -263,6 +263,60 @@
         <article role="main" id="furo-main-content">
           <section id="fourier-analysis">
 <h1>Fourier Analysis<a class="headerlink" href="#fourier-analysis" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fft_analysis">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fft_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">FreqAxisType.DC_LEFT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fft_analysis" title="Link to this definition">¶</a></dt>
+<dd><p>Returns all Fourier analysis results</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">string</span></code>) : Key value to the Fourier Analysis object created (through gn_fa_create)</p>
+<p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : FFT data of type ‘complex128’ or ‘float64’</p>
+<p><code class="docutils literal notranslate"><span class="pre">nfft</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : FFT size</p>
+<p>axis_type (<code class="docutils literal notranslate"><span class="pre">FreqAxisType</span></code>) : Frequency axis type</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">results</span></code> (<code class="docutils literal notranslate"><span class="pre">dict</span></code>) : Dictionary containing all Fourier analysis results</p>
+</dd>
+<dt>Notes:</dt><dd><p>Every Key:Value pair in the dictionary is <code class="docutils literal notranslate"><span class="pre">str</span></code>:<code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
+<dl>
+<dt>The dictionary contains the following keys:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">signaltype</span></code> : Signal type: 0=Real, 1=Complex</p>
+<p><code class="docutils literal notranslate"><span class="pre">nfft</span></code> : FFT size</p>
+<p><code class="docutils literal notranslate"><span class="pre">datasize</span></code> : Data size</p>
+<p><code class="docutils literal notranslate"><span class="pre">fbin</span></code> : Frequency bin size (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">fdata</span></code> : Data rate (S/s)</p>
+<p><code class="docutils literal notranslate"><span class="pre">fsample</span></code> : Sample rate (S/s)</p>
+<p><code class="docutils literal notranslate"><span class="pre">fshift</span></code> : Shift frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">fsnr</span></code> : Full-scale-to-noise ratio (a.k.a. “SNRFS”) (dB)</p>
+<p><code class="docutils literal notranslate"><span class="pre">snr</span></code> : Signal-to-noise ratio (dB)</p>
+<p><code class="docutils literal notranslate"><span class="pre">sinad</span></code> : Signal-to-noise-and-distortion ratio (dB)</p>
+<p><code class="docutils literal notranslate"><span class="pre">sfdr</span></code> : Spurious-free dynamic range (dB)</p>
+<p><code class="docutils literal notranslate"><span class="pre">abn</span></code> : Average bin noise (dBFS)</p>
+<p><code class="docutils literal notranslate"><span class="pre">nsd</span></code> : Noise spectral density (dBFS/Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">carrierindex</span></code> : Order index of the Carrier tone</p>
+<p><code class="docutils literal notranslate"><span class="pre">maxspurindex</span></code> : Order index of the MaxSpur tone</p>
+<p><code class="docutils literal notranslate"><span class="pre">ab_width</span></code> : Analysis band width (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">ab_i1</span></code> : Analysis band first index</p>
+<p><code class="docutils literal notranslate"><span class="pre">ab_i2</span></code> : Analysis band last index</p>
+<p><code class="docutils literal notranslate"><span class="pre">{PREFIX}_nbins</span></code> : Number of bins associated with PREFIX</p>
+<p><code class="docutils literal notranslate"><span class="pre">{PREFIX}_rss</span></code> : Root-sum-square associated with PREFIX</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:ffinal</span></code> : Tone final frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:freq</span></code> : Tone frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:fwavg</span></code> : Tone weighted-average frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:i1</span></code> : Tone first index</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:i2</span></code> : Tone last index</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:inband</span></code> : 1: tone is in-band; 0: tone is out-of-band</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:mag</span></code> : Tone magnitude</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:mag_dbc</span></code> : Tone magnitude relative to carrier (dBc)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:mag_dbfs</span></code> : Tone magnitude relative to full-scale (dBFS)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:nbins</span></code> : Tone number of bins</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:orderindex</span></code> : Tone order index</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:phase</span></code> : Tone phase (rad)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:phase_c</span></code> : Tone phase relative to carrier (rad)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{TONEKEY}:tag</span></code> : Tone tag</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article>
@@ -308,8 +362,27 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Fourier Analysis</a><ul>
+<li><a class="reference internal" href="#genalyzer.fft_analysis"><code class="docutils literal notranslate"><span class="pre">fft_analysis()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

@@ -181,7 +181,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -206,7 +206,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference.html">Advanced API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference_simplified.html">(Beta) Simplified API Reference</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="genalyzer.html">Python Bindings</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Python Bindings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="pygenalyzer.html">pygenalizer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of pygenalizer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -255,7 +255,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -263,6 +263,289 @@
         <article role="main" id="furo-main-content">
           <section id="fourier-analysis-configuration">
 <h1>Fourier Analysis Configuration<a class="headerlink" href="#fourier-analysis-configuration" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_analysis_band">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_analysis_band</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_analysis_band" title="Link to this definition">¶</a></dt>
+<dd><p>Configure analysis band</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">center</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Analysis band center (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">width</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Analysis band width (Hz)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_clk">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_clk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_clk" title="Link to this definition">¶</a></dt>
+<dd><p>Treat clock components as noise</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">x</span></code> (<code class="docutils literal notranslate"><span class="pre">list</span></code>) : Array of clock divisors</p>
+<p><code class="docutils literal notranslate"><span class="pre">as_noise</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>) : If true, CLK components will be treated as noise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_conv_offset">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_conv_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_conv_offset" title="Link to this definition">¶</a></dt>
+<dd><p>Enable converter offset</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">enable</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>) : If true, enable converter offset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_create">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_create" title="Link to this definition">¶</a></dt>
+<dd><p>Create <code class="docutils literal notranslate"><span class="pre">fourier_analysis</span></code> object</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_dc">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_dc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_dc" title="Link to this definition">¶</a></dt>
+<dd><p>Treat DC as distortion</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">as_dist</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>) : If true, treat DC as distortion</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_fdata">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_fdata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_fdata" title="Link to this definition">¶</a></dt>
+<dd><p>Configure fdata</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">f</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : fdata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_fixed_tone">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_fixed_tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_fixed_tone" title="Link to this definition">¶</a></dt>
+<dd><p>Configure fixed tone</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">comp_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Component key</p>
+<p><code class="docutils literal notranslate"><span class="pre">tag</span></code> (<code class="docutils literal notranslate"><span class="pre">FACompTag</span></code>) : Component tag</p>
+<p><code class="docutils literal notranslate"><span class="pre">freq</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Frequency (Hz)</p>
+<p><code class="docutils literal notranslate"><span class="pre">ssb</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Single side bin</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_fsample">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_fsample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_fsample" title="Link to this definition">¶</a></dt>
+<dd><p>Configure fsample</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">f</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : fsample</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_fshift">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_fshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_fshift" title="Link to this definition">¶</a></dt>
+<dd><p>Configure fshift</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">f</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : fshift</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_fund_images">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_fund_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_fund_images" title="Link to this definition">¶</a></dt>
+<dd><p>Enable fundamental images</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">enable</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>) : If true, enable fundamental images</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_hd">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_hd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_hd" title="Link to this definition">¶</a></dt>
+<dd><p>Configure maximum harmonic order</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Order of harmonic distortion, i.e., the maximum harmonic</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_ilv">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_ilv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_ilv" title="Link to this definition">¶</a></dt>
+<dd><p>Configure interleaving factors</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">x</span></code> (<code class="docutils literal notranslate"><span class="pre">list</span></code>) : Array of interleaving factors</p>
+<p><code class="docutils literal notranslate"><span class="pre">as_noise</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>) : If true, interleaving factors will be treated as noise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_imd">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_imd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_imd" title="Link to this definition">¶</a></dt>
+<dd><p>Configure maximum intermodulation order</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Order of intermodulation distortion</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_load">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_load" title="Link to this definition">¶</a></dt>
+<dd><p>Load object-key from file</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">filename</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : File name</p>
+<p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_max_tone">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_max_tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_max_tone" title="Link to this definition">¶</a></dt>
+<dd><p>Configure component-key to select peak tone</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">comp_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Component key</p>
+<p><code class="docutils literal notranslate"><span class="pre">tag</span></code> (<code class="docutils literal notranslate"><span class="pre">FACompTag</span></code>) : Tag</p>
+<p><code class="docutils literal notranslate"><span class="pre">ssb</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of single-side bins</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_preview">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_preview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cplx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_preview" title="Link to this definition">¶</a></dt>
+<dd><p>Preview <code class="docutils literal notranslate"><span class="pre">fourier_analysis</span></code> object</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">cplx</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>) : If true, preview will include complex components</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_quad_errors">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_quad_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_quad_errors" title="Link to this definition">¶</a></dt>
+<dd><p>Enable quadrature errors</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">enable</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>) : If true, enable quadrature errors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_remove_comp">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_remove_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_remove_comp" title="Link to this definition">¶</a></dt>
+<dd><p>Remove component</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">comp_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Component key</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_reset">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_reset" title="Link to this definition">¶</a></dt>
+<dd><p>Reset object</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_ssb">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_ssb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_ssb" title="Link to this definition">¶</a></dt>
+<dd><p>Configure number of single-sideband bins</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">group</span></code> (<code class="docutils literal notranslate"><span class="pre">FASsb</span></code>) : SSB Group</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of single-sideband bins</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_ssb_dc">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_ssb_dc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_ssb_dc" title="Link to this definition">¶</a></dt>
+<dd><p>Configure number of single-sideband bins for DC</p>
+<p>Args:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of single-sideband bins</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_ssb_def">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_ssb_def</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_ssb_def" title="Link to this definition">¶</a></dt>
+<dd><p>Configure default number of single-sideband bins for auto-generated components</p>
+<p>Args:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of single-sideband bins</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_ssb_wo">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_ssb_wo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_ssb_wo" title="Link to this definition">¶</a></dt>
+<dd><p>Configure number of single-sideband bins for WO component</p>
+<p>Args:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of single-sideband bins</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_var">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_var" title="Link to this definition">¶</a></dt>
+<dd><p>Set value of variable in object</p>
+<p>Args:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Variable name</p>
+<p><code class="docutils literal notranslate"><span class="pre">value</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Variable value</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.fa_wo">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">fa_wo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.fa_wo" title="Link to this definition">¶</a></dt>
+<dd><p>Configure number of WO components</p>
+<p>Args:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">test_key</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) : Test key (key to a Fourier Analysis object)</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of worst others</p>
+</div></blockquote>
+</dd></dl>
+
 </section>
 
         </article>
@@ -308,8 +591,51 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Fourier Analysis Configuration</a><ul>
+<li><a class="reference internal" href="#genalyzer.fa_analysis_band"><code class="docutils literal notranslate"><span class="pre">fa_analysis_band()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_clk"><code class="docutils literal notranslate"><span class="pre">fa_clk()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_conv_offset"><code class="docutils literal notranslate"><span class="pre">fa_conv_offset()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_create"><code class="docutils literal notranslate"><span class="pre">fa_create()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_dc"><code class="docutils literal notranslate"><span class="pre">fa_dc()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_fdata"><code class="docutils literal notranslate"><span class="pre">fa_fdata()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_fixed_tone"><code class="docutils literal notranslate"><span class="pre">fa_fixed_tone()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_fsample"><code class="docutils literal notranslate"><span class="pre">fa_fsample()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_fshift"><code class="docutils literal notranslate"><span class="pre">fa_fshift()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_fund_images"><code class="docutils literal notranslate"><span class="pre">fa_fund_images()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_hd"><code class="docutils literal notranslate"><span class="pre">fa_hd()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_ilv"><code class="docutils literal notranslate"><span class="pre">fa_ilv()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_imd"><code class="docutils literal notranslate"><span class="pre">fa_imd()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_load"><code class="docutils literal notranslate"><span class="pre">fa_load()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_max_tone"><code class="docutils literal notranslate"><span class="pre">fa_max_tone()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_preview"><code class="docutils literal notranslate"><span class="pre">fa_preview()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_quad_errors"><code class="docutils literal notranslate"><span class="pre">fa_quad_errors()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_remove_comp"><code class="docutils literal notranslate"><span class="pre">fa_remove_comp()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_reset"><code class="docutils literal notranslate"><span class="pre">fa_reset()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_ssb"><code class="docutils literal notranslate"><span class="pre">fa_ssb()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_ssb_dc"><code class="docutils literal notranslate"><span class="pre">fa_ssb_dc()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_ssb_def"><code class="docutils literal notranslate"><span class="pre">fa_ssb_def()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_ssb_wo"><code class="docutils literal notranslate"><span class="pre">fa_ssb_wo()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_var"><code class="docutils literal notranslate"><span class="pre">fa_var()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.fa_wo"><code class="docutils literal notranslate"><span class="pre">fa_wo()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
