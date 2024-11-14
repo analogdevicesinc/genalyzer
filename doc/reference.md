@@ -1,6 +1,6 @@
-# Advanced API Reference
+# API Reference
 
-Advanced API Reference for Genalyzer library. This API is meant for advanced users who want to use the library functions for more complex tasks.
+API Reference for Genalyzer library. 
 
 ## Table of Contents
 
