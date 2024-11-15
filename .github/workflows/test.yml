@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        images: ["debian:buster", "debian:bullseye", "ubuntu:20.04"]
+        images: ["debian:buster", "debian:bullseye", "ubuntu:20.04", "ubuntu:22.04"]
         include:
           - images: "debian:buster"
             label: "Debian_10"
@@ -16,6 +16,8 @@ jobs:
             label: "Debian_11"
           - images: "ubuntu:20.04"
             label: "Ubuntu_20_04"
+          - images: "ubuntu:22.04"
+            label: "Ubuntu_22_04"
 
     container:
       image: ${{ matrix.images }}
