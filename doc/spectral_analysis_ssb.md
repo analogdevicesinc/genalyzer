@@ -1,5 +1,5 @@
 # Windowing and Single Side Bins
-In this tutorial, we will study a common scenario that arises when spectral analysis is compromised due to _leakage_. We look at ways to remedy the situation by applying a non-rectangular window function before computing the FFT and appropriately configuring the number of single side bins within Genalyzer. The waveform we analyze will be a ``375 KHz`` complex sinusoidal tone sampled at ``4 MSPS``. The only impairment in this waveform will be quantization noise. At the end of this tutorial, the reader will have gained an understanding on how to select the number of single side bins for various _components_ after creating a _test_, in order to compute performance metrics such as SFDR, FSNR, SNR, NSD etc. This tutorial follows the discussion on [spectral analysis](#spectral-analysis). So, please read that page first to become familiar with the workflow of Genalyzer.
+In this tutorial, we will study a common scenario that arises when spectral analysis is compromised due to _leakage_. We look at ways to remedy the situation by applying a non-rectangular window function before computing the FFT and appropriately configuring the number of _single side bins_ within Genalyzer. The waveform we analyze will be a ``375 KHz`` complex sinusoidal tone sampled at ``4 MSPS``. The only impairment in this waveform will be quantization noise. At the end of this tutorial, the reader will have gained an understanding on how to select the number of single side bins for various _components_ after creating a _test_, in order to compute performance metrics such as SFDR, FSNR, SNR, NSD etc. This tutorial follows the discussion on [spectral analysis](#spectral-analysis). So, please read that page first to become familiar with the workflow of Genalyzer.
 
 As before, we will follow the three-stage workflow shown below.
 ```{eval-rst} 
@@ -56,14 +56,14 @@ A time-domain plot of the complex-sinusoidal tone is shown below for reference.
 
 Time-domain plot of a ``375 KHz`` complex sinusoidal tone sampled at ``4 MSPS``.
 ```
-As shown in this plot, the snapshot of the signal is aperiodic and data is sampled over an incomplete period at the end. This discontinuity causes _leakage_ resulting in a smearing effect that spreads the energy of a tone over a wider frequency range, with the appearance of frequency components that are not present in the original signal. This is readily seen in the FFT plot of the complex-sinusoidal tone shown below. 
+As shown in this plot, the snapshot of the signal is aperiodic and data is sampled over an incomplete period at the end. This discontinuity causes _leakage_ resulting in a smearing effect that spreads the energy of the ``375 KHz`` tone over a wider frequency range, with the appearance of frequency components that are not present in the original signal. This is readily seen in the FFT plot of the complex-sinusoidal tone shown below. 
 ```{figure} figures/fft2.png
 
 FFT plot of a ``375 KHz`` complex sinusoidal tone sampled at ``4 MSPS``.
 ```
 
 ### Windowing To Reduce Leakage
-Note that in the FFT plot shown previously, the FFT of the time-domain waveform was computed as is with the underlying assumption that the waveform is periodic. In practice, this assumption is generally invalid and the snapshot of a wavform contains incomplete periods rendering the signal aperiodic. Consequently, a window function is applied to overcome leakage. In the [leakage and spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis2.py) Python script, we used Blackman-Harris window as shown in the snippet below:
+Note that in the above plot, the FFT of the time-domain waveform was computed as is with the underlying assumption that the waveform is periodic. In practice, this assumption is generally invalid and the snapshot of a wavform contains incomplete periods rendering the signal aperiodic. Consequently, a window function is applied to overcome leakage. In the [leakage and spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis2.py) Python script, we used Blackman-Harris window as shown in the snippet below:
 ```{code-block} python
 # signal configuration
 npts = 30000 # number of points in the signal
@@ -94,7 +94,7 @@ qwfq = gn.quantize(awfq, fsr, qres, qnoise, code_fmt)
 fft_cplx = gn.fft(qwfi, qwfq, qres, navg, nfft, window, code_fmt)
 ```
 
-A window function shapes the time-domain waveform such that the first and last samples are exactly zero, and the samples in between are multiplied according to a mathematical function that is symmetric around the center and tapers off away from the center. Thus, an aperiodic waveform is forced to be periodic. As a result, the FFT plot below shows that leakage has been minimized and a sharp peak where the tone is expected is seen clearly. 
+A window function shapes the time-domain waveform such that the first and last samples are exactly zero, and the samples in between are multiplied according to a mathematical function that is symmetric around the center and tapers off away from the center. As a result, an aperiodic waveform is forced to be periodic. The FFT plot of the windowed waveform below shows that leakage has been minimized and a peak where the tone is expected is seen clearly. 
 ```{figure} figures/fft3.png
 
 FFT plot of a ``375 KHz`` complex sinusoidal tone sampled at ``4 MSPS``.
@@ -118,3 +118,29 @@ When computing the FFT of a waveform to which a window function has been applied
       style C1 fill:#9fa4fc
       style SA fill:#ffffff
 ```
+Even though leakage has been minimized, the tone is not as sharp as when the snapshot of the waveform were periodic. This can be observed by zooming into the region around the ``375 KHz`` tone. This is shown in the plot below.
+```{figure} figures/fft4.png
+
+Zoomed-in FFT plot of a ``375 KHz`` complex sinusoidal tone sampled at ``4 MSPS``.
+```
+Another key point to note is that there is no bin that corresponds to ``375 KHz`` due to the settings we chose in this working example. To go into more detail, the width of each bin in our working example is ``fs/npts = 133.33 Hz``, which is not an integer divider of ``375 KHz``. Hence the energy of the tone is spread over ``12`` neighboring bins, approximately. Users need to configure Genalyzer by providing the number of these bins that need to be taken into account when conducting spectral analysis. 
+
+Recall that configuring Genalyzer for spectral analysis is done by creating a _test_ followed by associating _components_ to this _test_. To create a _test_, we call [``fa_create()``](#genalyzer.fa_create) as follows:
+```{code-block} python
+# Fourier analysis configuration
+test_label = "fa"
+gn.fa_create(test_label)
+```
+
+Next, we identify a tone, give it a label, tag it with a component tag, and add it to the _test_ being run. In [leakage and spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis2.py) Python script, we picked the label, ``A`` for the signal component and associated it with the test labeled ``fa`` as follows:
+```{code-block} python
+# Fourier analysis configuration
+test_label = "fa"
+gn.fa_create(test_label)
+signal_component_label = 'A'
+gn.fa_max_tone(test_label, signal_component_label, gn.FaCompTag.SIGNAL, ssb_fund)
+```
+
+Note that in this script, we set ``ssb_fund`` to ``6``. This choice is driven by the plot above where we determined that ``12`` bins in the neighborhood of the ``375 KHz`` tone contain all the energy of the signal tone.
+
+### Spectral analysis results
