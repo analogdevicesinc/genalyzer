@@ -49,5 +49,5 @@ Source: "D:\a\genalyzer\genalyzer\bindings\c\include\cgenalyzer.h"; DestDir: "{c
 
 Source: "D:\a\genalyzer\genalyzer\deps\fftw3\libfftw3-3.dll"; DestDir: "{sys}"; Check: Is64BitInstallMode
 
-Source: "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.40.33807\x64\Microsoft.VC143.CRT\msvcp140.dll"; DestDir: "{sys}"; Flags: onlyifdoesntexist
+Source: "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.42.34433\x64\Microsoft.VC143.CRT\msvcp140.dll"; DestDir: "{sys}"; Flags: onlyifdoesntexist
 
