@@ -49,7 +49,7 @@ tools = ["scipy"]
 [project.urls]
 homepage = "https://analogdevicesinc.github.io/genalyzer/"
 documentation = "https://analogdevicesinc.github.io/genalyzer/"
-repository = "https://github/analogdevicesinc/genalyzer"
+repository = "https://github.com/analogdevicesinc/genalyzer"
 
 [tool.isort]
 multi_line_output=3
