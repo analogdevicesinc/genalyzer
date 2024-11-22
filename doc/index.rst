@@ -23,6 +23,7 @@ Reference
    introduction
    setup
    spectral_analysis
+   spectral_analysis_ssb
    reference
    reference_simplified
    python/genalyzer
