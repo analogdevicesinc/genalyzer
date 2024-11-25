@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API Reference" href="reference.html" /><link rel="prev" title="Installation" href="setup.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Windowing and Single Side Bins" href="spectral_analysis_ssb.html" /><link rel="prev" title="Installation" href="setup.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>Spectral Analysis - Genalyzer v0.1 documentation</title>
@@ -206,6 +206,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Installation</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spectral_analysis_ssb.html">Windowing and Single Side Bins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_simplified.html">(Beta) Simplified API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="python/genalyzer.html">Python Bindings</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Python Bindings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -275,7 +276,7 @@
     end
 
     style SA fill:#ffffff
-    </pre><p>We first generate (or import) a waveform to be analyzed, compute its FFT, and finally, calculate various performance metrics by running spectral analysis. In this tutorial, we will generate the tone waveform using Genalyzer. In another example, we will import a tone waveform captured using ADALM-PLUTO to perform spectral analysis. Please refer to the <a class="reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py">spectral-analysis example</a> Python script to follow the discussion on this page.</p>
+    </pre><p>We first generate (or import) a waveform to be analyzed, compute its FFT, and finally, calculate various performance metrics by running spectral analysis. In this tutorial, we will generate the tone waveform using Genalyzer. Please refer to the <a class="reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py">spectral-analysis example</a> Python script to follow the discussion on this page.</p>
 <section id="tone-generation">
 <h2>Tone Generation<a class="headerlink" href="#tone-generation" title="Link to this heading">¶</a></h2>
 <pre  class="mermaid">
@@ -757,12 +758,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="reference.html">
+          <a class="next-page" href="spectral_analysis_ssb.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">API Reference</div>
+                <div class="title">Windowing and Single Side Bins</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

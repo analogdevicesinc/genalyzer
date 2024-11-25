@@ -17,7 +17,7 @@ The workflow we follow in this tutorial is generally what is to be followed to u
         style SA fill:#ffffff
 ```
 
-We first generate (or import) a waveform to be analyzed, compute its FFT, and finally, calculate various performance metrics by running spectral analysis. In this tutorial, we will generate the tone waveform using Genalyzer. In another example, we will import a tone waveform captured using ADALM-PLUTO to perform spectral analysis. Please refer to the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script to follow the discussion on this page.
+We first generate (or import) a waveform to be analyzed, compute its FFT, and finally, calculate various performance metrics by running spectral analysis. In this tutorial, we will generate the tone waveform using Genalyzer. Please refer to the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script to follow the discussion on this page.
 
 ## Tone Generation
 ```{eval-rst} 
