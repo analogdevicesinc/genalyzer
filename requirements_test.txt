@@ -7,3 +7,4 @@ numpy
 setuptools
 matplotlib
 tabulate
+brokenaxes
