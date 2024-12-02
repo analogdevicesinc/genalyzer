@@ -25,7 +25,7 @@ jobs:
           cd bindings/python
           python -m build
           
-      - uses: pypa/gh-action-pypi-publish@release/v1.12.2
+      - uses: pypa/gh-action-pypi-publish@v1.12.2
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         with:
           user: __token__
