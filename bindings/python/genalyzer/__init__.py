@@ -1,7 +1,7 @@
 """Python bindings for Genalyzer"""
 
 # Version of the genalyzer bindings (which may be different than the library version)
-__version__ = "0.1"
+__version__ = "0.1.1"
 __author__ = "Analog Devices, Inc."
 
 

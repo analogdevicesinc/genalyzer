@@ -38,11 +38,12 @@ def bumpversion_test(c, filename=None):
             l = l.split(".")
             major = int(l[0])
             minor = int(l[1])
+            rev = int(l[2])
             seconds = int(time.time())
-            line = ' '*s+'version = "{}.{}.dev.{}"\n'.format(
-                major, minor, seconds
+            line = ' '*s+'version = "{}.{}.{}.dev.{}"\n'.format(
+                major, minor, rev, seconds
             )
-            ver_string = "{}.{}.dev.{}".format(major, minor, seconds)
+            ver_string = "{}.{}.{}.dev.{}".format(major, minor, rev, seconds)
         print(line, end="")
 
     print(f"Version bumped to {ver_string}")
