@@ -57,7 +57,7 @@ _module_dir = _os.path.dirname(__file__)
 if "linux" == _sys.platform:
     _libpath = _find_library("genalyzer")
 elif "win32" == _sys.platform:
-    _libpath = _find_library(_os.path.join(_module_dir, "genalyzer"))
+    _libpath = _find_library("libgenalyzer.dll")
 else:
     raise Exception("Platform '{}' is not supported.".format(_sys.platform))
 
