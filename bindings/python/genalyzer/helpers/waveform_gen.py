@@ -1,3 +1,6 @@
+# Copyright (C) 2024 Analog Devices, Inc.
+#
+# SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 from ..simplified_beta import (
     config_gen_tone,
     gen_real_tone,
