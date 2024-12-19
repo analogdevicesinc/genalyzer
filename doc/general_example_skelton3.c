@@ -1,9 +1,14 @@
-#include <stdbool.h>
-#include <assert.h>
-#include <stdlib.h>
+// Copyright (C) 2024 Analog Devices, Inc.
+//
+// SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 #include "genalyzer_cwrapper.h"
+#include <assert.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
-int main(int argc, char *argv[]) {  
+int
+main (int argc, char *argv[])
+{
   // opaque config struct that will contain config settings
   // config c = NULL;
 

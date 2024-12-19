@@ -1,6 +1,11 @@
+// Copyright (C) 2024 Analog Devices, Inc.
+//
+// SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 #include "cgenalyzer.h"
 
-int main(int argc, char *argv[]) {  
+int
+main (int argc, char *argv[])
+{
   // opaque config struct that will contain config settings
   // config c = NULL;
 

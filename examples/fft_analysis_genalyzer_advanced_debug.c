@@ -1,6 +1,8 @@
+#include "../tests/cJSON.h"
+#include "../tests/test_genalyzer.h"
 #include <cgenalyzer.h>
 #include <cgenalyzer_simplified_beta.h>
-
+#include <gperftools/profiler.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -38,18 +40,19 @@ main (int argc, char *argv[])
   bool error_occurred = true;
   int result = 0;
 
-  size_t navg = 2;                      // FFT averaging
-  size_t nfft = 1024 * 16;              // FFT size
-  double fs = 1e9;                      // sample rate
-  double fdata = fs / 1;                // data rate
-  double fshift = 0e6;                  // shift frequency
-  double fsr = 2.0;                     // full-scale range
-  double ampl_dbfs = -1.0;              // input amplitude (dBFS)
-  double freq = 70e6;                   // input frequency (Hz)
-  double phase = 0.110;                 // input phase (rad)
-  double td = 0.0;                      // input delay (s)
-  double tj = 0.0;                      // RMS aperature uncertainty (s)
-  double qpe = (atan (1.0) * 2) * 1e-5; // quadrature phase error (pi/2 * x)
+  size_t navg = 1;         // FFT averaging
+  size_t nfft = 32768;     // FFT size
+  double fs = 3e6;         // sample rate
+  double fdata = fs / 1;   // data rate
+  double fshift = 0e6;     // shift frequency
+  double fsr = 2.0;        // full-scale range
+  double ampl_dbfs = -1.0; // input amplitude (dBFS)
+  double freq = 100000;    // input frequency (Hz)
+  double phase = 0.0;      // input phase (rad)
+  double td = 0.0;         // input delay (s)
+  double tj = 0.0;         // RMS aperature uncertainty (s)
+  double qpe = 0.0; // (atan(1.0) * 2) * 1e-5;        // quadrature phase error
+                    // (pi/2 * x)
   double poco[]
       = { 0.0, 1.0, 0.0, 0.003 }; // distortion polynomial coefficients
   int qres = 12;                  // quantizer resolution
@@ -65,6 +68,8 @@ main (int argc, char *argv[])
   double qnoise = pow (10.0, qnoise_dbfs / 20.0);
   int ssb_fund = 4;
   int ssb_rest = 3;
+  const char *test_filename
+      = "../tests/test_vectors/test_Pluto_DDS_data_1658159639196.json";
 
   /*
    * Pointers for allocated memory
@@ -113,25 +118,51 @@ main (int argc, char *argv[])
       HANDLE_ERROR (result);
       double fbin = fdata / nfft;
       fshift = round (fshift / fbin) * fbin;
-      ssb_fund = 0;
-      ssb_rest = 0;
+      ssb_fund = 50;
+      ssb_rest = 3;
     }
-  result += gn_cos (awfi, npts, fs, ampl, freq, phase, td, tj);
-  result += gn_sin (awfq, npts, fs, ampl, freq, phase + qpe, td, tj);
-  result += gn_polyval (awfi, npts, awfi, npts, poco,
-                        (sizeof poco) / sizeof (double));
-  result += gn_polyval (awfq, npts, awfq, npts, poco,
-                        (sizeof poco) / sizeof (double));
-  result
-      += gn_quantize16 (qwfi, npts, awfi, npts, fsr, qres, qnoise, code_fmt);
-  result
-      += gn_quantize16 (qwfq, npts, awfq, npts, fsr, qres, qnoise, code_fmt);
-  result += gn_fshift16 (xwf, xwf_size, qwfi, npts, qwfq, npts, qres, fs,
-                         fshift, code_fmt);
-  result += gn_downsample16 (ywf, ywf_size, xwf, xwf_size, dsr, true);
-  result += gn_fft16 (fft_cplx, fft_cplx_size, ywf, ywf_size, NULL, 0, qres,
+
+  /*
+  result += gn_cos(awfi, npts, fs, ampl, freq, phase, td, tj);
+  result += gn_sin(awfq, npts, fs, ampl, freq, phase + qpe, td, tj);
+  result += gn_polyval(awfi, npts, awfi, npts, poco, (sizeof poco) /
+  sizeof(double)); result += gn_polyval(awfq, npts, awfq, npts, poco, (sizeof
+  poco) / sizeof(double)); result += gn_quantize16(qwfi, npts, awfi, npts, fsr,
+  qres, qnoise, code_fmt); result += gn_quantize16(qwfq, npts, awfq, npts, fsr,
+  qres, qnoise, code_fmt);
+  */
+  result += read_array_from_json_file (test_filename, "test_vec_i", qwfi,
+                                       INT16, npts);
+  result += read_array_from_json_file (test_filename, "test_vec_q", qwfq,
+                                       INT16, npts);
+  // result += read_array_from_json_file_int32(test_filename, "test_vec_i",
+  // qwfi, npts); result += read_array_from_json_file_int32(test_filename,
+  // "test_vec_q", qwfq, npts); result += gn_fshift16(xwf, xwf_size, qwfi,
+  // npts, qwfq, npts, qres, fs, fshift, code_fmt); result +=
+  // gn_downsample16(ywf, ywf_size, xwf, xwf_size, dsr, true);
+  /*
+  printf("qwf---------\n");
+  for (int ii = 0; ii < 10; ii++)
+      printf("%d\t%d\n", qwfi[ii], qwfq[ii]);
+  */
+  ProfilerStart ("profile.log");
+  result += gn_fft16 (fft_cplx, fft_cplx_size, qwfi, npts, qwfq, npts, qres,
                       navg, nfft, window, code_fmt);
-  HANDLE_ERROR (result);
+  /*
+  printf("xwf---------\n");
+  for (int ii = 0; ii < 10; ii++)
+      printf("%d\n", xwf[ii]);
+  */
+  // result += gn_fft16(fft_cplx, fft_cplx_size, xwf, 2*npts, NULL, 0, qres,
+  // navg, nfft, window, code_fmt); return 0;
+
+  /*
+  FILE *fp1 = fopen("fft_data_debug.txt", "w");
+  for (int i =0; i < fft_cplx_size; i++)
+      fprintf(fp1, "%f\n", fft_cplx[i]);
+  fclose(fp1);
+  HANDLE_ERROR(result);
+  */
 
   /*
    * Fourier analysis configuration
@@ -154,7 +185,7 @@ main (int argc, char *argv[])
   fa_preview = malloc (fa_preview_size);
   result += gn_fa_preview (fa_preview, fa_preview_size, key, true);
   HANDLE_ERROR (result);
-  printf ("%s\n", fa_preview);
+  // printf("%s\n", fa_preview);
 
   /*
    * Fourier analysis with all results
@@ -180,126 +211,9 @@ main (int argc, char *argv[])
                              fft_results_size, key, fft_cplx, fft_cplx_size,
                              nfft, axis_type);
   HANDLE_ERROR (result);
+  // return 0;
+  ProfilerStop ();
 
-  /*
-   * Fourier analysis with single result
-   */
-  double fsnr = 0.0;
-  double a_mag_dbfs = 0.0;
-  result += gn_fft_analysis_single (&fsnr, key, "fsnr", fft_cplx,
-                                    fft_cplx_size, nfft, axis_type);
-  result += gn_fft_analysis_single (&a_mag_dbfs, key, "A:mag_dbfs", fft_cplx,
-                                    fft_cplx_size, nfft, axis_type);
-  HANDLE_ERROR (result);
-
-  /*
-   * Fourier analysis with select results
-   */
-  const char *fft_select_rkeys[] = { "sfdr", "-3A:mag_dbc" };
-  size_t fft_select_results_size = (sizeof fft_select_rkeys) / sizeof (char *);
-  fft_select_rvalues = malloc (fft_select_results_size * sizeof (double));
-  result = gn_fft_analysis_select (
-      fft_select_rvalues, fft_select_results_size, key, fft_select_rkeys,
-      fft_select_results_size, fft_cplx, fft_cplx_size, nfft, axis_type);
-  HANDLE_ERROR (result);
-
-  /*
-   * Carrier and MaxSpur keys (requires all results)
-   */
-  size_t fa_result_string_size = 0;
-  result = gn_fa_result_string_size (
-      &fa_result_string_size, (const char **)fft_rkeys, fft_results_size,
-      fft_rvalues, fft_results_size, "carrierindex");
-  HANDLE_ERROR (result);
-  fa_carrier = malloc (fa_result_string_size);
-  result = gn_fa_result_string (fa_carrier, fa_result_string_size,
-                                (const char **)fft_rkeys, fft_results_size,
-                                fft_rvalues, fft_results_size, "carrierindex");
-  HANDLE_ERROR (result);
-  result = gn_fa_result_string_size (
-      &fa_result_string_size, (const char **)fft_rkeys, fft_results_size,
-      fft_rvalues, fft_results_size, "maxspurindex");
-  HANDLE_ERROR (result);
-  fa_maxspur = malloc (fa_result_string_size);
-  result = gn_fa_result_string (fa_maxspur, fa_result_string_size,
-                                (const char **)fft_rkeys, fft_results_size,
-                                fft_rvalues, fft_results_size, "maxspurindex");
-  HANDLE_ERROR (result);
-
-  /*
-   * Print results
-   */
-  printf ("\nAll Fourier Analysis Results:\n");
-  for (size_t i = 0; i < fft_results_size; ++i)
-    {
-      printf ("%4zu%20s%20.6f\n", i, fft_rkeys[i], fft_rvalues[i]);
-    }
-  // gn_fa_result extracts specified result from key-value arrays
-  double snr = 0.0;
-  double a_freq = 0.0;
-  double a_ffinal = 0.0;
-  result = gn_fa_result (&snr, (const char **)fft_rkeys, fft_results_size,
-                         fft_rvalues, fft_results_size, "snr");
-  result = gn_fa_result (&a_freq, (const char **)fft_rkeys, fft_results_size,
-                         fft_rvalues, fft_results_size, "A:freq");
-  result = gn_fa_result (&a_ffinal, (const char **)fft_rkeys, fft_results_size,
-                         fft_rvalues, fft_results_size, "A:ffinal");
-  HANDLE_ERROR (result);
-  printf ("    %s = %.3f\n", "snr", snr);
-  printf ("    %s = %.3f MHz\n", "A:freq", a_freq / 1e6);
-  printf ("    %s = %.3f MHz\n", "A:ffinal", a_ffinal / 1e6);
-  printf ("    %s = %s\n", "Carrier", fa_carrier);
-  printf ("    %s = %s\n", "MaxSpur", fa_maxspur);
-
-  printf ("\nSingle Fourier Analysis Results:\n");
-  printf ("%20s = %20.6f\n", "fsnr", fsnr);
-  printf ("%20s = %20.6f\n", "A::mag_dbfs", a_mag_dbfs);
-
-  printf ("\nSelect Fourier Analysis Results:\n");
-  for (size_t i = 0; i < fft_select_results_size; ++i)
-    {
-      printf ("%20s = %20.6f\n", fft_select_rkeys[i], fft_select_rvalues[i]);
-    }
-
-  /*
-   * Save data
-   */
-  if (save_data)
-    {
-      const char *fn = "fft.txt";
-      FILE *fp = fopen (fn, "w");
-      if (fp)
-        {
-          fft_db = malloc (nfft * sizeof (double));
-          result += gn_db (fft_db, nfft, fft_cplx, fft_cplx_size);
-          if (GnFreqAxisTypeDcCenter == axis_type)
-            {
-              gn_fftshift (fft_db, nfft, fft_db, nfft);
-            }
-          for (size_t i = 0; i < nfft; ++i)
-            {
-              fprintf (fp, "%.6f\n", fft_db[i]);
-            }
-          fclose (fp);
-          printf ("\nWrote FFT magnitude data to %s\n", fn);
-        }
-      fn = "fft_axis.txt";
-      fp = fopen (fn, "w");
-      if (fp)
-        {
-          freq_axis = malloc (nfft * sizeof (double));
-          result += gn_freq_axis (freq_axis, nfft, nfft, axis_type, fdata,
-                                  axis_fmt);
-          for (size_t i = 0; i < nfft; ++i)
-            {
-              fprintf (fp, "%.6f\n", freq_axis[i]);
-            }
-          fclose (fp);
-          printf ("Wrote FFT x-axis data to %s\n", fn);
-        }
-    }
-
-  error_occurred = false;
 cleanup:
   if (error_occurred)
     {
@@ -328,10 +242,10 @@ cleanup:
   free (fft_cplx);
   free (ywf);
   free (xwf);
-  free (qwfq);
-  free (qwfi);
-  free (awfq);
-  free (awfi);
+  // free(qwfq);
+  // free(qwfi);
+  // free(awfq);
+  // free(awfi);
 
   return 0;
 }
