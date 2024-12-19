@@ -1,25 +1,6 @@
-/*
- * cgenalyzer_private - genalyzer private header file
- *
- * Copyright (C) 2022 Analog Devices, Inc.
- * Author: Srikanth Pagadarai
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- * */
-
-
+// Copyright (C) 2024 Analog Devices, Inc.
+//
+// SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 #ifndef CGENALYZER_PRIVATE_H
 #define CGENALYZER_PRIVATE_H
 #include "cgenalyzer_simplified_beta.h"
@@ -33,10 +14,10 @@
 #include <exceptions.hpp>
 #include <expression.hpp>
 #include <formatted_data.hpp>
+#include <fourier_analysis.hpp>
 #include <fourier_analysis_comp_mask.hpp>
 #include <fourier_analysis_component.hpp>
 #include <fourier_analysis_results.hpp>
-#include <fourier_analysis.hpp>
 #include <fourier_transforms.hpp>
 #include <fourier_utilities.hpp>
 #include <json.hpp>
@@ -62,170 +43,158 @@ namespace gn = ::genalyzer_impl;
 
 namespace util {
 
-    class log
-    {
-    public:
+class log {
+public:
+	log() :
+			m_log{}, m_flag{ false } {
+	}
 
-        log()
-            : m_log {},
-              m_flag {false}
-        {}
+public:
+	bool check() {
+		return m_flag;
+	}
 
-    public:
+	void clear() {
+		m_log.clear();
+		m_flag = false;
+	}
 
-        bool check()
-        {
-            return m_flag;
-        }
+	std::string_view get() const {
+		return m_log;
+	}
 
-        void clear()
-        {
-            m_log.clear();
-            m_flag = false;
-        }
-    
-        std::string_view get() const
-        {
-            return m_log;
-        }
-    
-        void set(const char* msg)
-        {
-            m_log = msg;
-            m_flag = true;
-        }
-    
-        size_t size() const
-        {
-            return m_log.size();
-        }
-    
-    public:
+	void set(const char *msg) {
+		m_log = msg;
+		m_flag = true;
+	}
 
-        void append() {}
+	size_t size() const {
+		return m_log.size();
+	}
 
-        template<typename... Types>
-        void append(const char* s, Types... the_rest)
-        {
-            m_log.append(s);
-            append(the_rest...);
-        }
-    
-        void prepend() {}
-    
-        template<typename... Types>
-        void prepend(const char* s, Types... the_rest)
-        {
-            prepend(the_rest...);
-            m_log.insert(0, s);
-        }
-    
-    private:
-    
-        std::string m_log;
-        bool m_flag;
+public:
+	void append() {
+	}
 
-    }; // class log
+	template <typename... Types>
+	void append(const char *s, Types... the_rest) {
+		m_log.append(s);
+		append(the_rest...);
+	}
 
-    static log gn_error_log;
+	void prepend() {
+	}
 
-    template<typename... Types>
-    int return_on_exception(const char* s, Types... the_rest)
-    {
-        gn_error_log.set(s);
-        gn_error_log.append(the_rest...);
-        return gn_failure;
-    }
+	template <typename... Types>
+	void prepend(const char *s, Types... the_rest) {
+		prepend(the_rest...);
+		m_log.insert(0, s);
+	}
 
-    template<typename T>
-    int check_pointer(const T* p)
-    {
-        if (nullptr == p) {
-            throw std::runtime_error("check_pointer : pointer is NULL");
-        }
-        return gn_success;
-    }
+private:
+	std::string m_log;
+	bool m_flag;
 
-    size_t terminated_size(size_t string_size);
-    void fill_string_buffer(
-        const char* src,        // Pointer to source
-        size_t src_size,        // Size of source; should not count null-terminator, if it exists
-        char* dst,              // Pointer to destination
-        size_t dst_size         // Size of destination
-        );
-    std::string get_object_key_from_filename(const std::string& filename);
+}; // class log
+
+static log gn_error_log;
+
+template <typename... Types>
+int return_on_exception(const char *s, Types... the_rest) {
+	gn_error_log.set(s);
+	gn_error_log.append(the_rest...);
+	return gn_failure;
 }
+
+template <typename T>
+int check_pointer(const T *p) {
+	if (nullptr == p) {
+		throw std::runtime_error("check_pointer : pointer is NULL");
+	}
+	return gn_success;
+}
+
+size_t terminated_size(size_t string_size);
+void fill_string_buffer(
+		const char *src, // Pointer to source
+		size_t src_size, // Size of source; should not count null-terminator, if it
+		// exists
+		char *dst, // Pointer to destination
+		size_t dst_size // Size of destination
+);
+std::string get_object_key_from_filename(const std::string &filename);
+} // namespace util
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-    using namespace genalyzer_impl;
+using namespace genalyzer_impl;
 
-    struct gn_config_private {
-        bool _gn_config_calloced = false;
-        
-        // waveform and FFT settings
-        tone_type ttype;    
-        gn::size_t npts;
-        gn::real_t sample_rate;
-        gn::real_t *tone_freq;
-        gn::real_t *tone_ampl;
-        gn::real_t *tone_phase;
-        gn::size_t num_tones;
-        gn::real_t fsr;
-        int qres;
-        gn::real_t noise_rms;
-        GnCodeFormat code_format;
-        gn::size_t nfft;
-        gn::size_t fft_navg;
-        GnFreqAxisType axis_type;
-        gn::real_t data_rate;
-        gn::real_t shift_freq;
-        GnWindow win;
-        gn::real_t ramp_start;
-        gn::real_t ramp_stop;
-        
-        // analysis settings
-        char *obj_key;
-        char *comp_key;
-        int ssb_fund;
-        int ssb_rest;
-        int max_harm_order;
-        GnDnlSignal dnla_signal_type;
-        GnInlLineFit inla_fit;
-        gn::size_t _code_density_size;
+struct gn_config_private {
+	bool _gn_config_calloced = false;
 
-        // keys, values and sizes for Fourier analysis results
-        char **_fa_result_keys;
-        gn::real_t *_fa_result_values;
-        gn::size_t *_fa_result_key_sizes;
-        gn::size_t _fa_results_size;
+	// waveform and FFT settings
+	tone_type ttype;
+	gn::size_t npts;
+	gn::real_t sample_rate;
+	gn::real_t *tone_freq;
+	gn::real_t *tone_ampl;
+	gn::real_t *tone_phase;
+	gn::size_t num_tones;
+	gn::real_t fsr;
+	int qres;
+	gn::real_t noise_rms;
+	GnCodeFormat code_format;
+	gn::size_t nfft;
+	gn::size_t fft_navg;
+	GnFreqAxisType axis_type;
+	gn::real_t data_rate;
+	gn::real_t shift_freq;
+	GnWindow win;
+	gn::real_t ramp_start;
+	gn::real_t ramp_stop;
 
-        // keys, values and sizes for waveform analysis results
-        char **_wfa_result_keys;
-        gn::real_t *_wfa_result_values;
-        gn::size_t *_wfa_result_key_sizes;
-        gn::size_t _wfa_results_size;
+	// analysis settings
+	char *obj_key;
+	char *comp_key;
+	int ssb_fund;
+	int ssb_rest;
+	int max_harm_order;
+	GnDnlSignal dnla_signal_type;
+	GnInlLineFit inla_fit;
+	gn::size_t _code_density_size;
 
-        // keys, values and sizes for histogram results
-        char **_hist_result_keys;
-        gn::real_t *_hist_result_values;
-        gn::size_t *_hist_result_key_sizes;
-        gn::size_t _hist_results_size;
+	// keys, values and sizes for Fourier analysis results
+	char **_fa_result_keys;
+	gn::real_t *_fa_result_values;
+	gn::size_t *_fa_result_key_sizes;
+	gn::size_t _fa_results_size;
 
-        // keys, values and sizes for DNL results
-        char **_dnl_result_keys;
-        gn::real_t *_dnl_result_values;
-        gn::size_t *_dnl_result_key_sizes;
-        gn::size_t _dnl_results_size;
+	// keys, values and sizes for waveform analysis results
+	char **_wfa_result_keys;
+	gn::real_t *_wfa_result_values;
+	gn::size_t *_wfa_result_key_sizes;
+	gn::size_t _wfa_results_size;
 
-        // keys, values and sizes for INL results
-        char **_inl_result_keys;
-        gn::real_t *_inl_result_values;
-        gn::size_t *_inl_result_key_sizes;
-        gn::size_t _inl_results_size;    
-    };
+	// keys, values and sizes for histogram results
+	char **_hist_result_keys;
+	gn::real_t *_hist_result_values;
+	gn::size_t *_hist_result_key_sizes;
+	gn::size_t _hist_results_size;
+
+	// keys, values and sizes for DNL results
+	char **_dnl_result_keys;
+	gn::real_t *_dnl_result_values;
+	gn::size_t *_dnl_result_key_sizes;
+	gn::size_t _dnl_results_size;
+
+	// keys, values and sizes for INL results
+	char **_inl_result_keys;
+	gn::real_t *_inl_result_values;
+	gn::size_t *_inl_result_key_sizes;
+	gn::size_t _inl_results_size;
+};
 
 #ifdef __cplusplus
 }

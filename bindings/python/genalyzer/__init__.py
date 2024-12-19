@@ -1,6 +1,8 @@
+# Copyright (C) 2024 Analog Devices, Inc.
+#
+# SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """Python bindings for Genalyzer"""
 
-# Version of the genalyzer bindings (which may be different than the library version)
 __version__ = "0.1.1"
 __author__ = "Analog Devices, Inc."
 
