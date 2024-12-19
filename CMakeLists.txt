@@ -74,7 +74,7 @@ if(BUILD_TESTS_EXAMPLES)
     # Add custom target to run tests with coverage
     add_custom_target(
       coverage
-      COMMAND ${CMAKE_CTEST_COMMAND} --progress &&  lcov -c -d bindings/c/src -o main_coverage.info && genhtml main_coverage.info -o coverage
+      COMMAND ${CMAKE_CTEST_COMMAND} --progress && lcov -c -d bindings/c/src -o main_coverage.info && genhtml main_coverage.info -o coverage
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 
     message(STATUS "Coverage flags enabled")
