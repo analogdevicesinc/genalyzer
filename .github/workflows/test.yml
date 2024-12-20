@@ -161,3 +161,29 @@ jobs:
           pip install ".[tools]"
           python -m pytest -vs tests
           for f in examples/*.py; do python "$f"; done
+
+  Lint:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.8, 3.9, "3.10"]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          bash ./.github/scripts/install_dependencies.sh
+          pip install -r requirements_test.txt
+
+      - name: Lint
+        run: |
+          pre-commit run --all-files 2> /dev/null
+          ec=$?
+          git diff -U0 > log.txt && cat log.txt
+          exit $ec

@@ -8,3 +8,6 @@ setuptools
 matplotlib
 tabulate
 brokenaxes
+pre-commit
+cmakelint
+clang-format
