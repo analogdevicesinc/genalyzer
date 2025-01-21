@@ -1,0 +1,34 @@
+repos:
+-   repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.5.1
+    hooks:
+    -   id: insert-license
+        files: bindings\/python\/genalyzer\/.*\.py$
+        args:
+        - --license-filepath
+        - .github/license_header.txt
+        - --use-current-year
+        - --no-extra-eol
+        - --detect-license-in-X-top-lines=3
+    -   id: insert-license
+        files: ^(?!doc\/|tests\/|examples\/|include\/json\.hpp$).*\.((hpp|h|cpp|c))$
+        args:
+        - --comment-style
+        - //
+        - --license-filepath
+        - .github/license_header.txt
+        - --use-current-year
+        - --no-extra-eol
+        - --detect-license-in-X-top-lines=3
+-   repo: https://github.com/cmake-lint/cmake-lint
+    rev: 1.4.3
+    hooks:
+    -   id: cmakelint
+        args:
+        - --linelength=200
+        - --filter=-readability/mixedcase,-package/consistency
+-   repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v19.1.5
+    hooks:
+    -   id: clang-format
+        files: ^(?!doc\/|tests\/|examples\/).*\.((hpp|h|cpp|c))$

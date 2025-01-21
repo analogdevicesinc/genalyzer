@@ -1,3 +1,6 @@
+// Copyright (C) 2024 Analog Devices, Inc.
+//
+// SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 #ifndef GENALYZER_IMPL_OBJECT_HPP
 #define GENALYZER_IMPL_OBJECT_HPP
 
@@ -8,49 +11,40 @@
 
 namespace genalyzer_impl {
 
-    class object
-    {
-    public:
+class object {
+public:
+	using pointer = std::shared_ptr<object>;
 
-        using pointer = std::shared_ptr<object>;
+public:
+	virtual ~object() = default;
 
-    public:
+public:
+	bool equals(const object &that) const {
+		return this->equals_impl(that);
+	}
 
-        virtual ~object() = default;
+	ObjectType object_type() const {
+		return object_type_impl();
+	}
 
-    public:
+	void save(const str_t &filename) const {
+		save_impl(filename);
+	}
 
-        bool equals(const object& that) const
-        {
-            return this->equals_impl(that);
-        }
+	str_t to_string() const {
+		return to_string_impl();
+	}
 
-        ObjectType object_type() const
-        {
-            return object_type_impl();
-        }
+private:
+	virtual bool equals_impl(const object &that) const = 0;
 
-        void save(const str_t& filename) const
-        {
-            save_impl(filename);
-        }
+	virtual ObjectType object_type_impl() const = 0;
 
-        str_t to_string() const
-        {
-            return to_string_impl();
-        }
+	virtual void save_impl(const str_t &filename) const = 0;
 
-    private:
+	virtual str_t to_string_impl() const = 0;
 
-        virtual bool equals_impl(const object& that) const = 0;
-
-        virtual ObjectType object_type_impl() const = 0;
-
-        virtual void save_impl(const str_t& filename) const = 0;
-
-        virtual str_t to_string_impl() const = 0;
-
-    }; // class object
+}; // class object
 
 } // namespace genalyzer_impl
 

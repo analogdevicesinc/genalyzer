@@ -7,7 +7,7 @@ if(BREATHE_APIDOC)
 endif()
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Breathe REQUIRED_VARS BREATHE_APIDOC
+find_package_handle_standard_args(BREATHE REQUIRED_VARS BREATHE_APIDOC
     VERSION_VAR BREATHE_VERSION
 )
 
