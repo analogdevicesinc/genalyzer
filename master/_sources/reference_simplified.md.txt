@@ -195,6 +195,131 @@ This page contains the (beta) simplified API reference for the Genalyzer library
 ```
 
 ```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
 .. doxygenfunction:: gn_config_gen_tone
 
 ```
@@ -215,6 +340,11 @@ This page contains the (beta) simplified API reference for the Genalyzer library
 ```
 
 ```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
 .. doxygenfunction:: gn_config_fftz
 
 ```
@@ -226,6 +356,21 @@ This page contains the (beta) simplified API reference for the Genalyzer library
 
 ```{eval-rst}
 .. doxygenfunction:: gn_config_fa_auto
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
+
+```
+
+```{eval-rst}
+.. doxygenfunction:: gn_config
 
 ```
 
@@ -254,11 +399,6 @@ This page contains the (beta) simplified API reference for the Genalyzer library
 
 ```{eval-rst}
 .. doxygenfunction:: gn_quantize
-
-```
-
-```{eval-rst}
-.. doxygenfunction:: gn_fftz
 
 ```
 
