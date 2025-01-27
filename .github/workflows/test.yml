@@ -8,23 +8,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        images: ["debian:buster", "debian:bullseye", "ubuntu:20.04"]
-        include:
-          - images: "debian:buster"
-            label: "Debian_10"
-          - images: "debian:bullseye"
-            label: "Debian_11"
-          - images: "ubuntu:20.04"
-            label: "Ubuntu_20_04"
+        label: [Debian_10, Debian_11, Ubuntu_20_04]
+        images:
+          - debian:buster
+          - debian:bullseye
+          - ubuntu:20.04
 
     container:
       image: ${{ matrix.images }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python 3.7
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.7"
+          python-version: 3.7
 
       - name: Install dependencies
         run: |
