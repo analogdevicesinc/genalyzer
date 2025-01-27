@@ -4,18 +4,10 @@ on: [push, pull_request]
 
 jobs:
   TestC:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
-      matrix:
-        label: [Debian_10, Debian_11, Ubuntu_20_04]
-        images:
-          - debian:buster
-          - debian:bullseye
-          - ubuntu:20.04
 
-    container:
-      image: ${{ matrix.images }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python 3.7
