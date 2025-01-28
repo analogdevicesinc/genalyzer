@@ -152,7 +152,7 @@ jobs:
           for f in examples/*.py; do python "$f"; done
 
   Lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
