@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13.4)
 project(
   genalyzer
-  VERSION 0.1.1
+  VERSION 0.1.2
   LANGUAGES CXX C)
 
 set(BUILD_SHARED_LIBS
