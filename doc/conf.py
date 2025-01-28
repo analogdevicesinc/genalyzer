@@ -23,11 +23,11 @@ gen_pages()
 # -- Project information -----------------------------------------------------
 
 project = "Genalyzer"
-copyright = "2021, Analog Devices, Inc."
+copyright = "2024-2025, Analog Devices, Inc."
 author = "Analog Devices, Inc."
 
 # The full version, including alpha/beta/rc tags
-release = "v0.1.1"
+release = "v0.1.2"
 
 
 # -- General configuration ---------------------------------------------------
