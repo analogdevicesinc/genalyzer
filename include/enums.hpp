@@ -1,4 +1,4 @@
-// Copyright (C) 2024 Analog Devices, Inc.
+// Copyright (C) 2024-2025 Analog Devices, Inc.
 //
 // SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 #ifndef GENALYZER_IMPL_ENUMS_HPP

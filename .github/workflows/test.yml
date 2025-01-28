@@ -4,21 +4,12 @@ on: [push, pull_request]
 
 jobs:
   TestC:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        images: ["debian:buster", "debian:bullseye", "ubuntu:20.04"]
-        include:
-          - images: "debian:buster"
-            label: "Debian_10"
-          - images: "debian:bullseye"
-            label: "Debian_11"
-          - images: "ubuntu:20.04"
-            label: "Ubuntu_20_04"
+        os: [ubuntu-20.04, ubuntu-22.04]
 
-    container:
-      image: ${{ matrix.images }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python 3.7
@@ -48,7 +39,7 @@ jobs:
       - name: Archive generated SOs
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.label }}-Build
+          name: ${{ matrix.os }}-Build
           path: libs/
 
 #  TestCCentOS:
@@ -88,7 +79,7 @@ jobs:
 #          path: libs/
 
   CoverageTest:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -137,15 +128,15 @@ jobs:
           sudo make install
 
   TestPython:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.8, 3.9, "3.10", "3.11"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -163,7 +154,7 @@ jobs:
           for f in examples/*.py; do python "$f"; done
 
   Lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
