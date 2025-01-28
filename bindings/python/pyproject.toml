@@ -8,7 +8,7 @@ name = "genalyzer"
 version = "0.1.1"
 dynamic = ["readme"]
 description = "Python bindings for genalyzer converter analysis library"
-license = {text = "ADI BSD"}
+license = {text = "ADI BSD OR GPL-2.0-or-later"}
 classifiers = [
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
