@@ -23,7 +23,8 @@ jobs:
         uses: pypa/cibuildwheel@v2.16.2
         env:
           # Build for Python 3.8-3.11
-          CIBW_BUILD: cp38-* cp39-* cp310-* cp311-*
+          # CIBW_BUILD: cp38-* cp39-* cp310-* cp311-*
+          CIBW_BUILD: cp311-*
           CIBW_SKIP: "*-musllinux_*"
 
           # Install pyFFTW first (which provides bundled FFTW libraries)
