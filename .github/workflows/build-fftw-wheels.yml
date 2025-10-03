@@ -36,6 +36,9 @@ jobs:
           # Increase verbosity for build and test logs
           CIBW_BUILD_VERBOSITY: 3
           CIBW_TEST_VERBOSE: 1
+
+          # Skip the repair check phase as the wheel should not contain the fftw libs
+          CIBW_REPAIR_WHEEL_COMMAND: ""
         with:
           package-dir: bindings/python/genalyzer_fftw
 
