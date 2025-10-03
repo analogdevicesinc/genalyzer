@@ -33,7 +33,9 @@ jobs:
           CIBW_TEST_COMMAND: python -c "import genalyzer; import pyfftw; print('Success - genalyzer and pyfftw loaded')"
           CIBW_TEST_REQUIRES: numpy pyfftw
 
-          CIBW_BUILD_VERBOSITY: 1
+          # Increase verbosity for build and test logs
+          CIBW_BUILD_VERBOSITY: 3
+          CIBW_TEST_VERBOSE: 1
         with:
           package-dir: bindings/python/genalyzer_fftw
 
