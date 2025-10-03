@@ -1,0 +1,70 @@
+name: Build FFTW Wheels
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-latest, macos-13]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.16.2
+        env:
+          # Build for Python 3.8-3.11
+          CIBW_BUILD: cp38-* cp39-* cp310-* cp311-*
+          CIBW_SKIP: "*-musllinux_*"
+
+          # Install pyFFTW first (which provides bundled FFTW libraries)
+          CIBW_BEFORE_BUILD: pip install pyfftw
+
+          # Test the built wheel
+          CIBW_TEST_COMMAND: python -c "import genalyzer; import pyfftw; print('Success - genalyzer and pyfftw loaded')"
+          CIBW_TEST_REQUIRES: numpy pyfftw
+
+          CIBW_BUILD_VERBOSITY: 1
+        with:
+          package-dir: bindings/python/genalyzer_fftw
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v3
+        with:
+          name: wheels-${{ matrix.os }}
+          path: ./wheelhouse/*.whl
+
+  publish:
+    name: Publish to PyPI
+    needs: build_wheels
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          pattern: wheels-*
+          path: dist
+          merge-multiple: true
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.12.2
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_FFTW_TOKEN }}
+          packages_dir: dist/
