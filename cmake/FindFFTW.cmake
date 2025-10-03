@@ -70,6 +70,15 @@ if( NOT FFTW_ROOT AND DEFINED ENV{FFTWDIR} )
   set( FFTW_ROOT $ENV{FFTWDIR} )
 endif()
 
+# Allow manually specifying include directory (for pyFFTW builds)
+if( DEFINED FFTW_INCLUDE_DIRS AND NOT "${FFTW_INCLUDE_DIRS}" STREQUAL "" )
+  message(STATUS "Using manually specified FFTW_INCLUDE_DIRS: ${FFTW_INCLUDE_DIRS}")
+  # Skip the find_path calls below, use what was provided
+  set( FFTW_INCLUDE_DIRS_MANUAL ${FFTW_INCLUDE_DIRS} )
+  # Unset the cache variable so our manual value takes precedence
+  unset( FFTW_INCLUDE_DIRS CACHE )
+endif()
+
 # Check if we can use PkgConfig
 find_package(PkgConfig)
 
@@ -89,14 +98,25 @@ endif()
 
 if( FFTW_ROOT )
   # find libs
+  # Note: pyFFTW wheels use mangled names like libfftw3-HASH.so.3.5.5
+  # So we need to search for any libfftw3*.so* files
 
   find_library(
     FFTW_DOUBLE_LIB
-    NAMES "fftw3" libfftw3-3
+    NAMES "fftw3" libfftw3-3 "libfftw3.so.3" "libfftw3.so"
     PATHS ${FFTW_ROOT}
-    PATH_SUFFIXES "lib" "lib64"
+    PATH_SUFFIXES "lib" "lib64" ""
     NO_DEFAULT_PATH
   )
+
+  # If not found with standard names, try to find any fftw3 library with glob
+  if(NOT FFTW_DOUBLE_LIB)
+    file(GLOB FFTW_DOUBLE_LIB_CANDIDATES "${FFTW_ROOT}/libfftw3-*.so*" "${FFTW_ROOT}/libfftw3.so*")
+    if(FFTW_DOUBLE_LIB_CANDIDATES)
+      list(GET FFTW_DOUBLE_LIB_CANDIDATES 0 FFTW_DOUBLE_LIB)
+      message(STATUS "Found FFTW double library (mangled name): ${FFTW_DOUBLE_LIB}")
+    endif()
+  endif()
 
   find_library(
     FFTW_DOUBLE_THREADS_LIB
@@ -116,11 +136,20 @@ if( FFTW_ROOT )
 
   find_library(
     FFTW_FLOAT_LIB
-    NAMES "fftw3f" libfftw3f-3
+    NAMES "fftw3f" libfftw3f-3 "libfftw3f.so.3" "libfftw3f.so"
     PATHS ${FFTW_ROOT}
-    PATH_SUFFIXES "lib" "lib64"
+    PATH_SUFFIXES "lib" "lib64" ""
     NO_DEFAULT_PATH
   )
+
+  # If not found with standard names, try to find any fftw3f library with glob
+  if(NOT FFTW_FLOAT_LIB)
+    file(GLOB FFTW_FLOAT_LIB_CANDIDATES "${FFTW_ROOT}/libfftw3f-*.so*" "${FFTW_ROOT}/libfftw3f.so*")
+    if(FFTW_FLOAT_LIB_CANDIDATES)
+      list(GET FFTW_FLOAT_LIB_CANDIDATES 0 FFTW_FLOAT_LIB)
+      message(STATUS "Found FFTW float library (mangled name): ${FFTW_FLOAT_LIB}")
+    endif()
+  endif()
 
   find_library(
     FFTW_FLOAT_THREADS_LIB
@@ -162,13 +191,17 @@ if( FFTW_ROOT )
           NO_DEFAULT_PATH
   )
 
-  #find includes
-  find_path(FFTW_INCLUDE_DIRS
-    NAMES "fftw3.h"
-    PATHS ${FFTW_ROOT}
-    PATH_SUFFIXES "include"
-    NO_DEFAULT_PATH
-  )
+  #find includes (unless manually specified)
+  if( NOT DEFINED FFTW_INCLUDE_DIRS_MANUAL )
+    find_path(FFTW_INCLUDE_DIRS
+      NAMES "fftw3.h"
+      PATHS ${FFTW_ROOT}
+      PATH_SUFFIXES "include"
+      NO_DEFAULT_PATH
+    )
+  else()
+    set(FFTW_INCLUDE_DIRS ${FFTW_INCLUDE_DIRS_MANUAL})
+  endif()
 
 else()
 
@@ -225,11 +258,22 @@ else()
           PATHS ${PKG_FFTW_LIBRARY_DIRS} ${LIB_INSTALL_DIR}
   )
 
-  find_path(FFTW_INCLUDE_DIRS
-    NAMES "fftw3.h"
-    PATHS ${PKG_FFTW_INCLUDE_DIRS} ${INCLUDE_INSTALL_DIR}
-  )
+  if( NOT DEFINED FFTW_INCLUDE_DIRS_MANUAL )
+    find_path(FFTW_INCLUDE_DIRS
+      NAMES "fftw3.h"
+      PATHS ${PKG_FFTW_INCLUDE_DIRS} ${INCLUDE_INSTALL_DIR}
+    )
+  else()
+    set(FFTW_INCLUDE_DIRS ${FFTW_INCLUDE_DIRS_MANUAL})
+  endif()
 
+endif()
+
+# Debug: Show final include directory
+if( FFTW_INCLUDE_DIRS )
+  message(STATUS "Final FFTW_INCLUDE_DIRS: ${FFTW_INCLUDE_DIRS}")
+else()
+  message(WARNING "FFTW_INCLUDE_DIRS not set - this will cause compilation errors!")
 endif()
 
 #--------------------------------------- components

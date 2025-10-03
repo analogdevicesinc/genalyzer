@@ -29,13 +29,8 @@ from platform import system as _system
 from ctypes.util import find_library
 import os
 
-if "Windows" in _system():
-    _libgen = "libgenalyzer.dll"
-else:
-    # Non-windows, possibly Posix system
-    _libgen = "genalyzer"
-
-_libgen = CDLL(find_library(_libgen), use_errno=True, use_last_error=True)
+# Import _libgen from pygenalyzer to ensure consistent loading
+from ..pygenalyzer import _lib as _libgen
 
 
 class _GNConfig(Structure):

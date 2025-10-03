@@ -36,6 +36,17 @@ set_target_properties(genalyzer PROPERTIES
   CXX_EXTENSIONS OFF
 )
 
+# Set RPATH to include FFTW library directory (for pyFFTW builds)
+if(FFTW_ROOT AND NOT WIN32)
+  # Get the directory containing the FFTW libraries
+  get_filename_component(FFTW_LIB_DIR "${FFTW_DOUBLE_LIB}" DIRECTORY)
+  set_target_properties(genalyzer PROPERTIES
+    BUILD_RPATH "${FFTW_LIB_DIR}"
+    INSTALL_RPATH "${FFTW_LIB_DIR}"
+  )
+  message(STATUS "Setting RPATH for genalyzer to: ${FFTW_LIB_DIR}")
+endif()
+
 if(MSVC)
   target_compile_options(genalyzer PRIVATE /W4 /WX)
 else()
@@ -47,10 +58,11 @@ if(MSVC)
 endif()
 
 set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib" CACHE PATH "Installation directory for libraries")
+set(INSTALL_PKGCONFIG_DIR "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" CACHE PATH "Installation directory for pkgconfig files")
 
 set(GENALYZER_PC ${CMAKE_CURRENT_BINARY_DIR}/libgenalyzer.pc)
 configure_file(${PROJECT_SOURCE_DIR}/libgenalyzer.pc.cmakein ${GENALYZER_PC} @ONLY)
-install(FILES ${GENALYZER_PC} DESTINATION ${INSTALL_LIB_DIR}/pkgconfig)
+install(FILES ${GENALYZER_PC} DESTINATION ${INSTALL_PKGCONFIG_DIR})
 
 install(TARGETS genalyzer
   ARCHIVE DESTINATION lib

@@ -48,9 +48,8 @@ if(APPLE)
 endif()
 find_package(FFTW REQUIRED)
 target_link_libraries(genalyzer_plus_plus LINK_PUBLIC ${FFTW_LIBRARIES})
-if(APPLE OR WIN32)
-  target_include_directories(genalyzer_plus_plus PRIVATE ${FFTW_INCLUDE_DIRS})
-endif()
+# Always add FFTW include directories (needed for pyFFTW builds on Linux too)
+target_include_directories(genalyzer_plus_plus PRIVATE ${FFTW_INCLUDE_DIRS})
 
 install(TARGETS genalyzer_plus_plus
   ARCHIVE DESTINATION lib

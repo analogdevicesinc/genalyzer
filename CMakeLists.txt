@@ -85,4 +85,5 @@ if(MSVC)
   configure_file(libgenalyzer.iss.cmakein ${CMAKE_CURRENT_BINARY_DIR}/libgenalyzer.iss @ONLY)
 endif()
 
-install(TARGETS genalyzer DESTINATION /usr/local/lib)
+# Use CMAKE_INSTALL_PREFIX instead of hardcoded path
+install(TARGETS genalyzer DESTINATION lib)

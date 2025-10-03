@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=40.6.0", "wheel", "cmake", "pyfftw"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "genalyzer-fftw"
+version = "0.1.2"
+dynamic = ["readme"]
+description = "Python bindings for genalyzer converter analysis library using FFTW from pyFFTW wheels"
+license = {text = "ADI BSD OR GPL-2.0-or-later"}
+classifiers = [
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules"]
+requires-python = ">=3.8"
+authors = [
+    {name = "Peter Derounian", email="peter.derounian@analog.com"},
+    {name = "Srikanth Pagadarai", email="srikanth.pagadarai@analog.com"},
+    {name = "Travis Collins", email="travis.collins@analog.com"},
+]
+maintainers = [
+    {name = "Srikanth Pagadarai", email="srikanth.pagadarai@analog.com"},
+    {name = "Travis Collins", email="travis.collins@analog.com"},
+    {name = "Analog Devices, Inc"}
+]
+dependencies = [
+    'numpy >= 1.20',
+    'pyfftw >= 0.12.0',
+]
+
+[tool.setuptools.dynamic]
+readme = {file = "README.md", content-type = "text/markdown"}
+
+[tool.setuptools.packages.find]
+where = [".."]
+include = ["genalyzer*"]
+exclude = ["tests*", "examples*"]
+namespaces = true
+
+[project.optional-dependencies]
+tools = ["scipy"]
+
+[project.urls]
+homepage = "https://analogdevicesinc.github.io/genalyzer/"
+documentation = "https://analogdevicesinc.github.io/genalyzer/"
+repository = "https://github.com/analogdevicesinc/genalyzer"
+
+[tool.isort]
+multi_line_output=3
+include_trailing_comma="True"
+force_grid_wrap=0
+use_parentheses="True"
+line_length=88
+
+[tool.mypy]
+ignore_missing_imports="true"

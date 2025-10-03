@@ -37,16 +37,64 @@ _ndptr_u64_1d = _ndptr(dtype=_np.uint64, ndim=1)
 del _ndptr
 
 _module_dir = _os.path.dirname(__file__)
-if "linux" == _sys.platform:
-    _libpath = _find_library("genalyzer")
-elif "win32" == _sys.platform:
-    _libpath = _find_library("libgenalyzer.dll")
-else:
-    raise Exception("Platform '{}' is not supported.".format(_sys.platform))
 
-if _libpath is None:
-    raise OSError(2, "Could not find genalyzer C library")
-_lib = _ctypes.cdll.LoadLibrary(_libpath)
+# For genalyzer-fftw builds: preload FFTW libraries from pyFFTW if available
+# This ensures FFTW dependencies are resolved before loading genalyzer
+def _load_libs():
+    try:
+        import pyfftw
+        from pathlib import Path
+        _pyfftw_dir = Path(pyfftw.__file__).parent
+        # Check common locations for FFTW libraries in pyFFTW package
+        _fftw_lib_dirs = [
+            _pyfftw_dir.parent / "pyFFTW.libs",  # Linux: newer auditwheel (sibling)
+            _pyfftw_dir / ".libs",                # Linux: older auditwheel (inside)
+            _pyfftw_dir / ".dylibs",              # macOS: delocate
+            _pyfftw_dir,                          # Windows or fallback
+        ]
+
+        # Find and preload FFTW double precision library
+        for _lib_dir in _fftw_lib_dirs:
+            if _lib_dir.exists():
+                import glob
+                _fftw_libs = glob.glob(str(_lib_dir / "libfftw3-*.so*")) + \
+                            glob.glob(str(_lib_dir / "libfftw3.so*")) + \
+                            glob.glob(str(_lib_dir / "libfftw3-*.dylib*")) + \
+                            glob.glob(str(_lib_dir / "libfftw3*.dll"))
+                if _fftw_libs:
+                    # Preload the first FFTW library found
+                    try:
+                        _ctypes.cdll.LoadLibrary(_fftw_libs[0])
+                        print("Preloaded FFTW from pyFFTW: {}".format(_fftw_libs[0]))
+                    except:
+                        pass  # If preload fails, continue - maybe system FFTW exists
+                    break
+    except ImportError:
+        pass  # pyFFTW not installed, assume system FFTW or not needed
+
+    if "linux" == _sys.platform:
+        _libpath = _find_library("genalyzer")
+    elif "win32" == _sys.platform:
+        _libpath = _find_library("libgenalyzer.dll")
+    else:
+        raise Exception("Platform '{}' is not supported.".format(_sys.platform))
+
+    try:
+        if _libpath is None:
+            raise OSError(2, "Could not find genalyzer C library")
+    except OSError as e:
+        # Look locally in the module directory
+        here = _os.path.abspath(_os.path.dirname(__file__))
+        filename = "libgenalyzer.so" if "linux" == _sys.platform else "libgenalyzer.dll"
+        _libpath = _os.path.join(here, filename)
+        if not _os.path.isfile(_libpath):
+            raise e
+
+    _lib = _ctypes.cdll.LoadLibrary(_libpath)
+
+    return _lib
+
+_lib = _load_libs()
 
 del _find_library, _os, _sys
 
