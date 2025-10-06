@@ -11,3 +11,8 @@ brokenaxes
 pre-commit
 cmakelint
 clang-format
+beautifulsoup4
+pytest-html
+pytest-rerunfailures
+pytest-metadata
+pytest-xdist

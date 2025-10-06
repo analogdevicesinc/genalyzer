@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# Ported from https://github.com/christiansandberg/pytest-reporter-html1
+import pytest
+
+
+@pytest.fixture
+def broken():
+    raise RuntimeError("Something went wrong")
+
+
+def test_failed():
+    assert "1" not in "123"
+
+
+def test_passed():
+    assert True
+
+
+def test_error(broken):
+    assert True
+
+
+@pytest.mark.xfail(reason="Always asserts False")
+def test_xfailed():
+    assert False
+
+
+@pytest.mark.xfail
+def test_xpassed():
+    assert True
+
+
+@pytest.mark.skip
+def test_skipped():
+    assert False

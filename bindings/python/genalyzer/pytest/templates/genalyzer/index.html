@@ -1,0 +1,291 @@
+{% extends "genalyzer/base.html" %}
+
+{% block script %}
+// Lazy plot loading functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Track which plots have been loaded
+  var loadedPlots = new Set();
+  var plotlyLoaded = false;
+
+  // Function to load Plotly if not already loaded
+  function ensurePlotlyLoaded(callback) {
+    if (typeof Plotly !== 'undefined') {
+      plotlyLoaded = true;
+      callback();
+      return;
+    }
+
+    if (plotlyLoaded) {
+      // Already loading, wait for it
+      setTimeout(function() { ensurePlotlyLoaded(callback); }, 100);
+      return;
+    }
+
+    console.log('Loading Plotly.js...');
+    plotlyLoaded = true; // Mark as loading
+    var script = document.createElement('script');
+    script.src = 'https://cdn.plot.ly/plotly-3.1.0.min.js';
+    script.onload = function() {
+      console.log('Plotly.js loaded successfully');
+      callback();
+    };
+    script.onerror = function() {
+      console.error('Failed to load Plotly.js');
+      plotlyLoaded = false;
+    };
+    document.head.appendChild(script);
+  }
+
+  // Function to load a single plot
+  function loadPlot(plotElement) {
+    var plotId = plotElement.getAttribute('data-plot-id');
+    if (loadedPlots.has(plotId)) return;
+
+    console.log('Loading plot:', plotId);
+
+    function renderPlot() {
+      var plotData;
+      {% if self_contained %}
+      // For self-contained reports, read from embedded script tags
+      var dataScript = document.getElementById('plot-data-' + plotId);
+      if (dataScript) {
+        try {
+          plotData = JSON.parse(dataScript.textContent);
+          console.log('Parsed plot data for', plotId, plotData);
+        } catch (e) {
+          console.error('Error parsing plot data for', plotId, e);
+          plotElement.innerHTML = '<p>Error parsing plot data</p>';
+          return;
+        }
+      }
+      {% else %}
+      // For split reports, fetch from separate JSON files
+      fetch('plots/' + plotId + '.json')
+        .then(response => response.json())
+        .then(data => {
+          plotData = data;
+          actualRender();
+        })
+        .catch(error => {
+          console.error('Error loading plot data:', error);
+          plotElement.innerHTML = '<p>Error loading plot data</p>';
+        });
+      return; // Exit early for async loading
+      {% endif %}
+
+      function actualRender() {
+        if (plotData && typeof Plotly !== 'undefined') {
+          console.log('Rendering plot', plotId, 'with data:', plotData);
+          Plotly.newPlot(plotElement, plotData.data, plotData.layout, {responsive: true})
+            .then(function() {
+              console.log('Plot', plotId, 'rendered successfully');
+              loadedPlots.add(plotId);
+            })
+            .catch(function(error) {
+              console.error('Error rendering plot', plotId, error);
+              plotElement.innerHTML = '<p>Error rendering plot</p>';
+            });
+        } else {
+          console.error('Missing plotData or Plotly for', plotId);
+          plotElement.innerHTML = '<p>Plotly not available</p>';
+        }
+      }
+
+      actualRender();
+    }
+
+    ensurePlotlyLoaded(renderPlot);
+  }
+
+  // Function to check if plots section is expanded and load plots
+  function checkAndLoadPlots(detailsElement) {
+    if (detailsElement.open) {
+      console.log('Loading plots for expanded section');
+      var plots = detailsElement.querySelectorAll('.plot[data-plot-id]');
+      plots.forEach(loadPlot);
+    }
+  }
+
+  // Listen for plot section expansions
+  document.addEventListener('toggle', function(event) {
+    if (event.target.classList.contains('plots')) {
+      checkAndLoadPlots(event.target);
+    }
+  }, true);
+
+  // Load plots that are already expanded on page load
+  var expandedPlotSections = document.querySelectorAll('details.plots[open]');
+  expandedPlotSections.forEach(checkAndLoadPlots);
+});
+{% endblock %}
+
+{% block content %}
+<section id="summary">
+  <div class="container">
+    <h1>Summary</h1>
+    {% block summary %}
+    <div class="metadata">
+      <table>
+        {% block session_metadata %}
+        <tr>
+          <th>Started</th>
+          <td>{{ started|strftime(time_format) }}</td>
+        </tr>
+        <tr>
+          <th>Ended</th>
+          <td>
+            {% if ended %}
+              {{ ended|strftime(time_format) }}
+            {% else %}
+              <i>In progress...</i>
+            {% endif %}
+          </td>
+        </tr>
+        {% if ended %}
+          <tr>
+            <th>Duration</th>
+            {% set duration = ended - started %}
+            <td>{{ duration|timedelta }}</td>
+          </tr>
+        {% endif %}
+        <tr>
+          <th>Total run time</th>
+          <td>{{ tests|map(attribute='phases')|map('sum', 'report.duration')|sum|timedelta }}</td>
+        </tr>
+        {% for key, value in metadata.items() %}
+          <tr>
+            <th>{{ key }}</th>
+            <td>
+              {% if value is mapping %}
+                {% for key, value in value.items() %}
+                  {{ key }}: {{ value }}<br>
+                {% endfor %}
+              {% else %}
+                {{ value|urlize }}
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        {% endblock %}
+      </table>
+    </div>
+    <div class="graph">
+      {% set tests_by_category = tests|groupby('status.category') %}
+      {% set nodes_run = tests|map(attribute='item.nodeid')|list %}
+      {% set nof_nodes_not_run = session.items|rejectattr('nodeid', 'in', nodes_run)|list|count %}
+      <svg width="200" height="200" viewBox="0 0 42 42">
+        {% set ns = namespace(sum=0.0) %}
+        {% set total = tests|count %}
+        {% set r = 16 %}
+        {% set spacing = 0.4 %}
+        {% set C = 2 * 3.141592653589793 * r %}
+        {% for category, sub_tests in tests_by_category %}
+          {% set count = sub_tests|count %}
+          {% set L = count / (total + nof_nodes_not_run) * C %}
+          {% set color = colors[category] %}
+          <circle
+            class="donut-segment {{ category }}"
+            stroke-dasharray="{{ [L - spacing, 0]|max }} {{ C - (L - spacing) }}"
+            stroke-dashoffset="{{ C - ns.sum + C / 4 - spacing / 2 }}"
+            cx="21"
+            cy="21"
+            r="{{ r }}"
+            fill="transparent"
+            {% if color %}
+            stroke="{{ color[0] }}"
+            {% endif %}
+            stroke-width="4">
+          </circle>
+          {% set ns.sum = ns.sum + L %}
+        {% endfor %}
+        <text x="21" y="24" text-anchor="middle">{{ total }}</text>
+      </svg>      
+      <div class="legend">
+        {% for category, tests in tests_by_category %}
+          <span class="status badge {{ category }} {{ tests|map(attribute='status.style')|first|join(' ') }}">
+            {{ tests|count }}
+          </span>
+          <span>{{ category }}</span>
+        {% endfor %}
+        {% if nof_nodes_not_run %}
+          <span class="status badge notrun">{{ nof_nodes_not_run }}</span>
+          <span>not run</span>
+        {% endif %}
+      </div>
+    </div>
+    {% endblock %}
+  </div>
+</section>
+
+{% if warnings %}
+  <section id="warnings">
+    {% block warnings %}
+    <div class="container">
+      <h1>Warnings</h1>
+
+      <details class="file">
+
+        <summary>
+          <h2 class="title file-title">
+            <span class="fspath">Warnings</span>
+            <span class="counts">
+              <span class="status badge warning">
+                {{ warnings|count }}
+              </span>
+            </span>
+          </h2>    
+        </summary>
+
+        <ul>
+        {% for warning in warnings %}
+          <li>
+            <span class="status badge warning">{{ warning.category.__name__ }}</span>
+            <span>
+              <span>{{ warning.message }}</span>
+              <br>
+              <span class="filename">{{ warning.filename }}:{{ warning.lineno }}</span>
+            </span>
+          </li>
+        {% endfor %}
+        </ul>
+        
+      </details>
+
+    </div>
+  {% endblock %}
+  </section>
+{% endif %}
+
+<section id="test-files">
+  <div class="container">
+    <h1>Tests</h1>
+    {% for fspath, tests in tests|groupby('item.fspath') %}
+      {% set first_item = tests|map(attribute='item')|first %}
+      <details class="file">
+        <summary>
+          <h2 class="title file-title">
+            {% block module_title scoped %}
+            <span class="fspath">
+              {% block module_name scoped %}
+              {{ first_item.nodeid.split('::')|first }}
+              {% endblock %}
+            </span>
+            <span class="counts">
+            {% for category, tests in tests|groupby('status.category') -%}
+              <span title="{{ tests|count }} {{ category }}" class="count status badge {{ category }} {{ tests|map(attribute='status.style')|first|join(' ') }}">{{ tests|count }}</span>
+            {%- endfor %}
+            </span>
+            <span class="duration">
+              {{ tests|map(attribute='phases')|map('sum', 'report.duration')|sum|timedelta }}
+            </span>
+            {% endblock %}
+          </h2>
+        </summary>
+        <div class="content box">
+          {% include "genalyzer/module.html" %}
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

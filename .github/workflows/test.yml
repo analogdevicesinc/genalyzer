@@ -150,7 +150,7 @@ jobs:
       - name: Test
         run: |
           cd bindings/python
-          pip install ".[tools]"
+          pip install ".[tools,pytest]"
           python -m pytest -vs tests
           for f in examples/*.py; do python "$f"; done
 
