@@ -1,5 +1,9 @@
 import os, glob, json, pytest, genalyzer
 
+try:
+    import genalyzer.helpers.WaveformGen
+except ImportError:
+    genalyzer.helpers.WaveformGen = None
 
 test_dir = os.path.join(*["..", "..", "..", "tests", "test_vectors"])
 loc = os.path.dirname(__file__)
@@ -203,6 +207,7 @@ def test_get_wfa_results(filename):
         assert bool(wfa_results), "the dict is non empty"
 
 
+@pytest.mark.skipif(genalyzer.helpers.WaveformGen is None, reason="WaveformGen not available")
 @pytest.mark.parametrize("filename", test_gen_wave_data)
 def test_gen_wf_data(filename):
     with open(filename) as f:

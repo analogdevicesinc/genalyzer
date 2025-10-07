@@ -71,7 +71,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          choco install -y wget
+          choco install --no-progress -y wget innosetup
           mkdir deps
           cd deps
           mkdir fftw3
@@ -99,6 +99,12 @@ jobs:
           dir deps\fftw3
           echo "GITHUB_WORKSPACE: $env:GITHUB_WORKSPACE"
 
+      - name: Update ISS file with update_win_installer.ps1 script
+        shell: powershell
+        run: |
+          cd .github\scripts
+            .\update_win_installer.ps1 -IssFilePath "$env:GITHUB_WORKSPACE\libgenalyzer.iss.cmakein"
+
       - name: Build library
         run: |
           "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
@@ -107,7 +113,7 @@ jobs:
 
       - name: Build installer
         run: |
-          "%programfiles(x86)%\Inno Setup 6\iscc.exe" "libgenalyzer.iss"
+          "C:\Program Files (x86)\Inno Setup 6\iscc.exe" "libgenalyzer.iss"
           dir
           dir C:\
         shell: cmd

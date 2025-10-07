@@ -8,8 +8,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04]
-        python-version: [3.8, 3.9, "3.10", "3.11", "3.12", "3.13"]
+        os: [ubuntu-22.04, ubuntu-24.04]
+        python-version: [3.9, "3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v4
@@ -131,8 +131,9 @@ jobs:
   TestPython:
     runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
-        python-version: [3.8, 3.9, "3.10", "3.11", "3.12", "3.13"]
+        python-version: [3.9, "3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v2
@@ -150,7 +151,7 @@ jobs:
       - name: Test
         run: |
           cd bindings/python
-          pip install ".[tools]"
+          pip install ".[tools,pytest]"
           python -m pytest -vs tests
           for f in examples/*.py; do python "$f"; done
 
@@ -159,7 +160,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.8, 3.9, "3.10", "3.11", "3.12", "3.13"]
+        python-version: [3.9, "3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v2

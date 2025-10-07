@@ -13,7 +13,7 @@ OutputBaseFilename=genalyzer-setup
 OutputDir="C:\"
 Compression=lzma
 SolidCompression=yes
-ArchitecturesInstallIn64BitMode=x64
+ArchitecturesInstallIn64BitMode=x64compatible
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
