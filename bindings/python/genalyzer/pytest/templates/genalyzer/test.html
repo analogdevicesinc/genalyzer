@@ -18,12 +18,6 @@
   <th>Duration</th>
   <td>{{ test.phases|sum(attribute='report.duration')|timedelta }}</td>
 </tr>
-{% for name, value in test.phases|map(attribute='report.user_properties')|chain|unique %}
-  <tr>
-    <th>{{ name }}</th>
-    <td>{{ value|escape|urlize }}</td>
-  </tr>
-{% endfor %}
 {# TODO: Use keywords from TestReport to support dynamically added markers with xdist #}
 {% set markers = test.item.iter_markers()|rejectattr('name', '==', 'parametrize')|list|unique(attribute='name') %}
 {% if markers %}
