@@ -58,6 +58,9 @@ pytest = [
 [project.entry-points.pytest11]
 genalyzer = "genalyzer.pytest.plugin"
 
+[tool.setuptools.package-data]
+genalyzer = ["genalyzer/pytest/templates/genalyzer/*"]
+
 [project.urls]
 homepage = "https://analogdevicesinc.github.io/genalyzer/"
 documentation = "https://analogdevicesinc.github.io/genalyzer/"

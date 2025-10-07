@@ -1,0 +1,6 @@
+include README.md
+include genalyzer/pytest/templates/genalyzer/*
+include genalyzer/pytest/templates/genalyzer/icons/*
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
