@@ -71,7 +71,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          choco install -y wget
+          choco install -y wget innosetup
           mkdir deps
           cd deps
           mkdir fftw3
@@ -107,7 +107,7 @@ jobs:
 
       - name: Build installer
         run: |
-          "%programfiles(x86)%\Inno Setup 6\iscc.exe" "libgenalyzer.iss"
+          "C:\Program Files (x86)\Inno Setup 6\iscc.exe" "libgenalyzer.iss"
           dir
           dir C:\
         shell: cmd
