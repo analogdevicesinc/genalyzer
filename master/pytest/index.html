@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="prev" title="pygenalizer.simplified (Beta)" href="../python/pygenalyzer.simplified.html">
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2025.09.25 -->
-        <title>Genalyzer Documentation - Genalyzer v0.1.2 documentation</title>
+        <title>Pytest Integration - Genalyzer v0.1.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
@@ -175,7 +175,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -194,7 +194,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
@@ -214,7 +214,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../python/pygenalyzer.simplified.html">pygenalizer.simplified (Beta)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../pytest/index.html">Pytest Integration</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Pytest Integration</a></li>
 </ul>
 
 </div>
@@ -235,7 +235,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/c/configs.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/pytest/index.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -248,13 +248,101 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="genalyzer-documentation">
-<h1>Genalyzer Documentation<a class="headerlink" href="#genalyzer-documentation" title="Link to this heading">¶</a></h1>
+          <section id="pytest-integration">
+<h1>Pytest Integration<a class="headerlink" href="#pytest-integration" title="Link to this heading">¶</a></h1>
+<p>To help with testing and reporting, Genalyzer provides a pytest plugin that allows you to create and attach plots directly to your test reports. This is particularly useful for visualizing signal analysis results during automated testing.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
+<p>To use the pytest plugin, install the optional <code class="docutils literal notranslate"><span class="pre">pytest</span></code> dependency:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>genalyzer<span class="o">[</span>pytest<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<p>To use the pytest plugin, you need to include the <code class="docutils literal notranslate"><span class="pre">gn_plot_manager</span></code> in your test functions. This fixture provides methods to create and attach plots to your test reports.</p>
+<p>Here is an example of how to use the <code class="docutils literal notranslate"><span class="pre">gn_plot_manager</span></code> in a test function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_signal_analysis</span><span class="p">(</span><span class="n">gn_plot_manager</span><span class="p">):</span>
+    <span class="c1"># Generate a sample signal</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+    <span class="n">signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+
+    <span class="c1"># Create a plot of the signal</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">gn_plot_manager</span><span class="o">.</span><span class="n">create_figure</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Sample Signal&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [s]&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitude&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Attach the plot to the test report</span>
+    <span class="n">gn_plot_manager</span><span class="o">.</span><span class="n">attach_figure</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s2">&quot;Sample Signal Plot&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="addition-methods">
+<h3>Addition methods<a class="headerlink" href="#addition-methods" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">gn_plot_manager</span></code> fixture provides the following methods:</p>
+<p id="module-genalyzer.pytest.plots">Special plot implementations for pytest-genalyzer.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.pytest.plots.add_plot">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.pytest.plots.</span></span><span class="sig-name descname"><span class="pre">add_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.pytest.plots.add_plot" title="Link to this definition">¶</a></dt>
+<dd><p>Add a plotly figure to the current test report.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">fig</span></code> (<code class="docutils literal notranslate"><span class="pre">plotly.graph_objects.Figure</span></code>): The plotly figure to add.</p>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> (<code class="docutils literal notranslate"><span class="pre">str,</span> <span class="pre">optional</span></code>): Name of the plot. If None, a default name will be assigned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.pytest.plots.add_plot_html">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.pytest.plots.</span></span><span class="sig-name descname"><span class="pre">add_plot_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">html_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.pytest.plots.add_plot_html" title="Link to this definition">¶</a></dt>
+<dd><p>Add raw HTML content as a plot to the current test report.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">html_str</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>): HTML content as a string.</p>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>, optional): Name of the plot. If None, a default name will be assigned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.pytest.plots.add_plot_img_file">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.pytest.plots.</span></span><span class="sig-name descname"><span class="pre">add_plot_img_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.pytest.plots.add_plot_img_file" title="Link to this definition">¶</a></dt>
+<dd><p>Add an image file as a plot to the current test report.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">img_path</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>): Path to the image file.</p>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> (<code class="docutils literal notranslate"><span class="pre">str</span></code>, optional): Name of the plot. If None, a default name will be assigned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.pytest.plots.gn_plot_fft_single_tone">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.pytest.plots.</span></span><span class="sig-name descname"><span class="pre">gn_plot_fft_single_tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tone_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssb_rest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssb_fund</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">navg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_height_px</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SFDR</span> <span class="pre">Plot'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.pytest.plots.gn_plot_fft_single_tone" title="Link to this definition">¶</a></dt>
+<dd><p>Plot SFDR (Spurious-Free Dynamic Range) using plotly.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">data</span></code> (dict): Dictionary containing frequency and magnitude data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">full_scale</span></code> (float): Full scale value for normalization.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sample_rate</span></code> (float): Sample rate of the signal.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tone_frequency</span></code> (float): Frequency of the tone to analyze.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ssb_rest</span></code> (int, optional): Sideband setting for rest of the spectrum. Defaults to 3.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ssb_fund</span></code> (int, optional): Sideband setting for fundamental tone. Defaults to 4.</p>
+<p><code class="docutils literal notranslate"><span class="pre">nfft</span></code> (int, optional): Number of FFT points. If None, it will be set to len(data)//2. Defaults to None.</p>
+<p><code class="docutils literal notranslate"><span class="pre">navg</span></code> (int, optional): Number of averages. Defaults to 1.</p>
+<p><code class="docutils literal notranslate"><span class="pre">plot_height_px</span></code> (int, optional): Height of the plot in pixels. Defaults to 1000.</p>
+<p><code class="docutils literal notranslate"><span class="pre">title</span></code> (str): Title of the plot.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
 </section>
 
         </article>
@@ -263,7 +351,17 @@
         
         <div class="related-pages">
           
-          
+          <a class="prev-page" href="../python/pygenalyzer.simplified.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">pygenalizer.simplified (Beta)</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -282,8 +380,37 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Pytest Integration</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#addition-methods">Addition methods</a><ul>
+<li><a class="reference internal" href="#genalyzer.pytest.plots.add_plot"><code class="docutils literal notranslate"><span class="pre">add_plot()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.pytest.plots.add_plot_html"><code class="docutils literal notranslate"><span class="pre">add_plot_html()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.pytest.plots.add_plot_img_file"><code class="docutils literal notranslate"><span class="pre">add_plot_img_file()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.pytest.plots.gn_plot_fft_single_tone"><code class="docutils literal notranslate"><span class="pre">gn_plot_fft_single_tone()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
