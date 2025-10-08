@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Enumerations" href="enumerations.html"><link rel="prev" title="Python Bindings" href="genalyzer.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Pytest Integration" href="../pytest/index.html"><link rel="prev" title="pygenalizer.simplified (Beta)" href="pygenalyzer.simplified.html">
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2025.09.25 -->
-        <title>pygenalizer - Genalyzer v0.1.2 documentation</title>
+        <title>pyadi-iio Interface Helpers - Genalyzer v0.1.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
@@ -175,7 +175,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -202,7 +202,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference_simplified.html">(Beta) Simplified API Reference</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="genalyzer.html">Python Bindings</a><input aria-label="Toggle navigation of Python Bindings" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
-<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">pygenalizer</a><input aria-label="Toggle navigation of pygenalizer" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="pygenalyzer.html">pygenalizer</a><input aria-label="Toggle navigation of pygenalizer" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="enumerations.html">Enumerations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fourier_analysis.html">Fourier Analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fourier_configuration.html">Fourier Analysis Configuration</a></li>
@@ -212,7 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pygenalyzer.simplified.html">pygenalizer.simplified (Beta)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyadi.html">pyadi-iio Interface Helpers</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">pyadi-iio Interface Helpers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../pytest/index.html">Pytest Integration</a></li>
@@ -236,7 +236,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/python/pygenalyzer.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/python/pyadi.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -249,86 +249,46 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="pygenalizer">
-<h1>pygenalizer<a class="headerlink" href="#pygenalizer" title="Link to this heading">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="enumerations.html">Enumerations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.CodeFormat"><code class="docutils literal notranslate"><span class="pre">CodeFormat()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.DnlSignal"><code class="docutils literal notranslate"><span class="pre">DnlSignal()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.FaCompTag"><code class="docutils literal notranslate"><span class="pre">FaCompTag()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.FaSsb"><code class="docutils literal notranslate"><span class="pre">FaSsb()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.FreqAxisFormat"><code class="docutils literal notranslate"><span class="pre">FreqAxisFormat()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.FreqAxisType"><code class="docutils literal notranslate"><span class="pre">FreqAxisType()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.InlLineFit"><code class="docutils literal notranslate"><span class="pre">InlLineFit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.RfftScale"><code class="docutils literal notranslate"><span class="pre">RfftScale()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="enumerations.html#genalyzer.Window"><code class="docutils literal notranslate"><span class="pre">Window()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fourier_analysis.html">Fourier Analysis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fourier_analysis.html#genalyzer.fft_analysis"><code class="docutils literal notranslate"><span class="pre">fft_analysis()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fourier_configuration.html">Fourier Analysis Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_analysis_band"><code class="docutils literal notranslate"><span class="pre">fa_analysis_band()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_clk"><code class="docutils literal notranslate"><span class="pre">fa_clk()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_conv_offset"><code class="docutils literal notranslate"><span class="pre">fa_conv_offset()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_create"><code class="docutils literal notranslate"><span class="pre">fa_create()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_dc"><code class="docutils literal notranslate"><span class="pre">fa_dc()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fdata"><code class="docutils literal notranslate"><span class="pre">fa_fdata()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fixed_tone"><code class="docutils literal notranslate"><span class="pre">fa_fixed_tone()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fsample"><code class="docutils literal notranslate"><span class="pre">fa_fsample()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fshift"><code class="docutils literal notranslate"><span class="pre">fa_fshift()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_fund_images"><code class="docutils literal notranslate"><span class="pre">fa_fund_images()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_hd"><code class="docutils literal notranslate"><span class="pre">fa_hd()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ilv"><code class="docutils literal notranslate"><span class="pre">fa_ilv()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_imd"><code class="docutils literal notranslate"><span class="pre">fa_imd()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_load"><code class="docutils literal notranslate"><span class="pre">fa_load()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_max_tone"><code class="docutils literal notranslate"><span class="pre">fa_max_tone()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_preview"><code class="docutils literal notranslate"><span class="pre">fa_preview()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_quad_errors"><code class="docutils literal notranslate"><span class="pre">fa_quad_errors()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_remove_comp"><code class="docutils literal notranslate"><span class="pre">fa_remove_comp()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_reset"><code class="docutils literal notranslate"><span class="pre">fa_reset()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ssb"><code class="docutils literal notranslate"><span class="pre">fa_ssb()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ssb_dc"><code class="docutils literal notranslate"><span class="pre">fa_ssb_dc()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ssb_def"><code class="docutils literal notranslate"><span class="pre">fa_ssb_def()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_ssb_wo"><code class="docutils literal notranslate"><span class="pre">fa_ssb_wo()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_var"><code class="docutils literal notranslate"><span class="pre">fa_var()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_configuration.html#genalyzer.fa_wo"><code class="docutils literal notranslate"><span class="pre">fa_wo()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fourier_transforms.html">Fourier Transforms</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fourier_transforms.html#genalyzer.fft"><code class="docutils literal notranslate"><span class="pre">fft()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fourier_transforms.html#genalyzer.rfft"><code class="docutils literal notranslate"><span class="pre">rfft()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="waveforms.html">Waveforms</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.cos"><code class="docutils literal notranslate"><span class="pre">cos()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.ramp"><code class="docutils literal notranslate"><span class="pre">ramp()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.sin"><code class="docutils literal notranslate"><span class="pre">sin()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveforms.html#genalyzer.wf_analysis"><code class="docutils literal notranslate"><span class="pre">wf_analysis()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="signal_processing.html">Signal Processing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.downsample"><code class="docutils literal notranslate"><span class="pre">downsample()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.fshift"><code class="docutils literal notranslate"><span class="pre">fshift()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.polyval"><code class="docutils literal notranslate"><span class="pre">polyval()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.quantize16"><code class="docutils literal notranslate"><span class="pre">quantize16()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.quantize32"><code class="docutils literal notranslate"><span class="pre">quantize32()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.quantize64"><code class="docutils literal notranslate"><span class="pre">quantize64()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="signal_processing.html#genalyzer.quantize"><code class="docutils literal notranslate"><span class="pre">quantize()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
+          <section id="pyadi-iio-interface-helpers">
+<h1>pyadi-iio Interface Helpers<a class="headerlink" href="#pyadi-iio-interface-helpers" title="Link to this heading">¶</a></h1>
+<p>Functions to assist with using the <a class="reference external" href="https://analogdevicesinc.github.io/pyadi-iio/">pyadi-iio</a> library for interfacing with ADI hardware.</p>
+<section id="helpers">
+<h2>Helpers<a class="headerlink" href="#helpers" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.pai.fft">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.pai.</span></span><span class="sig-name descname"><span class="pre">fft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">navg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Window.NO_WINDOW</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">FreqAxisType.DC_CENTER</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">FreqAxisFormat.FREQ</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.pai.fft" title="Link to this definition">¶</a></dt>
+<dd><p>Perform FFT based off pyadi-iio interface.</p>
+<p>This function performs an FFT on data acquired from a pyadi-iio device and
+generate the scaled FFT result in dB along with the corresponding frequency axis.
+The dB scaled data is shifted if the axis_type is set to DC_CENTER.
+The function supports both real and complex data. For complex data, the input
+numpy array should have a complex dtype (np.complex64 or np.complex128).
+For real data, the input numpy array should have an integer dtype (e.g., np.int16,
+np.int32, etc.) matching the data format of the device channel.
+The function also supports multiple channels if the pyadi-iio device has more
+than one enabled channel. In this case, the input data should be a list of numpy
+arrays, one for each enabled channel.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">interface</span></code>: pyadi-iio device instance.</p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code>: numpy array or list of numpy arrays (for multiple channels).</p>
+<p><code class="docutils literal notranslate"><span class="pre">navg</span></code>: number of averages.</p>
+<p><code class="docutils literal notranslate"><span class="pre">window</span></code>: window type from gn.Window enum.</p>
+<p><code class="docutils literal notranslate"><span class="pre">axis_type</span></code>: frequency axis type from gn.FreqAxisType enum.</p>
+<p><code class="docutils literal notranslate"><span class="pre">axis_fmt</span></code>: frequency axis format from gn.FreqAxisFormat enum.</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">fft_out</span></code>: FFT output as a numpy array or list of numpy arrays (for multiple channels).</p>
+<p><code class="docutils literal notranslate"><span class="pre">fft_out_db</span></code>: dB scaled FFT output as a numpy array or list of numpy arrays (for multiple channels).</p>
+<p><code class="docutils literal notranslate"><span class="pre">fft_freq_out</span></code>: frequency axis as a numpy array or list of numpy arrays (for multiple channels).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
         </article>
@@ -336,23 +296,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="enumerations.html">
+          <a class="next-page" href="../pytest/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Enumerations</div>
+                <div class="title">Pytest Integration</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="genalyzer.html">
+          <a class="prev-page" href="pygenalyzer.simplified.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Python Bindings</div>
+                <div class="title">pygenalizer.simplified (Beta)</div>
                 
               </div>
             </a>
@@ -374,8 +334,30 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">pyadi-iio Interface Helpers</a><ul>
+<li><a class="reference internal" href="#helpers">Helpers</a><ul>
+<li><a class="reference internal" href="#genalyzer.pai.fft"><code class="docutils literal notranslate"><span class="pre">fft()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
