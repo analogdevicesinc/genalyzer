@@ -122,7 +122,7 @@ When computing the FFT of a waveform to which a window function has been applied
 Even though leakage has been minimized, the tone is not as sharp as when the snapshot of the waveform were periodic. This can be observed by zooming into the region around the ``375 KHz`` tone. This is shown in the plot below.
 ```{figure} figures/fft4.png
 
-Zoomed-in FFT plot of a ``375 KHz`` complex sinusoidal tone sampled at ``4 MSPS``.
+Zoomed-in FFT plot of the ``375 KHz`` complex sinusoidal tone sampled at ``4 MSPS``.
 ```
 Another key point to note is that there is no bin that corresponds to ``375 KHz`` due to the settings we chose in this working example. To go into more detail, the width of each bin in our working example is ``fs/npts = 133.33 Hz``, which is not an integer divider of ``375 KHz``. Hence the energy of the tone is spread over ``12`` neighboring bins, approximately. Users need to configure Genalyzer by providing the number of these bins that need to be taken into account when conducting spectral analysis.
 
@@ -133,7 +133,7 @@ Zoomed-in FFT plot of DC component for the working example.
 ```
 Consequently, we configure the DC component also to consider more than one bin in calculating the performance metrics.
 
-In [leakage and spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis2.py) Python script, it is done by the following lines of code, where a _test_ if created first followed by associating various _components_ to this _test_.
+In [leakage and spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis2.py) Python script, it is done by the following lines of code, where a _test_ is created first followed by associating various _components_ to this _test_.
 ```{code-block} python
 # Fourier analysis configuration
 test_label = "fa"
