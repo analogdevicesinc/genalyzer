@@ -58,7 +58,7 @@ def test_fft_analysis_pyadi(channels):
     for i in range(16):
         x = sdr.rx()
 
-    fft_cplx, fft_db, fft_freq_out = gn.iio_interface.fft(sdr, x, navg, window)
+    fft_cplx, fft_db, fft_freq_out = gn.pai.fft(sdr, x, navg, window)
 
     if len(channels) > 1:
         first = channels[0]
