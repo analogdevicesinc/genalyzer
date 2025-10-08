@@ -9,4 +9,5 @@ Component APIs
 
    pygenalyzer
    pygenalyzer.simplified
+   pyadi
    
