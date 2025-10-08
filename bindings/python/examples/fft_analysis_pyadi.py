@@ -6,6 +6,12 @@ def main():
 
     import numpy as np
     import genalyzer as gn
+
+    from importlib.util import find_spec
+    if find_spec("adi") is None or find_spec("iio") is None:
+        print("pyadi-iio must be installed to run this example")
+        return
+
     import adi
 
     #
