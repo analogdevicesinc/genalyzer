@@ -92,3 +92,4 @@ from .pygenalyzer import (
 
 import genalyzer.simplified_beta as simplified_beta
 import genalyzer.helpers as helpers
+import genalyzer.iio_inf as iio_interface
