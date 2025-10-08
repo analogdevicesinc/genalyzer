@@ -1,6 +1,8 @@
+# Copyright (C) 2025 Analog Devices, Inc.
+#
+# SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """Helper functions for pyadi-iio devices."""
 
-import iio
 import numpy as np
 
 import genalyzer as gn
@@ -52,9 +54,9 @@ def fft(
         interface, "_rxadc"
     ), "Non standard pyadi-iio device. interface must have _rxadc attribute"
 
-    assert isinstance(
-        interface._rxadc, iio.Device
-    ), "interface must be an iio.Device as _rxadc attribute"
+    # assert isinstance(
+    #     interface._rxadc, iio.Device
+    # ), "interface must be an iio.Device as _rxadc attribute"
     if not isinstance(data, (np.ndarray, list)) and not all(
         isinstance(d, np.ndarray) for d in data
     ):
