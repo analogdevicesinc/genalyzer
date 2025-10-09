@@ -15,6 +15,7 @@ def fft(
     window=gn.Window.NO_WINDOW,
     axis_type=gn.FreqAxisType.DC_CENTER,
     axis_fmt=gn.FreqAxisFormat.FREQ,
+    rx_device=None,
 ):
     """Perform FFT based off pyadi-iio interface.
 
@@ -42,6 +43,8 @@ def fft(
 
         ``axis_fmt``: frequency axis format from gn.FreqAxisFormat enum.
 
+        ``rx_ref``: optional pyadi-iio rx instance for secondary DMA channels. This is of type adi.rx or adi.obs.
+
     Returns:
         ``fft_out``: FFT output as a numpy array or list of numpy arrays (for multiple channels).
 
@@ -50,13 +53,18 @@ def fft(
         ``fft_freq_out``: frequency axis as a numpy array or list of numpy arrays (for multiple channels).
     """
     # Checks
-    assert hasattr(
-        interface, "_rxadc"
-    ), "Non standard pyadi-iio device. interface must have _rxadc attribute"
+    if rx_device is None:
+        assert hasattr(
+            interface, "_rxadc"
+        ), "Non standard pyadi-iio device. i_face must have _rxadc attribute"
+        i_face = interface
+    else:
+        # This is the case when obs exists for secondary DMAs
+        i_face = rx_device
 
     # assert isinstance(
-    #     interface._rxadc, iio.Device
-    # ), "interface must be an iio.Device as _rxadc attribute"
+    #     i_face._rxadc, iio.Device
+    # ), "i_face must be an iio.Device as _rxadc attribute"
     if not isinstance(data, (np.ndarray, list)) and not all(
         isinstance(d, np.ndarray) for d in data
     ):
@@ -64,47 +72,47 @@ def fft(
     assert navg > 0 and isinstance(navg, int), "navg must be a positive integer"
 
     # Check data meets channels
-    if len(interface.rx_enabled_channels) > 1:
+    if len(i_face.rx_enabled_channels) > 1:
         if not isinstance(data, list):
             raise ValueError("data must be a list when multiple channels are enabled")
-        if len(data) != len(interface.rx_enabled_channels):
+        if len(data) != len(i_face.rx_enabled_channels):
             raise ValueError("data length must match number of enabled channels")
     elif isinstance(data, list):
         raise ValueError("data must be a numpy array when a single channel is enabled")
-    elif len(interface.rx_enabled_channels) == 0:
-        raise ValueError("No enabled channels found in interface")
+    elif len(i_face.rx_enabled_channels) == 0:
+        raise ValueError("No enabled channels found in i_face")
 
-    if hasattr(interface, "rx_sample_rate"):
-        fs = int(interface.rx_sample_rate)
-    elif hasattr(interface, "sample_rate"):
-        fs = int(interface.sample_rate)
+    if hasattr(i_face, "rx_sample_rate"):
+        fs = int(i_face.rx_sample_rate)
+    elif hasattr(i_face, "sample_rate"):
+        fs = int(i_face.sample_rate)
     else:
-        raise ValueError("Sample rate not found in interface")
+        raise ValueError("Sample rate not found in i_face")
 
     fft_out = {}
     fft_out_db = {}
     fft_freq_out = {}
 
-    for i, rx_ch in enumerate(interface.rx_enabled_channels):
+    for i, rx_ch in enumerate(i_face.rx_enabled_channels):
         if isinstance(rx_ch, int):
-            name = interface._rx_channel_names[rx_ch]
+            name = i_face._rx_channel_names[rx_ch]
             channel = None
-            for ch in interface._rxadc.channels:
+            for ch in i_face._rxadc.channels:
                 if ch.name == name or ch.id == name:
                     channel = ch
                     break
             if channel is None:
                 raise ValueError(
-                    f"Channel {rx_ch} not found in device {interface._rxadc.name}"
+                    f"Channel {rx_ch} not found in device {i_face._rxadc.name}"
                 )
         elif isinstance(rx_ch, str):
-            channel = interface._rxadc.find_channel(rx_ch, False)
+            channel = i_face._rxadc.find_channel(rx_ch, False)
         else:
             raise ValueError("rx_channel must be int or str")
 
         if not channel:
             raise ValueError(
-                f"Channel {rx_ch} not found in device {interface._rxadc.name}"
+                f"Channel {rx_ch} not found in device {i_face._rxadc.name}"
             )
 
         df = channel.data_format
