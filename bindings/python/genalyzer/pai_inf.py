@@ -87,7 +87,16 @@ def fft(
 
     for i, rx_ch in enumerate(interface.rx_enabled_channels):
         if isinstance(rx_ch, int):
-            channel = interface._rxadc.channels[rx_ch]
+            name = interface._rx_channel_names[rx_ch]
+            channel = None
+            for ch in interface._rxadc.channels:
+                if ch.name == name or ch.id == name:
+                    channel = ch
+                    break
+            if channel is None:
+                raise ValueError(
+                    f"Channel {rx_ch} not found in device {interface._rxadc.name}"
+                )
         elif isinstance(rx_ch, str):
             channel = interface._rxadc.find_channel(rx_ch, False)
         else:
