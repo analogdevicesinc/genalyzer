@@ -91,4 +91,4 @@ if(WIN32)
   configure_file(libgenalyzer.iss.cmakein ${CMAKE_CURRENT_BINARY_DIR}/libgenalyzer.iss @ONLY)
 endif()
 
-install(TARGETS genalyzer DESTINATION /usr/local/lib)
+install(TARGETS genalyzer DESTINATION ${CMAKE_INSTALL_PREFIX})
