@@ -1,5 +1,5 @@
 [workspace]
-members = ["rust/fourier"]
+members = ["rust/fourier", "rust/fa"]
 resolver = "2"
 
 [profile.release]

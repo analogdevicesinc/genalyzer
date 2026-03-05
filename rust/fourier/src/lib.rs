@@ -94,7 +94,8 @@ impl FourierAnalyzer {
             .collect();
         buf.resize(self.n, Complex::new(0.0, 0.0));
         let mut scratch = vec![Complex::new(0.0, 0.0); self.fwd_scratch_len];
-        self.forward_plan.process_with_scratch(&mut buf, &mut scratch);
+        self.forward_plan
+            .process_with_scratch(&mut buf, &mut scratch);
         buf
     }
 
@@ -111,7 +112,8 @@ impl FourierAnalyzer {
         let mut buf: Vec<Complex<f64>> = input.iter().take(n).cloned().collect();
         buf.resize(n, Complex::new(0.0, 0.0));
         let mut scratch = vec![Complex::new(0.0, 0.0); self.inv_scratch_len];
-        self.inverse_plan.process_with_scratch(&mut buf, &mut scratch);
+        self.inverse_plan
+            .process_with_scratch(&mut buf, &mut scratch);
         let scale = 1.0 / n as f64;
         buf.iter().map(|c| c.re * scale).collect()
     }

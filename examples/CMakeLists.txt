@@ -16,6 +16,9 @@ target_link_libraries(do_fa_pluto_example ${LIBRARIES} cJSON)
 add_executable(do_fa_pluto_example_all_results do_fa_pluto_example_all_results.c)
 target_link_libraries(do_fa_pluto_example_all_results ${LIBRARIES} cJSON)
 
+add_executable(do_fa_pluto_example_all_results_bench do_fa_pluto_example_all_results_bench.c)
+target_link_libraries(do_fa_pluto_example_all_results_bench ${LIBRARIES} cJSON)
+
 add_executable(real_analysis_genalyzer_advanced real_analysis_genalyzer_advanced.c)
 target_link_libraries(real_analysis_genalyzer_advanced ${LIBRARIES})
 
