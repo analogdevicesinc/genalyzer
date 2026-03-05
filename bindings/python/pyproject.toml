@@ -43,6 +43,12 @@ namespaces = true
 
 [project.optional-dependencies]
 tools = ["scipy"]
+# Install maturin, then run `maturin develop --features python` from rust/fourier/
+# to build the _fourier_rs Rust extension.  The rustfft crate is a Rust
+# dependency declared in rust/fourier/Cargo.toml; it is not a PyPI package.
+rust = [
+    "maturin >= 1.5, < 2.0",
+]
 pytest = [
     "pytest >= 6.2",
     "pytest-reporter >= 0.4.0",

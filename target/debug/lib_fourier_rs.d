@@ -1,0 +1,1 @@
+/home/tcollins/dev/tbotdev/ai-dev-workspace/genalyzer-20260304-210831-427cee/target/debug/lib_fourier_rs.so: /home/tcollins/dev/tbotdev/ai-dev-workspace/genalyzer-20260304-210831-427cee/rust/fourier/src/lib.rs
