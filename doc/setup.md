@@ -75,4 +75,43 @@ sudo make install
 | `BUILD_TESTS_EXAMPLES` | Build the tests and examples | `OFF` |
 | `COVERAGE` | Enable coverage tracing when testing | `OFF` |
 
+## Rust FFT Extension (`genalyzer._fourier_rs`)
+
+A Rust-based FFT implementation is available as an optional Python extension module
+(`genalyzer._fourier_rs`). It is optimised for repeated, concurrent calls and provides
+a `FourierAnalyzer` class as well as stateless free functions (`forward_fft`,
+`inverse_fft`, `power_spectrum`, `frequencies`).
+
+### Additional Dependencies
+
+- [Rust toolchain](https://rustup.rs/) (stable, 1.70 or later)
+- [maturin](https://github.com/PyO3/maturin) Python build tool
+
+```bash
+pip install maturin
+```
+
+### Build (development install)
+
+```bash
+cd rust/fourier
+maturin develop --features python
+```
+
+This compiles the extension and installs it into the active Python environment so
+that `import genalyzer._fourier_rs` works immediately.
+
+### Build (release wheel)
+
+```bash
+cd rust/fourier
+maturin build --release --features python
+pip install target/wheels/genalyzer_fourier_rs-*.whl
+```
+
+### Normalization convention
+
+The forward FFT is unnormalized. The inverse FFT divides by `N`, matching the
+`numpy.fft` convention used by the existing Python implementation.
+
 
