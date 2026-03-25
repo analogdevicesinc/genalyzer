@@ -61,7 +61,7 @@ str_t negate(const str_t &expr, bool neg) {
 
 const fourier_analysis::min_max_def_t fourier_analysis::mmd_hd = { 1, 99, 6 };
 const fourier_analysis::min_max_def_t fourier_analysis::mmd_imd = { 1, 9, 3 };
-const fourier_analysis::min_max_def_t fourier_analysis::mmd_wo = { 1, 9, 1 };
+const fourier_analysis::min_max_def_t fourier_analysis::mmd_wo = { 0, 9, 1 };
 const fourier_analysis::min_max_def_t fourier_analysis::mmd_ssb = { 0, 1 << 29,
 	0 };
 
@@ -1053,13 +1053,15 @@ fourier_analysis::comp_data_t fourier_analysis::generate_comps(bool cplx) const 
 		}
 	}
 	// WO Components
-	ssb = (m_ssb_wo < 0) ? m_ssb_def : m_ssb_wo;
-	if (1 == m_wo) {
-		add_comp(keys, comps, "wo", fa_wo_tone::create(ssb));
-	} else {
-		for (int i = 1; i <= m_wo; ++i) {
-			key = "wo" + std::to_string(i);
-			add_comp(keys, comps, key, fa_wo_tone::create(ssb));
+	if (m_wo > 0) {
+		ssb = (m_ssb_wo < 0) ? m_ssb_def : m_ssb_wo;
+		if (1 == m_wo) {
+			add_comp(keys, comps, "wo", fa_wo_tone::create(ssb));
+		} else {
+			for (int i = 1; i <= m_wo; ++i) {
+				key = "wo" + std::to_string(i);
+				add_comp(keys, comps, key, fa_wo_tone::create(ssb));
+			}
 		}
 	}
 	// Done!
