@@ -41,7 +41,11 @@ include = ["genalyzer*"]
 exclude = ["tests*"]
 namespaces = true
 
+[project.scripts]
+genalyzer-mcp = "genalyzer.mcp_server:main"
+
 [project.optional-dependencies]
+mcp = ["fastmcp", "numpy"]
 tools = ["scipy"]
 pytest = [
     "pytest >= 6.2",
