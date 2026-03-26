@@ -3,8 +3,9 @@
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """Pytest plugin for Genalyzer."""
 
-import pytest
 import logging
+
+import pytest
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("genalyzer-pytest-plugin")

@@ -155,7 +155,7 @@ def fft(
         fft_freq_out[rx_ch] = freq_axis
 
     if len(fft_out) == 1:
-        first = list(fft_out.keys())[0]
+        first = next(iter(fft_out.keys()))
         fft_out = fft_out[first]
         fft_out_db = fft_out_db[first]
         fft_freq_out = fft_freq_out[first]
