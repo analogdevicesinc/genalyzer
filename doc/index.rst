@@ -62,6 +62,7 @@ Reference
    reference_simplified
    python/genalyzer
    pytest/index
+   mcp/index
    linting
 
 
