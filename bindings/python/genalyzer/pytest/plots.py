@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Analog Devices, Inc.
+# Copyright (C) 2025-2026 Analog Devices, Inc.
 #
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """Special plot implementations for pytest-genalyzer."""
@@ -45,7 +45,7 @@ def gn_plot_fft_single_tone(
         ``navg`` (int, optional): Number of averages. Defaults to 1.
 
         ``plot_height_px`` (int, optional): Height of the plot in pixels. Defaults to 1000.
-        
+
         ``title`` (str): Title of the plot.
     """
 
@@ -186,14 +186,16 @@ def gn_plot_fft_single_tone(
 
 def add_plot(self, fig, name=None):
     """Add a plotly figure to the current test report.
-    
+
     Args:
         ``fig`` (``plotly.graph_objects.Figure``): The plotly figure to add.
 
         ``name`` (``str, optional``): Name of the plot. If None, a default name will be assigned.
     """
     if self._current_test_id is None:
-        warnings.warn("No current test set for plot. Use gn_plot_manager to create plots.")
+        warnings.warn(
+            "No current test set for plot. Use gn_plot_manager to create plots."
+        )
         return None
 
     plot_id = str(uuid.uuid4())
@@ -209,14 +211,16 @@ def add_plot(self, fig, name=None):
 
 def add_plot_img_file(self, img_path, name=None):
     """Add an image file as a plot to the current test report.
-    
+
     Args:
         ``img_path`` (``str``): Path to the image file.
 
         ``name`` (``str``, optional): Name of the plot. If None, a default name will be assigned.
     """
     if self._current_test_id is None:
-        warnings.warn("No current test set for plot. Use gn_plot_manager to create plots.")
+        warnings.warn(
+            "No current test set for plot. Use gn_plot_manager to create plots."
+        )
         return None
 
     if not Path(img_path).is_file():
@@ -243,7 +247,9 @@ def add_plot_html(self, html_str, name=None):
         ``name`` (``str``, optional): Name of the plot. If None, a default name will be assigned.
     """
     if self._current_test_id is None:
-        warnings.warn("No current test set for plot. Use gn_plot_manager to create plots.")
+        warnings.warn(
+            "No current test set for plot. Use gn_plot_manager to create plots."
+        )
         return None
 
     plot_id = str(uuid.uuid4())

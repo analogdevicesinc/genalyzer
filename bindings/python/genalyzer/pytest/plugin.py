@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Analog Devices, Inc.
+# Copyright (C) 2025-2026 Analog Devices, Inc.
 #
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """
@@ -177,7 +177,6 @@ def css_minify(s):
 
 
 class TemplatePlugin:
-
     def __init__(self, config):
         self.self_contained = not config.getoption("--split-report")
         self.reports_dir = config.getoption("--reports-dir")

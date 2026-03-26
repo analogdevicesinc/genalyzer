@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Analog Devices, Inc.
+# Copyright (C) 2025-2026 Analog Devices, Inc.
 #
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """Helper functions for pyadi-iio devices."""
@@ -54,9 +54,9 @@ def fft(
     """
     # Checks
     if rx_device is None:
-        assert hasattr(
-            interface, "_rxadc"
-        ), "Non standard pyadi-iio device. i_face must have _rxadc attribute"
+        assert hasattr(interface, "_rxadc"), (
+            "Non standard pyadi-iio device. i_face must have _rxadc attribute"
+        )
         i_face = interface
     else:
         # This is the case when obs exists for secondary DMAs

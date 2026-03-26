@@ -1,4 +1,4 @@
-// Copyright (C) 2024-2025 Analog Devices, Inc.
+// Copyright (C) 2024-2026 Analog Devices, Inc.
 //
 // SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 #ifndef GENALYZER_IMPL_ENUMS_HPP
@@ -11,23 +11,23 @@ namespace genalyzer_impl {
 
 /** @brief Type of analysis performed. */
 enum class AnalysisType : int {
-	DNL,       /**< Differential nonlinearity analysis. */
-	Fourier,   /**< Fourier (spectral) analysis. */
+	DNL, /**< Differential nonlinearity analysis. */
+	Fourier, /**< Fourier (spectral) analysis. */
 	Histogram, /**< Histogram (code density) analysis. */
-	INL,       /**< Integral nonlinearity analysis. */
-	Waveform   /**< Time-domain waveform analysis. */
+	INL, /**< Integral nonlinearity analysis. */
+	Waveform /**< Time-domain waveform analysis. */
 };
 
 /** @brief ADC code format. */
 enum class CodeFormat : int {
-	OffsetBinary,   /**< Unsigned offset binary encoding. */
-	TwosComplement  /**< Signed two's complement encoding. */
+	OffsetBinary, /**< Unsigned offset binary encoding. */
+	TwosComplement /**< Signed two's complement encoding. */
 };
 
 /** @brief Signal type used for DNL computation. */
 enum class DnlSignal : int {
 	Ramp, /**< Linear ramp stimulus. */
-	Tone  /**< Sinusoidal (tone) stimulus. */
+	Tone /**< Sinusoidal (tone) stimulus. */
 };
 
 /**
@@ -38,15 +38,15 @@ enum class DnlSignal : int {
  * type are treated as noise.
  */
 enum class FACompTag : int {
-	DC,       /**< DC component (always Bin 0). */
-	Signal,   /**< Signal component. */
-	HD,       /**< Harmonic distortion. */
-	IMD,      /**< Intermodulation distortion. */
-	ILOS,     /**< Interleaving offset component. */
-	ILGT,     /**< Interleaving gain/timing/BW component. */
-	CLK,      /**< Clock sub-harmonic component. */
+	DC, /**< DC component (always Bin 0). */
+	Signal, /**< Signal component. */
+	HD, /**< Harmonic distortion. */
+	IMD, /**< Intermodulation distortion. */
+	ILOS, /**< Interleaving offset component. */
+	ILGT, /**< Interleaving gain/timing/BW component. */
+	CLK, /**< Clock sub-harmonic component. */
 	UserDist, /**< User-designated distortion component. */
-	Noise     /**< Noise component (e.g., WorstOther). */
+	Noise /**< Noise component (e.g., WorstOther). */
 };
 
 /**
@@ -57,30 +57,30 @@ enum class FACompTag : int {
  */
 enum class FASsb : int {
 	Default, /**< Default SSB (applies to auto-generated components). */
-	DC,      /**< SSB for the DC component. */
-	Signal,  /**< SSB for signal components. */
-	WO       /**< SSB for worst-other components. */
+	DC, /**< SSB for the DC component. */
+	Signal, /**< SSB for signal components. */
+	WO /**< SSB for worst-other components. */
 };
 
 /** @brief Output format for frequency axis values. */
 enum class FreqAxisFormat : int {
 	Bins, /**< Frequency expressed as FFT bin indices. */
 	Freq, /**< Frequency expressed in Hz. */
-	Norm  /**< Normalized frequency (relative to sample rate). */
+	Norm /**< Normalized frequency (relative to sample rate). */
 };
 
 /** @brief Frequency axis layout type. */
 enum class FreqAxisType : int {
 	DcCenter, /**< DC at center: [-fs/2, fs/2). */
-	DcLeft,   /**< DC at left: [0, fs). */
-	Real      /**< Real (one-sided): [0, fs/2]. */
+	DcLeft, /**< DC at left: [0, fs). */
+	Real /**< Real (one-sided): [0, fs/2]. */
 };
 
 /** @brief Line-fit method for INL computation. */
 enum class InlLineFit : int {
 	BestFit, /**< Remove a least-squares best-fit line. */
-	EndFit,  /**< Remove an endpoint-fit line. */
-	NoFit    /**< Do not remove any line (raw cumulative sum). */
+	EndFit, /**< Remove an endpoint-fit line. */
+	NoFit /**< Do not remove any line (raw cumulative sum). */
 };
 
 /**
@@ -89,16 +89,16 @@ enum class InlLineFit : int {
  * Controls how full-scale is defined for dBFS measurements.
  */
 enum class RfftScale : int {
-	DbfsDc,  /**< Full-scale sinusoid measures -3 dBFS. */
+	DbfsDc, /**< Full-scale sinusoid measures -3 dBFS. */
 	DbfsSin, /**< Full-scale sinusoid measures 0 dBFS. */
-	Native   /**< Full-scale sinusoid measures -6 dBFS. */
+	Native /**< Full-scale sinusoid measures -6 dBFS. */
 };
 
 /** @brief Window function for FFT computation. */
 enum class Window : int {
 	BlackmanHarris, /**< Blackman-Harris window. */
-	Hann,           /**< Hann window. */
-	NoWindow        /**< No window (rectangular). */
+	Hann, /**< Hann window. */
+	NoWindow /**< No window (rectangular). */
 };
 
 } // namespace genalyzer_impl

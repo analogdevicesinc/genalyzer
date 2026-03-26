@@ -1,10 +1,11 @@
-# Copyright (C) 2024-2025 Analog Devices, Inc.
+# Copyright (C) 2024-2026 Analog Devices, Inc.
 #
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 
 """
 Python wrapper for Genalyzer Library (genalyzer_plus_plus)
 """
+
 import ctypes as _ctypes
 import os as _os
 import sys as _sys
@@ -161,6 +162,7 @@ class CodeFormat(_IntEnum):
 
         ``TWOS_COMPLEMENT`` : Two's Complement (signed, zero at midscale)
     """
+
     OFFSET_BINARY = _enum_value("CodeFormat", "OffsetBinary")
     TWOS_COMPLEMENT = _enum_value("CodeFormat", "TwosComplement")
 
@@ -176,6 +178,7 @@ class DnlSignal(_IntEnum):
 
         ``TONE`` : Tone (sinusoidal) stimulus signal
     """
+
     RAMP = _enum_value("DnlSignal", "Ramp")
     TONE = _enum_value("DnlSignal", "Tone")
 
@@ -202,6 +205,7 @@ class FaCompTag(_IntEnum):
 
         ``NOISE`` : Noise component (e.g. WorstOther)
     """
+
     DC = _enum_value("FACompTag", "DC")
     SIGNAL = _enum_value("FACompTag", "Signal")
     HD = _enum_value("FACompTag", "HD")
@@ -225,6 +229,7 @@ class FaSsb(_IntEnum):
 
         ``WO`` : SSB for WorstOther components
     """
+
     DEFAULT = _enum_value("FASsb", "Default")
     DC = _enum_value("FASsb", "DC")
     SIGNAL = _enum_value("FASsb", "Signal")
@@ -241,6 +246,7 @@ class FreqAxisFormat(_IntEnum):
 
         ``NORM`` : Normalized frequency (cycles per sample)
     """
+
     BINS = _enum_value("FreqAxisFormat", "Bins")
     FREQ = _enum_value("FreqAxisFormat", "Freq")
     NORM = _enum_value("FreqAxisFormat", "Norm")
@@ -256,6 +262,7 @@ class FreqAxisType(_IntEnum):
 
         ``REAL`` : Real axis, e.g. [0, fs/2] (real FFT only)
     """
+
     DC_CENTER = _enum_value("FreqAxisType", "DcCenter")
     DC_LEFT = _enum_value("FreqAxisType", "DcLeft")
     REAL = _enum_value("FreqAxisType", "Real")
@@ -271,6 +278,7 @@ class InlLineFit(_IntEnum):
 
         ``NO_FIT`` : No line fitting; raw cumulative sum of DNL
     """
+
     BEST_FIT = _enum_value("InlLineFit", "BestFit")
     END_FIT = _enum_value("InlLineFit", "EndFit")
     NO_FIT = _enum_value("InlLineFit", "NoFit")
@@ -286,6 +294,7 @@ class RfftScale(_IntEnum):
 
         ``NATIVE`` : Native scaling; a full-scale sinusoid measures -6.02 dBFS
     """
+
     DBFS_DC = _enum_value("RfftScale", "DbfsDc")
     DBFS_SIN = _enum_value("RfftScale", "DbfsSin")
     NATIVE = _enum_value("RfftScale", "Native")
@@ -303,6 +312,7 @@ class Window(_IntEnum):
 
         ``NO_WINDOW`` : Rectangular window (no windowing), use only with coherent sampling
     """
+
     BLACKMAN_HARRIS = _enum_value("Window", "BlackmanHarris")
     HANN = _enum_value("Window", "Hann")
     NO_WINDOW = _enum_value("Window", "NoWindow")
@@ -1421,7 +1431,9 @@ def fa_ssb_def(test_key, n):
 
         ``n`` (``int``) : Number of single-side bins
     """
-    print("fa_ssb_def(test_key, n) is deprecated; use fa_ssb(test_key, FaSsb.DEFAULT, n)")
+    print(
+        "fa_ssb_def(test_key, n) is deprecated; use fa_ssb(test_key, FaSsb.DEFAULT, n)"
+    )
     test_key = bytes(test_key, "utf-8")
     result = _lib.gn_fa_ssb(test_key, FaSsb.DEFAULT, n)
     _raise_exception_on_failure(result)
