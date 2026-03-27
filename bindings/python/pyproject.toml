@@ -70,6 +70,9 @@ homepage = "https://analogdevicesinc.github.io/genalyzer/"
 documentation = "https://analogdevicesinc.github.io/genalyzer/"
 repository = "https://github.com/analogdevicesinc/genalyzer"
 
+[tool.pytest.ini_options]
+collect_ignore_glob = ["tests/reports/samples/*"]
+
 [tool.ruff]
 line-length = 88
 target-version = "py39"
