@@ -66,12 +66,53 @@ homepage = "https://analogdevicesinc.github.io/genalyzer/"
 documentation = "https://analogdevicesinc.github.io/genalyzer/"
 repository = "https://github.com/analogdevicesinc/genalyzer"
 
-[tool.isort]
-multi_line_output=3
-include_trailing_comma="True"
-force_grid_wrap=0
-use_parentheses="True"
-line_length=88
+[tool.ruff]
+line-length = 88
+target-version = "py39"
 
-[tool.mypy]
-ignore_missing_imports="true"
+[tool.ruff.lint]
+select = [
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "F",     # pyflakes
+    "I",     # isort
+    "UP",    # pyupgrade
+    "B",     # flake8-bugbear
+    "SIM",   # flake8-simplify
+    "RUF",   # ruff-specific rules
+]
+ignore = [
+    "F401",   # unused imports in __init__.py (re-exports)
+    "F821",   # undefined names (conditional imports in simplified_beta)
+    "E501",   # line too long (handled by formatter)
+    "SIM300", # yoda conditions (existing code style)
+    "B028",   # no stacklevel in warnings
+    "UP031",  # printf-style string formatting (existing code style)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"genalyzer/__init__.py" = ["F401", "I001"]
+"genalyzer/simplified_beta/*" = ["F821", "E501", "W291", "W293", "UP004", "UP006", "UP032", "UP035", "I001", "SIM108", "RUF012"]
+"genalyzer/helpers/*" = ["F821", "W291", "I001", "RUF012", "SIM105"]
+"genalyzer/pytest/*" = ["W291", "W293", "I001", "B007", "B904", "SIM102", "SIM108", "RUF005"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ty.environment]
+python-version = "3.9"
+
+[tool.ty.rules]
+unresolved-import = "ignore"  # third-party deps not always installed
+
+[[tool.ty.overrides]]
+include = ["genalyzer/simplified_beta/**", "genalyzer/helpers/**", "genalyzer/pytest/**"]
+[tool.ty.overrides.rules]
+invalid-assignment = "ignore"
+invalid-argument-type = "ignore"
+invalid-parameter-default = "ignore"
+invalid-return-type = "ignore"
+not-iterable = "ignore"
+unresolved-reference = "ignore"
+unresolved-attribute = "ignore"
+unsupported-operator = "ignore"
