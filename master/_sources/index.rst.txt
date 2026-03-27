@@ -22,6 +22,7 @@ Reference
 
    introduction
    setup
+   linting
    spectral_analysis
    spectral_analysis_ssb
    reference

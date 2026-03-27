@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Introduction" href="introduction.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Spectral Analysis" href="spectral_analysis.html"><link rel="prev" title="Installation" href="setup.html">
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
-        <title>Genalyzer v0.1.2 documentation</title>
+        <title>Code Quality Tools - Genalyzer v0.1.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">Genalyzer v0.1.2 documentation</div></a>
+      <a href="index.html"><div class="brand">Genalyzer v0.1.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -175,7 +175,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -183,7 +183,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <span class="sidebar-brand-text">Genalyzer v0.1.2 documentation</span>
   
@@ -194,10 +194,10 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linting.html">Code Quality Tools</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Code Quality Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spectral_analysis.html">Spectral Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spectral_analysis_ssb.html">Windowing and Single Side Bins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
@@ -237,7 +237,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/index.rst.txt" title="View this page">
+  <a class="muted-link" href="_sources/linting.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -250,97 +250,123 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="genalyzer-data-converter-library">
-<h1>genalyzer: Data Converter Library<a class="headerlink" href="#genalyzer-data-converter-library" title="Link to this heading">¶</a></h1>
-<p>Library for data converter and general sampled data analysis.</p>
-<p>Genalyzer is a C++ library that facilitates the computation of commonly used data-converter RF performance metrics in a standards-complaint manner. Genalyzer supports generation of waveforms for characterizing data-converters as well as the computation of performance metrics given the time- or frequency-domain response of data-converters to such waveforms. In other words, users not only have the option of selecting whether or not to opt for waveform generation to characterize data-convereters, but are also able to utilize time-series data or FFT of samples captured from a data-convereter to directly compute the desired performance metrics.</p>
-<p>Thus, Genalyzer can support a simulation-only scenario or a data-capture scenario. In the first case, the response of a data-converter is simulated given its specifications, in order to compute the expected performance metrics. In the second case, the response of a data-converter is available for Genalyzer to process in the form of a text or binary file. Genalyzer facilitates the computation of common data converter performance metrics in a standards-complaint manner. The terminology and definitions for various common performance metrics are adopted from the IEEE Standard for Terminology and Test Methods for Analog-to-Digital Converters (IEEE 1241-2010) and the IEEE Standard for Terminology and Test Methods of Digital-to-Analog Converter Devices (IEEE 1658-2011) both published by Instrumentation and Measurement/Waveform Generation, Measurement, and Analysis - Technical Committee 10 (IM/WM&amp;A - TC10).</p>
-</section>
-<section id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Link to this heading">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#windows">Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#linux-macos">Linux/macOS</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="linting.html">Code Quality Tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="linting.html#c-formatting-clang-format">C++ Formatting: clang-format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="linting.html#python-linting-ruff">Python Linting: Ruff</a></li>
-<li class="toctree-l2"><a class="reference internal" href="linting.html#python-type-checking-ty">Python Type Checking: ty</a></li>
-<li class="toctree-l2"><a class="reference internal" href="linting.html#ci-integration">CI Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="linting.html#adding-new-rules">Adding new rules</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="spectral_analysis.html">Spectral Analysis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="spectral_analysis.html#tone-generation">Tone Generation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spectral_analysis.html#compute-fft">Compute FFT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spectral_analysis.html#run-spectral-analysis">Run Spectral Analysis</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="spectral_analysis_ssb.html">Windowing and Single Side Bins</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="spectral_analysis_ssb.html#leakage">Leakage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spectral_analysis_ssb.html#spectral-analysis">Spectral Analysis</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#table-of-contents">Table of Contents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#enumerations">Enumerations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#api-utilities">API Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#array-operations">Array Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#code-density">Code Density</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#code-density-helpers">Code Density Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#fourier-analysis">Fourier Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#fourier-analysis-configuration">Fourier Analysis Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#fourier-analysis-results">Fourier Analysis Results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#fourier-analysis-helpers">Fourier Analysis Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#fourier-transforms">Fourier Transforms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#fourier-transform-helpers">Fourier Transform Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#fourier-utilities">Fourier Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#fourier-utility-helpers">Fourier Utility Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#manager">Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#manager-helpers">Manager Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#signal-processing">Signal Processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#signal-processing-helpers">Signal Processing Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#waveforms">Waveforms</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="reference_simplified.html">(Beta) Simplified API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference_simplified.html#function-groups">Function Groups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_simplified.html#set-functions">Set Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_simplified.html#get-functions">Get Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_simplified.html#config-functions">Config Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_simplified.html#generate-functions">Generate Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_simplified.html#operation-functions">Operation Functions</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="python/genalyzer.html">Python Bindings</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="python/genalyzer.html#component-apis">Component APIs</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="pytest/index.html">Pytest Integration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pytest/index.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pytest/index.html#usage">Usage</a></li>
-</ul>
-</li>
-</ul>
+          <section id="code-quality-tools">
+<h1>Code Quality Tools<a class="headerlink" href="#code-quality-tools" title="Link to this heading">¶</a></h1>
+<p>Genalyzer uses automated linting and formatting tools to maintain consistent code quality across both C++ and Python codebases. These checks run automatically in CI on every push and pull request.</p>
+<section id="c-formatting-clang-format">
+<h2>C++ Formatting: clang-format<a class="headerlink" href="#c-formatting-clang-format" title="Link to this heading">¶</a></h2>
+<p>All C and C++ source files are formatted with <a class="reference external" href="https://clang.llvm.org/docs/ClangFormat.html">clang-format</a> using the project’s <code class="docutils literal notranslate"><span class="pre">.clang-format</span></code> configuration. The configuration is based on the LLVM style with project-specific customizations including tab-based indentation and C++20 language standard.</p>
+<section id="running-locally">
+<h3>Running locally<a class="headerlink" href="#running-locally" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check formatting (dry run)</span>
+find<span class="w"> </span>include/<span class="w"> </span>src/<span class="w"> </span>bindings/c/<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.hpp&#39;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.h&#39;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.cpp&#39;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.c&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>clang-format<span class="w"> </span>--dry-run<span class="w"> </span>--Werror
+
+<span class="c1"># Apply formatting</span>
+find<span class="w"> </span>include/<span class="w"> </span>src/<span class="w"> </span>bindings/c/<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.hpp&#39;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.h&#39;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.cpp&#39;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.c&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>clang-format<span class="w"> </span>-i
+</pre></div>
 </div>
 </section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
+<section id="pre-commit-hook">
+<h3>Pre-commit hook<a class="headerlink" href="#pre-commit-hook" title="Link to this heading">¶</a></h3>
+<p>clang-format also runs as a <a class="reference external" href="https://pre-commit.com/">pre-commit</a> hook. Install the hooks with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
+pre-commit<span class="w"> </span>install
+</pre></div>
+</div>
+<p>After installation, clang-format runs automatically on staged C/C++ files before each commit.</p>
+</section>
+</section>
+<section id="python-linting-ruff">
+<h2>Python Linting: Ruff<a class="headerlink" href="#python-linting-ruff" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://docs.astral.sh/ruff/">Ruff</a> is used for Python linting and formatting. It replaces several traditional tools (flake8, isort, pyupgrade) with a single fast linter. Configuration is in <code class="docutils literal notranslate"><span class="pre">bindings/python/pyproject.toml</span></code> under <code class="docutils literal notranslate"><span class="pre">[tool.ruff]</span></code>.</p>
+<section id="enabled-rule-sets">
+<h3>Enabled rule sets<a class="headerlink" href="#enabled-rule-sets" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Rule set</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E</span></code>, <code class="docutils literal notranslate"><span class="pre">W</span></code></p></td>
+<td><p>pycodestyle errors and warnings</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">F</span></code></p></td>
+<td><p>pyflakes (unused imports, undefined names)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">I</span></code></p></td>
+<td><p>isort (import sorting)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UP</span></code></p></td>
+<td><p>pyupgrade (Python version upgrades)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">B</span></code></p></td>
+<td><p>flake8-bugbear (common bug patterns)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SIM</span></code></p></td>
+<td><p>flake8-simplify (code simplification)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RUF</span></code></p></td>
+<td><p>Ruff-specific rules</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id1">
+<h3>Running locally<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>bindings/python
+
+<span class="c1"># Check for lint errors</span>
+ruff<span class="w"> </span>check<span class="w"> </span>genalyzer/
+
+<span class="c1"># Auto-fix safe issues</span>
+ruff<span class="w"> </span>check<span class="w"> </span>--fix<span class="w"> </span>genalyzer/
+
+<span class="c1"># Check formatting</span>
+ruff<span class="w"> </span>format<span class="w"> </span>--check<span class="w"> </span>genalyzer/
+
+<span class="c1"># Apply formatting</span>
+ruff<span class="w"> </span>format<span class="w"> </span>genalyzer/
+</pre></div>
+</div>
+</section>
+</section>
+<section id="python-type-checking-ty">
+<h2>Python Type Checking: ty<a class="headerlink" href="#python-type-checking-ty" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://docs.astral.sh/ty/">ty</a> is used for Python type checking. It is an extremely fast type checker from the same team that builds Ruff. Configuration is in <code class="docutils literal notranslate"><span class="pre">bindings/python/pyproject.toml</span></code> under <code class="docutils literal notranslate"><span class="pre">[tool.ty]</span></code>.</p>
+<p>The type checker is configured to ignore unresolved imports (third-party dependencies may not be installed in all environments) and relaxes rules for legacy modules (<code class="docutils literal notranslate"><span class="pre">simplified_beta</span></code>, <code class="docutils literal notranslate"><span class="pre">helpers</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>).</p>
+<section id="id2">
+<h3>Running locally<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>bindings/python
+
+<span class="c1"># Run type checks</span>
+ty<span class="w"> </span>check<span class="w"> </span>genalyzer/
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ci-integration">
+<h2>CI Integration<a class="headerlink" href="#ci-integration" title="Link to this heading">¶</a></h2>
+<p>All three tools run automatically in CI through the GitHub Actions workflow defined in <code class="docutils literal notranslate"><span class="pre">.github/workflows/lint.yml</span></code>. The workflow runs on every push and pull request with three parallel jobs:</p>
+<ol class="arabic simple">
+<li><p><strong>clang-format</strong> - Verifies C/C++ formatting</p></li>
+<li><p><strong>ruff</strong> - Checks Python linting and formatting</p></li>
+<li><p><strong>ty</strong> - Runs Python type checking</p></li>
+</ol>
+<p>Additionally, the main test workflow (<code class="docutils literal notranslate"><span class="pre">.github/workflows/test.yml</span></code>) includes a combined lint job that runs pre-commit hooks, Ruff, and ty together.</p>
+</section>
+<section id="adding-new-rules">
+<h2>Adding new rules<a class="headerlink" href="#adding-new-rules" title="Link to this heading">¶</a></h2>
+<p>To enable additional Ruff rules, add the rule code to the <code class="docutils literal notranslate"><span class="pre">select</span></code> list in <code class="docutils literal notranslate"><span class="pre">bindings/python/pyproject.toml</span></code>. See the <a class="reference external" href="https://docs.astral.sh/ruff/rules/">Ruff rule reference</a> for available rules.</p>
+<p>To adjust ty strictness, modify the <code class="docutils literal notranslate"><span class="pre">[tool.ty.rules]</span></code> section. See the <a class="reference external" href="https://docs.astral.sh/ty/rules/">ty rule reference</a> for available rules.</p>
+</section>
 </section>
 
         </article>
@@ -348,16 +374,26 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="introduction.html">
+          <a class="next-page" href="spectral_analysis.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Introduction</div>
+                <div class="title">Spectral Analysis</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          
+          <a class="prev-page" href="setup.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -376,8 +412,42 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Code Quality Tools</a><ul>
+<li><a class="reference internal" href="#c-formatting-clang-format">C++ Formatting: clang-format</a><ul>
+<li><a class="reference internal" href="#running-locally">Running locally</a></li>
+<li><a class="reference internal" href="#pre-commit-hook">Pre-commit hook</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python-linting-ruff">Python Linting: Ruff</a><ul>
+<li><a class="reference internal" href="#enabled-rule-sets">Enabled rule sets</a></li>
+<li><a class="reference internal" href="#id1">Running locally</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python-type-checking-ty">Python Type Checking: ty</a><ul>
+<li><a class="reference internal" href="#id2">Running locally</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ci-integration">CI Integration</a></li>
+<li><a class="reference internal" href="#adding-new-rules">Adding new rules</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

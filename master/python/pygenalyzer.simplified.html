@@ -5,13 +5,13 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="pyadi-iio Interface Helpers" href="pyadi.html"><link rel="prev" title="Signal Processing" href="signal_processing.html">
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2025.09.25 -->
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
         <title>pygenalizer.simplified (Beta) - Genalyzer v0.1.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     
     
@@ -197,6 +197,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linting.html">Code Quality Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../spectral_analysis_ssb.html">Windowing and Single Side Bins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference.html">API Reference</a></li>
@@ -273,7 +274,7 @@
 <span class="sig-name descname"><span class="pre">gen_cosine_wave</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_cosine_wave" title="Link to this definition">¶</a></dt>
 <dd><p>Generate cosine wave data</p>
 <dl class="simple">
-<dt>Returns: </dt><dd><p>Waveform as list of ints</p>
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
 </dd>
 </dl>
 </dd></dl>
@@ -283,9 +284,9 @@
 <span class="sig-name descname"><span class="pre">gen_pwm_wave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duty_cycle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_pwm_wave" title="Link to this definition">¶</a></dt>
 <dd><p>Generate pwm wave data</p>
 <dl class="simple">
-<dt>Args: </dt><dd><p><code class="docutils literal notranslate"><span class="pre">duty_cycle</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>): Duty cycle required. Must be in between 0 and 1.</p>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">duty_cycle</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>): Duty cycle required. Must be in between 0 and 1.</p>
 </dd>
-<dt>Returns: </dt><dd><p>Waveform as list of ints</p>
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
 </dd>
 </dl>
 </dd></dl>
@@ -295,7 +296,7 @@
 <span class="sig-name descname"><span class="pre">gen_sine_wave</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_sine_wave" title="Link to this definition">¶</a></dt>
 <dd><p>Generate sine wave data</p>
 <dl class="simple">
-<dt>Returns: </dt><dd><p>Waveform as list of ints</p>
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
 </dd>
 </dl>
 </dd></dl>
@@ -305,7 +306,7 @@
 <span class="sig-name descname"><span class="pre">gen_square_wave</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_square_wave" title="Link to this definition">¶</a></dt>
 <dd><p>Generate square wave data</p>
 <dl class="simple">
-<dt>Returns: </dt><dd><p>Waveform as list of ints</p>
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
 </dd>
 </dl>
 </dd></dl>
@@ -315,7 +316,7 @@
 <span class="sig-name descname"><span class="pre">gen_triangular_wave</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_triangular_wave" title="Link to this definition">¶</a></dt>
 <dd><p>Generate triangular wave data</p>
 <dl class="simple">
-<dt>Returns: </dt><dd><p>Waveform as list of ints</p>
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
 </dd>
 </dl>
 </dd></dl>
@@ -562,7 +563,7 @@
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     </body>
