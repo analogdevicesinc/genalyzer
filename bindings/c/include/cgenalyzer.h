@@ -167,7 +167,7 @@ extern "C" {
  */
 
 /**
- * @brief gn_analysis_results_key_sizes
+ * @brief Get the size of each key string in an analysis results array
  * @return 0 on success, non-zero otherwise
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the key sizes.  See \ref
@@ -180,7 +180,7 @@ __api int gn_analysis_results_key_sizes(
 );
 
 /**
- * @brief gn_analysis_results_size
+ * @brief Get the number of key-value result pairs for a given analysis type
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_analysis_results_size(
@@ -189,7 +189,7 @@ __api int gn_analysis_results_size(
 );
 
 /**
- * @brief gn_enum_value
+ * @brief Get the integer value of a named enumerator within a named enumeration
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -199,7 +199,7 @@ gn_enum_value(int *value, ///< [out] Underlying value of enumeration::enumerator
 );
 
 /**
- * @brief gn_error_check
+ * @brief Check whether an error has occurred
  * @return Always returns 0
  */
 __api int gn_error_check(
@@ -207,13 +207,13 @@ __api int gn_error_check(
 );
 
 /**
- * @brief gn_error_clear
+ * @brief Clear the current error state
  * @return Always returns 0
  */
 __api int gn_error_clear();
 
 /**
- * @brief gn_error_string
+ * @brief Get the error message string
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_error_string(char *buf, ///< [out] Pointer to character array
@@ -221,7 +221,7 @@ __api int gn_error_string(char *buf, ///< [out] Pointer to character array
 );
 
 /**
- * @brief gn_set_string_termination
+ * @brief Set whether library-returned strings include a null terminator
  * @return Always returns 0
  * @details Some functions in this library return strings by filling character
  * buffers (arrays) provided by the caller.  This function sets a global library
@@ -235,7 +235,7 @@ __api int gn_set_string_termination(
 );
 
 /**
- * @brief gn_version_string
+ * @brief Get the library version string
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_version_string(char *buf, ///< [in,out] Pointer to character array
@@ -248,7 +248,7 @@ __api int gn_version_string(char *buf, ///< [in,out] Pointer to character array
  */
 
 /**
- * @brief gn_error_string_size
+ * @brief Get the size of the error message string
  * @return Always returns 0
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the size.  See \ref gn_set_string_termination.
@@ -258,7 +258,7 @@ __api int gn_error_string_size(
 );
 
 /**
- * @brief gn_version_string_size
+ * @brief Get the size of the library version string
  * @return Always returns 0
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the size.  See \ref gn_set_string_termination.
@@ -286,7 +286,7 @@ extern "C" {
  */
 
 /**
- * @brief gn_abs
+ * @brief Compute the magnitude of each element in an interleaved complex array
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_abs(double *out, ///< [out] Output array pointer
@@ -296,7 +296,7 @@ __api int gn_abs(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_angle
+ * @brief Compute the phase angle (radians) of each element in an interleaved complex array
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_angle(double *out, ///< [out] Output array pointer
@@ -306,7 +306,7 @@ __api int gn_angle(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_db
+ * @brief Convert interleaved complex values to decibels (10*log10(re^2 + im^2))
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_db(double *out, ///< [out] Output array pointer
@@ -316,7 +316,7 @@ __api int gn_db(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_db10
+ * @brief Convert real values to decibels using 10*log10(x)
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_db10(double *out, ///< [out] Output array pointer
@@ -326,7 +326,7 @@ __api int gn_db10(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_db20
+ * @brief Convert real values to decibels using 20*log10(x)
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_db20(double *out, ///< [out] Output array pointer
@@ -336,7 +336,7 @@ __api int gn_db20(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_norm
+ * @brief Compute the squared magnitude of each element in an interleaved complex array
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_norm(double *out, ///< [out] Output array pointer
@@ -362,7 +362,7 @@ extern "C" {
  */
 
 /**
- * @brief gn_code_axis
+ * @brief Generate a code axis array for a given ADC resolution and code format
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_code_axis(double *out, ///< [out] Array pointer
@@ -372,7 +372,7 @@ __api int gn_code_axis(double *out, ///< [out] Array pointer
 );
 
 /**
- * @brief gn_code_axisx
+ * @brief Generate a code axis array for an explicit code range
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_code_axisx(double *out, ///< [out] Array pointer
@@ -382,7 +382,7 @@ __api int gn_code_axisx(double *out, ///< [out] Array pointer
 );
 
 /**
- * @brief gn_dnl
+ * @brief Compute Differential Nonlinearity (DNL) from histogram data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_dnl(double *dnl, ///< [out] Output array pointer
@@ -393,7 +393,7 @@ __api int gn_dnl(double *dnl, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_dnl_analysis
+ * @brief Compute summary statistics of DNL data
  * @return 0 on success, non-zero otherwise
  * @details The results contain the following key-value pairs (see general
  * description of
@@ -422,7 +422,7 @@ gn_dnl_analysis(char **rkeys, ///< [out] Result keys array pointer
 );
 
 /**
- * @brief gn_hist16
+ * @brief Compute a code density histogram from 16-bit quantized waveform data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_hist16(
@@ -437,7 +437,7 @@ __api int gn_hist16(
 );
 
 /**
- * @brief gn_hist32
+ * @brief Compute a code density histogram from 32-bit quantized waveform data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_hist32(
@@ -452,7 +452,7 @@ __api int gn_hist32(
 );
 
 /**
- * @brief gn_hist64
+ * @brief Compute a code density histogram from 64-bit quantized waveform data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_hist64(
@@ -467,7 +467,7 @@ __api int gn_hist64(
 );
 
 /**
- * @brief gn_histx16
+ * @brief Compute a code density histogram from 16-bit data using explicit code bounds
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_histx16(
@@ -482,7 +482,7 @@ __api int gn_histx16(
 );
 
 /**
- * @brief gn_histx32
+ * @brief Compute a code density histogram from 32-bit data using explicit code bounds
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_histx32(
@@ -497,7 +497,7 @@ __api int gn_histx32(
 );
 
 /**
- * @brief gn_histx64
+ * @brief Compute a code density histogram from 64-bit data using explicit code bounds
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_histx64(
@@ -512,7 +512,7 @@ __api int gn_histx64(
 );
 
 /**
- * @brief gn_hist_analysis
+ * @brief Compute summary statistics of histogram data
  * @return 0 on success, non-zero otherwise
  * @details The results contain the following key-value pairs (see general
  * description of
@@ -536,7 +536,7 @@ gn_hist_analysis(char **rkeys, ///< [out] Result keys array pointer
 );
 
 /**
- * @brief gn_inl
+ * @brief Compute Integral Nonlinearity (INL) from DNL data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_inl(double *inl, ///< [out] Output array pointer
@@ -547,7 +547,7 @@ __api int gn_inl(double *inl, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_inl_analysis
+ * @brief Compute summary statistics of INL data
  * @return 0 on success, non-zero otherwise
  * @details The results contain the following key-value pairs (see general
  * description of
@@ -575,7 +575,7 @@ gn_inl_analysis(char **rkeys, ///< [out] Result keys array pointer
  */
 
 /**
- * @brief gn_code_density_size
+ * @brief Get the histogram array size for a given resolution and code format
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_code_density_size(size_t *size, ///< [out] Output array size
@@ -584,7 +584,7 @@ __api int gn_code_density_size(size_t *size, ///< [out] Output array size
 );
 
 /**
- * @brief gn_code_densityx_size
+ * @brief Get the histogram array size for an explicit code range
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_code_densityx_size(size_t *size, ///< [out] Output array size
@@ -611,7 +611,7 @@ extern "C" {
  */
 
 /**
- * @brief gn_fft_analysis returns all Fourier analysis results
+ * @brief Run Fourier analysis and return all results
  * @return 0 on success, non-zero otherwise
  * @details The results contain the following key-value pairs (see general
  * description of
@@ -668,7 +668,7 @@ __api int gn_fft_analysis(
 );
 
 /**
- * @brief gn_fft_analysis_select returns select Fourier analysis results
+ * @brief Run Fourier analysis and return only the requested result keys
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fft_analysis_select(
@@ -685,7 +685,7 @@ __api int gn_fft_analysis_select(
 );
 
 /**
- * @brief gn_fft_analysis_single returns a single Fourier analysis result
+ * @brief Run Fourier analysis and return a single result by key
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fft_analysis_single(
@@ -705,7 +705,7 @@ __api int gn_fft_analysis_single(
  */
 
 /**
- * @brief gn_fa_analysis_band
+ * @brief Set the analysis band center and width in Hz
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_analysis_band(const char *obj_key, ///< [in] Object key
@@ -714,7 +714,7 @@ __api int gn_fa_analysis_band(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_analysis_band_e
+ * @brief Set the analysis band center and width as expressions
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_analysis_band_e(
@@ -724,7 +724,7 @@ __api int gn_fa_analysis_band_e(
 );
 
 /**
- * @brief gn_fa_clk
+ * @brief Configure clock sub-harmonic divisors for clock spur identification
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_clk(
@@ -735,7 +735,7 @@ __api int gn_fa_clk(
 );
 
 /**
- * @brief gn_fa_conv_offset
+ * @brief Enable or disable the converter offset component
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -744,14 +744,14 @@ gn_fa_conv_offset(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_create
+ * @brief Create a new Fourier analysis configuration object
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_create(const char *obj_key ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_dc
+ * @brief Set whether DC is classified as distortion or noise
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_dc(const char *obj_key, ///< [in] Object key
@@ -759,7 +759,7 @@ __api int gn_fa_dc(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_fdata
+ * @brief Set the data rate in Hz
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_fdata(const char *obj_key, ///< [in] Object key
@@ -767,7 +767,7 @@ __api int gn_fa_fdata(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_fdata_e
+ * @brief Set the data rate as an expression
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_fdata_e(const char *obj_key, ///< [in] Object key
@@ -775,7 +775,7 @@ __api int gn_fa_fdata_e(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_fixed_tone
+ * @brief Add a tone component at a fixed frequency in Hz
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_fixed_tone(const char *obj_key, ///< [in] Object key
@@ -786,7 +786,7 @@ __api int gn_fa_fixed_tone(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_fixed_tone_e
+ * @brief Add a tone component at a fixed frequency specified as an expression
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_fixed_tone_e(const char *obj_key, ///< [in] Object key
@@ -797,7 +797,7 @@ __api int gn_fa_fixed_tone_e(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_fsample
+ * @brief Set the sample rate in Hz
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_fsample(const char *obj_key, ///< [in] Object key
@@ -805,7 +805,7 @@ __api int gn_fa_fsample(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_fsample_e
+ * @brief Set the sample rate as an expression
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_fsample_e(const char *obj_key, ///< [in] Object key
@@ -813,7 +813,7 @@ __api int gn_fa_fsample_e(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_fshift
+ * @brief Set the shift frequency in Hz
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_fshift(const char *obj_key, ///< [in] Object key
@@ -821,7 +821,7 @@ __api int gn_fa_fshift(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_fshift_e
+ * @brief Set the shift frequency as an expression
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_fshift_e(const char *obj_key, ///< [in] Object key
@@ -829,7 +829,7 @@ __api int gn_fa_fshift_e(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_fund_images
+ * @brief Enable or disable fundamental image components
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -838,7 +838,7 @@ gn_fa_fund_images(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_hd
+ * @brief Set the maximum harmonic distortion order
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_hd(
@@ -847,7 +847,7 @@ __api int gn_fa_hd(
 );
 
 /**
- * @brief gn_fa_ilv
+ * @brief Configure interleaving factors for interleaving spur identification
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_ilv(
@@ -858,7 +858,7 @@ __api int gn_fa_ilv(
 );
 
 /**
- * @brief gn_fa_imd
+ * @brief Set the maximum intermodulation distortion order
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_imd(const char *obj_key, ///< [in] Object key
@@ -866,7 +866,7 @@ __api int gn_fa_imd(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_load
+ * @brief Load a Fourier analysis configuration from a JSON file
  * @return 0 on success, non-zero otherwise
  * @details If obj_key is empty, the object key is derived from filename.
  */
@@ -877,7 +877,7 @@ __api int gn_fa_load(char *buf, ///< [out] Pointer to character array
 );
 
 /**
- * @brief gn_fa_max_tone
+ * @brief Add a tone component at the spectral maximum
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_max_tone(const char *obj_key, ///< [in] Object key
@@ -887,7 +887,7 @@ __api int gn_fa_max_tone(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_preview
+ * @brief Get a string preview of the analysis configuration
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_preview(
@@ -899,7 +899,7 @@ __api int gn_fa_preview(
 );
 
 /**
- * @brief gn_fa_quad_errors
+ * @brief Enable or disable quadrature error components
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -908,7 +908,7 @@ gn_fa_quad_errors(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_remove_comp
+ * @brief Remove a user-defined component from the analysis
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_remove_comp(const char *obj_key, ///< [in] Object key
@@ -916,14 +916,14 @@ __api int gn_fa_remove_comp(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_reset
+ * @brief Reset a Fourier analysis object to default configuration
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_reset(const char *obj_key ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_ssb
+ * @brief Set the number of single-side bins for a component group
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_ssb(const char *obj_key, ///< [in] Object key
@@ -932,7 +932,7 @@ __api int gn_fa_ssb(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_var
+ * @brief Set the value of an expression variable
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_var(const char *obj_key, ///< [in] Object key
@@ -941,7 +941,7 @@ __api int gn_fa_var(const char *obj_key, ///< [in] Object key
 );
 
 /**
- * @brief gn_fa_wo
+ * @brief Set the number of worst-other tones to identify
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fa_wo(const char *obj_key, ///< [in] Object key
@@ -956,7 +956,7 @@ __api int gn_fa_wo(const char *obj_key, ///< [in] Object key
  */
 
 /**
- * @brief gn_fa_result
+ * @brief Look up a single numeric result by key from analysis results
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -969,7 +969,7 @@ gn_fa_result(double *result, ///< [out] Result associated with rkey
 );
 
 /**
- * @brief gn_fa_result_string
+ * @brief Format a single analysis result as a human-readable string
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -990,7 +990,7 @@ gn_fa_result_string(char *result, ///< [out] Result string associated with rkey
  */
 
 /**
- * @brief gn_fa_load_key_size
+ * @brief Get the size of the object key string returned by gn_fa_load
  * @return 0 on success, non-zero otherwise
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the size.  See \ref gn_set_string_termination.
@@ -1002,7 +1002,7 @@ gn_fa_load_key_size(size_t *size, ///< [out] Number of characters in key
 );
 
 /**
- * @brief gn_fa_preview_size
+ * @brief Get the size of the preview string returned by gn_fa_preview
  * @return 0 on success, non-zero otherwise
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the size.  See \ref gn_set_string_termination.
@@ -1015,7 +1015,7 @@ __api int gn_fa_preview_size(
 );
 
 /**
- * @brief gn_fa_result_string_size
+ * @brief Get the size of the string returned by gn_fa_result_string
  * @return 0 on success, non-zero otherwise
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the size.  See \ref gn_set_string_termination.
@@ -1030,7 +1030,7 @@ __api int gn_fa_result_string_size(
 );
 
 /**
- * @brief gn_fft_analysis_results_key_sizes
+ * @brief Get the size of each key string in Fourier analysis results
  * @return 0 on success, non-zero otherwise
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the key sizes.  See \ref
@@ -1046,7 +1046,7 @@ __api int gn_fft_analysis_results_key_sizes(
 );
 
 /**
- * @brief gn_fft_analysis_results_size
+ * @brief Get the number of key-value pairs in Fourier analysis results
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fft_analysis_results_size(
@@ -1076,7 +1076,7 @@ extern "C" {
  */
 
 /**
- * @brief gn_fft
+ * @brief Compute the complex FFT of normalized (double) I/Q data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fft(double *out, ///< [out] Interleaved Re/Im output array pointer
@@ -1091,7 +1091,7 @@ __api int gn_fft(double *out, ///< [out] Interleaved Re/Im output array pointer
 );
 
 /**
- * @brief gn_fft16
+ * @brief Compute the complex FFT of 16-bit quantized I/Q data
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1109,7 +1109,7 @@ gn_fft16(double *out, ///< [out] Interleaved Re/Im output array pointer
 );
 
 /**
- * @brief gn_fft32
+ * @brief Compute the complex FFT of 32-bit quantized I/Q data
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1127,7 +1127,7 @@ gn_fft32(double *out, ///< [out] Interleaved Re/Im output array pointer
 );
 
 /**
- * @brief gn_fft64
+ * @brief Compute the complex FFT of 64-bit quantized I/Q data
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1145,7 +1145,7 @@ gn_fft64(double *out, ///< [out] Interleaved Re/Im output array pointer
 );
 
 /**
- * @brief gn_rfft
+ * @brief Compute the real FFT (one-sided spectrum) of normalized (double) data
  * @return 0 on success, non-zero otherwise
  * @details This function will be implemented in the future.
  */
@@ -1160,7 +1160,7 @@ __api int gn_rfft(double *out, ///< [out] Interleaved Re/Im output array pointer
 );
 
 /**
- * @brief gn_rfft16
+ * @brief Compute the real FFT of 16-bit quantized data
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1177,7 +1177,7 @@ gn_rfft16(double *out, ///< [out] Interleaved Re/Im output array pointer
 );
 
 /**
- * @brief gn_rfft32
+ * @brief Compute the real FFT of 32-bit quantized data
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1194,7 +1194,7 @@ gn_rfft32(double *out, ///< [out] Interleaved Re/Im output array pointer
 );
 
 /**
- * @brief gn_rfft64
+ * @brief Compute the real FFT of 64-bit quantized data
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1216,7 +1216,7 @@ gn_rfft64(double *out, ///< [out] Interleaved Re/Im output array pointer
  */
 
 /**
- * @brief gn_fft_size
+ * @brief Get the output array size for complex FFT functions
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fft_size(size_t *out_size, ///< [out] Output array size
@@ -1227,7 +1227,7 @@ __api int gn_fft_size(size_t *out_size, ///< [out] Output array size
 );
 
 /**
- * @brief gn_rfft_size
+ * @brief Get the output array size for real FFT functions
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_rfft_size(size_t *out_size, ///< [out] Output array size
@@ -1255,7 +1255,7 @@ extern "C" {
  */
 
 /**
- * @brief gn_alias
+ * @brief Compute the aliased frequency for a given sample rate and axis type
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_alias(double *out, ///< [out] Output pointer
@@ -1265,7 +1265,7 @@ __api int gn_alias(double *out, ///< [out] Output pointer
 );
 
 /**
- * @brief gn_coherent
+ * @brief Compute the nearest coherent frequency for a given FFT size and sample rate
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_coherent(double *out, ///< [out] Output pointer
@@ -1275,7 +1275,7 @@ __api int gn_coherent(double *out, ///< [out] Output pointer
 );
 
 /**
- * @brief gn_fftshift
+ * @brief Shift the DC component to the center of the spectrum
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fftshift(double *out, ///< [out] Output array pointer
@@ -1285,7 +1285,7 @@ __api int gn_fftshift(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_freq_axis
+ * @brief Generate a frequency axis array for plotting FFT results
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1298,7 +1298,7 @@ gn_freq_axis(double *out, ///< [out] Array pointer
 );
 
 /**
- * @brief gn_ifftshift
+ * @brief Shift the DC component from the center back to the left of the spectrum
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_ifftshift(double *out, ///< [out] Output array pointer
@@ -1313,7 +1313,7 @@ __api int gn_ifftshift(double *out, ///< [out] Output array pointer
  */
 
 /**
- * @brief gn_freq_axis_size
+ * @brief Get the size of the frequency axis array
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1341,13 +1341,13 @@ extern "C" {
  */
 
 /**
- * @brief gn_mgr_clear
+ * @brief Remove all objects from the global object manager
  * @return Always returns 0
  */
 __api int gn_mgr_clear();
 
 /**
- * @brief gn_mgr_compare
+ * @brief Compare two managed objects for equality
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_mgr_compare(
@@ -1357,7 +1357,7 @@ __api int gn_mgr_compare(
 );
 
 /**
- * @brief gn_mgr_contains
+ * @brief Check whether the manager contains an object with the given key
  * @return Always returns 0
  */
 __api int gn_mgr_contains(
@@ -1366,14 +1366,14 @@ __api int gn_mgr_contains(
 );
 
 /**
- * @brief gn_mgr_remove
+ * @brief Remove an object from the manager
  * @return Always returns 0
  */
 __api int gn_mgr_remove(const char *obj_key ///< [in] Object key
 );
 
 /**
- * @brief gn_mgr_save
+ * @brief Serialize a managed object to a JSON file
  * @return 0 on success, non-zero otherwise
  * @details If filename is empty, the filename is derived from obj_key.
  */
@@ -1384,7 +1384,7 @@ __api int gn_mgr_save(char *buf, ///< [out] Pointer to character array
 );
 
 /**
- * @brief gn_mgr_size
+ * @brief Get the number of objects in the manager
  * @return Always returns 0
  */
 __api int
@@ -1392,7 +1392,7 @@ gn_mgr_size(size_t *size ///< [out] Number of objects owned by the manager
 );
 
 /**
- * @brief gn_mgr_to_string
+ * @brief Get a string representation of a managed object
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_mgr_to_string(char *buf, ///< [out] Pointer to character array
@@ -1401,7 +1401,7 @@ __api int gn_mgr_to_string(char *buf, ///< [out] Pointer to character array
 );
 
 /**
- * @brief gn_mgr_type
+ * @brief Get the type name of a managed object
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_mgr_type(char *buf, ///< [out] Pointer to character array
@@ -1415,7 +1415,7 @@ __api int gn_mgr_type(char *buf, ///< [out] Pointer to character array
  */
 
 /**
- * @brief gn_mgr_save_filename_size
+ * @brief Get the size of the filename string returned by gn_mgr_save
  * @return 0 on success, non-zero otherwise
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the size.  See \ref gn_set_string_termination.
@@ -1427,7 +1427,7 @@ __api int gn_mgr_save_filename_size(
 );
 
 /**
- * @brief gn_mgr_to_string_size
+ * @brief Get the size of the string returned by gn_mgr_to_string
  * @return 0 on success, non-zero otherwise
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the size.  See \ref gn_set_string_termination.
@@ -1438,7 +1438,7 @@ __api int gn_mgr_to_string_size(
 );
 
 /**
- * @brief gn_mgr_type_size
+ * @brief Get the size of the type string returned by gn_mgr_type
  * @return 0 on success, non-zero otherwise
  * @details The library string termination setting determines whether or not a
  * null terminator is included in the size.  See \ref gn_set_string_termination.
@@ -1467,7 +1467,7 @@ extern "C" {
  */
 
 /**
- * @brief gn_downsample
+ * @brief Decimate a normalized (double) waveform by keeping every Nth sample
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1480,7 +1480,7 @@ gn_downsample(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_downsample16
+ * @brief Decimate a 16-bit waveform by keeping every Nth sample
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1493,7 +1493,7 @@ gn_downsample16(int16_t *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_downsample32
+ * @brief Decimate a 32-bit waveform by keeping every Nth sample
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1506,7 +1506,7 @@ gn_downsample32(int32_t *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_downsample64
+ * @brief Decimate a 64-bit waveform by keeping every Nth sample
  * @return 0 on success, non-zero otherwise
  */
 __api int
@@ -1519,7 +1519,7 @@ gn_downsample64(int64_t *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_fshift
+ * @brief Apply a frequency shift to normalized (double) complex data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fshift(double *out, ///< [out] Output array pointer
@@ -1533,7 +1533,7 @@ __api int gn_fshift(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_fshift16
+ * @brief Apply a frequency shift to 16-bit quantized complex data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fshift16(int16_t *out, ///< [out] Output array pointer
@@ -1549,7 +1549,7 @@ __api int gn_fshift16(int16_t *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_fshift32
+ * @brief Apply a frequency shift to 32-bit quantized complex data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fshift32(int32_t *out, ///< [out] Output array pointer
@@ -1565,7 +1565,7 @@ __api int gn_fshift32(int32_t *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_fshift64
+ * @brief Apply a frequency shift to 64-bit quantized complex data
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fshift64(int64_t *out, ///< [out] Output array pointer
@@ -1581,7 +1581,7 @@ __api int gn_fshift64(int64_t *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_normalize16
+ * @brief Convert 16-bit quantized samples to normalized floating-point values
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_normalize16(double *out, ///< [out] Output array pointer
@@ -1593,7 +1593,7 @@ __api int gn_normalize16(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_normalize32
+ * @brief Convert 32-bit quantized samples to normalized floating-point values
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_normalize32(double *out, ///< [out] Output array pointer
@@ -1605,7 +1605,7 @@ __api int gn_normalize32(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_normalize64
+ * @brief Convert 64-bit quantized samples to normalized floating-point values
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_normalize64(double *out, ///< [out] Output array pointer
@@ -1617,7 +1617,7 @@ __api int gn_normalize64(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_polyval
+ * @brief Evaluate a polynomial at each element of the input array
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_polyval(double *out, ///< [out] Output array pointer
@@ -1629,7 +1629,7 @@ __api int gn_polyval(double *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_quantize16
+ * @brief Quantize floating-point samples to 16-bit integer codes
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_quantize16(int16_t *out, ///< [out] Output array pointer
@@ -1643,7 +1643,7 @@ __api int gn_quantize16(int16_t *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_quantize32
+ * @brief Quantize floating-point samples to 32-bit integer codes
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_quantize32(int32_t *out, ///< [out] Output array pointer
@@ -1657,7 +1657,7 @@ __api int gn_quantize32(int32_t *out, ///< [out] Output array pointer
 );
 
 /**
- * @brief gn_quantize64
+ * @brief Quantize floating-point samples to 64-bit integer codes
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_quantize64(int64_t *out, ///< [out] Output array pointer
@@ -1676,7 +1676,7 @@ __api int gn_quantize64(int64_t *out, ///< [out] Output array pointer
  */
 
 /**
- * @brief gn_downsample_size
+ * @brief Get the output array size for downsample functions
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_downsample_size(
@@ -1687,7 +1687,7 @@ __api int gn_downsample_size(
 );
 
 /**
- * @brief gn_fshift_size
+ * @brief Get the output array size for frequency shift functions
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_fshift_size(size_t *out_size, ///< [out] Output array size
@@ -1714,7 +1714,7 @@ extern "C" {
  */
 
 /**
- * @brief gn_cos
+ * @brief Generate a cosine waveform with optional aperture jitter
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_cos(double *out, ///< [out] Array pointer
@@ -1728,7 +1728,7 @@ __api int gn_cos(double *out, ///< [out] Array pointer
 );
 
 /**
- * @brief gn_gaussian
+ * @brief Generate Gaussian (normally distributed) random samples
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_gaussian(double *out, ///< [out] Array pointer
@@ -1738,7 +1738,7 @@ __api int gn_gaussian(double *out, ///< [out] Array pointer
 );
 
 /**
- * @brief gn_ramp
+ * @brief Generate a linear ramp waveform with optional noise
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_ramp(double *out, ///< [out] Array pointer
@@ -1749,7 +1749,7 @@ __api int gn_ramp(double *out, ///< [out] Array pointer
 );
 
 /**
- * @brief gn_sin
+ * @brief Generate a sine waveform with optional aperture jitter
  * @return 0 on success, non-zero otherwise
  */
 __api int gn_sin(double *out, ///< [out] Array pointer
@@ -1763,7 +1763,7 @@ __api int gn_sin(double *out, ///< [out] Array pointer
 );
 
 /**
- * @brief gn_wf_analysis
+ * @brief Compute time-domain waveform statistics from normalized (double) data
  * @return 0 on success, non-zero otherwise
  * @details The results contain the following key-value pairs (see general
  * description of
@@ -1790,7 +1790,7 @@ __api int gn_wf_analysis(char **rkeys, ///< [out] Result keys array pointer
 );
 
 /**
- * @brief gn_wf_analysis16
+ * @brief Compute time-domain waveform statistics from 16-bit data
  * @return 0 on success, non-zero otherwise
  * @details See description of \ref gn_wf_analysis.
  */
@@ -1804,7 +1804,7 @@ gn_wf_analysis16(char **rkeys, ///< [out] Result keys array pointer
 );
 
 /**
- * @brief gn_wf_analysis32
+ * @brief Compute time-domain waveform statistics from 32-bit data
  * @return 0 on success, non-zero otherwise
  * @details See description of \ref gn_wf_analysis.
  */
@@ -1818,7 +1818,7 @@ gn_wf_analysis32(char **rkeys, ///< [out] Result keys array pointer
 );
 
 /**
- * @brief gn_wf_analysis64
+ * @brief Compute time-domain waveform statistics from 64-bit data
  * @return 0 on success, non-zero otherwise
  * @details See description of \ref gn_wf_analysis.
  */
