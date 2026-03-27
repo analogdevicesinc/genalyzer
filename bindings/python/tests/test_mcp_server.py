@@ -3,11 +3,16 @@
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """Tests for genalyzer MCP server."""
 
+import sys
+
 import pytest
 import numpy as np
 
 
-pytestmark = pytest.mark.genalyzer
+pytestmark = [
+    pytest.mark.genalyzer,
+    pytest.mark.skipif(sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"),
+]
 
 
 @pytest.fixture
