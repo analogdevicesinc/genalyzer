@@ -22,7 +22,6 @@ Reference
 
    introduction
    setup
-   linting
    spectral_analysis
    spectral_analysis_ssb
    reference
@@ -30,6 +29,7 @@ Reference
    reference_simplified
    python/genalyzer
    pytest/index
+   linting
 
 
 
