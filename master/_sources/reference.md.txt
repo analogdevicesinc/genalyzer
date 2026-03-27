@@ -1,6 +1,6 @@
-# API Reference
+# C API Reference
 
-API Reference for Genalyzer library. 
+API reference for the Genalyzer C library bindings.
 
 ## Table of Contents
 
