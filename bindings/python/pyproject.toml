@@ -45,7 +45,7 @@ namespaces = true
 genalyzer-mcp = "genalyzer.mcp_server:main"
 
 [project.optional-dependencies]
-mcp = ["fastmcp", "numpy"]
+mcp = ["fastmcp; python_version>='3.10'", "numpy"]
 tools = ["scipy"]
 pytest = [
     "pytest >= 6.2",
