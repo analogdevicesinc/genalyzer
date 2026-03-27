@@ -127,7 +127,7 @@ def _get_key_value_arrays(d):
     cvalues = (_c_double * size)()
     for i in range(size):
         ckeys[i] = _ctypes.cast(
-            _ctypes.create_string_buffer(bytes(keys[i], "utf-8")), _c_char_p
+            _ctypes.create_string_buffer(bytes(str(keys[i]), "utf-8")), _c_char_p
         )
         cvalues[i] = values[i]
     return ckeys, cvalues

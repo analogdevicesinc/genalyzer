@@ -142,7 +142,7 @@ def fft(
             fft_cplx = gn.fft(x_re, x_im, qres, navg, nfft, window, code_fmt)
         else:
             x = np.array(rx_data).astype(fmt)
-            fft_cplx = gn.fft_real(x, qres, navg, nfft, window, code_fmt)
+            fft_cplx = gn.rfft(x, qres, navg, nfft, window, code_fmt)
 
         # Frequency axis and dB
         freq_axis = gn.freq_axis(nfft, axis_type, fs, axis_fmt)
