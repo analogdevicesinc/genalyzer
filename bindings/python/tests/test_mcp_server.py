@@ -20,10 +20,10 @@ def mcp_server():
 
 def _get_tool_names(mcp_server):
     """Extract tool names from the MCP server."""
-    # FastMCP stores tools in _tool_manager or as decorated functions
-    # Access via the internal registry
-    tools = mcp_server._tool_manager._tools
-    return list(tools.keys())
+    import asyncio
+
+    tools = asyncio.run(mcp_server.list_tools())
+    return [t.name for t in tools]
 
 
 class TestServerRegistration:
