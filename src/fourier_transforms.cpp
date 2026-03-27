@@ -11,7 +11,10 @@
 
 #include <algorithm>
 #include <cmath>
+#include <mutex>
 #include <numeric>
+#include <tuple>
+#include <unordered_map>
 #include <vector>
 
 namespace genalyzer_impl {
@@ -525,52 +528,104 @@ void norm_no_window(const T *in_data, real_t *out_data, int n, size_t navg,
 
 } // namespace
 
-namespace { // FFTW Functions
+namespace { // FFTW Functions with Plan Caching
+
+// Plan cache key: (nfft, navg, is_real)
+struct PlanKey {
+	size_t nfft;
+	size_t navg;
+	bool is_real;
+	bool operator==(const PlanKey &o) const {
+		return nfft == o.nfft && navg == o.navg && is_real == o.is_real;
+	}
+};
+
+struct PlanKeyHash {
+	size_t operator()(const PlanKey &k) const {
+		size_t h = std::hash<size_t>{}(k.nfft);
+		h ^= std::hash<size_t>{}(k.navg) + 0x9e3779b9 + (h << 6) + (h >> 2);
+		h ^= std::hash<bool>{}(k.is_real) + 0x9e3779b9 + (h << 6) + (h >> 2);
+		return h;
+	}
+};
+
+// FFTW plan creation is not thread-safe, so we protect the cache with a mutex.
+// Plans themselves can be executed concurrently with fftw_execute_split_dft /
+// fftw_execute_dft_r2c on different data arrays.
+std::mutex &plan_cache_mutex() {
+	static std::mutex mtx;
+	return mtx;
+}
+
+std::unordered_map<PlanKey, fftw_plan, PlanKeyHash> &plan_cache() {
+	static std::unordered_map<PlanKey, fftw_plan, PlanKeyHash> cache;
+	return cache;
+}
 
 void exec_fftw(real_t *data, size_t navg, size_t nfft) {
 	diff_t navg_ = static_cast<diff_t>(navg);
 	diff_t nfft_ = static_cast<diff_t>(nfft);
-	// FFT size: FFTW "rank" and "dims"
-	int rank = 1;
-	fftw_iodim64 dims{ nfft_, 2, 2 };
-	// FFT averaging: FFTW "howmany_rank" and "howmany_dims"
-	int howmany_rank = 1;
-	fftw_iodim64 howmany_dims = { navg_, nfft_ * 2, nfft_ * 2 };
-	// FFTW plan setup and execution
-	fftw_plan plan = fftw_plan_guru64_split_dft(rank, &dims, howmany_rank,
-			&howmany_dims,
-			data, // I input
-			data + 1, // Q input
-			data, // Re output
-			data + 1, // Im output
-			FFTW_ESTIMATE);
-	if (nullptr == plan) {
-		throw runtime_error("FFTW Plan is NULL");
+
+	PlanKey key{ nfft, navg, false };
+	fftw_plan plan = nullptr;
+
+	{
+		std::lock_guard<std::mutex> lock(plan_cache_mutex());
+		auto &cache = plan_cache();
+		auto it = cache.find(key);
+		if (it != cache.end()) {
+			plan = it->second;
+		} else {
+			int rank = 1;
+			fftw_iodim64 dims{ nfft_, 2, 2 };
+			int howmany_rank = 1;
+			fftw_iodim64 howmany_dims = { navg_, nfft_ * 2, nfft_ * 2 };
+			plan = fftw_plan_guru64_split_dft(rank, &dims, howmany_rank,
+					&howmany_dims,
+					data, data + 1, data, data + 1,
+					FFTW_ESTIMATE);
+			if (nullptr == plan) {
+				throw runtime_error("FFTW Plan is NULL");
+			}
+			cache[key] = plan;
+		}
 	}
-	fftw_execute(plan);
-	fftw_destroy_plan(plan);
+
+	// Execute with new-array interface (safe for cached plans)
+	fftw_execute_split_dft(plan, data, data + 1, data, data + 1);
 }
 
 void exec_rfftw(real_t *data, size_t navg, size_t nfft) {
 	diff_t navg_ = static_cast<diff_t>(navg);
 	diff_t nfft_ = static_cast<diff_t>(nfft);
 	diff_t out_stride = nfft_ / 2 + 1;
-	// FFT size: FFTW "rank" and "dims"
-	int rank = 1;
-	fftw_iodim64 dims{ nfft_, 1, 1 };
-	// FFT averaging: FFTW "howmany_rank" and "howmany_dims"
-	int howmany_rank = 1;
-	fftw_iodim64 howmany_dims{ navg_, out_stride * 2, out_stride };
-	// Plan setup and execution
+
+	PlanKey key{ nfft, navg, true };
+	fftw_plan plan = nullptr;
 	fftw_complex *out_data = reinterpret_cast<fftw_complex *>(data);
-	fftw_plan plan = fftw_plan_guru64_dft_r2c(rank, &dims, howmany_rank,
-			&howmany_dims, data, out_data,
-			FFTW_ESTIMATE);
-	if (nullptr == plan) {
-		throw runtime_error("FFTW Plan is NULL");
+
+	{
+		std::lock_guard<std::mutex> lock(plan_cache_mutex());
+		auto &cache = plan_cache();
+		auto it = cache.find(key);
+		if (it != cache.end()) {
+			plan = it->second;
+		} else {
+			int rank = 1;
+			fftw_iodim64 dims{ nfft_, 1, 1 };
+			int howmany_rank = 1;
+			fftw_iodim64 howmany_dims{ navg_, out_stride * 2, out_stride };
+			plan = fftw_plan_guru64_dft_r2c(rank, &dims, howmany_rank,
+					&howmany_dims, data, out_data,
+					FFTW_ESTIMATE);
+			if (nullptr == plan) {
+				throw runtime_error("FFTW Plan is NULL");
+			}
+			cache[key] = plan;
+		}
 	}
-	fftw_execute(plan);
-	fftw_destroy_plan(plan);
+
+	fftw_execute_dft_r2c(plan, data, out_data);
 }
 
 } // namespace
