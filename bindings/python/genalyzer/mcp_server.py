@@ -3,6 +3,9 @@
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """MCP server for genalyzer spectral analysis library."""
 
+from __future__ import annotations
+
+import contextlib
 import os
 import tempfile
 from pathlib import Path
@@ -176,18 +179,15 @@ def get_fa_metrics(
         # ENOB is derived from SINAD: ENOB = (SINAD - 1.76) / 6.02
         if "sinad" in results:
             import math
+
             metrics["enob"] = (results["sinad"] - 1.76) / 6.02
 
         # Full results table for reference
-        metrics["results"] = {
-            k: v for k, v in results.items() if isinstance(k, str)
-        }
+        metrics["results"] = {k: v for k, v in results.items() if isinstance(k, str)}
 
         # Clean up
-        try:
+        with contextlib.suppress(Exception):
             gn.mgr_remove(test_key)
-        except Exception:
-            pass
 
         return metrics
     except Exception as e:
@@ -195,7 +195,7 @@ def get_fa_metrics(
 
 
 def _plot_spectrum(
-    fft_data: "np.ndarray",
+    fft_data: np.ndarray,
     nfft: int,
     sample_rate: float,
     results: dict,
@@ -204,6 +204,7 @@ def _plot_spectrum(
 ) -> None:
     """Render an annotated spectrum plot and save it as a PNG file."""
     import matplotlib
+
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
@@ -242,7 +243,12 @@ def _plot_spectrum(
         )
 
     metric_lines = []
-    for key, unit in (("sfdr", " dB"), ("snr", " dB"), ("thd", " dB"), ("enob", " bits")):
+    for key, unit in (
+        ("sfdr", " dB"),
+        ("snr", " dB"),
+        ("thd", " dB"),
+        ("enob", " bits"),
+    ):
         if key in metrics:
             metric_lines.append(f"{key.upper()} = {metrics[key]:.2f}{unit}")
     if metric_lines:
@@ -342,7 +348,7 @@ def analyze_spectrum(
         results = gn.fft_analysis(test_key, fft_data, nfft)
 
         # Extract key metrics by exact key name from fft_analysis results
-        metrics = {"fft_output_path": fft_path}
+        metrics: dict[str, object] = {"fft_output_path": fft_path}
 
         if "sfdr" in results:
             metrics["sfdr"] = results["sfdr"]
@@ -359,12 +365,11 @@ def analyze_spectrum(
         # ENOB is derived from SINAD: ENOB = (SINAD - 1.76) / 6.02
         if "sinad" in results:
             import math
+
             metrics["enob"] = (results["sinad"] - 1.76) / 6.02
 
         # Full results table for reference
-        metrics["results"] = {
-            k: v for k, v in results.items() if isinstance(k, str)
-        }
+        metrics["results"] = {k: v for k, v in results.items() if isinstance(k, str)}
 
         # Generate annotated spectrum plot
         plot_path = str(Path(npy_path).with_suffix(".spectrum.png"))
@@ -375,10 +380,8 @@ def analyze_spectrum(
             metrics["plot_warning"] = f"Plot generation failed: {plot_err}"
 
         # Clean up
-        try:
+        with contextlib.suppress(Exception):
             gn.mgr_remove(test_key)
-        except Exception:
-            pass
 
         return metrics
     except Exception as e:
