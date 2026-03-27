@@ -24,6 +24,8 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(CMAKE_CXX_FLAGS
         "${CMAKE_CXX_FLAGS} -std=gnu++17 -fext-numeric-literals")
+    set(CMAKE_CXX_FLAGS_RELEASE
+        "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -DNDEBUG")
     # If GCC is older than 8.0.0, enable experimental filesystem
     execute_process(
       COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)

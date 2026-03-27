@@ -10,6 +10,7 @@
 #include <cmath>
 #include <cstdint>
 #include <functional>
+#include <mutex>
 #include <random>
 #include <vector>
 
@@ -233,6 +234,20 @@ void polyval(const real_t *in_data, size_t in_size, real_t *out_data,
 	}
 }
 
+namespace {
+
+// Thread-local cached RNG avoids expensive std::random_device + mt19937
+// re-initialization on every quantize() call. Seeded once per thread.
+std::mt19937_64 &get_thread_local_rng() {
+	thread_local std::mt19937_64 rng([] {
+		std::random_device rd;
+		return rd();
+	}());
+	return rng;
+}
+
+} // namespace
+
 template <typename T>
 void quantize(const real_t *in_data, size_t in_size, T *out_data,
 		size_t out_size, real_t fsr, int n, real_t noise,
@@ -242,24 +257,21 @@ void quantize(const real_t *in_data, size_t in_size, T *out_data,
 			out_data, out_size);
 	assert_gt0(trace, "fsr", fsr);
 	resolution_to_minmax<T>(n, format);
-	const real_t lsb = fsr / (1 << n);
+	const real_t inv_lsb = static_cast<real_t>(1 << n) / fsr;
 	const real_t min_code = -std::pow(2.0, n - 1);
 	const real_t max_code = -1.0 - min_code;
 	const real_t os = (CodeFormat::OffsetBinary == format) ? -min_code : 0.0;
 	if (0.0 == noise) {
 		for (size_t i = 0; i < out_size; ++i) {
-			real_t c = std::floor(in_data[i] / lsb);
+			real_t c = std::floor(in_data[i] * inv_lsb);
 			c = std::clamp(c, min_code, max_code);
 			out_data[i] = static_cast<T>(c + os);
 		}
 	} else {
-		std::random_device rdev;
-		std::mt19937 rgen(rdev());
-		auto ngen = std::bind(
-				std::normal_distribution<real_t>(0.0, std::fabs(noise)),
-				rgen);
+		auto &rng = get_thread_local_rng();
+		std::normal_distribution<real_t> dist(0.0, std::fabs(noise));
 		for (size_t i = 0; i < out_size; ++i) {
-			real_t c = std::floor((in_data[i] + ngen()) / lsb);
+			real_t c = std::floor((in_data[i] + dist(rng)) * inv_lsb);
 			c = std::clamp(c, min_code, max_code);
 			out_data[i] = static_cast<T>(c + os);
 		}
