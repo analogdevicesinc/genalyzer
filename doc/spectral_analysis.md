@@ -533,5 +533,5 @@ In summary, the magnitude spectrum plot for the working example considered so fa
 
 ```{figure} figures/spectral_analysis_summary.png
 
-Magnitude spectrum of the FFT showing signal, harmonic, DC, and WO components.
+Magnitude spectrum of the FFT for a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS`` showing signal, harmonic, DC, and WO components.
 ```
