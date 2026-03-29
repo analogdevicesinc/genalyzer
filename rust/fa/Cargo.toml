@@ -1,0 +1,15 @@
+[package]
+name = "genalyzer-fa"
+version = "0.1.0"
+edition = "2021"
+description = "Rust Fourier analysis path for genalyzer with repeated-call performance focus"
+license = "ADIBSD OR GPL-2.0-or-later"
+
+[dependencies]
+rustfft = "6"
+num-complex = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+approx = "0.5"

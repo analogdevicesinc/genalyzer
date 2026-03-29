@@ -31,7 +31,7 @@
 
 # genalyzer: Library of DSP functions for RF measurements
 
-Genalyzer is a C++ library that facilitates the computation of commonly used data-converter RF performance metrics in a standards complaint manner. Genalyzer supports generation of waveforms for characterizing data-converters as well as the computation of performance metrics given the time- or frequency-domain response of data-converters to such waveforms. In other words, users not only have the option of selecting whether or not to opt for waveform generation to characterize data-converters, but are also able to utilize time-series data or FFT of samples captured from a data-converter to directly compute the desired performance metrics.
+Genalyzer is a C++ library that facilitates the computation of commonly used data-converter RF performance metrics in a standards complaint manner. An optional Rust-based FFT extension (`genalyzer._fourier_rs`) is also available, providing a thread-safe `FourierAnalyzer` and stateless FFT helpers optimised for repeated concurrent calls; see the [installation docs](doc/setup.md) for build instructions. Genalyzer supports generation of waveforms for characterizing data-converters as well as the computation of performance metrics given the time- or frequency-domain response of data-converters to such waveforms. In other words, users not only have the option of selecting whether or not to opt for waveform generation to characterize data-converters, but are also able to utilize time-series data or FFT of samples captured from a data-converter to directly compute the desired performance metrics.
 
 
 # Licenses

@@ -1,0 +1,22 @@
+[package]
+name = "genalyzer-fourier"
+version = "0.1.0"
+edition = "2021"
+description = "Rust FFT implementation for genalyzer, optimised for repeated concurrent calls"
+license = "ADIBSD OR GPL-2.0-or-later"
+
+[lib]
+name = "_fourier_rs"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+rustfft = "6"
+num-complex = "0.4"
+
+[dependencies.pyo3]
+version = "0.21"
+features = ["extension-module"]
+optional = true
+
+[features]
+python = ["pyo3"]

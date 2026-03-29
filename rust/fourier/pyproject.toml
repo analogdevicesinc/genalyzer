@@ -1,0 +1,20 @@
+# pyproject.toml for building the _fourier_rs extension module with maturin.
+# Run:  maturin develop --features python
+#   or: maturin build --release --features python
+
+[build-system]
+requires = ["maturin>=1.5,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "genalyzer-fourier-rs"
+version = "0.1.0"
+description = "Rust-accelerated FFT extension for genalyzer"
+requires-python = ">=3.9"
+license = {text = "ADIBSD OR GPL-2.0-or-later"}
+
+[tool.maturin]
+# Build with the 'python' feature so pyo3 bindings are compiled in.
+features = ["python"]
+# The generated .so must be importable as genalyzer._fourier_rs.
+module-name = "genalyzer._fourier_rs"
