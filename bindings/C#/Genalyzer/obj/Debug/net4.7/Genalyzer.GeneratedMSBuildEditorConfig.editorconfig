@@ -1,0 +1,8 @@
+is_global = true
+build_property.RootNamespace = Genalyzer
+build_property.ProjectDir = C:\git\genalyzer\bindings\C#\Genalyzer\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

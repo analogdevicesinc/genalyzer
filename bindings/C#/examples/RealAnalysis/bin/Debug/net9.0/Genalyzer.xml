@@ -1,0 +1,951 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Genalyzer</name>
+    </assembly>
+    <members>
+        <member name="T:Genalyzer.ApiUtilities">
+            <summary>
+            API utilities: version string, error handling, and analysis-results
+            sizing helpers.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.ApiUtilities.Initialize">
+            <summary>
+            Initializes the library.  Must be called once before any other
+            method.  Sets null-terminated string mode so managed marshalling
+            works correctly.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.ApiUtilities.VersionString">
+            <summary>Returns the library version string.</summary>
+        </member>
+        <member name="M:Genalyzer.ApiUtilities.ErrorCheck">
+            <summary>Returns true if the library has a pending error.</summary>
+        </member>
+        <member name="M:Genalyzer.ApiUtilities.ErrorClear">
+            <summary>Clears the library error state.</summary>
+        </member>
+        <member name="M:Genalyzer.ApiUtilities.ErrorString">
+            <summary>Returns the current library error string (empty when none).</summary>
+        </member>
+        <member name="M:Genalyzer.ApiUtilities.EnumValue(System.String,System.String)">
+            <summary>Returns the underlying integer value of an enumeration member.</summary>
+        </member>
+        <member name="M:Genalyzer.ApiUtilities.AnalysisResultsSize(Genalyzer.AnalysisType)">
+            <summary>
+            Returns the number of key-value result pairs for the given
+            analysis type.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.ApiUtilities.AnalysisResultsKeySizes(Genalyzer.AnalysisType)">
+            <summary>
+            Returns the byte-sizes of each result key for the given analysis
+            type (including null terminator).
+            </summary>
+        </member>
+        <member name="T:Genalyzer.ArrayOps">
+            <summary>
+            Array operations: abs, angle, db, db10, db20, norm.
+            Input arrays contain interleaved Re/Im doubles (complex representation).
+            </summary>
+        </member>
+        <member name="M:Genalyzer.ArrayOps.Abs(System.Double[])">
+            <summary>
+            Computes the element-wise absolute value of interleaved complex
+            doubles.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.ArrayOps.Angle(System.Double[])">
+            <summary>
+            Computes the element-wise phase angle of interleaved complex
+            doubles.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.ArrayOps.Db(System.Double[])">
+            <summary>
+            Computes 20*log10(|x|) for each complex element in the interleaved
+            input array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.ArrayOps.Db10(System.Double[])">
+            <summary>
+            Computes 10*log10(x) for each element of a real-valued input array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.ArrayOps.Db20(System.Double[])">
+            <summary>
+            Computes 20*log10(x) for each element of a real-valued input array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.ArrayOps.Norm(System.Double[])">
+            <summary>
+            Computes the element-wise squared magnitude (norm) of interleaved
+            complex doubles.
+            </summary>
+        </member>
+        <member name="T:Genalyzer.CodeDensity">
+            <summary>
+            Code-density routines: histogram, DNL, INL, and their analysis
+            counterparts.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.CodeDensitySize(System.Int32,Genalyzer.CodeFormat)">
+            <summary>
+            Returns the array size needed for a code-density operation with
+            the given resolution and code format.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.CodeDensityXSize(System.Int64,System.Int64)">
+            <summary>
+            Returns the array size needed for a code-density operation over
+            [min, max].
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.CodeAxis(System.Int32,Genalyzer.CodeFormat)">
+            <summary>
+            Fills an array with code-axis values for a given resolution and
+            code format.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.CodeAxisX(System.Int64,System.Int64)">
+            <summary>
+            Fills an array with code-axis values over the range [min, max].
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.Hist(System.Int16[],System.Int32,Genalyzer.CodeFormat,System.Boolean)">
+            <summary>
+            Computes the histogram of a 16-bit input waveform.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.Hist(System.Int32[],System.Int32,Genalyzer.CodeFormat,System.Boolean)">
+            <summary>
+            Computes the histogram of a 32-bit input waveform.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.Hist(System.Int64[],System.Int32,Genalyzer.CodeFormat,System.Boolean)">
+            <summary>
+            Computes the histogram of a 64-bit input waveform.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.HistX(System.Int16[],System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Computes the histogram of a 16-bit waveform over [min, max].
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.HistX(System.Int32[],System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Computes the histogram of a 32-bit waveform over [min, max].
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.HistX(System.Int64[],System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Computes the histogram of a 64-bit waveform over [min, max].
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.Dnl(System.UInt64[],Genalyzer.DnlSignal)">
+            <summary>
+            Computes the DNL from a histogram array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.Inl(System.Double[],Genalyzer.InlLineFit)">
+            <summary>
+            Computes the INL from a DNL array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.DnlAnalysis(System.Double[])">
+            <summary>
+            Runs DNL analysis and returns a result dictionary.
+            Keys: min, max, avg, rms, min_index, max_index,
+                  first_nm_index, last_nm_index, nm_range.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.HistAnalysis(System.UInt64[])">
+            <summary>
+            Runs histogram analysis and returns a result dictionary.
+            Keys: sum, first_nz_index, last_nz_index, nz_range.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.CodeDensity.InlAnalysis(System.Double[])">
+            <summary>
+            Runs INL analysis and returns a result dictionary.
+            Keys: min, max, min_index, max_index.
+            </summary>
+        </member>
+        <member name="T:Genalyzer.AnalysisType">
+            <summary>Enumerates analysis types.</summary>
+        </member>
+        <member name="T:Genalyzer.CodeFormat">
+            <summary>Enumerates binary code formats.</summary>
+        </member>
+        <member name="F:Genalyzer.CodeFormat.OffsetBinary">
+            <summary>Offset Binary</summary>
+        </member>
+        <member name="F:Genalyzer.CodeFormat.TwosComplement">
+            <summary>Two's Complement</summary>
+        </member>
+        <member name="T:Genalyzer.DnlSignal">
+            <summary>Enumerates signal types for which DNL can be computed.</summary>
+        </member>
+        <member name="F:Genalyzer.DnlSignal.Ramp">
+            <summary>Ramp</summary>
+        </member>
+        <member name="F:Genalyzer.DnlSignal.Tone">
+            <summary>Tone (Sinusoid)</summary>
+        </member>
+        <member name="T:Genalyzer.FACompTag">
+            <summary>Enumerates Fourier analysis component tags.</summary>
+        </member>
+        <member name="F:Genalyzer.FACompTag.DC">
+            <summary>DC component (always Bin 0)</summary>
+        </member>
+        <member name="F:Genalyzer.FACompTag.Signal">
+            <summary>Signal component</summary>
+        </member>
+        <member name="F:Genalyzer.FACompTag.HD">
+            <summary>Harmonic distortion</summary>
+        </member>
+        <member name="F:Genalyzer.FACompTag.IMD">
+            <summary>Intermodulation distortion</summary>
+        </member>
+        <member name="F:Genalyzer.FACompTag.ILOS">
+            <summary>Interleaving offset component</summary>
+        </member>
+        <member name="F:Genalyzer.FACompTag.ILGT">
+            <summary>Interleaving gain/timing/BW component</summary>
+        </member>
+        <member name="F:Genalyzer.FACompTag.CLK">
+            <summary>Clock component</summary>
+        </member>
+        <member name="F:Genalyzer.FACompTag.UserDist">
+            <summary>User-designated distortion</summary>
+        </member>
+        <member name="F:Genalyzer.FACompTag.Noise">
+            <summary>Noise component (e.g. WorstOther)</summary>
+        </member>
+        <member name="T:Genalyzer.FASsb">
+            <summary>
+            Enumerates the component categories for which the number of
+            single side bins (SSB) can be set.
+            </summary>
+        </member>
+        <member name="F:Genalyzer.FASsb.Default">
+            <summary>Default SSB (applies to auto-generated components)</summary>
+        </member>
+        <member name="F:Genalyzer.FASsb.DC">
+            <summary>SSB for DC component</summary>
+        </member>
+        <member name="F:Genalyzer.FASsb.Signal">
+            <summary>SSB for Signal components</summary>
+        </member>
+        <member name="F:Genalyzer.FASsb.WO">
+            <summary>SSB for WorstOther components</summary>
+        </member>
+        <member name="T:Genalyzer.FreqAxisFormat">
+            <summary>Enumerates frequency axis formats.</summary>
+        </member>
+        <member name="F:Genalyzer.FreqAxisFormat.Bins">
+            <summary>Bins</summary>
+        </member>
+        <member name="F:Genalyzer.FreqAxisFormat.Freq">
+            <summary>Frequency</summary>
+        </member>
+        <member name="F:Genalyzer.FreqAxisFormat.Norm">
+            <summary>Normalized</summary>
+        </member>
+        <member name="T:Genalyzer.FreqAxisType">
+            <summary>Enumerates frequency axis types.</summary>
+        </member>
+        <member name="F:Genalyzer.FreqAxisType.DcCenter">
+            <summary>DC centered, e.g. [-fs/2, fs/2) (complex FFT only)</summary>
+        </member>
+        <member name="F:Genalyzer.FreqAxisType.DcLeft">
+            <summary>DC on left, e.g. [0, fs) (complex FFT only)</summary>
+        </member>
+        <member name="F:Genalyzer.FreqAxisType.Real">
+            <summary>Real axis, e.g. [0, fs/2] (real FFT only)</summary>
+        </member>
+        <member name="T:Genalyzer.InlLineFit">
+            <summary>Enumerates INL line fitting options.</summary>
+        </member>
+        <member name="F:Genalyzer.InlLineFit.BestFit">
+            <summary>Best fit</summary>
+        </member>
+        <member name="F:Genalyzer.InlLineFit.EndFit">
+            <summary>End fit</summary>
+        </member>
+        <member name="F:Genalyzer.InlLineFit.NoFit">
+            <summary>No fit</summary>
+        </member>
+        <member name="T:Genalyzer.RfftScale">
+            <summary>Enumerates real FFT scaling options.</summary>
+        </member>
+        <member name="F:Genalyzer.RfftScale.DbfsDc">
+            <summary>Full-scale sinusoid measures -3 dBFS</summary>
+        </member>
+        <member name="F:Genalyzer.RfftScale.DbfsSin">
+            <summary>Full-scale sinusoid measures 0 dBFS</summary>
+        </member>
+        <member name="F:Genalyzer.RfftScale.Native">
+            <summary>Full-scale sinusoid measures -6 dBFS</summary>
+        </member>
+        <member name="T:Genalyzer.Window">
+            <summary>Enumerates window functions.</summary>
+        </member>
+        <member name="F:Genalyzer.Window.BlackmanHarris">
+            <summary>Blackman-Harris</summary>
+        </member>
+        <member name="F:Genalyzer.Window.Hann">
+            <summary>Hann ("Hanning")</summary>
+        </member>
+        <member name="F:Genalyzer.Window.NoWindow">
+            <summary>No window (Rectangular)</summary>
+        </member>
+        <member name="T:Genalyzer.ToneType">
+            <summary>Enumerates tone types for simplified-beta waveform generation.</summary>
+        </member>
+        <member name="T:Genalyzer.FourierAnalysis">
+            <summary>
+            Fourier analysis: configuration, execution, and result retrieval.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.Create(System.String)">
+            <summary>Creates a Fourier analysis object with the given key.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.Reset(System.String)">
+            <summary>Resets a Fourier analysis object to its default state.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetAnalysisBand(System.String,System.Double,System.Double)">
+            <summary>Sets the analysis band (numeric overload).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetAnalysisBandExpr(System.String,System.String,System.String)">
+            <summary>Sets the analysis band (expression overload).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetClk(System.String,System.Int32[],System.Boolean)">
+            <summary>Sets the clock divisors array.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetConvOffset(System.String,System.Boolean)">
+            <summary>Enables or disables converter offset.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetDcAsDist(System.String,System.Boolean)">
+            <summary>Treats the DC component as distortion when true.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetFdata(System.String,System.Double)">
+            <summary>Sets the data rate (numeric).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetFdataExpr(System.String,System.String)">
+            <summary>Sets the data rate (expression).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.AddFixedTone(System.String,System.String,Genalyzer.FACompTag,System.Double,System.Int32)">
+            <summary>Adds a fixed-frequency tone component (numeric).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.AddFixedToneExpr(System.String,System.String,Genalyzer.FACompTag,System.String,System.Int32)">
+            <summary>Adds a fixed-frequency tone component (expression).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetFsample(System.String,System.Double)">
+            <summary>Sets the sample rate (numeric).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetFsampleExpr(System.String,System.String)">
+            <summary>Sets the sample rate (expression).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetFshift(System.String,System.Double)">
+            <summary>Sets the shift frequency (numeric).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetFshiftExpr(System.String,System.String)">
+            <summary>Sets the shift frequency (expression).</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetFundImages(System.String,System.Boolean)">
+            <summary>Enables or disables fundamental images.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetHd(System.String,System.Int32)">
+            <summary>Sets the maximum harmonic distortion order.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetIlv(System.String,System.Int32[],System.Boolean)">
+            <summary>Sets the interleaving factor array.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetImd(System.String,System.Int32)">
+            <summary>Sets the intermodulation distortion order.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.AddMaxTone(System.String,System.String,Genalyzer.FACompTag,System.Int32)">
+            <summary>Adds a maximum-search tone component.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetQuadErrors(System.String,System.Boolean)">
+            <summary>Enables or disables quadrature-error components.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.RemoveComp(System.String,System.String)">
+            <summary>Removes a component from the analysis object.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetSsb(System.String,Genalyzer.FASsb,System.Int32)">
+            <summary>
+            Sets the number of single-side bins for a component group.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetVar(System.String,System.String,System.Double)">
+            <summary>Sets a named variable in the analysis object.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.SetWo(System.String,System.Int32)">
+            <summary>Sets the number of WorstOther components.</summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.Load(System.String,System.String)">
+            <summary>
+            Loads a Fourier analysis configuration from a JSON file.
+            Returns the object key that was used.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.Preview(System.String,System.Boolean)">
+            <summary>
+            Returns a human-readable preview of the Fourier analysis
+            component list.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.Analyze(System.String,System.Double[],System.Int32,Genalyzer.FreqAxisType)">
+            <summary>
+            Executes Fourier analysis and returns all results as a dictionary.
+            <paramref name="fftData"/> is an interleaved Re/Im double array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.AnalyzeSelect(System.String,System.Double[],System.Int32,System.String[],Genalyzer.FreqAxisType)">
+            <summary>
+            Executes Fourier analysis and returns only the requested result
+            keys.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.AnalyzeSingle(System.String,System.Double[],System.Int32,System.String,Genalyzer.FreqAxisType)">
+            <summary>
+            Executes Fourier analysis and returns a single named result.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.GetResult(System.Collections.Generic.Dictionary{System.String,System.Double},System.String)">
+            <summary>
+            Looks up a numeric result from a previously computed result
+            dictionary.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierAnalysis.GetResultString(System.Collections.Generic.Dictionary{System.String,System.Double},System.String)">
+            <summary>
+            Returns the string representation of a result (e.g. carrier tone
+            key).
+            </summary>
+        </member>
+        <member name="T:Genalyzer.FourierTransforms">
+            <summary>
+            Fourier transforms: complex FFT and real FFT for normalized (double)
+            and quantized (int16/int32/int64) input data.
+            All output arrays contain interleaved Re/Im doubles.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.FftSize(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Returns the output array length for a complex FFT.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.RfftSize(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Returns the output array length for a real FFT.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.Fft(System.Double[],System.Double[],System.Int32,System.Int32,Genalyzer.Window)">
+            <summary>
+            Computes the complex FFT of split normalized I/Q double arrays.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.Fft(System.Int16[],System.Int16[],System.Int32,System.Int32,System.Int32,Genalyzer.Window,Genalyzer.CodeFormat)">
+            <summary>
+            Computes the complex FFT of split 16-bit quantized I/Q arrays.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.Fft(System.Int32[],System.Int32[],System.Int32,System.Int32,System.Int32,Genalyzer.Window,Genalyzer.CodeFormat)">
+            <summary>
+            Computes the complex FFT of split 32-bit quantized I/Q arrays.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.Fft(System.Int64[],System.Int64[],System.Int32,System.Int32,System.Int32,Genalyzer.Window,Genalyzer.CodeFormat)">
+            <summary>
+            Computes the complex FFT of split 64-bit quantized I/Q arrays.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.Rfft(System.Double[],System.Int32,System.Int32,Genalyzer.Window,Genalyzer.RfftScale)">
+            <summary>
+            Computes the real FFT of a normalized double array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.Rfft(System.Int16[],System.Int32,System.Int32,System.Int32,Genalyzer.Window,Genalyzer.CodeFormat,Genalyzer.RfftScale)">
+            <summary>
+            Computes the real FFT of a 16-bit quantized input array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.Rfft(System.Int32[],System.Int32,System.Int32,System.Int32,Genalyzer.Window,Genalyzer.CodeFormat,Genalyzer.RfftScale)">
+            <summary>
+            Computes the real FFT of a 32-bit quantized input array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierTransforms.Rfft(System.Int64[],System.Int32,System.Int32,System.Int32,Genalyzer.Window,Genalyzer.CodeFormat,Genalyzer.RfftScale)">
+            <summary>
+            Computes the real FFT of a 64-bit quantized input array.
+            </summary>
+        </member>
+        <member name="T:Genalyzer.FourierUtilities">
+            <summary>
+            Fourier utility functions: alias, coherent frequency, FFT shift,
+            frequency axis, and inverse FFT shift.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierUtilities.FreqAxisSize(System.Int32,Genalyzer.FreqAxisType)">
+            <summary>
+            Returns the number of elements in a frequency-axis array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierUtilities.Alias(System.Double,System.Double,Genalyzer.FreqAxisType)">
+            <summary>
+            Returns the alias of <paramref name="freq"/> given sample rate
+            <paramref name="fs"/> on the specified frequency-axis type.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierUtilities.Coherent(System.Int32,System.Double,System.Double)">
+            <summary>
+            Returns the nearest coherent frequency for an FFT of size
+            <paramref name="nfft"/> with sample rate <paramref name="fs"/>.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierUtilities.FftShift(System.Double[])">
+            <summary>
+            Shifts the zero-frequency component to the center of the spectrum.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierUtilities.FreqAxis(System.Int32,Genalyzer.FreqAxisType,System.Double,Genalyzer.FreqAxisFormat)">
+            <summary>
+            Generates a frequency axis array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.FourierUtilities.IfftShift(System.Double[])">
+            <summary>
+            Inverse of <see cref="M:Genalyzer.FourierUtilities.FftShift(System.Double[])"/>: shifts the zero-frequency
+            component back to the beginning.
+            </summary>
+        </member>
+        <member name="T:Genalyzer.GenalyzerConfig">
+             <summary>
+             Managed wrapper for the simplified-beta C API
+             (<c>cgenalyzer_simplified_beta.h</c>).
+            
+             Encapsulates the opaque <c>gn_config</c> pointer and exposes all
+             configuration, generation, processing, and analysis calls as instance
+             methods.  Implements <see cref="T:System.IDisposable"/> to ensure the native
+             config struct is freed.
+             </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.#ctor">
+            <summary>Creates an empty configuration object.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.Dispose">
+            <summary>Frees the native configuration structure.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetToneType(Genalyzer.ToneType)">
+            <summary>Sets the tone type (real cosine / real sine / complex exp).</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetNpts(System.Int32)">
+            <summary>Sets the number of sample points.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetNpts">
+            <summary>Gets the number of sample points.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetSampleRate(System.Double)">
+            <summary>Sets the sample rate (S/s).</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetSampleRate">
+            <summary>Gets the sample rate (S/s).</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetDataRate(System.Double)">
+            <summary>Sets the data rate (S/s).</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetShiftFreq(System.Double)">
+            <summary>Sets the frequency shift.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetNumTones(System.Int32)">
+            <summary>Sets the number of tones to generate.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetToneFreq(System.Double[])">
+            <summary>Sets the tone frequency array.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetToneAmpl(System.Double[])">
+            <summary>Sets the tone amplitude array.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetTonePhase(System.Double[])">
+            <summary>Sets the tone phase array.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetFsr(System.Double)">
+            <summary>Sets the full-scale range.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetQres(System.Int32)">
+            <summary>Sets the quantization resolution.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetNoiseRms(System.Double)">
+            <summary>Sets the input-referred RMS noise.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetCodeFormat(Genalyzer.CodeFormat)">
+            <summary>Sets the code format.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetNfft(System.Int32)">
+            <summary>Sets the FFT size.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetNfft">
+            <summary>Gets the FFT size.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetFftNavg(System.Int32)">
+            <summary>Sets the number of FFT averages.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetWindow(Genalyzer.Window)">
+            <summary>Sets the window function.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetSsbFund(System.Int32)">
+            <summary>Sets the fundamental single-side bins.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetSsbRest(System.Int32)">
+            <summary>Sets the rest single-side bins.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetMaxHarmOrder(System.Int32)">
+            <summary>Sets the maximum harmonic order.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetDnlaSignalType(Genalyzer.DnlSignal)">
+            <summary>Sets the DNL analysis signal type.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetInlaFit(Genalyzer.InlLineFit)">
+            <summary>Sets the INL analysis line-fit type.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetRampStart(System.Double)">
+            <summary>Sets the ramp start value.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.SetRampStop(System.Double)">
+            <summary>Sets the ramp stop value.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetCodeDensitySize">
+            <summary>Gets the code-density array size computed by the config.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.ConfigGenTone(Genalyzer.ToneType,System.Int32,System.Double,System.Double[],System.Double[],System.Double[])">
+            <summary>
+            Configures all tone-generation parameters in one call.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.ConfigGenRamp(System.Int32,System.Double,System.Double)">
+            <summary>Configures ramp generation parameters.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.ConfigQuantize(System.Int32,System.Double,System.Int32,System.Double)">
+            <summary>Configures quantization parameters.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.ConfigHistzNla(System.Int32,System.Int32)">
+            <summary>Configures histogram / NLA parameters.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.ConfigFftz(System.Int32,System.Int32,System.Int32,System.Int32,Genalyzer.Window)">
+            <summary>Configures FFT parameters.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.ConfigFa(System.Double)">
+            <summary>
+            Configures Fourier analysis with a fixed tone frequency.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.ConfigFaAuto(System.Byte)">
+            <summary>
+            Configures Fourier analysis using automatic tone detection.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GenRamp">
+            <summary>Generates a ramp waveform based on the current configuration.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GenRealTone">
+            <summary>Generates a real tone waveform based on the current configuration.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GenComplexTone">
+            <summary>
+            Generates a complex (I/Q) tone waveform based on the current
+            configuration.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.Quantize(System.Double[])">
+            <summary>
+            Quantizes the supplied double waveform using the current
+            configuration and returns a 32-bit integer array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.Fftz(System.Int32[],System.Int32[])">
+            <summary>
+            Computes the FFT of the quantized I/Q waveforms.
+            <paramref name="inQ"/> may be null for a real-only FFT.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.Histz(System.Int32[])">
+            <summary>
+            Computes the histogram of the quantized waveform.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.Dnlz(System.UInt64[])">
+            <summary>Computes the DNL from a histogram array.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.Inlz(System.Double[])">
+            <summary>Computes the INL from a DNL array.</summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetWfaResults(System.Int32[])">
+            <summary>
+            Runs waveform analysis on a quantized 32-bit waveform and returns
+            all results.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetHaResults(System.UInt64[])">
+            <summary>
+            Runs histogram analysis and returns all results.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetDnlaResults(System.Double[])">
+            <summary>
+            Runs DNL analysis and returns all results.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetInlaResults(System.Double[])">
+            <summary>
+            Runs INL analysis and returns all results.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetFaSingleResult(System.Double[],System.String)">
+            <summary>
+            Runs Fourier analysis and returns a single named metric.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.GenalyzerConfig.GetFaResults(System.Double[])">
+            <summary>
+            Runs Fourier analysis and returns all results.
+            </summary>
+        </member>
+        <member name="T:Genalyzer.GenalyzerException">
+            <summary>
+            Thrown when a native genalyzer function returns a non-zero error code.
+            </summary>
+        </member>
+        <member name="T:Genalyzer.Manager">
+            <summary>
+            Object manager: controls the lifetime of all named objects created
+            in the library (e.g. Fourier analysis configurations).
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Manager.Clear">
+            <summary>Removes all objects from the manager.</summary>
+        </member>
+        <member name="M:Genalyzer.Manager.Compare(System.String,System.String)">
+            <summary>
+            Returns true when both objects are structurally equal.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Manager.Contains(System.String)">
+            <summary>Returns true when the manager contains the given key.</summary>
+        </member>
+        <member name="M:Genalyzer.Manager.Remove(System.String)">
+            <summary>Removes the object with the given key.</summary>
+        </member>
+        <member name="M:Genalyzer.Manager.Save(System.String,System.String)">
+            <summary>
+            Saves the named object to a JSON file.
+            Returns the actual filename used.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Manager.Size">
+            <summary>Returns the number of objects in the manager.</summary>
+        </member>
+        <member name="M:Genalyzer.Manager.ToString(System.String)">
+            <summary>
+            Returns a string representation of the named object.
+            Pass an empty string to get the whole manager state.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Manager.TypeOf(System.String)">
+            <summary>Returns the type name string of the named object.</summary>
+        </member>
+        <member name="T:Genalyzer.NativeMethods">
+            <summary>
+            Raw P/Invoke declarations for every exported symbol in libgenalyzer.
+            All signatures match the C API in cgenalyzer.h and
+            cgenalyzer_simplified_beta.h exactly.
+            Return value: 0 = success, non-zero = failure (unless noted otherwise).
+            </summary>
+        </member>
+        <member name="T:Genalyzer.SignalProcessing">
+            <summary>
+            Signal processing: downsample, frequency shift, normalize,
+            polynomial distortion, and quantize.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.DownsampleSize(System.Int32,System.Int32,System.Boolean)">
+            <summary>Returns the output array size for a downsample operation.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.FshiftSize(System.Int32,System.Int32)">
+            <summary>Returns the output array size for a frequency-shift operation.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Downsample(System.Double[],System.Int32,System.Boolean)">
+            <summary>Downsamples a normalized double array.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Downsample(System.Int16[],System.Int32,System.Boolean)">
+            <summary>Downsamples a 16-bit integer array.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Downsample(System.Int32[],System.Int32,System.Boolean)">
+            <summary>Downsamples a 32-bit integer array.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Downsample(System.Int64[],System.Int32,System.Boolean)">
+            <summary>Downsamples a 64-bit integer array.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Fshift(System.Double[],System.Double[],System.Double,System.Double)">
+            <summary>
+            Frequency-shifts a split normalized double I/Q pair.
+            Returns an interleaved output array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Fshift(System.Int16[],System.Int16[],System.Int32,System.Double,System.Double,Genalyzer.CodeFormat)">
+            <summary>Frequency-shifts split 16-bit I/Q arrays.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Fshift(System.Int32[],System.Int32[],System.Int32,System.Double,System.Double,Genalyzer.CodeFormat)">
+            <summary>Frequency-shifts split 32-bit I/Q arrays.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Fshift(System.Int64[],System.Int64[],System.Int32,System.Double,System.Double,Genalyzer.CodeFormat)">
+            <summary>Frequency-shifts split 64-bit I/Q arrays.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Normalize(System.Int16[],System.Int32,Genalyzer.CodeFormat)">
+            <summary>Normalizes a 16-bit integer array to [-1, 1] doubles.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Normalize(System.Int32[],System.Int32,Genalyzer.CodeFormat)">
+            <summary>Normalizes a 32-bit integer array to [-1, 1] doubles.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Normalize(System.Int64[],System.Int32,Genalyzer.CodeFormat)">
+            <summary>Normalizes a 64-bit integer array to [-1, 1] doubles.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Polyval(System.Double[],System.Double[])">
+            <summary>
+            Evaluates a polynomial with coefficients <paramref name="c"/> at
+            each point in <paramref name="input"/>.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Quantize16(System.Double[],System.Double,System.Int32,System.Double,Genalyzer.CodeFormat)">
+            <summary>Quantizes a double waveform to 16-bit integers.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Quantize32(System.Double[],System.Double,System.Int32,System.Double,Genalyzer.CodeFormat)">
+            <summary>Quantizes a double waveform to 32-bit integers.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Quantize64(System.Double[],System.Double,System.Int32,System.Double,Genalyzer.CodeFormat)">
+            <summary>Quantizes a double waveform to 64-bit integers.</summary>
+        </member>
+        <member name="M:Genalyzer.SignalProcessing.Quantize64Long(System.Double[],System.Double,System.Int32,System.Double,Genalyzer.CodeFormat)">
+            <summary>Quantizes a double waveform to 64-bit integers (full precision).</summary>
+        </member>
+        <member name="T:Genalyzer.Util">
+            <summary>
+            Internal helpers shared across the managed wrapper classes.
+            Handles string termination, result-key buffer allocation, and
+            conversion of raw IntPtr key arrays to managed strings.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Util.Check(System.Int32)">
+            <summary>
+            Throws <see cref="T:Genalyzer.GenalyzerException"/> if the native call returned
+            a non-zero value, pulling the error message out of the library.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Util.AllocKeyBuffers(System.UIntPtr[])">
+            <summary>
+            Allocates a managed key-buffer array sized by the library, suitable
+            for passing as the rkeys argument to analysis functions.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Util.FreeKeyBuffers(System.Runtime.InteropServices.GCHandle[])">
+            <summary>Releases pinned GC handles allocated by AllocKeyBuffers.</summary>
+        </member>
+        <member name="M:Genalyzer.Util.KeysToStrings(System.IntPtr[],System.Int32)">
+            <summary>
+            Converts the raw IntPtr key array written by a native analysis
+            function into an array of managed strings.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Util.MakeResultDictionary(System.String[],System.Double[])">
+            <summary>
+            Builds a Dictionary from parallel key/value arrays returned by
+            native analysis functions.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Util.BytesToString(System.Byte[])">
+            <summary>
+            Converts a null-terminated byte buffer returned by the library into
+            a managed string.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Util.DictionaryToKeyValueArrays(System.Collections.Generic.Dictionary{System.String,System.Double})">
+            <summary>
+            Builds the parallel IntPtr[] / double[] arrays needed by
+            gn_fa_result / gn_fa_result_string from a managed dictionary.
+            The returned handles must remain alive for the duration of the call;
+            free them with FreeKeyBuffers afterwards.
+            </summary>
+        </member>
+        <member name="T:Genalyzer.Waveforms">
+            <summary>
+            Waveform generation and waveform analysis.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Waveforms.Cos(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Generates a cosine waveform.
+            </summary>
+            <param name="nsamples">Number of samples.</param>
+            <param name="fs">Sample rate (S/s).</param>
+            <param name="ampl">Amplitude.</param>
+            <param name="freq">Frequency (Hz).</param>
+            <param name="phase">Phase (rad).</param>
+            <param name="td">Time delay (s).</param>
+            <param name="tj">RMS aperture jitter (s).</param>
+        </member>
+        <member name="M:Genalyzer.Waveforms.Gaussian(System.Int32,System.Double,System.Double)">
+            <summary>
+            Generates Gaussian random noise samples.
+            </summary>
+            <param name="nsamples">Number of samples.</param>
+            <param name="mean">Mean.</param>
+            <param name="sd">Standard deviation.</param>
+        </member>
+        <member name="M:Genalyzer.Waveforms.Ramp(System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+            Generates a ramp waveform.
+            </summary>
+            <param name="nsamples">Number of samples.</param>
+            <param name="start">Start value.</param>
+            <param name="stop">Stop value.</param>
+            <param name="noise">RMS noise.</param>
+        </member>
+        <member name="M:Genalyzer.Waveforms.Sin(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Generates a sine waveform.
+            </summary>
+            <param name="nsamples">Number of samples.</param>
+            <param name="fs">Sample rate (S/s).</param>
+            <param name="ampl">Amplitude.</param>
+            <param name="freq">Frequency (Hz).</param>
+            <param name="phase">Phase (rad).</param>
+            <param name="td">Time delay (s).</param>
+            <param name="tjrms">RMS aperture jitter (s).</param>
+        </member>
+        <member name="M:Genalyzer.Waveforms.WfAnalysis(System.Double[])">
+            <summary>
+            Runs waveform analysis on a normalized double array.
+            Keys: min, max, mid, range, avg, rms, rmsac, min_index,
+                  max_index.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Waveforms.WfAnalysis(System.Int16[])">
+            <summary>
+            Runs waveform analysis on a 16-bit integer array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Waveforms.WfAnalysis(System.Int32[])">
+            <summary>
+            Runs waveform analysis on a 32-bit integer array.
+            </summary>
+        </member>
+        <member name="M:Genalyzer.Waveforms.WfAnalysis(System.Int64[])">
+            <summary>
+            Runs waveform analysis on a 64-bit integer array.
+            </summary>
+        </member>
+    </members>
+</doc>

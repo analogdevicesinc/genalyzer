@@ -1,0 +1,6 @@
+C:\git\genalyzer\bindings\C#\examples\SpectralAnalysis1\obj\Debug\net6.0\SpectralAnalysis1.csproj.AssemblyReference.cache
+C:\git\genalyzer\bindings\C#\examples\SpectralAnalysis1\obj\Debug\net6.0\SpectralAnalysis1.GeneratedMSBuildEditorConfig.editorconfig
+C:\git\genalyzer\bindings\C#\examples\SpectralAnalysis1\obj\Debug\net6.0\SpectralAnalysis1.AssemblyInfoInputs.cache
+C:\git\genalyzer\bindings\C#\examples\SpectralAnalysis1\obj\Debug\net6.0\SpectralAnalysis1.AssemblyInfo.cs
+C:\git\genalyzer\bindings\C#\examples\SpectralAnalysis1\obj\Debug\net6.0\SpectralAnalysis1.csproj.CoreCompileInputs.cache
+C:\git\genalyzer\bindings\C#\examples\SpectralAnalysis1\obj\Debug\net6.0\SpectralAnalysis1.sourcelink.json
