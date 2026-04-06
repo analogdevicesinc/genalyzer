@@ -156,30 +156,27 @@ jobs:
           for f in examples/*.py; do python "$f"; done
 
   Lint:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.9, "3.10", "3.11", "3.12", "3.13"]
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
-          pip install pre-commit ruff ty
+          bash ./.github/scripts/install_dependencies.sh
+          pip install -r requirements_test.txt
 
-      - name: Pre-commit hooks
+      - name: Lint
         run: |
-          pre-commit run --all-files
-
-      - name: Ruff lint and format
-        run: |
-          cd bindings/python
-          ruff check genalyzer/
-          ruff format --check genalyzer/
-
-      - name: Type check
-        run: |
-          cd bindings/python
-          ty check genalyzer/
+          pre-commit run --all-files 2> /dev/null
+          ec=$?
+          git diff -U0 > log.txt && cat log.txt
+          exit $ec
