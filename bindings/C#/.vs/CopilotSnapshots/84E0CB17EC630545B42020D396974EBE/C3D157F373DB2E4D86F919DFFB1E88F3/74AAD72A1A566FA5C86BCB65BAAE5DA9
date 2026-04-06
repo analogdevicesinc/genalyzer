@@ -1,0 +1,48 @@
+﻿// Copyright (C) 2024-2025 Analog Devices, Inc.
+// SPDX short identifier: GPL-2.0-or-later
+//
+// C# port of bindings/python/examples/simplified_beta/do_fourier_analysis.py
+//
+// Uses the simplified-beta GenalyzerConfig API to generate and quantize a
+// complex tone, compute the FFT, configure Fourier analysis, and retrieve
+// both all results and a single metric.
+// Run independently: dotnet run --project FourierAnalysisSimplified.csproj
+
+using System;
+using System.Collections.Generic;
+using Genalyzer;
+
+int    npts   = 16384;
+int    navg   = 1;
+int    nfft   = npts / navg;
+int    qres   = 12;
+double fs     = 3_000_000.0;
+double freq   = 300_000.0;
+double ampl   = 0.9;
+double phase  = 0.0;
+double fsr    = 2.0;
+double qnoise = 0.0;
+var    window = Window.NoWindow;
+
+using var cfg = new GenalyzerConfig();
+cfg.ConfigGenTone(ToneType.ComplexExp, npts, fs,
+new[] { freq }, new[] { ampl }, new[] { phase });
+cfg.ConfigQuantize(npts, fsr, qres, qnoise);
+cfg.ConfigFftz(npts, qres, navg, nfft, window);
+cfg.SetSampleRate(fs);
+cfg.ConfigFa(freq);
+
+(double[] awfI, double[] awfQ) = cfg.GenComplexTone();
+int[] qwfI = cfg.Quantize(awfI);
+int[] qwfQ = cfg.Quantize(awfQ);
+
+double[] fftIlv = cfg.Fftz(qwfI, qwfQ);
+
+Dictionary<string, double> allResults = cfg.GetFaResults(fftIlv);
+
+Console.WriteLine("Fourier Analysis Results:");
+foreach (var kv in allResults)
+    Console.WriteLine($"  {kv.Key,-26} {kv.Value,16:F6}");
+
+double sfdr = cfg.GetFaSingleResult(fftIlv, "sfdr");
+Console.WriteLine($"\nSFDR = {sfdr:F4} dB");
