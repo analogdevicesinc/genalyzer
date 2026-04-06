@@ -1,11 +1,10 @@
-# Copyright (C) 2025-2026 Analog Devices, Inc.
+# Copyright (C) 2025 Analog Devices, Inc.
 #
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """Pytest plugin for Genalyzer."""
 
-import logging
-
 import pytest
+import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("genalyzer-pytest-plugin")
@@ -30,7 +29,6 @@ def pytest_addoption(parser):
         default="INFO",
         help="Set the logging level for Genalyzer (DEBUG, INFO, WARNING, ERROR, CRITICAL)",
     )
-
 
 @pytest.fixture(autouse=True, scope="session")
 def manager(request):
