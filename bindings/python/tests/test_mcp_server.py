@@ -43,6 +43,12 @@ class TestServerRegistration:
     def test_server_name(self, mcp_server):
         assert mcp_server.name == "genalyzer"
 
+    def test_import_from_new_location(self):
+        from genalyzer.mcp.server import mcp as new_mcp
+        from genalyzer.mcp.server import main as new_main
+        assert new_mcp.name == "genalyzer"
+        assert callable(new_main)
+
 
 class TestGenerateTestTone:
     """Test the generate_test_tone tool."""
