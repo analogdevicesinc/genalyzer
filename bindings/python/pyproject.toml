@@ -115,7 +115,7 @@ python-version = "3.9"
 unresolved-import = "ignore"  # third-party deps not always installed
 
 [[tool.ty.overrides]]
-include = ["genalyzer/simplified_beta/**", "genalyzer/helpers/**", "genalyzer/pytest/**"]
+include = ["genalyzer/simplified_beta/**", "genalyzer/helpers/**", "genalyzer/pytest/**", "genalyzer/cli/**"]
 [tool.ty.overrides.rules]
 invalid-assignment = "ignore"
 invalid-argument-type = "ignore"
