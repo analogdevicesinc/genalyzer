@@ -17,8 +17,10 @@ pytestmark = [
 
 @pytest.fixture
 def mcp_server():
-    """Create and return the MCP server instance."""
-    from genalyzer.mcp_server import mcp
+    """Create and return the MCP server instance with all tools registered."""
+    # Import every domain module so @mcp.tool() decorators register.
+    from genalyzer.mcp import fourier, generators, histogram, linearity, quantize, waveform  # noqa: F401
+    from genalyzer.mcp.server import mcp
 
     return mcp
 
@@ -36,7 +38,31 @@ class TestServerRegistration:
 
     def test_server_has_tools(self, mcp_server):
         tool_names = _get_tool_names(mcp_server)
-        expected = ["analyze_spectrum", "compute_fft", "get_fa_metrics", "generate_test_tone"]
+        expected = [
+            # generators
+            "generate_test_tone",
+            "generate_real_tone",
+            "generate_ramp",
+            "generate_gaussian_noise",
+            # quantize
+            "quantize",
+            # fourier
+            "compute_fft",
+            "get_fa_metrics",
+            "analyze_spectrum",
+            # histogram
+            "compute_histogram",
+            "analyze_histogram",
+            # linearity
+            "compute_dnl",
+            "compute_inl",
+            "analyze_dnl",
+            "analyze_inl",
+            # waveform
+            "compute_waveform_stats",
+            "analyze_waveform",
+        ]
+        assert len(expected) == 16
         for name in expected:
             assert name in tool_names, f"Tool '{name}' not registered in MCP server"
 
