@@ -95,9 +95,10 @@ def click_from_tool(tool_func: Callable[..., dict], name: str) -> click.Command:
             params.append(click.Option(decls, default=default))
         else:
             decls = [f"--{flag_base}"]
-            params.append(
-                click.Option(decls, type=click_type, required=required, default=default)
-            )
+            if required:
+                params.append(click.Option(decls, type=click_type, required=True))
+            else:
+                params.append(click.Option(decls, type=click_type, required=False, default=default))
 
     params.append(
         click.Option(
