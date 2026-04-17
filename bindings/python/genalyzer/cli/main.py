@@ -7,6 +7,19 @@ from __future__ import annotations
 
 import click
 
+from ..mcp.fourier import analyze_spectrum, compute_fft, get_fa_metrics
+from ..mcp.generators import (
+    generate_gaussian_noise,
+    generate_ramp,
+    generate_real_tone,
+    generate_test_tone,
+)
+from ..mcp.histogram import analyze_histogram, compute_histogram
+from ..mcp.linearity import analyze_dnl, analyze_inl, compute_dnl, compute_inl
+from ..mcp.quantize import quantize
+from ..mcp.waveform import analyze_waveform, compute_waveform_stats
+from ._builder import click_from_tool
+
 _TOOL_NAMES = [
     "generate_test_tone",
     "generate_real_tone",
@@ -42,3 +55,62 @@ def cli():
 def _tools_cmd():
     """Print the 16 MCP tool names (one per line)."""
     click.echo("\n".join(_TOOL_NAMES))
+
+
+# ---- generators ----
+@cli.group()
+def generators():
+    """Synthetic waveform generators."""
+
+
+generators.add_command(click_from_tool(generate_test_tone, "test-tone"))
+generators.add_command(click_from_tool(generate_real_tone, "real-tone"))
+generators.add_command(click_from_tool(generate_ramp, "ramp"))
+generators.add_command(click_from_tool(generate_gaussian_noise, "gaussian-noise"))
+
+
+# ---- quantize (standalone) ----
+cli.add_command(click_from_tool(quantize, "quantize"))
+
+
+# ---- fourier ----
+@cli.group()
+def fourier():
+    """Fourier-domain analysis."""
+
+
+fourier.add_command(click_from_tool(compute_fft, "fft"))
+fourier.add_command(click_from_tool(get_fa_metrics, "fa-metrics"))
+fourier.add_command(click_from_tool(analyze_spectrum, "analyze"))
+
+
+# ---- histogram ----
+@cli.group()
+def histogram():
+    """Code-density histogram tools."""
+
+
+histogram.add_command(click_from_tool(compute_histogram, "compute"))
+histogram.add_command(click_from_tool(analyze_histogram, "analyze"))
+
+
+# ---- linearity ----
+@cli.group()
+def linearity():
+    """DNL / INL tools."""
+
+
+linearity.add_command(click_from_tool(compute_dnl, "compute-dnl"))
+linearity.add_command(click_from_tool(compute_inl, "compute-inl"))
+linearity.add_command(click_from_tool(analyze_dnl, "analyze-dnl"))
+linearity.add_command(click_from_tool(analyze_inl, "analyze-inl"))
+
+
+# ---- waveform ----
+@cli.group()
+def waveform():
+    """Time-domain waveform tools."""
+
+
+waveform.add_command(click_from_tool(compute_waveform_stats, "stats"))
+waveform.add_command(click_from_tool(analyze_waveform, "analyze"))

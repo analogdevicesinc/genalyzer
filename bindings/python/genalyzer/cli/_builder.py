@@ -80,10 +80,16 @@ def click_from_tool(tool_func: Callable[..., dict], name: str) -> click.Command:
     kebab-cased options. A `--compact/--pretty` flag is always appended.
     """
     sig = inspect.signature(tool_func)
+    try:
+        hints = typing.get_type_hints(tool_func)
+    except Exception:
+        hints = {}
     params: list[click.Parameter] = []
 
     for pname, param in sig.parameters.items():
         flag_base = pname.replace("_", "-")
+        if pname in hints:
+            param = param.replace(annotation=hints[pname])
         click_type, required, default, is_flag = _translate(param)
         if is_flag:
             decls = [f"--{flag_base}/--no-{flag_base}"]
