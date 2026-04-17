@@ -42,10 +42,12 @@ exclude = ["tests*"]
 namespaces = true
 
 [project.scripts]
+genalyzer = "genalyzer.cli.main:cli"
 genalyzer-mcp = "genalyzer.mcp.server:main"
 
 [project.optional-dependencies]
-mcp = ["fastmcp; python_version>='3.10'", "numpy"]
+cli = ["click"]
+mcp = ["fastmcp; python_version>='3.10'", "numpy", "click"]
 tools = ["scipy"]
 pytest = [
     "pytest >= 6.2",
