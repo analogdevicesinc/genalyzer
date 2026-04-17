@@ -121,9 +121,8 @@ class TestAnalyzeSpectrum:
         # SFDR should be positive for a clean tone
         assert result["sfdr"] > 0
 
-    def test_analyze_spectrum_returns_plot(self, tmp_path):
-        from pathlib import Path
-        from genalyzer.mcp_server import generate_test_tone, analyze_spectrum
+    def test_analyze_spectrum_no_plot_by_default(self, tmp_path):
+        from genalyzer.mcp_server import analyze_spectrum, generate_test_tone
 
         tone_path = str(tmp_path / "tone.npy")
         generate_test_tone(
@@ -136,8 +135,25 @@ class TestAnalyzeSpectrum:
 
         result = analyze_spectrum(npy_path=tone_path, sample_rate=250e6)
         assert "error" not in result
-        assert "plot_path" in result, "analyze_spectrum must return 'plot_path'"
-        assert Path(result["plot_path"]).exists(), f"Plot file not found: {result['plot_path']}"
+        assert "plot_path" not in result
+
+    def test_analyze_spectrum_plot_opt_in(self, tmp_path):
+        from pathlib import Path
+        from genalyzer.mcp_server import analyze_spectrum, generate_test_tone
+
+        tone_path = str(tmp_path / "tone.npy")
+        generate_test_tone(
+            num_points=8192,
+            sample_rate=250e6,
+            tone_freq=30e6,
+            amplitude=0.9,
+            output_path=tone_path,
+        )
+
+        result = analyze_spectrum(npy_path=tone_path, sample_rate=250e6, plot=True)
+        assert "error" not in result
+        assert "plot_path" in result
+        assert Path(result["plot_path"]).exists()
         assert result["plot_path"].endswith(".png")
 
 
