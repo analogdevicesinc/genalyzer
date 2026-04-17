@@ -124,7 +124,7 @@ def analyze_spectrum(
     window: str = "no_window",
     ssb: int = 12,
     wo: int = 0,
-    plot: bool = True,
+    plot: bool = False,
 ) -> dict:
     """All-in-one spectral analysis: load data, compute FFT, and return metrics.
 
