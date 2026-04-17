@@ -183,3 +183,53 @@ class TestBuilder:
         assert "error" in data
         assert "RuntimeError" in data["error"]
         assert "kaboom" in data["error"]
+
+    def test_click_from_tool_resolves_pep563_string_annotations(self, runner):
+        """Builder must resolve string annotations produced by `from __future__ import annotations`."""
+        from genalyzer.cli._builder import click_from_tool
+
+        exec_globals: dict = {}
+        src = (
+            "from __future__ import annotations\n"
+            "def sample(a: int, b: float = 2.5, c: str | None = None) -> dict:\n"
+            "    return {'a': a, 'b': b, 'c': c}\n"
+        )
+        exec(src, exec_globals)
+        sample = exec_globals["sample"]
+
+        cmd = click_from_tool(sample, "sample")
+        result = runner.invoke(cmd, ["--a", "7", "--compact"])
+        assert result.exit_code == 0, result.output
+        data = json.loads(result.output.strip())
+        assert data == {"a": 7, "b": 2.5, "c": None}
+
+
+class TestRegistration:
+    def test_sixteen_subcommands_registered(self, runner):
+        """Every one of the 16 MCP tool names resolves to a click subcommand."""
+        from genalyzer.cli.main import cli
+
+        # Expected (group, subcommand-kebab, MCP tool name)
+        expected = [
+            ("generators", "test-tone", "generate_test_tone"),
+            ("generators", "real-tone", "generate_real_tone"),
+            ("generators", "ramp", "generate_ramp"),
+            ("generators", "gaussian-noise", "generate_gaussian_noise"),
+            (None, "quantize", "quantize"),
+            ("fourier", "fft", "compute_fft"),
+            ("fourier", "fa-metrics", "get_fa_metrics"),
+            ("fourier", "analyze", "analyze_spectrum"),
+            ("histogram", "compute", "compute_histogram"),
+            ("histogram", "analyze", "analyze_histogram"),
+            ("linearity", "compute-dnl", "compute_dnl"),
+            ("linearity", "compute-inl", "compute_inl"),
+            ("linearity", "analyze-dnl", "analyze_dnl"),
+            ("linearity", "analyze-inl", "analyze_inl"),
+            ("waveform", "stats", "compute_waveform_stats"),
+            ("waveform", "analyze", "analyze_waveform"),
+        ]
+
+        for group, sub, _mcp_name in expected:
+            cmd_path = [group, sub] if group else [sub]
+            result = runner.invoke(cli, cmd_path + ["--help"])
+            assert result.exit_code == 0, f"Missing command: genalyzer {' '.join(cmd_path)}\n{result.output}"
