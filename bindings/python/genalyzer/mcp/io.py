@@ -38,9 +38,7 @@ def _load_csv(path: str) -> np.ndarray:
 
     ncols = len(rows[0])
     if ncols not in (1, 2):
-        raise ValueError(
-            f"CSV must have 1 or 2 columns (got {ncols}): {path}"
-        )
+        raise ValueError(f"CSV must have 1 or 2 columns (got {ncols}): {path}")
 
     for i, r in enumerate(rows):
         if len(r) != ncols:
