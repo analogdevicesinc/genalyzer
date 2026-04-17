@@ -96,3 +96,41 @@ def plot_histogram(hist: np.ndarray, plot_path: str, title: str = "Code Histogra
     plt.tight_layout()
     plt.savefig(plot_path, dpi=150)
     plt.close(fig)
+
+
+def plot_dnl(dnl: np.ndarray, plot_path: str) -> None:
+    """Render a DNL bar plot and save as PNG."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(figsize=(12, 4))
+    ax.bar(np.arange(len(dnl)), dnl, width=1.0, color="steelblue")
+    ax.set_xlabel("Code")
+    ax.set_ylabel("DNL (LSB)")
+    ax.set_title("Differential Non-Linearity")
+    ax.grid(True, alpha=0.3)
+    ax.axhline(0.0, color="black", linewidth=0.5)
+    plt.tight_layout()
+    plt.savefig(plot_path, dpi=150)
+    plt.close(fig)
+
+
+def plot_inl(inl: np.ndarray, plot_path: str) -> None:
+    """Render an INL line plot and save as PNG."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(figsize=(12, 4))
+    ax.plot(np.arange(len(inl)), inl, linewidth=0.7, color="steelblue")
+    ax.set_xlabel("Code")
+    ax.set_ylabel("INL (LSB)")
+    ax.set_title("Integral Non-Linearity")
+    ax.grid(True, alpha=0.3)
+    ax.axhline(0.0, color="black", linewidth=0.5)
+    plt.tight_layout()
+    plt.savefig(plot_path, dpi=150)
+    plt.close(fig)
