@@ -63,6 +63,7 @@ Reference
    python/genalyzer
    pytest/index
    mcp/index
+   cli
    linting
 
 

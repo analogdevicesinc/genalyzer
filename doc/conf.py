@@ -44,6 +44,7 @@ extensions = [
     "sphinxcontrib.mermaid",
     "sphinx_togglebutton",
     "adi_doctools",
+    "sphinx_click.ext",
 ]
 
 needs_extensions = {"adi_doctools": "0.4.21"}
