@@ -233,3 +233,211 @@ class TestRegistration:
             cmd_path = [group, sub] if group else [sub]
             result = runner.invoke(cli, cmd_path + ["--help"])
             assert result.exit_code == 0, f"Missing command: genalyzer {' '.join(cmd_path)}\n{result.output}"
+
+
+class TestSmokePerGroup:
+    def test_generators_test_tone(self, runner, tmp_path):
+        from genalyzer.cli.main import cli
+        out = str(tmp_path / "tone.npy")
+        result = runner.invoke(
+            cli,
+            [
+                "generators", "test-tone",
+                "--num-points", "1024",
+                "--sample-rate", "250e6",
+                "--tone-freq", "30e6",
+                "--amplitude", "0.9",
+                "--output-path", out,
+                "--compact",
+            ],
+        )
+        assert result.exit_code == 0, result.output
+        data = json.loads(result.output.strip())
+        assert data["output_path"] == out
+
+    def test_quantize(self, runner, synthetic_ramp, tmp_path):
+        import numpy as np
+        from genalyzer.cli.main import cli
+
+        # Convert int32 ramp to float (gn.quantize requires float input)
+        ramp = np.load(synthetic_ramp["path"]).astype(np.float64)
+        ramp /= max(abs(ramp.min()), abs(ramp.max()))
+        float_path = str(tmp_path / "ramp_f.npy")
+        np.save(float_path, ramp)
+
+        out = str(tmp_path / "q.npy")
+        result = runner.invoke(
+            cli,
+            [
+                "quantize",
+                "--npy-path", float_path,
+                "--bits", "12",
+                "--fullscale", "2.0",
+                "--output-path", out,
+                "--compact",
+            ],
+        )
+        assert result.exit_code == 0, result.output
+        data = json.loads(result.output.strip())
+        assert "error" not in data
+        assert data["output_path"] == out
+
+    def test_fourier_analyze(self, runner, synthetic_tone):
+        from genalyzer.cli.main import cli
+        result = runner.invoke(
+            cli,
+            [
+                "fourier", "analyze",
+                "--npy-path", synthetic_tone["path"],
+                "--sample-rate", str(synthetic_tone["sample_rate"]),
+                "--window", "blackman_harris",
+                "--ssb", "3",
+                "--compact",
+            ],
+        )
+        assert result.exit_code == 0, result.output
+        data = json.loads(result.output.strip())
+        assert "sfdr" in data and "snr" in data
+        assert "plot_path" not in data
+
+    def test_histogram_analyze(self, runner, synthetic_ramp):
+        from genalyzer.cli.main import cli
+        result = runner.invoke(
+            cli,
+            [
+                "histogram", "analyze",
+                "--npy-path", synthetic_ramp["path"],
+                "--nbits", str(synthetic_ramp["nbits"]),
+                "--compact",
+            ],
+        )
+        assert result.exit_code == 0, result.output
+        data = json.loads(result.output.strip())
+        assert "sum" in data and "nz_range" in data
+
+    def test_linearity_analyze_dnl(self, runner, synthetic_ramp):
+        from genalyzer.cli.main import cli
+        result = runner.invoke(
+            cli,
+            [
+                "linearity", "analyze-dnl",
+                "--npy-path", synthetic_ramp["path"],
+                "--nbits", str(synthetic_ramp["nbits"]),
+                "--signal-type", "ramp",
+                "--compact",
+            ],
+        )
+        assert result.exit_code == 0, result.output
+        data = json.loads(result.output.strip())
+        assert "dnl_max" in data
+
+    def test_waveform_stats(self, runner, synthetic_tone):
+        from genalyzer.cli.main import cli
+        result = runner.invoke(
+            cli,
+            ["waveform", "stats", "--npy-path", synthetic_tone["path"], "--compact"],
+        )
+        assert result.exit_code == 0, result.output
+        data = json.loads(result.output.strip())
+        for key in ("min", "max", "avg", "rms"):
+            assert key in data
+
+
+class TestOutputModes:
+    def test_default_is_pretty_printed(self, runner, synthetic_tone):
+        from genalyzer.cli.main import cli
+        result = runner.invoke(
+            cli,
+            ["waveform", "stats", "--npy-path", synthetic_tone["path"]],
+        )
+        assert result.exit_code == 0
+        # Pretty JSON has newlines and 2-space indent
+        assert "\n  " in result.output
+
+    def test_compact_is_single_line(self, runner, synthetic_tone):
+        from genalyzer.cli.main import cli
+        result = runner.invoke(
+            cli,
+            ["waveform", "stats", "--npy-path", synthetic_tone["path"], "--compact"],
+        )
+        assert result.exit_code == 0
+        body = result.output.strip()
+        assert "\n" not in body
+        json.loads(body)
+
+    def test_tool_error_exits_zero_with_error_key(self, runner, tmp_path):
+        from genalyzer.cli.main import cli
+        missing = str(tmp_path / "does_not_exist.npy")
+        result = runner.invoke(
+            cli,
+            [
+                "fourier", "analyze",
+                "--npy-path", missing,
+                "--sample-rate", "250e6",
+                "--compact",
+            ],
+        )
+        # Tool returns {"error": ...} dict → exit 0
+        assert result.exit_code == 0, result.output
+        data = json.loads(result.output.strip())
+        assert "error" in data
+        assert "not found" in data["error"].lower()
+
+    def test_click_arg_error_exits_two(self, runner):
+        from genalyzer.cli.main import cli
+        # Missing required --npy-path
+        result = runner.invoke(cli, ["fourier", "analyze", "--sample-rate", "250e6"])
+        assert result.exit_code == 2
+
+
+class TestEndToEnd:
+    def test_simulate_and_verify_pipeline(self, runner, tmp_path):
+        """Mirror test_mcp_workflows.py::test_simulate_and_verify_12bit via CLI."""
+        from genalyzer.cli.main import cli
+
+        tone_out = str(tmp_path / "tone.npy")
+        r1 = runner.invoke(
+            cli,
+            [
+                "generators", "real-tone",
+                "--num-points", "8192",
+                "--sample-rate", "250e6",
+                "--tone-freq", "30e6",
+                "--amplitude", "0.9",
+                "--output-path", tone_out,
+                "--compact",
+            ],
+        )
+        assert r1.exit_code == 0, r1.output
+        tone_path = json.loads(r1.output.strip())["output_path"]
+
+        q_out = str(tmp_path / "tone.q.npy")
+        r2 = runner.invoke(
+            cli,
+            [
+                "quantize",
+                "--npy-path", tone_path,
+                "--bits", "12",
+                "--fullscale", "2.0",
+                "--output-path", q_out,
+                "--compact",
+            ],
+        )
+        assert r2.exit_code == 0, r2.output
+        q_path = json.loads(r2.output.strip())["output_path"]
+
+        r3 = runner.invoke(
+            cli,
+            [
+                "fourier", "analyze",
+                "--npy-path", q_path,
+                "--sample-rate", "250e6",
+                "--window", "blackman_harris",
+                "--ssb", "3",
+                "--compact",
+            ],
+        )
+        assert r3.exit_code == 0, r3.output
+        analysis = json.loads(r3.output.strip())
+        assert "error" not in analysis, analysis
+        assert 11.5 < analysis["enob"] < 12.5, f"ENOB out of envelope: {analysis['enob']}"
