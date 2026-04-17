@@ -33,7 +33,7 @@ def _require_genalyzer():
 def main():
     """Run the genalyzer MCP server."""
     # Import domain modules so their @mcp.tool() decorators register.
-    from . import fourier, generators, histogram, linearity, quantize  # noqa: F401
+    from . import fourier, generators, histogram, linearity, quantize, waveform  # noqa: F401
 
     mcp.run()
 
