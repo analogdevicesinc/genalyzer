@@ -33,6 +33,9 @@ def _load_csv(path: str) -> np.ndarray:
     if _is_header(rows[0]):
         rows = rows[1:]
 
+    if not rows:
+        raise ValueError(f"CSV has header but no data rows: {path}")
+
     ncols = len(rows[0])
     if ncols not in (1, 2):
         raise ValueError(

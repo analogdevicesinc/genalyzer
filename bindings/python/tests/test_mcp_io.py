@@ -80,3 +80,11 @@ def test_unsupported_extension_raises(tmp_path):
     path.write_text("hello")
     with pytest.raises(ValueError, match="unsupported extension"):
         load_array(str(path))
+
+
+def test_csv_header_only_raises(tmp_path):
+    from genalyzer.mcp.io import load_array
+    path = tmp_path / "headeronly.csv"
+    path.write_text("sample\n")
+    with pytest.raises(ValueError, match="header but no data"):
+        load_array(str(path))
