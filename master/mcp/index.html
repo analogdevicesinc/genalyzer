@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Python Module Index &#8212; Genalyzer v0.1.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=833c9372" />
-    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
-    <script src="_static/tabs.js?v=3ee01567"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Genalyzer provides a Model Context Protocol (MCP) server that exposes spectral and code-density analysis tools to AI assistants and other MCP clients. Tools cover all five genalyzer analysis domains — Fourier, histogram, DNL, INL, and time-domain waveform — plus generators and a quantizer for end-to-end simulate-and-verify workflows." name="description" />
+
+    <title>MCP Server &#8212; Genalyzer v0.1.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=833c9372" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script async="async" src="_static/app.umd.js?v=f78f54ff"></script>
+    <script async="async" src="../_static/app.umd.js?v=f78f54ff"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
     <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
@@ -454,15 +456,18 @@ mermaid.initialize(
 
 window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
-    <link rel="icon" href="_static/genalyzer_favicon.png"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-
+    <link rel="icon" href="../_static/genalyzer_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Workflows" href="workflows.html" />
+    <link rel="prev" title="Pytest Integration" href="../pytest/index.html" />
    
   
   
   <meta name="repository" content="Genalyzer">
   <meta name="version" content="">
+  
+    <meta name="page_source_suffix" content=".md">
   
   
   
@@ -483,8 +488,6 @@ window.runMermaid = runMermaid;</script>
     }
   }
 </style>
-
-
   </head>
   
     <body>
@@ -513,7 +516,7 @@ window.runMermaid = runMermaid;</script>
         
         <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
         
-        <a id="logo" href="index.html">
+        <a id="logo" href="../index.html">
           <div>Genalyzer</div>
         </a>
       </span>
@@ -534,7 +537,20 @@ window.runMermaid = runMermaid;</script>
           <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
         </div>
         <nav>
-          
+          <ul>
+<li><a class="reference internal" href="#">MCP Server</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#running-the-server">Running the server</a><ul>
+<li><a class="reference internal" href="#claude-desktop-configuration">Claude Desktop configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tool-inventory">Tool inventory</a></li>
+<li><a class="reference internal" href="#pipeline">Pipeline</a></li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
         </nav>
       </div>
     </div>
@@ -542,9 +558,9 @@ window.runMermaid = runMermaid;</script>
   
       <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
-    <a id="logo" href="index.html">
-      <img class="only-light" src="_static/genalyzer_logo.png"/>
-      <img class="only-dark" src="_static/genalyzer_logo_dark.png"/>
+    <a id="logo" href="../index.html">
+      <img class="only-light" src="../_static/genalyzer_logo.png"/>
+      <img class="only-dark" src="../_static/genalyzer_logo_dark.png"/>
     </a><input id="input-switch-toc" type="checkbox">
 <label id="show-repotoc" for="input-switch-toc">
 All content
@@ -561,36 +577,36 @@ Content on this topic
   <span class="caption-text">Contents:</span>
 </p>
 
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spectral_analysis.html">Spectral Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spectral_analysis_ssb.html">Windowing and Single Side Bins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">C API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference_cpp.html">C++ API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference_simplified.html">(Beta) Simplified API Reference</a></li>
-<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1"/><div class="collapse"><a class="reference internal" href="python/genalyzer.html">Python Bindings</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul>
-<li class="toctree-l2"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1-1" id="toctree-collapse-1-1"/><div class="collapse"><a class="reference internal" href="python/pygenalyzer.html">pygenalizer</a><label for="toctree-collapse-1-1"><div class="icon"></div></label></div><ul>
-<li class="toctree-l3"><a class="reference internal" href="python/enumerations.html">Enumerations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="python/fourier_analysis.html">Fourier Analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="python/fourier_configuration.html">Fourier Analysis Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="python/fourier_transforms.html">Fourier Transforms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="python/waveforms.html">Waveforms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="python/signal_processing.html">Signal Processing</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis_ssb.html">Windowing and Single Side Bins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_cpp.html">C++ API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_simplified.html">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1"/><div class="collapse"><a class="reference internal" href="../python/genalyzer.html">Python Bindings</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1-1" id="toctree-collapse-1-1"/><div class="collapse"><a class="reference internal" href="../python/pygenalyzer.html">pygenalizer</a><label for="toctree-collapse-1-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l3"><a class="reference internal" href="../python/enumerations.html">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_analysis.html">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_configuration.html">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_transforms.html">Fourier Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/waveforms.html">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/signal_processing.html">Signal Processing</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="python/pygenalyzer.simplified.html">pygenalizer.simplified (Beta)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python/pyadi.html">pyadi-iio Interface Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pygenalyzer.simplified.html">pygenalizer.simplified (Beta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pyadi.html">pyadi-iio Interface Helpers</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pytest/index.html">Pytest Integration</a></li>
-<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-2" id="toctree-collapse-2"/><div class="collapse"><a class="reference internal" href="mcp/index.html">MCP Server</a><label for="toctree-collapse-2"><div class="icon"></div></label></div><ul>
-<li class="toctree-l2"><a class="reference internal" href="mcp/workflows.html">Workflows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mcp/reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pytest/index.html">Pytest Integration</a></li>
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-2" id="toctree-collapse-2" checked=""/><div class="collapse"><a class="current reference internal" href="#">MCP Server</a><label for="toctree-collapse-2"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><a class="reference internal" href="workflows.html">Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference.html">API Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linting.html">Code Quality Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linting.html">Code Quality Tools</a></li>
 </ul>
 
 
@@ -606,41 +622,160 @@ Content on this topic
 </div>
           <div class="body" role="main">
             
+  <section id="mcp-server">
+<h1>MCP Server<a class="headerlink" href="#mcp-server" title="Link to this heading"></a></h1>
+<p>Genalyzer provides a <a class="icon link reference external" href="https://modelcontextprotocol.io/" target="_blank">Model Context Protocol</a> (MCP) server that exposes spectral and code-density analysis tools to AI assistants and other MCP clients. Tools cover all five genalyzer analysis domains — Fourier, histogram, DNL, INL, and time-domain waveform — plus generators and a quantizer for end-to-end simulate-and-verify workflows.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>genalyzer<span class="o">[</span>mcp<span class="o">]</span>
+</pre></div>
+</div>
+<p>The MCP server also requires the native <code class="docutils literal notranslate"><span class="pre">libgenalyzer</span></code> library. See <a class="reference internal" href="../setup.html"><span class="std std-doc">Installation</span></a> for build instructions.</p>
+</section>
+<section id="running-the-server">
+<h2>Running the server<a class="headerlink" href="#running-the-server" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>genalyzer-mcp
+</pre></div>
+</div>
+<p>Or as a module:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>genalyzer.mcp.server
+</pre></div>
+</div>
+<section id="claude-desktop-configuration">
+<h3>Claude Desktop configuration<a class="headerlink" href="#claude-desktop-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;genalyzer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;genalyzer-mcp&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="tool-inventory">
+<h2>Tool inventory<a class="headerlink" href="#tool-inventory" title="Link to this heading"></a></h2>
+<p>All tools read <code class="docutils literal notranslate"><span class="pre">.npy</span></code> or <code class="docutils literal notranslate"><span class="pre">.csv</span></code> inputs (auto-detected by extension). Every <code class="docutils literal notranslate"><span class="pre">analyze_*</span></code> tool accepts a <code class="docutils literal notranslate"><span class="pre">plot:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></code> flag; set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to render an annotated PNG next to the input.</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Layer</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generate_test_tone</span></code></p></td>
+<td><p>Generator</p></td>
+<td><p>Complex sinusoid</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">generate_real_tone</span></code></p></td>
+<td><p>Generator</p></td>
+<td><p>Real sinusoid</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generate_ramp</span></code></p></td>
+<td><p>Generator</p></td>
+<td><p>Linear ramp</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">generate_gaussian_noise</span></code></p></td>
+<td><p>Generator</p></td>
+<td><p>AWGN</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">quantize</span></code></p></td>
+<td><p>Primitive</p></td>
+<td><p>Apply N-bit quantization</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">compute_fft</span></code></p></td>
+<td><p>Primitive</p></td>
+<td><p>FFT of time-domain data</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_fa_metrics</span></code></p></td>
+<td><p>Primitive</p></td>
+<td><p>Metrics from pre-computed FFT</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">compute_histogram</span></code></p></td>
+<td><p>Primitive</p></td>
+<td><p>Code-count histogram</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">compute_dnl</span></code></p></td>
+<td><p>Primitive</p></td>
+<td><p>DNL from histogram</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">compute_inl</span></code></p></td>
+<td><p>Primitive</p></td>
+<td><p>INL from DNL</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">compute_waveform_stats</span></code></p></td>
+<td><p>Primitive</p></td>
+<td><p>Time-domain stats</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">analyze_spectrum</span></code></p></td>
+<td><p>All-in-one</p></td>
+<td><p>Load → FFT → metrics (+ optional PNG)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">analyze_histogram</span></code></p></td>
+<td><p>All-in-one</p></td>
+<td><p>Load → histogram → metrics (+ optional PNG)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">analyze_dnl</span></code></p></td>
+<td><p>All-in-one</p></td>
+<td><p>Load → DNL → metrics (+ optional PNG)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">analyze_inl</span></code></p></td>
+<td><p>All-in-one</p></td>
+<td><p>Load → INL → metrics (+ optional PNG)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">analyze_waveform</span></code></p></td>
+<td><p>All-in-one</p></td>
+<td><p>Time-domain analysis (+ optional PNG)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="pipeline">
+<h2>Pipeline<a class="headerlink" href="#pipeline" title="Link to this heading"></a></h2>
+<pre  class="mermaid">
+        graph LR;
+  G1[generate_test_tone] --&gt; Q[quantize];
+  G2[generate_real_tone] --&gt; Q;
+  G3[generate_ramp] --&gt; Q;
+  G4[generate_gaussian_noise] --&gt; Q;
+  Q --&gt; CF[compute_fft];
+  Q --&gt; CH[compute_histogram];
+  CH --&gt; CD[compute_dnl];
+  CD --&gt; CI[compute_inl];
+  CF --&gt; FM[get_fa_metrics];
+  Q --&gt; AS[analyze_spectrum];
+  Q --&gt; AH[analyze_histogram];
+  Q --&gt; AD[analyze_dnl];
+  Q --&gt; AI[analyze_inl];
+  Q --&gt; AW[analyze_waveform];
 
-   <h1>Python Module Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-g"><strong>g</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-g"><td></td><td>
-       <strong>g</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <code class="xref">genalyzer</code></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="pytest/index.html#module-genalyzer.pytest.plots"><code class="xref">genalyzer.pytest.plots</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="python/pygenalyzer.simplified.html#module-genalyzer.simplified_beta.simplified_beta"><code class="xref">genalyzer.simplified_beta.simplified_beta</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+  style AS fill:#9fa4fc
+  style AH fill:#9fa4fc
+  style AD fill:#9fa4fc
+  style AI fill:#9fa4fc
+  style AW fill:#9fa4fc
+    </pre></section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+</ul>
+</div>
+</section>
+</section>
 
 
           </div>
               <div class="related">
                 &nbsp;
-    <div></div>
-    <div></div>
+    <a href="../pytest/index.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Pytest Integration</a>
+    <a href="workflows.html" title="Next document (Alt+Shift+RightArrow)" class="next">Workflows</a>
               </div>
           
         </div>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Three runnable patterns for the three target use cases. Each example here is exercised verbatim by tests/test_mcp_workflows.py." name="description" />
+
+    <title>Workflows &#8212; Genalyzer v0.1.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=833c9372" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="../_static/app.umd.js?v=f78f54ff"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="icon" href="../_static/genalyzer_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="reference.html" />
+    <link rel="prev" title="MCP Server" href="index.html" />
+   
+  
+  
+  <meta name="repository" content="Genalyzer">
+  <meta name="version" content="">
+  
+    <meta name="page_source_suffix" content=".md">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        
+        <a id="logo" href="../index.html">
+          <div>Genalyzer</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root/>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">Workflows</a><ul>
+<li><a class="reference internal" href="#analyze-hardware-captures">Analyze hardware captures</a></li>
+<li><a class="reference internal" href="#simulate-and-verify-converter-designs">Simulate-and-verify converter designs</a></li>
+<li><a class="reference internal" href="#automated-characterization-pipelines">Automated characterization pipelines</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="../index.html">
+      <img class="only-light" src="../_static/genalyzer_logo.png"/>
+      <img class="only-dark" src="../_static/genalyzer_logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root/>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Contents:</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis_ssb.html">Windowing and Single Side Bins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_cpp.html">C++ API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_simplified.html">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1"/><div class="collapse"><a class="reference internal" href="../python/genalyzer.html">Python Bindings</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1-1" id="toctree-collapse-1-1"/><div class="collapse"><a class="reference internal" href="../python/pygenalyzer.html">pygenalizer</a><label for="toctree-collapse-1-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l3"><a class="reference internal" href="../python/enumerations.html">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_analysis.html">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_configuration.html">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_transforms.html">Fourier Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/waveforms.html">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/signal_processing.html">Signal Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pygenalyzer.simplified.html">pygenalizer.simplified (Beta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pyadi.html">pyadi-iio Interface Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pytest/index.html">Pytest Integration</a></li>
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-2" id="toctree-collapse-2" checked=""/><div class="collapse"><a class="reference internal" href="index.html">MCP Server</a><label for="toctree-collapse-2"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference.html">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linting.html">Code Quality Tools</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb"><ol><li><a href="index.html">MCP Server</a></li></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="workflows">
+<h1>Workflows<a class="headerlink" href="#workflows" title="Link to this heading"></a></h1>
+<p>Three runnable patterns for the three target use cases. Each example here is exercised verbatim by <code class="docutils literal notranslate"><span class="pre">tests/test_mcp_workflows.py</span></code>.</p>
+<section id="analyze-hardware-captures">
+<h2>Analyze hardware captures<a class="headerlink" href="#analyze-hardware-captures" title="Link to this heading"></a></h2>
+<p>Capture IQ samples from hardware (e.g. via <a class="icon link reference external" href="https://github.com/analogdevicesinc/pyadi-iio" target="_blank">pyadi-iio</a>), save them as <code class="docutils literal notranslate"><span class="pre">.npy</span></code>, and run the one-shot analyzer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">genalyzer.mcp.fourier</span><span class="w"> </span><span class="kn">import</span> <span class="n">analyze_spectrum</span>
+
+<span class="c1"># iq_samples: complex128 ndarray captured at 250 MSPS</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;/tmp/adc_capture.npy&quot;</span><span class="p">,</span> <span class="n">iq_samples</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">analyze_spectrum</span><span class="p">(</span>
+    <span class="n">npy_path</span><span class="o">=</span><span class="s2">&quot;/tmp/adc_capture.npy&quot;</span><span class="p">,</span>
+    <span class="n">sample_rate</span><span class="o">=</span><span class="mf">250e6</span><span class="p">,</span>
+    <span class="n">window</span><span class="o">=</span><span class="s2">&quot;blackman_harris&quot;</span><span class="p">,</span>
+    <span class="n">ssb</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>      <span class="c1"># absorb NCO imprecision and finite-resolution spread</span>
+    <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>   <span class="c1"># set False in batch pipelines</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;sfdr&quot;</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;snr&quot;</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;enob&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><strong>Parameter notes for real hardware data:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ssb=12</span></code> groups the NCO spillover into the fundamental bin. Use small values (e.g. <code class="docutils literal notranslate"><span class="pre">ssb=3</span></code>) only for ideal synthetic data.</p></li>
+<li><p>Capture data is normalized internally; a small DC offset does not harm SFDR.</p></li>
+<li><p>For real (non-IQ) ADCs, save a real-valued array — <code class="docutils literal notranslate"><span class="pre">analyze_spectrum</span></code> picks <code class="docutils literal notranslate"><span class="pre">rfft</span></code> automatically.</p></li>
+</ul>
+</section>
+<section id="simulate-and-verify-converter-designs">
+<h2>Simulate-and-verify converter designs<a class="headerlink" href="#simulate-and-verify-converter-designs" title="Link to this heading"></a></h2>
+<p>Describe a converter, synthesize a clean tone, apply the quantizer, and verify the measured metrics against the spec.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">genalyzer.mcp.fourier</span><span class="w"> </span><span class="kn">import</span> <span class="n">analyze_spectrum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">genalyzer.mcp.generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_real_tone</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">genalyzer.mcp.quantize</span><span class="w"> </span><span class="kn">import</span> <span class="n">quantize</span>
+
+<span class="n">tone</span> <span class="o">=</span> <span class="n">generate_real_tone</span><span class="p">(</span>
+    <span class="n">num_points</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
+    <span class="n">sample_rate</span><span class="o">=</span><span class="mf">250e6</span><span class="p">,</span>
+    <span class="n">tone_freq</span><span class="o">=</span><span class="mf">30e6</span><span class="p">,</span>
+    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;/tmp/tone.npy&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="n">quantize</span><span class="p">(</span>
+    <span class="n">npy_path</span><span class="o">=</span><span class="n">tone</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">],</span>
+    <span class="n">bits</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">fullscale</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>          <span class="c1"># fullscale spans [-1, 1] when amplitude = 0.9</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;/tmp/tone.q.npy&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">analyze_spectrum</span><span class="p">(</span>
+    <span class="n">npy_path</span><span class="o">=</span><span class="n">q</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">],</span>
+    <span class="n">sample_rate</span><span class="o">=</span><span class="mf">250e6</span><span class="p">,</span>
+    <span class="n">window</span><span class="o">=</span><span class="s2">&quot;blackman_harris&quot;</span><span class="p">,</span>
+    <span class="n">ssb</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>                 <span class="c1"># synthetic, coherent — tight grouping</span>
+<span class="p">)</span>
+
+<span class="c1"># An ideal 12-bit quantizer: ENOB ~= 12, SNR ~= 74 dB</span>
+<span class="k">assert</span> <span class="mf">11.5</span> <span class="o">&lt;</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;enob&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">12.5</span>
+</pre></div>
+</div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">analyze_dnl</span></code>, <code class="docutils literal notranslate"><span class="pre">analyze_inl</span></code>, or <code class="docutils literal notranslate"><span class="pre">analyze_histogram</span></code> calls on <code class="docutils literal notranslate"><span class="pre">q[&quot;output_path&quot;]</span></code> to close the loop on code-density metrics too.</p>
+</section>
+<section id="automated-characterization-pipelines">
+<h2>Automated characterization pipelines<a class="headerlink" href="#automated-characterization-pipelines" title="Link to this heading"></a></h2>
+<p>Sweep a parameter (frequency, NFFT, bits, …) from an MCP-driven script, gathering deterministic JSON without plot overhead.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">genalyzer.mcp.fourier</span><span class="w"> </span><span class="kn">import</span> <span class="n">analyze_spectrum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">genalyzer.mcp.generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_test_tone</span>
+
+<span class="n">freqs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10e6</span><span class="p">,</span> <span class="mf">30e6</span><span class="p">,</span> <span class="mf">60e6</span><span class="p">,</span> <span class="mf">90e6</span><span class="p">]</span>
+<span class="n">sample_rate</span> <span class="o">=</span> <span class="mf">250e6</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">freqs</span><span class="p">:</span>
+    <span class="n">gen</span> <span class="o">=</span> <span class="n">generate_test_tone</span><span class="p">(</span>
+        <span class="n">num_points</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
+        <span class="n">sample_rate</span><span class="o">=</span><span class="n">sample_rate</span><span class="p">,</span>
+        <span class="n">tone_freq</span><span class="o">=</span><span class="n">f</span><span class="p">,</span>
+        <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">analyze_spectrum</span><span class="p">(</span>
+        <span class="n">npy_path</span><span class="o">=</span><span class="n">gen</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">],</span>
+        <span class="n">sample_rate</span><span class="o">=</span><span class="n">sample_rate</span><span class="p">,</span>
+        <span class="n">window</span><span class="o">=</span><span class="s2">&quot;blackman_harris&quot;</span><span class="p">,</span>
+        <span class="n">ssb</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>   <span class="c1"># no matplotlib work in a sweep</span>
+    <span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;tone_freq&quot;</span><span class="p">:</span> <span class="n">f</span><span class="p">,</span> <span class="s2">&quot;sfdr&quot;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;sfdr&quot;</span><span class="p">],</span> <span class="s2">&quot;snr&quot;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;snr&quot;</span><span class="p">]})</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From an interactive assistant, this same pattern is just “for each of these frequencies, generate a tone and run analyze_spectrum; return the SFDR and SNR”.</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="index.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">MCP Server</a>
+    <a href="reference.html" title="Next document (Alt+Shift+RightArrow)" class="next">API Reference</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2024-2025, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>
