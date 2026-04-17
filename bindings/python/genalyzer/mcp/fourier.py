@@ -149,7 +149,10 @@ def analyze_spectrum(
         }
         win = _window_map.get(window.lower(), gn.Window.NO_WINDOW)
 
-        if data.dtype in (np.complex128, np.complex64, np.float64, np.float32):
+        if np.issubdtype(data.dtype, np.integer):
+            max_abs = np.max(np.abs(data.astype(np.float64)))
+            data = data.astype(np.float64) / max_abs if max_abs > 0 else data.astype(np.float64)
+        elif data.dtype in (np.complex128, np.complex64, np.float64, np.float32):
             max_abs = np.max(np.abs(data))
             if max_abs > 0:
                 data = data / max_abs
