@@ -59,7 +59,12 @@ def plot_spectrum(
         )
 
     metric_lines = []
-    for key, unit in (("sfdr", " dB"), ("snr", " dB"), ("thd", " dB"), ("enob", " bits")):
+    for key, unit in (
+        ("sfdr", " dB"),
+        ("snr", " dB"),
+        ("thd", " dB"),
+        ("enob", " bits"),
+    ):
         if key in metrics:
             metric_lines.append(f"{key.upper()} = {metrics[key]:.2f}{unit}")
     if metric_lines:
@@ -80,7 +85,9 @@ def plot_spectrum(
     plt.close(fig)
 
 
-def plot_histogram(hist: np.ndarray, plot_path: str, title: str = "Code Histogram") -> None:
+def plot_histogram(
+    hist: np.ndarray, plot_path: str, title: str = "Code Histogram"
+) -> None:
     """Render a code-histogram bar plot and save as PNG."""
     import matplotlib
 

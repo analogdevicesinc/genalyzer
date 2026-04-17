@@ -3,6 +3,6 @@
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """MCP server subpackage for genalyzer."""
 
-from .server import mcp, main
+from .server import main, mcp
 
-__all__ = ["mcp", "main"]
+__all__ = ["main", "mcp"]
