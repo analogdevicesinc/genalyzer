@@ -98,7 +98,11 @@ def click_from_tool(tool_func: Callable[..., dict], name: str) -> click.Command:
             if required:
                 params.append(click.Option(decls, type=click_type, required=True))
             else:
-                params.append(click.Option(decls, type=click_type, required=False, default=default))
+                params.append(
+                    click.Option(
+                        decls, type=click_type, required=False, default=default
+                    )
+                )
 
     params.append(
         click.Option(
