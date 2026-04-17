@@ -1,10 +1,10 @@
-sphinx
-furo
-breathe
+sphinx>=5.0
 myst-parser
-sphinx-tabs
-graphviz
-sphinx_inline_tabs
+https://github.com/analogdevicesinc/doctools/releases/download/latest/adi-doctools.tar.gz
 sphinxcontrib-mermaid
 sphinx-togglebutton
+sphinx_inline_tabs
+breathe
+graphviz
 numpy
+pillow
