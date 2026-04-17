@@ -21,7 +21,6 @@ from typing import Any, Callable
 
 import click
 
-
 _CLICK_TYPES: dict[type, Any] = {
     int: click.INT,
     float: click.FLOAT,
@@ -96,10 +95,17 @@ def click_from_tool(tool_func: Callable[..., dict], name: str) -> click.Command:
             params.append(click.Option(decls, default=default))
         else:
             decls = [f"--{flag_base}"]
-            params.append(click.Option(decls, type=click_type, required=required, default=default))
+            params.append(
+                click.Option(decls, type=click_type, required=required, default=default)
+            )
 
-    params.append(click.Option(["--compact/--pretty"], default=False,
-                               help="Emit single-line JSON instead of pretty-printed."))
+    params.append(
+        click.Option(
+            ["--compact/--pretty"],
+            default=False,
+            help="Emit single-line JSON instead of pretty-printed.",
+        )
+    )
 
     def callback(**kwargs: Any) -> None:
         compact = kwargs.pop("compact")
