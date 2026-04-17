@@ -78,3 +78,21 @@ def plot_spectrum(
     plt.tight_layout()
     plt.savefig(plot_path, dpi=150)
     plt.close(fig)
+
+
+def plot_histogram(hist: np.ndarray, plot_path: str, title: str = "Code Histogram") -> None:
+    """Render a code-histogram bar plot and save as PNG."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(figsize=(12, 5))
+    ax.bar(np.arange(len(hist)), hist, width=1.0, color="steelblue")
+    ax.set_xlabel("Code bin")
+    ax.set_ylabel("Count")
+    ax.set_title(title)
+    ax.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(plot_path, dpi=150)
+    plt.close(fig)
