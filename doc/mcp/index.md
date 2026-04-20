@@ -60,29 +60,40 @@ All tools read `.npy` or `.csv` inputs (auto-detected by extension). Every `anal
 ## Pipeline
 
 ```{eval-rst}
-.. mermaid::
+.. d2::
 
-   graph LR;
-     G1[generate_test_tone] --> Q[quantize];
-     G2[generate_real_tone] --> Q;
-     G3[generate_ramp] --> Q;
-     G4[generate_gaussian_noise] --> Q;
-     Q --> CF[compute_fft];
-     Q --> CH[compute_histogram];
-     CH --> CD[compute_dnl];
-     CD --> CI[compute_inl];
-     CF --> FM[get_fa_metrics];
-     Q --> AS[analyze_spectrum];
-     Q --> AH[analyze_histogram];
-     Q --> AD[analyze_dnl];
-     Q --> AI[analyze_inl];
-     Q --> AW[analyze_waveform];
+   direction: right
 
-     style AS fill:#9fa4fc
-     style AH fill:#9fa4fc
-     style AD fill:#9fa4fc
-     style AI fill:#9fa4fc
-     style AW fill:#9fa4fc
+   G1: generate_test_tone      { class: sw-step-white }
+   G2: generate_real_tone      { class: sw-step-white }
+   G3: generate_ramp           { class: sw-step-white }
+   G4: generate_gaussian_noise { class: sw-step-white }
+   Q:  quantize                { class: sw-step-white }
+   CF: compute_fft             { class: sw-step-white }
+   CH: compute_histogram       { class: sw-step-white }
+   CD: compute_dnl             { class: sw-step-white }
+   CI: compute_inl             { class: sw-step-white }
+   FM: get_fa_metrics          { class: sw-step-white }
+   AS: analyze_spectrum        { class: sw-step-blue }
+   AH: analyze_histogram       { class: sw-step-blue }
+   AD: analyze_dnl             { class: sw-step-blue }
+   AI: analyze_inl             { class: sw-step-blue }
+   AW: analyze_waveform        { class: sw-step-blue }
+
+   G1 -> Q  { class: sw-flow }
+   G2 -> Q  { class: sw-flow }
+   G3 -> Q  { class: sw-flow }
+   G4 -> Q  { class: sw-flow }
+   Q -> CF  { class: sw-flow-data }
+   Q -> CH  { class: sw-flow-data }
+   CH -> CD { class: sw-flow-data }
+   CD -> CI { class: sw-flow-data }
+   CF -> FM { class: sw-flow-data }
+   Q -> AS  { class: sw-flow-data }
+   Q -> AH  { class: sw-flow-data }
+   Q -> AD  { class: sw-flow-data }
+   Q -> AI  { class: sw-flow-data }
+   Q -> AW  { class: sw-flow-data }
 ```
 
 ## See also
