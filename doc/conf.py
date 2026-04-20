@@ -81,6 +81,8 @@ html_favicon = "_static/genalyzer_favicon.png"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
+html_css_files = ["genalyzer_overrides.css"]
+
 # Breathe Configuration
 breathe_projects = { "Genalyzer": "../doxygen/xml" }
 breathe_default_project = "Genalyzer"
