@@ -15,6 +15,7 @@ import sys
 sys.path.insert(0, os.path.abspath('../bindings/c/include'))
 sys.path.insert(0, os.path.abspath('../bindings/python'))
 sys.path.insert(0, os.path.dirname(__file__))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "_ext"))
 
 # Generate API page for documentation
 from gen_api_page import gen_pages
@@ -41,7 +42,7 @@ extensions = [
     "myst_parser",
     "sphinx_inline_tabs",
     "sphinx.ext.graphviz",
-    "sphinxcontrib.mermaid",
+    "sphinxcontrib_d2",
     "sphinx_togglebutton",
     "adi_doctools",
     "sphinx_click.ext",
