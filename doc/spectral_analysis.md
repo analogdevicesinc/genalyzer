@@ -3,37 +3,41 @@ In this tutorial, we will use Genalyzer to conduct spectral analysis of a wavefo
 
 The workflow we follow in this tutorial is generally what is to be followed to use Genalyzer for spectral analysis. It consists of three stages shown in the diagram below.
 
-```{eval-rst} 
-.. mermaid::
+```{eval-rst}
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
+    direction: right
 
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-        style SA fill:#ffffff
+    A: Generate/Import Waveform { class: sw-step-white }
+    B: Compute FFT              { class: sw-step-white }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-white }
+      C2: Run       { class: sw-step-white }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 
 We first generate (or import) a waveform to be analyzed, compute its FFT, and finally, calculate various performance metrics by running spectral analysis. In this tutorial, we will generate the tone waveform using Genalyzer. Please refer to the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script to follow the discussion on this page.
 
 ## Tone Generation
-```{eval-rst} 
-.. mermaid::
+```{eval-rst}
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
+    direction: right
 
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-        style SA fill:#ffffff
-
-        style A fill:#9fa4fc
+    A: Generate/Import Waveform { class: sw-step-blue }
+    B: Compute FFT              { class: sw-step-white }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-white }
+      C2: Run       { class: sw-step-white }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 Genalyzer supports [sine](#genalyzer.sin), [cosine](#genalyzer.cos), [ramp](#genalyzer.ramp), and [Gaussian](#genalyzer.gaussian) random waveforms. It also contains a [waveform analysis](#genalyzer.wf_analysis) utility to summarize a waveform, generated or otherwise. For example, in the [spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, to generate a cosine-waveform, we called [``cos()``](#genalyzer.cos) as follows:
 ```{code-block} python
@@ -67,20 +71,21 @@ Time-domain plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
 ```
 
 ## Compute FFT
-```{eval-rst} 
-.. mermaid::
+```{eval-rst}
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
+    direction: right
 
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-        style SA fill:#ffffff
-
-      style B fill:#9fa4fc
+    A: Generate/Import Waveform { class: sw-step-white }
+    B: Compute FFT              { class: sw-step-blue }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-white }
+      C2: Run       { class: sw-step-white }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 Next, we compute FFT of the sinusoidal tone since spectral analysis of a waveform is in essence an analysis of its FFT. 
 
@@ -135,35 +140,40 @@ FFT plot of a ``300 KHz`` complex sinusoidal tone sampled at ``3 MSPS``.
 ```
 
 ## Run Spectral Analysis
-```{eval-rst} 
-.. mermaid::
+```{eval-rst}
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
+    direction: right
 
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-      style SA fill:#9fa4fc
+    A: Generate/Import Waveform { class: sw-step-white }
+    B: Compute FFT              { class: sw-step-white }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-blue }
+      C2: Run       { class: sw-step-blue }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 Conducting spectral analysis using Genalyzer involves two steps: configuration and analysis. 
 
 ### Configure Genalyzer
-```{eval-rst} 
-.. mermaid::
+```{eval-rst}
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
+    direction: right
 
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-      style C1 fill:#9fa4fc
-      style SA fill:#ffffff
+    A: Generate/Import Waveform { class: sw-step-white }
+    B: Compute FFT              { class: sw-step-white }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-blue }
+      C2: Run       { class: sw-step-white }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 We configure Genalyzer for spectral analysis by creating a _test_ followed by associating _components_ to this _test_. 
 #### Create a _test_
@@ -197,19 +207,21 @@ Genalyzer supports several _tags_ for Fourier analysis. See [here](#genalyzer.Fa
 The number of single-side bins (SSBs) for a _component_ is an important configuration step, and it will be explained in sufficient detail in another subsection. 
 
 ### Run Spectral Analysis
-```{eval-rst} 
-.. mermaid::
+```{eval-rst}
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
+    direction: right
 
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-      style C2 fill:#9fa4fc
-      style SA fill:#ffffff
+    A: Generate/Import Waveform { class: sw-step-white }
+    B: Compute FFT              { class: sw-step-white }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-white }
+      C2: Run       { class: sw-step-blue }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 
 In the [spectral-analyis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py) Python script, FFT analysis is run by the following line:
