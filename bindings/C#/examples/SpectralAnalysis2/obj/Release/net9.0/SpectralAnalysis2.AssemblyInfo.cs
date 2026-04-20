@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SpectralAnalysis2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e1d19e02b2659ef241bd4d37208d6efd8d850b9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8364bfb9a4fb3edd8af244ba57ddb012f48e84b")]
 [assembly: System.Reflection.AssemblyProductAttribute("SpectralAnalysis2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SpectralAnalysis2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
