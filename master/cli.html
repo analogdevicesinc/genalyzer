@@ -107,7 +107,44 @@
 <li><a class="reference internal" href="#">CLI</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#running-the-cli">Running the CLI</a></li>
-<li><a class="reference internal" href="#command-reference">Command reference</a></li>
+<li><a class="reference internal" href="#command-reference">Command reference</a><ul>
+<li><a class="reference internal" href="#genalyzer">genalyzer</a><ul>
+<li><a class="reference internal" href="#genalyzer-fourier">fourier</a><ul>
+<li><a class="reference internal" href="#genalyzer-fourier-analyze">analyze</a></li>
+<li><a class="reference internal" href="#genalyzer-fourier-fa-metrics">fa-metrics</a></li>
+<li><a class="reference internal" href="#genalyzer-fourier-fft">fft</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#genalyzer-generators">generators</a><ul>
+<li><a class="reference internal" href="#genalyzer-generators-gaussian-noise">gaussian-noise</a></li>
+<li><a class="reference internal" href="#genalyzer-generators-ramp">ramp</a></li>
+<li><a class="reference internal" href="#genalyzer-generators-real-tone">real-tone</a></li>
+<li><a class="reference internal" href="#genalyzer-generators-test-tone">test-tone</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#genalyzer-histogram">histogram</a><ul>
+<li><a class="reference internal" href="#genalyzer-histogram-analyze">analyze</a></li>
+<li><a class="reference internal" href="#genalyzer-histogram-compute">compute</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#genalyzer-linearity">linearity</a><ul>
+<li><a class="reference internal" href="#genalyzer-linearity-analyze-dnl">analyze-dnl</a></li>
+<li><a class="reference internal" href="#genalyzer-linearity-analyze-inl">analyze-inl</a></li>
+<li><a class="reference internal" href="#genalyzer-linearity-compute-dnl">compute-dnl</a></li>
+<li><a class="reference internal" href="#genalyzer-linearity-compute-inl">compute-inl</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#genalyzer-quantize">quantize</a></li>
+<li><a class="reference internal" href="#genalyzer-tools">tools</a></li>
+<li><a class="reference internal" href="#genalyzer-waveform">waveform</a><ul>
+<li><a class="reference internal" href="#genalyzer-waveform-analyze">analyze</a></li>
+<li><a class="reference internal" href="#genalyzer-waveform-stats">stats</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#examples">Examples</a><ul>
 <li><a class="reference internal" href="#simulate-and-verify-a-12-bit-converter">Simulate-and-verify a 12-bit converter</a></li>
 <li><a class="reference internal" href="#analyze-a-hardware-capture">Analyze a hardware capture</a></li>
@@ -211,6 +248,767 @@ genalyzer<span class="w"> </span>tools<span class="w">        </span><span class
 </section>
 <section id="command-reference">
 <h2>Command reference<a class="headerlink" href="#command-reference" title="Link to this heading"></a></h2>
+<section id="genalyzer">
+<h3>genalyzer<a class="headerlink" href="#genalyzer" title="Link to this heading"></a></h3>
+<p>genalyzer: parallel surface to the MCP server for AI clients.</p>
+<p>Every subcommand wraps a genalyzer.mcp tool, accepts the same parameters
+as kebab-case CLI flags, and emits the tool’s return dict as JSON on
+stdout. Use <cite>–compact</cite> for single-line JSON.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-version">
+<span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-version" title="Link to this definition"></a></dt>
+<dd><p>Show the version and exit.</p>
+</dd></dl>
+
+<section id="genalyzer-fourier">
+<h4>fourier<a class="headerlink" href="#genalyzer-fourier" title="Link to this heading"></a></h4>
+<p>Fourier-domain analysis.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>fourier<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<section id="genalyzer-fourier-analyze">
+<h5>analyze<a class="headerlink" href="#genalyzer-fourier-analyze" title="Link to this heading"></a></h5>
+<p>All-in-one spectral analysis: load data, compute FFT, and return metrics.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">plot=True</span></code>, an annotated spectrum PNG is also written next to
+the input file.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>fourier<span class="w"> </span>analyze<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-npy-path">
+<span class="sig-name descname"><span class="pre">--npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-sample-rate">
+<span class="sig-name descname"><span class="pre">--sample-rate</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sample_rate&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-sample-rate" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-nfft">
+<span class="sig-name descname"><span class="pre">--nfft</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;nfft&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-nfft" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-num-tones">
+<span class="sig-name descname"><span class="pre">--num-tones</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;num_tones&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-num-tones" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-max-harmonics">
+<span class="sig-name descname"><span class="pre">--max-harmonics</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_harmonics&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-max-harmonics" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-window">
+<span class="sig-name descname"><span class="pre">--window</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;window&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-window" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-ssb">
+<span class="sig-name descname"><span class="pre">--ssb</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ssb&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-ssb" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-wo">
+<span class="sig-name descname"><span class="pre">--wo</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;wo&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-wo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-plot">
+<span id="cmdoption-genalyzer-fourier-analyze-no-plot"></span><span class="sig-name descname"><span class="pre">--plot</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-plot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-plot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-analyze-compact">
+<span id="cmdoption-genalyzer-fourier-analyze-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-analyze-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-fourier-fa-metrics">
+<h5>fa-metrics<a class="headerlink" href="#genalyzer-fourier-fa-metrics" title="Link to this heading"></a></h5>
+<p>Compute frequency analysis metrics from a pre-computed FFT .npy file.</p>
+<p>Use this when you already have an FFT artifact and want metrics from it,
+for example in a sweep pipeline that reuses one FFT across many metric
+extractions.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>fourier<span class="w"> </span>fa-metrics<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fa-metrics-fft-npy-path">
+<span class="sig-name descname"><span class="pre">--fft-npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;fft_npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fa-metrics-fft-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fa-metrics-sample-rate">
+<span class="sig-name descname"><span class="pre">--sample-rate</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sample_rate&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fa-metrics-sample-rate" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fa-metrics-tone-freq">
+<span class="sig-name descname"><span class="pre">--tone-freq</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tone_freq&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fa-metrics-tone-freq" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fa-metrics-max-harmonics">
+<span class="sig-name descname"><span class="pre">--max-harmonics</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_harmonics&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fa-metrics-max-harmonics" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fa-metrics-wo">
+<span class="sig-name descname"><span class="pre">--wo</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;wo&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fa-metrics-wo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fa-metrics-compact">
+<span id="cmdoption-genalyzer-fourier-fa-metrics-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fa-metrics-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-fourier-fft">
+<h5>fft<a class="headerlink" href="#genalyzer-fourier-fft" title="Link to this heading"></a></h5>
+<p>Compute FFT of time-domain data stored in a .npy or .csv file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>npy_path: Path to input .npy or .csv file containing time-domain samples.
+sample_rate: Sample rate in Hz.
+nfft: FFT size. Defaults to the length of the input data.
+output_path: Path to save the FFT result .npy file. Auto-generated if not provided.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Dictionary with output_path, nfft, and sample_rate.</p>
+</dd>
+</dl>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>fourier<span class="w"> </span>fft<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fft-npy-path">
+<span class="sig-name descname"><span class="pre">--npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fft-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fft-sample-rate">
+<span class="sig-name descname"><span class="pre">--sample-rate</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sample_rate&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fft-sample-rate" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fft-nfft">
+<span class="sig-name descname"><span class="pre">--nfft</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;nfft&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fft-nfft" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fft-output-path">
+<span class="sig-name descname"><span class="pre">--output-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fft-output-path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-fourier-fft-compact">
+<span id="cmdoption-genalyzer-fourier-fft-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-fourier-fft-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="genalyzer-generators">
+<h4>generators<a class="headerlink" href="#genalyzer-generators" title="Link to this heading"></a></h4>
+<p>Synthetic waveform generators.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>generators<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<section id="genalyzer-generators-gaussian-noise">
+<h5>gaussian-noise<a class="headerlink" href="#genalyzer-generators-gaussian-noise" title="Link to this heading"></a></h5>
+<p>Generate AWGN samples and save to .npy.</p>
+<p>Useful for NSD (noise spectral density) characterization and
+histogram Gaussian-fit tests.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>generators<span class="w"> </span>gaussian-noise<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-gaussian-noise-num-points">
+<span class="sig-name descname"><span class="pre">--num-points</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;num_points&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-gaussian-noise-num-points" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-gaussian-noise-mean">
+<span class="sig-name descname"><span class="pre">--mean</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;mean&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-gaussian-noise-mean" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-gaussian-noise-std">
+<span class="sig-name descname"><span class="pre">--std</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;std&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-gaussian-noise-std" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-gaussian-noise-seed">
+<span class="sig-name descname"><span class="pre">--seed</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;seed&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-gaussian-noise-seed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-gaussian-noise-output-path">
+<span class="sig-name descname"><span class="pre">--output-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-gaussian-noise-output-path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-gaussian-noise-compact">
+<span id="cmdoption-genalyzer-generators-gaussian-noise-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-generators-gaussian-noise-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-generators-ramp">
+<h5>ramp<a class="headerlink" href="#genalyzer-generators-ramp" title="Link to this heading"></a></h5>
+<p>Generate a linear ramp from <cite>start</cite> to <cite>stop</cite> and save to .npy.</p>
+<p>Useful for DNL and INL characterization. The ramp covers the closed
+interval [start, stop].</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>generators<span class="w"> </span>ramp<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-ramp-num-points">
+<span class="sig-name descname"><span class="pre">--num-points</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;num_points&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-ramp-num-points" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-ramp-start">
+<span class="sig-name descname"><span class="pre">--start</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;start&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-ramp-start" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-ramp-stop">
+<span class="sig-name descname"><span class="pre">--stop</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;stop&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-ramp-stop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-ramp-output-path">
+<span class="sig-name descname"><span class="pre">--output-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-ramp-output-path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-ramp-compact">
+<span id="cmdoption-genalyzer-generators-ramp-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-generators-ramp-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-generators-real-tone">
+<h5>real-tone<a class="headerlink" href="#genalyzer-generators-real-tone" title="Link to this heading"></a></h5>
+<p>Generate a real-valued sinusoidal test tone and save to .npy.</p>
+<p>Use this for real-only ADC characterization. For complex (IQ) ADCs,
+prefer generate_test_tone.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>generators<span class="w"> </span>real-tone<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-real-tone-num-points">
+<span class="sig-name descname"><span class="pre">--num-points</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;num_points&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-real-tone-num-points" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-real-tone-sample-rate">
+<span class="sig-name descname"><span class="pre">--sample-rate</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sample_rate&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-real-tone-sample-rate" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-real-tone-tone-freq">
+<span class="sig-name descname"><span class="pre">--tone-freq</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tone_freq&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-real-tone-tone-freq" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-real-tone-amplitude">
+<span class="sig-name descname"><span class="pre">--amplitude</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;amplitude&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-real-tone-amplitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-real-tone-phase">
+<span class="sig-name descname"><span class="pre">--phase</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;phase&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-real-tone-phase" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-real-tone-output-path">
+<span class="sig-name descname"><span class="pre">--output-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-real-tone-output-path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-real-tone-compact">
+<span id="cmdoption-genalyzer-generators-real-tone-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-generators-real-tone-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-generators-test-tone">
+<h5>test-tone<a class="headerlink" href="#genalyzer-generators-test-tone" title="Link to this heading"></a></h5>
+<p>Generate a synthetic complex sinusoidal test tone and save to a .npy file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>num_points: Number of samples to generate.
+sample_rate: Sample rate in Hz.
+tone_freq: Tone frequency in Hz.
+amplitude: Amplitude (0.0 to 1.0, default 0.9).
+output_path: Path to save the .npy file. Auto-generated if not provided.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Dictionary with output_path, num_points, sample_rate, and tone_freq.</p>
+</dd>
+</dl>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>generators<span class="w"> </span>test-tone<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-test-tone-num-points">
+<span class="sig-name descname"><span class="pre">--num-points</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;num_points&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-test-tone-num-points" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-test-tone-sample-rate">
+<span class="sig-name descname"><span class="pre">--sample-rate</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sample_rate&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-test-tone-sample-rate" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-test-tone-tone-freq">
+<span class="sig-name descname"><span class="pre">--tone-freq</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tone_freq&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-test-tone-tone-freq" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-test-tone-amplitude">
+<span class="sig-name descname"><span class="pre">--amplitude</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;amplitude&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-test-tone-amplitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-test-tone-output-path">
+<span class="sig-name descname"><span class="pre">--output-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-generators-test-tone-output-path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-generators-test-tone-compact">
+<span id="cmdoption-genalyzer-generators-test-tone-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-generators-test-tone-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="genalyzer-histogram">
+<h4>histogram<a class="headerlink" href="#genalyzer-histogram" title="Link to this heading"></a></h4>
+<p>Code-density histogram tools.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>histogram<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<section id="genalyzer-histogram-analyze">
+<h5>analyze<a class="headerlink" href="#genalyzer-histogram-analyze" title="Link to this heading"></a></h5>
+<p>Compute histogram analysis metrics from integer code samples.</p>
+<p>Returns the four native <code class="docutils literal notranslate"><span class="pre">gn.hist_analysis</span></code> summary fields:
+<code class="docutils literal notranslate"><span class="pre">sum</span></code> (total sample count), <code class="docutils literal notranslate"><span class="pre">first_nz_index</span></code> / <code class="docutils literal notranslate"><span class="pre">last_nz_index</span></code>
+(first/last non-empty bin), and <code class="docutils literal notranslate"><span class="pre">nz_range</span></code> (span of populated codes).
+When plot=True, also render a histogram PNG next to the input file.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>histogram<span class="w"> </span>analyze<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-analyze-npy-path">
+<span class="sig-name descname"><span class="pre">--npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-analyze-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-analyze-nbits">
+<span class="sig-name descname"><span class="pre">--nbits</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;nbits&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-analyze-nbits" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-analyze-code-format">
+<span class="sig-name descname"><span class="pre">--code-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;code_format&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-analyze-code-format" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-analyze-plot">
+<span id="cmdoption-genalyzer-histogram-analyze-no-plot"></span><span class="sig-name descname"><span class="pre">--plot</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-plot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-analyze-plot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-analyze-compact">
+<span id="cmdoption-genalyzer-histogram-analyze-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-analyze-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-histogram-compute">
+<h5>compute<a class="headerlink" href="#genalyzer-histogram-compute" title="Link to this heading"></a></h5>
+<p>Compute the code histogram of integer samples.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>npy_path: Path to .npy/.csv with integer code samples.
+nbits: Bit depth of the quantizer that produced the data.
+code_format: “twos_complement” (default) or “offset_binary”.
+output_path: Path to save histogram .npy. Auto-generated if omitted.</p>
+</dd>
+</dl>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>histogram<span class="w"> </span>compute<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-compute-npy-path">
+<span class="sig-name descname"><span class="pre">--npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-compute-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-compute-nbits">
+<span class="sig-name descname"><span class="pre">--nbits</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;nbits&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-compute-nbits" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-compute-code-format">
+<span class="sig-name descname"><span class="pre">--code-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;code_format&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-compute-code-format" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-compute-output-path">
+<span class="sig-name descname"><span class="pre">--output-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-compute-output-path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-histogram-compute-compact">
+<span id="cmdoption-genalyzer-histogram-compute-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-histogram-compute-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="genalyzer-linearity">
+<h4>linearity<a class="headerlink" href="#genalyzer-linearity" title="Link to this heading"></a></h4>
+<p>DNL / INL tools.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>linearity<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<section id="genalyzer-linearity-analyze-dnl">
+<h5>analyze-dnl<a class="headerlink" href="#genalyzer-linearity-analyze-dnl" title="Link to this heading"></a></h5>
+<p>All-in-one DNL analysis from a raw code-samples .npy file.</p>
+<p>Loads samples, builds a histogram, computes DNL, returns summary metrics
+(dnl_max, dnl_min, dnl_abs_max). When plot=True, also renders a DNL PNG.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>linearity<span class="w"> </span>analyze-dnl<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-dnl-npy-path">
+<span class="sig-name descname"><span class="pre">--npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-dnl-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-dnl-nbits">
+<span class="sig-name descname"><span class="pre">--nbits</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;nbits&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-dnl-nbits" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-dnl-signal-type">
+<span class="sig-name descname"><span class="pre">--signal-type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;signal_type&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-dnl-signal-type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-dnl-code-format">
+<span class="sig-name descname"><span class="pre">--code-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;code_format&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-dnl-code-format" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-dnl-plot">
+<span id="cmdoption-genalyzer-linearity-analyze-dnl-no-plot"></span><span class="sig-name descname"><span class="pre">--plot</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-plot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-dnl-plot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-dnl-compact">
+<span id="cmdoption-genalyzer-linearity-analyze-dnl-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-dnl-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-linearity-analyze-inl">
+<h5>analyze-inl<a class="headerlink" href="#genalyzer-linearity-analyze-inl" title="Link to this heading"></a></h5>
+<p>All-in-one INL analysis from a raw code-samples .npy file.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>linearity<span class="w"> </span>analyze-inl<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-inl-npy-path">
+<span class="sig-name descname"><span class="pre">--npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-inl-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-inl-nbits">
+<span class="sig-name descname"><span class="pre">--nbits</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;nbits&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-inl-nbits" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-inl-signal-type">
+<span class="sig-name descname"><span class="pre">--signal-type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;signal_type&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-inl-signal-type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-inl-code-format">
+<span class="sig-name descname"><span class="pre">--code-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;code_format&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-inl-code-format" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-inl-fit">
+<span class="sig-name descname"><span class="pre">--fit</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;fit&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-inl-fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-inl-plot">
+<span id="cmdoption-genalyzer-linearity-analyze-inl-no-plot"></span><span class="sig-name descname"><span class="pre">--plot</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-plot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-inl-plot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-analyze-inl-compact">
+<span id="cmdoption-genalyzer-linearity-analyze-inl-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-analyze-inl-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-linearity-compute-dnl">
+<h5>compute-dnl<a class="headerlink" href="#genalyzer-linearity-compute-dnl" title="Link to this heading"></a></h5>
+<p>Compute DNL from a histogram .npy produced by compute_histogram.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>hist_npy_path: Path to a .npy histogram.
+signal_type: “tone” (default) or “ramp”.
+output_path: Path to save DNL .npy. Auto-generated if omitted.</p>
+</dd>
+</dl>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>linearity<span class="w"> </span>compute-dnl<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-compute-dnl-hist-npy-path">
+<span class="sig-name descname"><span class="pre">--hist-npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;hist_npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-compute-dnl-hist-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-compute-dnl-signal-type">
+<span class="sig-name descname"><span class="pre">--signal-type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;signal_type&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-compute-dnl-signal-type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-compute-dnl-output-path">
+<span class="sig-name descname"><span class="pre">--output-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-compute-dnl-output-path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-compute-dnl-compact">
+<span id="cmdoption-genalyzer-linearity-compute-dnl-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-compute-dnl-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-linearity-compute-inl">
+<h5>compute-inl<a class="headerlink" href="#genalyzer-linearity-compute-inl" title="Link to this heading"></a></h5>
+<p>Compute INL from a DNL .npy produced by compute_dnl.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dnl_npy_path: Path to a .npy DNL array.
+fit: “best_fit” (default) or “end_point” (maps to END_FIT).
+output_path: Path to save INL .npy. Auto-generated if omitted.</p>
+</dd>
+</dl>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>linearity<span class="w"> </span>compute-inl<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-compute-inl-dnl-npy-path">
+<span class="sig-name descname"><span class="pre">--dnl-npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dnl_npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-compute-inl-dnl-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-compute-inl-fit">
+<span class="sig-name descname"><span class="pre">--fit</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;fit&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-compute-inl-fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-compute-inl-output-path">
+<span class="sig-name descname"><span class="pre">--output-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-compute-inl-output-path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-linearity-compute-inl-compact">
+<span id="cmdoption-genalyzer-linearity-compute-inl-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-linearity-compute-inl-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="genalyzer-quantize">
+<h4>quantize<a class="headerlink" href="#genalyzer-quantize" title="Link to this heading"></a></h4>
+<p>Quantize a time-domain waveform to N-bit codes, saving as .npy.</p>
+<dl>
+<dt>Args:</dt><dd><p>npy_path: Path to input .npy or .csv time-domain samples.
+bits: Number of quantizer bits (e.g. 12, 14, 16).
+fullscale: Full-scale range of the quantizer (default 1.0).
+noise: Optional additive-noise standard deviation passed to the native</p>
+<blockquote>
+<div><p>gn.quantize() call (default 0.0 — ideal quantizer).</p>
+</div></blockquote>
+<p>output_path: Path to save the quantized .npy. Auto-generated if omitted.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Dictionary with output_path, bits, and fullscale.</p>
+</dd>
+</dl>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>quantize<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-quantize-npy-path">
+<span class="sig-name descname"><span class="pre">--npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-quantize-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-quantize-bits">
+<span class="sig-name descname"><span class="pre">--bits</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;bits&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-quantize-bits" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-quantize-fullscale">
+<span class="sig-name descname"><span class="pre">--fullscale</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;fullscale&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-quantize-fullscale" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-quantize-noise">
+<span class="sig-name descname"><span class="pre">--noise</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;noise&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-quantize-noise" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-quantize-output-path">
+<span class="sig-name descname"><span class="pre">--output-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-quantize-output-path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-quantize-compact">
+<span id="cmdoption-genalyzer-quantize-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-quantize-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-tools">
+<h4>tools<a class="headerlink" href="#genalyzer-tools" title="Link to this heading"></a></h4>
+<p>Print the 16 MCP tool names (one per line).</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>tools<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="genalyzer-waveform">
+<h4>waveform<a class="headerlink" href="#genalyzer-waveform" title="Link to this heading"></a></h4>
+<p>Time-domain waveform tools.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>waveform<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<section id="genalyzer-waveform-analyze">
+<h5>analyze<a class="headerlink" href="#genalyzer-waveform-analyze" title="Link to this heading"></a></h5>
+<p>All-in-one time-domain waveform analysis.</p>
+<p>Currently identical to compute_waveform_stats; plot=True renders a
+scope-style PNG of the first 10_000 samples next to the input file.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>waveform<span class="w"> </span>analyze<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-waveform-analyze-npy-path">
+<span class="sig-name descname"><span class="pre">--npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-waveform-analyze-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-waveform-analyze-plot">
+<span id="cmdoption-genalyzer-waveform-analyze-no-plot"></span><span class="sig-name descname"><span class="pre">--plot</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-plot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-waveform-analyze-plot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-waveform-analyze-compact">
+<span id="cmdoption-genalyzer-waveform-analyze-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-waveform-analyze-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+<section id="genalyzer-waveform-stats">
+<h5>stats<a class="headerlink" href="#genalyzer-waveform-stats" title="Link to this heading"></a></h5>
+<p>Compute time-domain statistics (min/max/mid/range/avg/rms/rmsac) on a real waveform.</p>
+<p>Complex inputs are reduced to their real part before analysis.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>genalyzer<span class="w"> </span>waveform<span class="w"> </span>stats<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-waveform-stats-npy-path">
+<span class="sig-name descname"><span class="pre">--npy-path</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;npy_path&gt;</span></span><a class="headerlink" href="#cmdoption-genalyzer-waveform-stats-npy-path" title="Link to this definition"></a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-genalyzer-waveform-stats-compact">
+<span id="cmdoption-genalyzer-waveform-stats-pretty"></span><span class="sig-name descname"><span class="pre">--compact</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--pretty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-genalyzer-waveform-stats-compact" title="Link to this definition"></a></dt>
+<dd><p>Emit single-line JSON instead of pretty-printed.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>

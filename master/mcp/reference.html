@@ -105,13 +105,45 @@
         <nav>
           <ul>
 <li><a class="reference internal" href="#">API Reference</a><ul>
-<li><a class="reference internal" href="#generators">Generators</a></li>
-<li><a class="reference internal" href="#quantize">Quantize</a></li>
-<li><a class="reference internal" href="#fourier">Fourier</a></li>
-<li><a class="reference internal" href="#histogram">Histogram</a></li>
-<li><a class="reference internal" href="#linearity-dnl-inl">Linearity (DNL / INL)</a></li>
-<li><a class="reference internal" href="#waveform">Waveform</a></li>
-<li><a class="reference internal" href="#io-helpers">IO helpers</a></li>
+<li><a class="reference internal" href="#module-genalyzer.mcp.generators">Generators</a><ul>
+<li><a class="reference internal" href="#genalyzer.mcp.generators.generate_gaussian_noise"><code class="docutils literal notranslate"><span class="pre">generate_gaussian_noise()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.generators.generate_ramp"><code class="docutils literal notranslate"><span class="pre">generate_ramp()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.generators.generate_real_tone"><code class="docutils literal notranslate"><span class="pre">generate_real_tone()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.generators.generate_test_tone"><code class="docutils literal notranslate"><span class="pre">generate_test_tone()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-genalyzer.mcp.quantize">Quantize</a><ul>
+<li><a class="reference internal" href="#genalyzer.mcp.quantize.quantize"><code class="docutils literal notranslate"><span class="pre">quantize()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-genalyzer.mcp.fourier">Fourier</a><ul>
+<li><a class="reference internal" href="#genalyzer.mcp.fourier.analyze_spectrum"><code class="docutils literal notranslate"><span class="pre">analyze_spectrum()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.fourier.compute_fft"><code class="docutils literal notranslate"><span class="pre">compute_fft()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.fourier.get_fa_metrics"><code class="docutils literal notranslate"><span class="pre">get_fa_metrics()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-genalyzer.mcp.histogram">Histogram</a><ul>
+<li><a class="reference internal" href="#genalyzer.mcp.histogram.analyze_histogram"><code class="docutils literal notranslate"><span class="pre">analyze_histogram()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.histogram.compute_histogram"><code class="docutils literal notranslate"><span class="pre">compute_histogram()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-genalyzer.mcp.linearity">Linearity (DNL / INL)</a><ul>
+<li><a class="reference internal" href="#genalyzer.mcp.linearity.analyze_dnl"><code class="docutils literal notranslate"><span class="pre">analyze_dnl()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.linearity.analyze_inl"><code class="docutils literal notranslate"><span class="pre">analyze_inl()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.linearity.compute_dnl"><code class="docutils literal notranslate"><span class="pre">compute_dnl()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.linearity.compute_inl"><code class="docutils literal notranslate"><span class="pre">compute_inl()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-genalyzer.mcp.waveform">Waveform</a><ul>
+<li><a class="reference internal" href="#genalyzer.mcp.waveform.analyze_waveform"><code class="docutils literal notranslate"><span class="pre">analyze_waveform()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.waveform.compute_waveform_stats"><code class="docutils literal notranslate"><span class="pre">compute_waveform_stats()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-genalyzer.mcp.io">IO helpers</a><ul>
+<li><a class="reference internal" href="#genalyzer.mcp.io.load_array"><code class="docutils literal notranslate"><span class="pre">load_array()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.mcp.io.save_array"><code class="docutils literal notranslate"><span class="pre">save_array()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -190,26 +222,216 @@ Content on this topic
   <section id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
 <p>This page is auto-generated from the docstrings of each submodule under <code class="docutils literal notranslate"><span class="pre">genalyzer.mcp</span></code>.</p>
-<section id="generators">
-<h2>Generators<a class="headerlink" href="#generators" title="Link to this heading"></a></h2>
+<section id="module-genalyzer.mcp.generators">
+<span id="generators"></span><h2>Generators<a class="headerlink" href="#module-genalyzer.mcp.generators" title="Link to this heading"></a></h2>
+<p>Waveform generator MCP tools.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.generators.generate_gaussian_noise">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.generators.</span></span><span class="sig-name descname"><span class="pre">generate_gaussian_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.generators.generate_gaussian_noise" title="Link to this definition"></a></dt>
+<dd><p>Generate AWGN samples and save to .npy.</p>
+<p>Useful for NSD (noise spectral density) characterization and
+histogram Gaussian-fit tests.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.generators.generate_ramp">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.generators.</span></span><span class="sig-name descname"><span class="pre">generate_ramp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.generators.generate_ramp" title="Link to this definition"></a></dt>
+<dd><p>Generate a linear ramp from <cite>start</cite> to <cite>stop</cite> and save to .npy.</p>
+<p>Useful for DNL and INL characterization. The ramp covers the closed
+interval [start, stop].</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.generators.generate_real_tone">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.generators.</span></span><span class="sig-name descname"><span class="pre">generate_real_tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tone_freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.generators.generate_real_tone" title="Link to this definition"></a></dt>
+<dd><p>Generate a real-valued sinusoidal test tone and save to .npy.</p>
+<p>Use this for real-only ADC characterization. For complex (IQ) ADCs,
+prefer generate_test_tone.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.generators.generate_test_tone">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.generators.</span></span><span class="sig-name descname"><span class="pre">generate_test_tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tone_freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.generators.generate_test_tone" title="Link to this definition"></a></dt>
+<dd><p>Generate a synthetic complex sinusoidal test tone and save to a .npy file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>num_points: Number of samples to generate.
+sample_rate: Sample rate in Hz.
+tone_freq: Tone frequency in Hz.
+amplitude: Amplitude (0.0 to 1.0, default 0.9).
+output_path: Path to save the .npy file. Auto-generated if not provided.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Dictionary with output_path, num_points, sample_rate, and tone_freq.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="quantize">
-<h2>Quantize<a class="headerlink" href="#quantize" title="Link to this heading"></a></h2>
+<section id="module-genalyzer.mcp.quantize">
+<span id="quantize"></span><h2>Quantize<a class="headerlink" href="#module-genalyzer.mcp.quantize" title="Link to this heading"></a></h2>
+<p>Quantize MCP tool — applies N-bit quantization to a waveform.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.quantize.quantize">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.quantize.</span></span><span class="sig-name descname"><span class="pre">quantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullscale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.quantize.quantize" title="Link to this definition"></a></dt>
+<dd><p>Quantize a time-domain waveform to N-bit codes, saving as .npy.</p>
+<dl>
+<dt>Args:</dt><dd><p>npy_path: Path to input .npy or .csv time-domain samples.
+bits: Number of quantizer bits (e.g. 12, 14, 16).
+fullscale: Full-scale range of the quantizer (default 1.0).
+noise: Optional additive-noise standard deviation passed to the native</p>
+<blockquote>
+<div><p>gn.quantize() call (default 0.0 — ideal quantizer).</p>
+</div></blockquote>
+<p>output_path: Path to save the quantized .npy. Auto-generated if omitted.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Dictionary with output_path, bits, and fullscale.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="fourier">
-<h2>Fourier<a class="headerlink" href="#fourier" title="Link to this heading"></a></h2>
+<section id="module-genalyzer.mcp.fourier">
+<span id="fourier"></span><h2>Fourier<a class="headerlink" href="#module-genalyzer.mcp.fourier" title="Link to this heading"></a></h2>
+<p>Fourier-domain analysis MCP tools.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.fourier.analyze_spectrum">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.fourier.</span></span><span class="sig-name descname"><span class="pre">analyze_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_tones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_harmonics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'no_window'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.fourier.analyze_spectrum" title="Link to this definition"></a></dt>
+<dd><p>All-in-one spectral analysis: load data, compute FFT, and return metrics.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">plot=True</span></code>, an annotated spectrum PNG is also written next to
+the input file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.fourier.compute_fft">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.fourier.</span></span><span class="sig-name descname"><span class="pre">compute_fft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.fourier.compute_fft" title="Link to this definition"></a></dt>
+<dd><p>Compute FFT of time-domain data stored in a .npy or .csv file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>npy_path: Path to input .npy or .csv file containing time-domain samples.
+sample_rate: Sample rate in Hz.
+nfft: FFT size. Defaults to the length of the input data.
+output_path: Path to save the FFT result .npy file. Auto-generated if not provided.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Dictionary with output_path, nfft, and sample_rate.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.fourier.get_fa_metrics">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.fourier.</span></span><span class="sig-name descname"><span class="pre">get_fa_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fft_npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tone_freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_harmonics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.fourier.get_fa_metrics" title="Link to this definition"></a></dt>
+<dd><p>Compute frequency analysis metrics from a pre-computed FFT .npy file.</p>
+<p>Use this when you already have an FFT artifact and want metrics from it,
+for example in a sweep pipeline that reuses one FFT across many metric
+extractions.</p>
+</dd></dl>
+
 </section>
-<section id="histogram">
-<h2>Histogram<a class="headerlink" href="#histogram" title="Link to this heading"></a></h2>
+<section id="module-genalyzer.mcp.histogram">
+<span id="histogram"></span><h2>Histogram<a class="headerlink" href="#module-genalyzer.mcp.histogram" title="Link to this heading"></a></h2>
+<p>Histogram and code-density MCP tools.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.histogram.analyze_histogram">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.histogram.</span></span><span class="sig-name descname"><span class="pre">analyze_histogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'twos_complement'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.histogram.analyze_histogram" title="Link to this definition"></a></dt>
+<dd><p>Compute histogram analysis metrics from integer code samples.</p>
+<p>Returns the four native <code class="docutils literal notranslate"><span class="pre">gn.hist_analysis</span></code> summary fields:
+<code class="docutils literal notranslate"><span class="pre">sum</span></code> (total sample count), <code class="docutils literal notranslate"><span class="pre">first_nz_index</span></code> / <code class="docutils literal notranslate"><span class="pre">last_nz_index</span></code>
+(first/last non-empty bin), and <code class="docutils literal notranslate"><span class="pre">nz_range</span></code> (span of populated codes).
+When plot=True, also render a histogram PNG next to the input file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.histogram.compute_histogram">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.histogram.</span></span><span class="sig-name descname"><span class="pre">compute_histogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'twos_complement'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.histogram.compute_histogram" title="Link to this definition"></a></dt>
+<dd><p>Compute the code histogram of integer samples.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>npy_path: Path to .npy/.csv with integer code samples.
+nbits: Bit depth of the quantizer that produced the data.
+code_format: “twos_complement” (default) or “offset_binary”.
+output_path: Path to save histogram .npy. Auto-generated if omitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="linearity-dnl-inl">
-<h2>Linearity (DNL / INL)<a class="headerlink" href="#linearity-dnl-inl" title="Link to this heading"></a></h2>
+<section id="module-genalyzer.mcp.linearity">
+<span id="linearity-dnl-inl"></span><h2>Linearity (DNL / INL)<a class="headerlink" href="#module-genalyzer.mcp.linearity" title="Link to this heading"></a></h2>
+<p>DNL / INL MCP tools.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.linearity.analyze_dnl">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.linearity.</span></span><span class="sig-name descname"><span class="pre">analyze_dnl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tone'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'twos_complement'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.linearity.analyze_dnl" title="Link to this definition"></a></dt>
+<dd><p>All-in-one DNL analysis from a raw code-samples .npy file.</p>
+<p>Loads samples, builds a histogram, computes DNL, returns summary metrics
+(dnl_max, dnl_min, dnl_abs_max). When plot=True, also renders a DNL PNG.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.linearity.analyze_inl">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.linearity.</span></span><span class="sig-name descname"><span class="pre">analyze_inl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tone'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'twos_complement'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'best_fit'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.linearity.analyze_inl" title="Link to this definition"></a></dt>
+<dd><p>All-in-one INL analysis from a raw code-samples .npy file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.linearity.compute_dnl">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.linearity.</span></span><span class="sig-name descname"><span class="pre">compute_dnl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hist_npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tone'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.linearity.compute_dnl" title="Link to this definition"></a></dt>
+<dd><p>Compute DNL from a histogram .npy produced by compute_histogram.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>hist_npy_path: Path to a .npy histogram.
+signal_type: “tone” (default) or “ramp”.
+output_path: Path to save DNL .npy. Auto-generated if omitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.linearity.compute_inl">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.linearity.</span></span><span class="sig-name descname"><span class="pre">compute_inl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnl_npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'best_fit'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.linearity.compute_inl" title="Link to this definition"></a></dt>
+<dd><p>Compute INL from a DNL .npy produced by compute_dnl.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dnl_npy_path: Path to a .npy DNL array.
+fit: “best_fit” (default) or “end_point” (maps to END_FIT).
+output_path: Path to save INL .npy. Auto-generated if omitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="waveform">
-<h2>Waveform<a class="headerlink" href="#waveform" title="Link to this heading"></a></h2>
+<section id="module-genalyzer.mcp.waveform">
+<span id="waveform"></span><h2>Waveform<a class="headerlink" href="#module-genalyzer.mcp.waveform" title="Link to this heading"></a></h2>
+<p>Time-domain waveform MCP tools.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.waveform.analyze_waveform">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.waveform.</span></span><span class="sig-name descname"><span class="pre">analyze_waveform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.waveform.analyze_waveform" title="Link to this definition"></a></dt>
+<dd><p>All-in-one time-domain waveform analysis.</p>
+<p>Currently identical to compute_waveform_stats; plot=True renders a
+scope-style PNG of the first 10_000 samples next to the input file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.waveform.compute_waveform_stats">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.waveform.</span></span><span class="sig-name descname"><span class="pre">compute_waveform_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.mcp.waveform.compute_waveform_stats" title="Link to this definition"></a></dt>
+<dd><p>Compute time-domain statistics (min/max/mid/range/avg/rms/rmsac) on a real waveform.</p>
+<p>Complex inputs are reduced to their real part before analysis.</p>
+</dd></dl>
+
 </section>
-<section id="io-helpers">
-<h2>IO helpers<a class="headerlink" href="#io-helpers" title="Link to this heading"></a></h2>
+<section id="module-genalyzer.mcp.io">
+<span id="io-helpers"></span><h2>IO helpers<a class="headerlink" href="#module-genalyzer.mcp.io" title="Link to this heading"></a></h2>
+<p>File IO layer for MCP tools. Handles .npy and .csv transparently.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.io.load_array">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.io.</span></span><span class="sig-name descname"><span class="pre">load_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#genalyzer.mcp.io.load_array" title="Link to this definition"></a></dt>
+<dd><p>Load a 1-D numpy array from a .npy or .csv file.</p>
+<p>Returns a real-valued array for single-column CSV and .npy real arrays,
+or a complex-valued array for two-column CSV (I,Q) and .npy complex
+arrays. CSV header detection: if the first cell of row 0 is not a float,
+row 0 is treated as a header and skipped.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.mcp.io.save_array">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.mcp.io.</span></span><span class="sig-name descname"><span class="pre">save_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#genalyzer.mcp.io.save_array" title="Link to this definition"></a></dt>
+<dd><p>Save a 1-D numpy array to .npy or .csv, chosen by extension.</p>
+</dd></dl>
+
 </section>
 </section>
 
