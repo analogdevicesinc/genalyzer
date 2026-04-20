@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright (C) 2024-2025 Analog Devices, Inc.")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("C# bindings for the Genalyzer DSP library.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("0.1.2.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.1.2+2e1d19e02b2659ef241bd4d37208d6efd8d850b9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.1.2+f8364bfb9a4fb3edd8af244ba57ddb012f48e84b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Genalyzer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Genalyzer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("0.1.2.0")]
