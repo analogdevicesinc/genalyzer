@@ -1,7 +1,7 @@
 sphinx>=5.0
 myst-parser
 https://github.com/analogdevicesinc/doctools/releases/download/latest/adi-doctools.tar.gz
-sphinxcontrib-mermaid
+pyd2lang-native==0.1.1
 sphinx-togglebutton
 sphinx_inline_tabs
 sphinx-click
