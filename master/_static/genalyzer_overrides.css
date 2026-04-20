@@ -1,0 +1,12 @@
+/* Index-page hero logo: center in the viewport, not in .bodywrapper.
+ *
+ * The cosmic theme shifts .bodywrapper left of the viewport center by
+ * exactly 10vw in the 65em-105em range to make room for the right-side
+ * "On this page" TOC. Counter that shift for the hero logo so it reads
+ * as viewport-centered; outside this range the body is already centered
+ * and no shift is applied. */
+@media (min-width: 65em) and (max-width: 105em) {
+    img.hero-logo {
+        transform: translateX(10vw);
+    }
+}

@@ -7,12 +7,12 @@ genalyzer: Data Converter Library
 =================================
 
 .. image:: _static/genalyzer_logo_dark.png
-   :class: only-dark
+   :class: only-dark hero-logo
    :width: 500px
    :alt: Genalyzer Logo
 
 .. image:: _static/genalyzer_logo.png
-   :class: only-light
+   :class: only-light hero-logo
    :width: 500px
    :alt: Genalyzer Logo
 

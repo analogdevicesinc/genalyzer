@@ -1,0 +1,37 @@
+/* Overrides for the adi_doctools cosmic theme's .only-light / .only-dark
+ * rules, which force `display: inline-block` (intended for logo <img> tags).
+ * Diagram wrappers need `display: block` so the inline SVG has a definite
+ * parent width to size against; otherwise max-width:100% + height:auto
+ * collapse the SVG to 0 x 0. */
+.d2-diagram.only-light,
+.d2-diagram.only-dark {
+    display: block !important;
+    margin: 1em 0;
+    text-align: center;
+}
+
+.d2-diagram.only-dark {
+    display: none !important;
+}
+
+body.dark .d2-diagram.only-light {
+    display: none !important;
+}
+
+body.dark .d2-diagram.only-dark {
+    display: block !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    body:not(.light) .d2-diagram.only-light {
+        display: none !important;
+    }
+    body:not(.light) .d2-diagram.only-dark {
+        display: block !important;
+    }
+}
+
+.d2-diagram > svg {
+    max-width: 100%;
+    height: auto;
+}

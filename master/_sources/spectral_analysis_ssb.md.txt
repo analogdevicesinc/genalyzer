@@ -3,36 +3,37 @@ In this tutorial, we study a common scenario that arises when spectral analysis 
 
 To recap, we follow a three-stage workflow in Genalyzer as shown below.
 ```{eval-rst} 
-.. mermaid::
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
-
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-        style SA fill:#ffffff
+    direction: right
+    A: Generate/Import Waveform { class: sw-step-white }
+    B: Compute FFT              { class: sw-step-white }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-white }
+      C2: Run       { class: sw-step-white }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 We will first generate the waveform to be analyzed, compute its FFT, and calculate various performance metrics by running spectral analysis. Please refer to the [leakage and spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis2.py) Python script to follow the discussion on this page.
 
 ## Leakage
 ```{eval-rst} 
-.. mermaid::
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
-
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-        style SA fill:#ffffff
-
-        style A fill:#9fa4fc        
-        style B fill:#9fa4fc
+    direction: right
+    A: Generate/Import Waveform { class: sw-step-blue }
+    B: Compute FFT              { class: sw-step-blue }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-white }
+      C2: Run       { class: sw-step-white }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 In the [leakage and spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis2.py) Python script, we generate the complex-sinusoidal waveform as follows:
 ```{code-block} python
@@ -106,18 +107,19 @@ When computing the FFT of a waveform to which a window function has been applied
 ## Spectral Analysis
 ### Configure Single Side Bins
 ```{eval-rst} 
-.. mermaid::
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
-
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-      style C1 fill:#9fa4fc
-      style SA fill:#ffffff
+    direction: right
+    A: Generate/Import Waveform { class: sw-step-white }
+    B: Compute FFT              { class: sw-step-white }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-blue }
+      C2: Run       { class: sw-step-white }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 Even though leakage has been minimized, the tone is not as sharp as when the snapshot of the waveform were periodic. This can be observed by zooming into the region around the ``375 KHz`` tone. This is shown in the plot below.
 ```{figure} figures/fft4.png
@@ -149,18 +151,19 @@ Note that, we set ``ssb_fund`` to ``6`` and ``ssb_dc`` to ``3``. These choices a
 
 ### Run
 ```{eval-rst} 
-.. mermaid::
+.. d2::
 
-    graph LR;      
-        A[Generate/Import Waveform] --> B[Compute FFT];
-        B -->C1[Configure Spectral Analysis];
-
-        subgraph SA[Spectral Analysis]
-          C1[Configure] -->C2[Run];
-        end
-
-      style C2 fill:#9fa4fc
-      style SA fill:#ffffff
+    direction: right
+    A: Generate/Import Waveform { class: sw-step-white }
+    B: Compute FFT              { class: sw-step-white }
+    SA: Spectral Analysis {
+      class: sw-container
+      C1: Configure { class: sw-step-white }
+      C2: Run       { class: sw-step-blue }
+      C1 -> C2 { class: sw-flow }
+    }
+    A -> B     { class: sw-flow }
+    B -> SA.C1 { class: sw-flow }
 ```
 Next, we run FFT analysis in the [leakage and spectral-analysis example](https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis2.py) Python script as follows:
 ```{code-block} python
