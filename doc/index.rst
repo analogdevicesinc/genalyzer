@@ -57,6 +57,7 @@ Reference
    setup
    spectral_analysis
    spectral_analysis_ssb
+   spectral_analysis_ssb_hd
    reference
    reference_cpp
    reference_simplified
