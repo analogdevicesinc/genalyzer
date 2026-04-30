@@ -58,6 +58,7 @@ Reference
    spectral_analysis
    spectral_analysis_ssb
    reference
+   reference_cpp
    reference_simplified
    python/genalyzer
    pytest/index
