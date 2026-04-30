@@ -10,13 +10,26 @@
     <AssemblyName>Genalyzer</AssemblyName>
     <RootNamespace>Genalyzer</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!-- Suppress missing-XML-doc warnings for enumerator values and well-known members -->
     <NoWarn>$(NoWarn);1591</NoWarn>
     <Version>0.1.2</Version>
     <Authors>Analog Devices, Inc.</Authors>
     <Description>C# bindings for the Genalyzer DSP library.</Description>
     <Copyright>Copyright (C) 2024-2025 Analog Devices, Inc.</Copyright>
     <PackageLicenseExpression>GPL-2.0-or-later</PackageLicenseExpression>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+    <!-- Root of the C:\git\genalyzer CMake repo (3 levels up from this .csproj) -->
+    <GenalyzerRepoRoot>$([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)', '..', '..', '..'))</GenalyzerRepoRoot>
+    <CMakeBuildDir>$(GenalyzerRepoRoot)out\build\x64-Debug</CMakeBuildDir>
+    <SkipCMakeBuild Condition="'$(SkipCMakeBuild)' == ''">false</SkipCMakeBuild>
   </PropertyGroup>
+
+  <!-- Automatically build + install the native library before compiling C# -->
+  <Target Name="BuildNativeGenalyzer" BeforeTargets="Build" Condition="'$(SkipCMakeBuild)' != 'true'">
+    <Message Text="Building native genalyzer from $(CMakeBuildDir)..." Importance="high" />
+    <Exec Command="cmake --build &quot;$(CMakeBuildDir)&quot; --target install"
+          WorkingDirectory="$(GenalyzerRepoRoot)"
+          IgnoreExitCode="false" />
+  </Target>
 
 </Project>

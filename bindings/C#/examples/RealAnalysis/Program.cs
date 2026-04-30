@@ -15,9 +15,9 @@ using Genalyzer;
 // ---------------------------------------------------------------------------
 // Setup
 // ---------------------------------------------------------------------------
-int    navg       = 2;
-int    nfft       = 1024 * 256;
-double fs         = 1e9;
+int    navg       = 1;
+int    nfft       = 8192;
+double fs         = 2e9;
 double fsr        = 2.0;
 double amplDbfs   = -1.0;
 double freq       = 10e6;
