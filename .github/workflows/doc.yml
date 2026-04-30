@@ -27,7 +27,7 @@ jobs:
           sudo make install genalyzer
           sudo ldconfig
           cd ../bindings/python
-          pip install ".[tools]"
+          pip install ".[cli,tools,mcp]"
           cd ../../build
           sudo rm -rf *
           sudo rm ../doc/reference_simplified.md
@@ -61,7 +61,7 @@ jobs:
           sudo make install genalyzer
           sudo ldconfig
           cd ../bindings/python
-          pip install ".[tools]"
+          pip install ".[cli,tools,mcp]"
           cd ../../build
           sudo rm -rf *
           sudo rm ../doc/reference_simplified.md

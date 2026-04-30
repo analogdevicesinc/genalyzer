@@ -31,7 +31,7 @@ def bumpversion_test(c, filename=None):
         raise FileNotFoundError(filename)
 
     for line in fileinput.input(filename, inplace=True):
-        if line.find("version = ") > -1:
+        if line.startswith("version = "):
             s = line.find("version = ")
             l = line[s+len("version = ") + 1 :].strip()
             l = l.replace('"', "")
