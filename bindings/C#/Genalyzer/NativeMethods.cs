@@ -18,11 +18,7 @@ namespace Genalyzer
         // ---------------------------------------------------------------
         // Library name – resolved at runtime on Windows / Linux / macOS.
         // ---------------------------------------------------------------
-#if _WINDOWS
         private const string LibName = "libgenalyzer";
-#else
-        private const string LibName = "genalyzer";
-#endif
 
         // ===============================================================
         // API Utilities
@@ -945,7 +941,7 @@ namespace Genalyzer
             [In] double[] inl,
             ref IntPtr c);
 
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibName,CallingConvention = CallingConvention.Cdecl)]
         internal static extern int gn_get_fa_single_result(
             out double rvalue,
             [MarshalAs(UnmanagedType.LPStr)] string metricName,
