@@ -1,4 +1,4 @@
-# Copyright (C) 2024-2025 Analog Devices, Inc.
+# Copyright (C) 2024-2026 Analog Devices, Inc.
 #
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 from ..simplified_beta import (
@@ -154,7 +154,7 @@ class WaveformGen:
         """
         Generate sine wave data
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         return self.__gen_sine_cosine(1)
@@ -163,7 +163,7 @@ class WaveformGen:
         """
         Generate cosine wave data
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         return self.__gen_sine_cosine(0)
@@ -172,7 +172,7 @@ class WaveformGen:
         """
         Generate triangular wave data
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         self.__prepare_waveform_gen()
@@ -183,7 +183,7 @@ class WaveformGen:
         """
         Generate square wave data
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         self.__prepare_waveform_gen()
@@ -194,10 +194,10 @@ class WaveformGen:
         """
         Generate pwm wave data
 
-        Args: 
+        Args:
             ``duty_cycle`` (``float``): Duty cycle required. Must be in between 0 and 1.
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         self.__prepare_waveform_gen()

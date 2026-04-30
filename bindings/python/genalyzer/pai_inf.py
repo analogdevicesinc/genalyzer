@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Analog Devices, Inc.
+# Copyright (C) 2025-2026 Analog Devices, Inc.
 #
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 """Helper functions for pyadi-iio devices."""
@@ -54,9 +54,9 @@ def fft(
     """
     # Checks
     if rx_device is None:
-        assert hasattr(
-            interface, "_rxadc"
-        ), "Non standard pyadi-iio device. i_face must have _rxadc attribute"
+        assert hasattr(interface, "_rxadc"), (
+            "Non standard pyadi-iio device. i_face must have _rxadc attribute"
+        )
         i_face = interface
     else:
         # This is the case when obs exists for secondary DMAs
@@ -142,7 +142,7 @@ def fft(
             fft_cplx = gn.fft(x_re, x_im, qres, navg, nfft, window, code_fmt)
         else:
             x = np.array(rx_data).astype(fmt)
-            fft_cplx = gn.fft_real(x, qres, navg, nfft, window, code_fmt)
+            fft_cplx = gn.rfft(x, qres, navg, nfft, window, code_fmt)
 
         # Frequency axis and dB
         freq_axis = gn.freq_axis(nfft, axis_type, fs, axis_fmt)
@@ -155,7 +155,7 @@ def fft(
         fft_freq_out[rx_ch] = freq_axis
 
     if len(fft_out) == 1:
-        first = list(fft_out.keys())[0]
+        first = next(iter(fft_out.keys()))
         fft_out = fft_out[first]
         fft_out_db = fft_out_db[first]
         fft_freq_out = fft_freq_out[first]

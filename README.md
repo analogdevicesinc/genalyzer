@@ -1,5 +1,9 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/analogdevicesinc/genalyzer/main/doc/_static/genalyzer_logo.png" width="500" alt="Genalyzer Logo"> </br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/analogdevicesinc/genalyzer/main/doc/_static/genalyzer_logo_dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/analogdevicesinc/genalyzer/main/doc/_static/genalyzer_logo.png">
+  <img src="https://raw.githubusercontent.com/analogdevicesinc/genalyzer/main/doc/_static/genalyzer_logo.png" width="500" alt="Genalyzer Logo">
+</picture>
 </p>
 
 <p align="center">

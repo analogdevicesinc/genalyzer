@@ -1,4 +1,4 @@
-# Copyright (C) 2024-2025 Analog Devices, Inc.
+# Copyright (C) 2024-2026 Analog Devices, Inc.
 #
 # SPDX short identifier: ADIBSD OR GPL-2.0-or-later
 
@@ -439,10 +439,12 @@ def config_free(
     _gn_config_free(byref(c._struct))
 
 
-def config_gen_ramp(npts: int, ramp_start: int, ramp_stop: int, c: GNConfig = None) -> GNConfig:
+def config_gen_ramp(
+    npts: int, ramp_start: int, ramp_stop: int, c: GNConfig = None
+) -> GNConfig:
     if c is None:
         c = GNConfig()
-    
+
     npts = c_ulong(npts)
     ramp_start = c_double(ramp_start)
     ramp_stop = c_double(ramp_stop)
@@ -461,11 +463,11 @@ def config_gen_tone(
     tone_freq: float,
     tone_ampl: float,
     tone_phase: float,
-    c: GNConfig = None
+    c: GNConfig = None,
 ) -> GNConfig:
     if c is None:
         c = GNConfig()
-    
+
     ttype = c_uint(ttype)
     npts = c_ulong(npts)
     sample_rate = c_double(sample_rate)
@@ -490,10 +492,12 @@ def config_gen_tone(
     return c
 
 
-def config_quantize(npts: int, fsr: float, qres: int, qnoise: float, c: GNConfig = None) -> GNConfig:
+def config_quantize(
+    npts: int, fsr: float, qres: int, qnoise: float, c: GNConfig = None
+) -> GNConfig:
     if c is None:
         c = GNConfig()
-    
+
     npts = c_ulong(npts)
     fsr = c_double(fsr)
     qres = c_int(qres)
@@ -508,7 +512,7 @@ def config_quantize(npts: int, fsr: float, qres: int, qnoise: float, c: GNConfig
 def config_histz_nla(npts: int, qres: int, c: GNConfig = None) -> GNConfig:
     if c is None:
         c = GNConfig()
-    
+
     npts = c_ulong(npts)
     qres = c_int(qres)
 
@@ -523,7 +527,7 @@ def config_fftz(
 ) -> GNConfig:
     if c is None:
         c = GNConfig()
-    
+
     npts = c_ulong(npts)
     qres = c_int(qres)
     navg = c_ulong(navg)
@@ -670,10 +674,10 @@ def get_fa_single_result(metric_name: str, fft_ilv: float, c: GNConfig) -> float
 def get_fa_results(fft_ilv: float, c: GNConfig) -> dict:
     """
     Get Fourier analysis results.
-    
+
     Args:
         ``fixed_tone_freq``: fixed tone frequency
-        
+
         ``c``: GNConfig object
 
     Returns:
@@ -699,10 +703,10 @@ def get_fa_results(fft_ilv: float, c: GNConfig) -> dict:
 def config_set_sample_rate(sample_rate: float, c: GNConfig) -> None:
     """
     Set sample rate.
-    
+
     Args:
         ``sample_rate``: Sample rate in Hz
-        
+
         ``c``: GNConfig object
     """
     _gn_config_set_sample_rate(sample_rate, byref(c._struct))
@@ -711,7 +715,7 @@ def config_set_sample_rate(sample_rate: float, c: GNConfig) -> None:
 def config_code_format(code_format: int, c: GNConfig) -> None:
     """
     Configure code format.
-    
+
     Args:
         ``code_format``: code format (Offset binary, Twos complement)
 
@@ -749,25 +753,25 @@ class WaveformGen:
             ``freq`` (``int``): output frequency required in hz
 
             ``code_fmt`` (``int``): code format to get data in
-                
+
                 0: for binary offset
-                
+
                 1: for 2's complement
-            
+
             ``res`` (``int``): code resolution
-            
+
             ``v_ref_n`` (``float``): negative reference voltage
-                
+
                 Can be zero(0) for unipolar device
-            
+
             ``v_ref_p`` (``float``): positive reference voltage
-            
+
             ``v_min`` (``float``): minimum required voltage to generate
-                
+
                 Must be in the accepted reference voltage range
-            
+
             ``v_max`` (``float``): maximum required voltage to generate
-            
+
                 Must be in the accepted reference voltage range
         """
 
@@ -792,7 +796,7 @@ class WaveformGen:
     def v_min(self, value):
         """
         Set Lower required voltage limit
-        
+
         Args:
             ``value`` (``float``): Lower required voltage limit
         """
@@ -892,7 +896,7 @@ class WaveformGen:
         """
         Generate sine wave data
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         return self.__gen_sine_cosine(1)
@@ -901,7 +905,7 @@ class WaveformGen:
         """
         Generate cosine wave data
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         return self.__gen_sine_cosine(0)
@@ -910,7 +914,7 @@ class WaveformGen:
         """
         Generate triangular wave data
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         self.__prepare_waveform_gen()
@@ -921,7 +925,7 @@ class WaveformGen:
         """
         Generate square wave data
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         self.__prepare_waveform_gen()
@@ -932,10 +936,10 @@ class WaveformGen:
         """
         Generate pwm wave data
 
-        Args: 
+        Args:
             ``duty_cycle`` (``float``): Duty cycle required. Must be in between 0 and 1.
 
-        Returns: 
+        Returns:
             Waveform as list of ints
         """
         self.__prepare_waveform_gen()
