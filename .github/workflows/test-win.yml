@@ -69,6 +69,13 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Set up .NET SDKs
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            6.0.x
+            9.0.x
+
       - name: Install dependencies
         run: |
           choco install --no-progress -y wget innosetup
@@ -110,6 +117,16 @@ jobs:
           "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           cmake . -DFFTW_INCLUDE_DIRS="deps\fftw3" -DFFTW_LIBRARIES="$env:GITHUB_WORKSPACE\deps\fftw3\libfftw3-3.lib" -G "Visual Studio 17 2022" -A x64
           cmake --build . --config Release
+
+      # Build the managed assemblies (all target frameworks) and the NuGet
+      # package so the installer's [Files] section can bundle them.
+      - name: Build and pack C# binding
+        run: |
+          $ErrorActionPreference = "Stop"
+          dotnet build bindings/csharp/Genalyzer/Genalyzer.csproj -c Release --nologo
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          dotnet pack bindings/csharp/Genalyzer/Genalyzer.csproj -c Release -o bindings/csharp/nupkg --nologo
+          if ($LASTEXITCODE -ne 0) { exit 1 }
 
       - name: Build installer
         run: |

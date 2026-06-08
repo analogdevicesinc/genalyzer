@@ -61,6 +61,7 @@ Reference
    reference_cpp
    reference_simplified
    python/genalyzer
+   csharp/index
    pytest/index
    mcp/index
    cli

@@ -23,6 +23,16 @@ namespace Genalyzer
         private IntPtr _handle = IntPtr.Zero;
         private bool   _disposed;
 
+        // The native config struct RETAINS the tone-array pointers passed to
+        // gn_config_set_tone_* / gn_config_gen_tone and dereferences them later
+        // during waveform generation.  We therefore pin the arrays in
+        // long-lived GCHandles owned by this instance (rather than relying on
+        // transient P/Invoke marshaling, which would leave a dangling pointer
+        // once the call returns) and free them in Dispose.
+        private GCHandle _toneFreqPin;
+        private GCHandle _toneAmplPin;
+        private GCHandle _tonePhasePin;
+
         /// <summary>Creates an empty configuration object.</summary>
         public GenalyzerConfig() { }
 
@@ -37,12 +47,34 @@ namespace Genalyzer
             {
                 if (_handle != IntPtr.Zero)
                     NativeMethods.gn_config_free(ref _handle);
+                FreeTonePins();
                 _disposed = true;
             }
             GC.SuppressFinalize(this);
         }
 
         ~GenalyzerConfig() => Dispose();
+
+        /// <summary>
+        /// Pins <paramref name="arr"/> in <paramref name="slot"/> (freeing any
+        /// array previously pinned there) and returns the stable address to
+        /// hand to the native config, which retains it past the call.
+        /// </summary>
+        private static IntPtr PinTone(ref GCHandle slot, double[] arr)
+        {
+            if (arr == null) throw new ArgumentNullException(nameof(arr));
+            if (slot.IsAllocated) slot.Free();
+            slot = GCHandle.Alloc(arr, GCHandleType.Pinned);
+            return slot.AddrOfPinnedObject();
+        }
+
+        /// <summary>Releases the pinned tone-array handles, if allocated.</summary>
+        private void FreeTonePins()
+        {
+            if (_toneFreqPin.IsAllocated)  _toneFreqPin.Free();
+            if (_toneAmplPin.IsAllocated)  _toneAmplPin.Free();
+            if (_tonePhasePin.IsAllocated) _tonePhasePin.Free();
+        }
 
         // ---------------------------------------------------------------
         // Individual setters / getters
@@ -94,19 +126,26 @@ namespace Genalyzer
                 (UIntPtr)numTones, ref _handle));
 
         /// <summary>Sets the tone frequency array.</summary>
+        /// <remarks>The array is pinned for the lifetime of this object (or
+        /// until replaced by a later call) because the native config retains
+        /// the pointer for use during tone generation.</remarks>
         public void SetToneFreq(double[] toneFreq)
             => Util.Check(NativeMethods.gn_config_set_tone_freq(
-                toneFreq, ref _handle));
+                PinTone(ref _toneFreqPin, toneFreq), ref _handle));
 
         /// <summary>Sets the tone amplitude array.</summary>
+        /// <remarks>The array is pinned for the lifetime of this object (or
+        /// until replaced by a later call); see <see cref="SetToneFreq"/>.</remarks>
         public void SetToneAmpl(double[] toneAmpl)
             => Util.Check(NativeMethods.gn_config_set_tone_ampl(
-                toneAmpl, ref _handle));
+                PinTone(ref _toneAmplPin, toneAmpl), ref _handle));
 
         /// <summary>Sets the tone phase array.</summary>
+        /// <remarks>The array is pinned for the lifetime of this object (or
+        /// until replaced by a later call); see <see cref="SetToneFreq"/>.</remarks>
         public void SetTonePhase(double[] tonePhase)
             => Util.Check(NativeMethods.gn_config_set_tone_phase(
-                tonePhase, ref _handle));
+                PinTone(ref _tonePhasePin, tonePhase), ref _handle));
 
         /// <summary>Sets the full-scale range.</summary>
         public void SetFsr(double fsr)
@@ -203,10 +242,16 @@ namespace Genalyzer
                 toneFreq.Length != tonePhase.Length)
                 throw new ArgumentException(
                     "toneFreq, toneAmpl, and tonePhase must have equal length.");
+            // Pin all three arrays for the lifetime of this object; the native
+            // config retains the pointers and dereferences them later in
+            // GenRealTone / GenComplexTone.
+            IntPtr freqPtr  = PinTone(ref _toneFreqPin,  toneFreq);
+            IntPtr amplPtr  = PinTone(ref _toneAmplPin,  toneAmpl);
+            IntPtr phasePtr = PinTone(ref _tonePhasePin, tonePhase);
             Util.Check(NativeMethods.gn_config_gen_tone(
                 (int)ttype, (UIntPtr)npts, sampleRate,
                 (UIntPtr)toneFreq.Length,
-                toneFreq, toneAmpl, tonePhase,
+                freqPtr, amplPtr, phasePtr,
                 ref _handle));
         }
 
@@ -442,9 +487,11 @@ namespace Genalyzer
 
             for (int i = 0; i < count; i++)
             {
-                // rkeys is a char** – read each pointer then the string it points to
+                // rkeys is a char** - read each pointer then the string it
+                // points to.  Decode as UTF-8 via the shared helper so all
+                // native-string reads use one consistent encoding.
                 IntPtr strPtr = Marshal.ReadIntPtr(rkeys, i * IntPtr.Size);
-                string key = Marshal.PtrToStringAnsi(strPtr) ?? string.Empty;
+                string key = Util.PtrToStringUtf8(strPtr);
                 dict[key] = rawValues[i];
             }
             return dict;
