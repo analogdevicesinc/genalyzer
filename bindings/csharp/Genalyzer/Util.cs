@@ -68,8 +68,28 @@ namespace Genalyzer
         {
             var result = new string[count];
             for (int i = 0; i < count; i++)
-                result[i] = Marshal.PtrToStringAnsi(handles[i]) ?? string.Empty;
+                result[i] = PtrToStringUtf8(handles[i]);
             return result;
+        }
+
+        /// <summary>
+        /// Decodes a native, null-terminated UTF-8 C string into a managed
+        /// string.  This is the single place native <c>char*</c> strings are
+        /// decoded, so the encoding (UTF-8, matching how the library emits and
+        /// how <see cref="BytesToString"/> / <see cref="Check"/> already decode)
+        /// is defined once.  Implemented without
+        /// <c>Marshal.PtrToStringUTF8</c> so it also works on the
+        /// <c>net4.7</c> target, where that overload is unavailable.
+        /// </summary>
+        internal static string PtrToStringUtf8(IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero) return string.Empty;
+            int len = 0;
+            while (Marshal.ReadByte(ptr, len) != 0) len++;
+            if (len == 0) return string.Empty;
+            var bytes = new byte[len];
+            Marshal.Copy(ptr, bytes, 0, len);
+            return Encoding.UTF8.GetString(bytes);
         }
 
         /// <summary>

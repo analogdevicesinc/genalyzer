@@ -16,9 +16,107 @@ namespace Genalyzer
     internal static class NativeMethods
     {
         // ---------------------------------------------------------------
-        // Library name – resolved at runtime on Windows / Linux / macOS.
+        // Library name - resolved at runtime on Windows / Linux / macOS.
         // ---------------------------------------------------------------
         private const string LibName = "libgenalyzer";
+
+#if NET6_0_OR_GREATER
+        // ---------------------------------------------------------------
+        // Native-library resolution
+        //
+        // The [DllImport] declarations above reference the logical name
+        // "libgenalyzer".  Default runtime probing often fails to locate the
+        // shared library in test/CI layouts and reports an opaque
+        // DllNotFoundException.  This module initializer registers an explicit
+        // resolver that probes, in order:
+        //   1. the GENALYZER_LIB_PATH environment variable (a file or a
+        //      directory containing the library),
+        //   2. the application base directory,
+        //   3. the platform-decorated names (libgenalyzer.so / .dylib /
+        //      genalyzer.dll) via the default loader,
+        // and otherwise throws a single, actionable error.
+        //
+        // Guarded to net6.0+; on the net4.7 target System.Runtime.InteropServices
+        // .NativeLibrary is unavailable, so the library must be discoverable via
+        // the OS loader path (PATH on Windows, LD_LIBRARY_PATH on Linux) or be
+        // placed next to the assembly.  See the binding README.
+        // ---------------------------------------------------------------
+        // CA2255: a module initializer is exactly the right place to register a
+        // DllImportResolver - it must run before any P/Invoke is resolved, and
+        // this assembly is the sole owner of the "libgenalyzer" import name.
+#pragma warning disable CA2255
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterResolver()
+        {
+            NativeLibrary.SetDllImportResolver(
+                typeof(NativeMethods).Assembly, ResolveLibrary);
+        }
+#pragma warning restore CA2255
+
+        private static IntPtr ResolveLibrary(
+            string libraryName, System.Reflection.Assembly assembly,
+            DllImportSearchPath? searchPath)
+        {
+            if (libraryName != LibName)
+                return IntPtr.Zero; // not ours; let the default loader handle it
+
+            foreach (var candidate in CandidatePaths())
+            {
+                if (NativeLibrary.TryLoad(candidate, out IntPtr handle))
+                    return handle;
+            }
+
+            throw new DllNotFoundException(
+                $"Unable to locate the native '{LibName}' library. Set the " +
+                "GENALYZER_LIB_PATH environment variable to the library file or " +
+                "its containing directory, place it next to the managed " +
+                "assembly, or install it on the system loader path. Tried: " +
+                string.Join(", ", CandidatePaths()));
+        }
+
+        private static System.Collections.Generic.IEnumerable<string> CandidatePaths()
+        {
+            string[] fileNames = NativeLibraryFileNames();
+
+            string? envPath =
+                Environment.GetEnvironmentVariable("GENALYZER_LIB_PATH");
+            if (!string.IsNullOrEmpty(envPath))
+            {
+                // Treat as either a direct file path or a directory.
+                if (System.IO.Directory.Exists(envPath))
+                    foreach (string name in fileNames)
+                        yield return System.IO.Path.Combine(envPath, name);
+                else
+                    yield return envPath;
+            }
+
+            string baseDir = AppContext.BaseDirectory;
+            if (!string.IsNullOrEmpty(baseDir))
+                foreach (string name in fileNames)
+                    yield return System.IO.Path.Combine(baseDir, name);
+
+            // Finally, the bare decorated and logical names so the default OS
+            // loader search path (PATH / LD_LIBRARY_PATH / DYLD_LIBRARY_PATH)
+            // still applies.
+            foreach (string name in fileNames)
+                yield return name;
+            yield return LibName;
+        }
+
+        private static string[] NativeLibraryFileNames()
+        {
+            // The project builds the native library with OUTPUT_NAME
+            // "libgenalyzer" on every platform (see bindings/c/src/CMakeLists.txt),
+            // so the decorated name keeps the "lib" prefix even on Windows
+            // (libgenalyzer.dll, not genalyzer.dll). The unprefixed name is kept
+            // as a secondary candidate for third-party/redistributed builds.
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return new[] { "libgenalyzer.dll", "genalyzer.dll" };
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                return new[] { "libgenalyzer.dylib" };
+            return new[] { "libgenalyzer.so" };
+        }
+#endif
 
         // ===============================================================
         // API Utilities
@@ -775,17 +873,24 @@ namespace Genalyzer
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int gn_config_set_num_tones(UIntPtr numTones, ref IntPtr c);
 
+        // The tone arrays are passed as IntPtr (not double[]) because the
+        // native side STORES the pointer in the config struct and dereferences
+        // it later (in gn_gen_real_tone / gn_gen_complex_tone).  Default
+        // double[] marshaling only pins the array for the duration of this
+        // single call, leaving a dangling pointer afterwards.  The managed
+        // wrapper pins the arrays in long-lived GCHandles and passes their
+        // stable addresses here.
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int gn_config_set_tone_freq(
-            [In] double[] toneFreq, ref IntPtr c);
+            IntPtr toneFreq, ref IntPtr c);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int gn_config_set_tone_ampl(
-            [In] double[] toneAmpl, ref IntPtr c);
+            IntPtr toneAmpl, ref IntPtr c);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int gn_config_set_tone_phase(
-            [In] double[] tonePhase, ref IntPtr c);
+            IntPtr tonePhase, ref IntPtr c);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int gn_config_set_fsr(double fsr, ref IntPtr c);
@@ -840,9 +945,9 @@ namespace Genalyzer
         internal static extern int gn_config_gen_tone(
             int ttype, UIntPtr npts, double sampleRate,
             UIntPtr numTones,
-            [In] double[] toneFreq,
-            [In] double[] toneAmpl,
-            [In] double[] tonePhase,
+            IntPtr toneFreq,
+            IntPtr toneAmpl,
+            IntPtr tonePhase,
             ref IntPtr c);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

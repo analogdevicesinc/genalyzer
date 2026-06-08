@@ -12,6 +12,7 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 option(BUILD_DOC "Generate documentation" OFF)
 option(BUILD_TESTS_EXAMPLES "Build tests and examples" OFF)
+option(BUILD_CSHARP_BINDING "Build the C# (.NET) binding" OFF)
 option(COVERAGE "Enable coverage tracing when testing" OFF)
 option(GENALYZER_NATIVE_OPTIMIZATIONS "Enable host-specific native CPU optimizations" OFF)
 option(GENALYZER_BUILD_FRAMEWORKS "Build Apple framework bundles" ON)

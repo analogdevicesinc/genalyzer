@@ -41,7 +41,7 @@ namespace Genalyzer
         }
 
         // ---------------------------------------------------------------
-        // Complex FFT  –  normalized double input
+        // Complex FFT  -  normalized double input
         // ---------------------------------------------------------------
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Genalyzer
         }
 
         // ---------------------------------------------------------------
-        // Complex FFT  –  quantized input
+        // Complex FFT  -  quantized input
         // ---------------------------------------------------------------
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Genalyzer
         }
 
         // ---------------------------------------------------------------
-        // Real FFT  –  normalized double input
+        // Real FFT  -  normalized double input
         // ---------------------------------------------------------------
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace Genalyzer
         }
 
         // ---------------------------------------------------------------
-        // Real FFT  –  quantized input
+        // Real FFT  -  quantized input
         // ---------------------------------------------------------------
 
         /// <summary>

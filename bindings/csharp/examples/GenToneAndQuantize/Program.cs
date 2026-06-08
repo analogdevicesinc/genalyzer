@@ -29,11 +29,11 @@ using (var cfg1 = new GenalyzerConfig())
     double[] awf1 = cfg1.GenRealTone();
     int[]    qwf1 = cfg1.Quantize(awf1);
 
-    Console.WriteLine("Real tone – first 10 analog samples:");
+    Console.WriteLine("Real tone - first 10 analog samples:");
     for (int i = 0; i < 10; i++)
         Console.WriteLine($"  awf1[{i}] = {awf1[i]:F6}");
 
-    Console.WriteLine("\nReal tone – first 10 quantized samples:");
+    Console.WriteLine("\nReal tone - first 10 quantized samples:");
     for (int i = 0; i < 10; i++)
         Console.WriteLine($"  qwf1[{i}] = {qwf1[i]}");
 }
@@ -49,19 +49,19 @@ using (var cfg2 = new GenalyzerConfig())
     int[] qwf2I = cfg2.Quantize(awf2I);
     int[] qwf2Q = cfg2.Quantize(awf2Q);
 
-    Console.WriteLine("\nComplex tone – first 10 analog I samples:");
+    Console.WriteLine("\nComplex tone - first 10 analog I samples:");
     for (int i = 0; i < 10; i++)
         Console.WriteLine($"  awf2I[{i}] = {awf2I[i]:F6}");
 
-    Console.WriteLine("\nComplex tone – first 10 analog Q samples:");
+    Console.WriteLine("\nComplex tone - first 10 analog Q samples:");
     for (int i = 0; i < 10; i++)
         Console.WriteLine($"  awf2Q[{i}] = {awf2Q[i]:F6}");
 
-    Console.WriteLine("\nComplex tone – first 10 quantized I samples:");
+    Console.WriteLine("\nComplex tone - first 10 quantized I samples:");
     for (int i = 0; i < 10; i++)
         Console.WriteLine($"  qwf2I[{i}] = {qwf2I[i]}");
 
-    Console.WriteLine("\nComplex tone – first 10 quantized Q samples:");
+    Console.WriteLine("\nComplex tone - first 10 quantized Q samples:");
     for (int i = 0; i < 10; i++)
         Console.WriteLine($"  qwf2Q[{i}] = {qwf2Q[i]}");
 }
