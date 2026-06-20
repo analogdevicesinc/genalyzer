@@ -8,6 +8,7 @@
 #include <chrono>
 #include <string>
 #include <algorithm>
+#include <immintrin.h>
 
 using std::size_t;
 
@@ -135,12 +136,43 @@ void bh_window_t1(const double* i_data, const double* q_data, double* out_data,
     }
 }
 
+// T2: shared precomputed window, AVX-256 apply. Processes 4 samples/iter.
+// For samples i..i+3: ri = sw*I, rq = sw*Q, then interleave to
+// out = r0,q0,r1,q1,r2,q2,r3,q3. nfft assumed multiple of 4.
+void bh_window_t2(const double* i_data, const double* q_data, double* out_data,
+                  size_t in_stride, size_t navg, size_t nfft) {
+    static thread_local std::vector<double> sw;
+    sw.resize(nfft);
+    gen_scaled_window(sw.data(), nfft);
+    const size_t in_row_stride = nfft * in_stride;  // in_stride==1 in workload
+    const size_t out_row_stride = nfft * 2;
+    for (size_t k = 0; k < navg; ++k) {
+        const double* pi = i_data + k * in_row_stride;
+        const double* pq = q_data + k * in_row_stride;
+        double* po = out_data + k * out_row_stride;
+        for (size_t i = 0; i < nfft; i += 4) {
+            __m256d w  = _mm256_loadu_pd(sw.data() + i);
+            __m256d vi = _mm256_loadu_pd(pi + i);
+            __m256d vq = _mm256_loadu_pd(pq + i);
+            __m256d ri = _mm256_mul_pd(w, vi);   // r0 r1 r2 r3
+            __m256d rq = _mm256_mul_pd(w, vq);   // q0 q1 q2 q3
+            __m256d lo = _mm256_unpacklo_pd(ri, rq);  // r0 q0 r2 q2
+            __m256d hi = _mm256_unpackhi_pd(ri, rq);  // r1 q1 r3 q3
+            __m256d o0 = _mm256_permute2f128_pd(lo, hi, 0x20); // r0 q0 r1 q1
+            __m256d o1 = _mm256_permute2f128_pd(lo, hi, 0x31); // r2 q2 r3 q3
+            _mm256_storeu_pd(po + 2 * i, o0);
+            _mm256_storeu_pd(po + 2 * i + 4, o1);
+        }
+    }
+}
+
 int main() {
     const size_t in_stride = 1;
     struct Tier { const char* name; window_fn fn; };
     Tier tiers[] = {
         {"T0 baseline", bh_window_t0},
         {"T1 no-trig ", bh_window_t1},
+        {"T2 avx-intr", bh_window_t2},
     };
 
     // Anchor T0 against the independent reference on a small case.
