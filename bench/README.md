@@ -7,6 +7,11 @@ complex-FFT window on this AVX-256 (no-FMA) Xeon E5-1650, 6 cores.
     ./build.sh
     ./bh_window_bench
 
+`build.sh` compiles with `g++ -O3 -mavx -std=c++17 -pthread` (g++ 13.3). The
+`-O3 -mavx` flags matter: the "T2/T3 add nothing over T1" finding below assumes
+the scalar tiers are already optimized and AVX is actually emitted. Numbers were
+measured on an otherwise-idle Xeon E5-1650 @ 3.20 GHz.
+
 ## Tiers
 - T0 baseline  — std::cos x3 per sample (copy of src/fourier_transforms.cpp:35)
 - T1 no-trig   — precomputed window via phasor recurrence, scalar apply
