@@ -193,6 +193,10 @@ void bh_window_t3(const double* i_data, const double* q_data, double* out_data,
 
 // T4: precompute window once, then run the asm apply kernel on disjoint
 // row-chunks across NTHREADS physical cores.
+// NOTE: T4 spawns fresh std::threads per call (no thread pool). Thread creation
+// is ~10-30us each on Linux, so for small nfft (e.g. 4096) with navg=1 the
+// spawn overhead can exceed the actual apply work and make T4 measure SLOWER
+// than the single-core T3. The multicore win shows up at large nfft / large navg.
 static const unsigned NTHREADS = 6;  // E5-1650 physical cores
 void bh_window_t4(const double* i_data, const double* q_data, double* out_data,
                   size_t in_stride, size_t navg, size_t nfft) {
@@ -235,9 +239,9 @@ void bh_window_t4(const double* i_data, const double* q_data, double* out_data,
                 const double* pi = i_data + k * in_row_stride + i0 * in_stride;
                 const double* pq = q_data + k * in_row_stride + i0 * in_stride;
                 double* po = out_data + k * out_row_stride + 2 * i0;
-                const double* swp = sw.data() + i0;
+                const double* swp = sw_ptr + i0;
                 ts.emplace_back([=] { bh_apply_asm(swp, pi, pq, po, n); });
-                if (ts.size() == NTHREADS) { for (auto& th : ts) th.join(); ts.clear(); }
+                if (ts.size() == (size_t)NTHREADS) { for (auto& th : ts) th.join(); ts.clear(); }
             }
         }
         for (auto& th : ts) th.join();
