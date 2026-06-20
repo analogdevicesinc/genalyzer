@@ -1,5 +1,6 @@
 // Standalone benchmark for the genalyzer Blackman-Harris complex-FFT window.
 // Build: ./build.sh   Run: ./bh_window_bench
+#include <cassert>
 #include <cstddef>
 #include <cstdio>
 #include <cmath>
@@ -9,6 +10,9 @@
 #include <string>
 #include <algorithm>
 #include <immintrin.h>
+#ifndef __AVX__
+#error "This benchmark requires AVX (build with -mavx)."
+#endif
 
 using std::size_t;
 
@@ -141,6 +145,7 @@ void bh_window_t1(const double* i_data, const double* q_data, double* out_data,
 // out = r0,q0,r1,q1,r2,q2,r3,q3. nfft assumed multiple of 4.
 void bh_window_t2(const double* i_data, const double* q_data, double* out_data,
                   size_t in_stride, size_t navg, size_t nfft) {
+    assert(in_stride == 1 && "T2 AVX path assumes unit stride");
     static thread_local std::vector<double> sw;
     sw.resize(nfft);
     gen_scaled_window(sw.data(), nfft);
