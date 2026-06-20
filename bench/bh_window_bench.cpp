@@ -9,6 +9,7 @@
 #include <chrono>
 #include <string>
 #include <algorithm>
+#include <thread>
 #include <immintrin.h>
 #ifndef __AVX__
 #error "This benchmark requires AVX (build with -mavx)."
@@ -190,6 +191,59 @@ void bh_window_t3(const double* i_data, const double* q_data, double* out_data,
     }
 }
 
+// T4: precompute window once, then run the asm apply kernel on disjoint
+// row-chunks across NTHREADS physical cores.
+static const unsigned NTHREADS = 6;  // E5-1650 physical cores
+void bh_window_t4(const double* i_data, const double* q_data, double* out_data,
+                  size_t in_stride, size_t navg, size_t nfft) {
+    assert(in_stride == 1 && "T4 asm path assumes unit stride");
+    static thread_local std::vector<double> sw;
+    sw.resize(nfft);
+    gen_scaled_window(sw.data(), nfft);
+    const size_t in_row_stride = nfft * in_stride;
+    const size_t out_row_stride = nfft * 2;
+    // Snapshot sw.data() before spawning threads: thread_local statics are NOT
+    // captured by [&] -- each thread resolves them via its own TLS slot, so
+    // worker threads would see their own (empty) sw.  Use a plain pointer.
+    const double* sw_ptr = sw.data();
+
+    auto apply_rows = [&, sw_ptr](size_t k0, size_t k1) {
+        for (size_t k = k0; k < k1; ++k)
+            bh_apply_asm(sw_ptr, i_data + k * in_row_stride,
+                         q_data + k * in_row_stride,
+                         out_data + k * out_row_stride, nfft);
+    };
+
+    if (navg >= NTHREADS) {
+        // Partition by rows.
+        std::vector<std::thread> ts;
+        size_t per = (navg + NTHREADS - 1) / NTHREADS;
+        for (unsigned t = 0; t < NTHREADS; ++t) {
+            size_t k0 = t * per, k1 = std::min(navg, k0 + per);
+            if (k0 >= k1) break;
+            ts.emplace_back(apply_rows, k0, k1);
+        }
+        for (auto& th : ts) th.join();
+    } else {
+        // Few rows: partition the single/large row's sample range instead.
+        std::vector<std::thread> ts;
+        size_t chunk = ((nfft / NTHREADS) / 4) * 4;  // keep multiple of 4
+        if (chunk == 0) chunk = nfft;
+        for (size_t k = 0; k < navg; ++k) {
+            for (size_t i0 = 0; i0 < nfft; i0 += chunk) {
+                size_t n = std::min(chunk, nfft - i0);
+                const double* pi = i_data + k * in_row_stride + i0 * in_stride;
+                const double* pq = q_data + k * in_row_stride + i0 * in_stride;
+                double* po = out_data + k * out_row_stride + 2 * i0;
+                const double* swp = sw.data() + i0;
+                ts.emplace_back([=] { bh_apply_asm(swp, pi, pq, po, n); });
+                if (ts.size() == NTHREADS) { for (auto& th : ts) th.join(); ts.clear(); }
+            }
+        }
+        for (auto& th : ts) th.join();
+    }
+}
+
 int main() {
     const size_t in_stride = 1;
     struct Tier { const char* name; window_fn fn; };
@@ -198,6 +252,7 @@ int main() {
         {"T1 no-trig ", bh_window_t1},
         {"T2 avx-intr", bh_window_t2},
         {"T3 asm-1core", bh_window_t3},
+        {"T4 asm-6core", bh_window_t4},
     };
 
     // Anchor T0 against the independent reference on a small case.
