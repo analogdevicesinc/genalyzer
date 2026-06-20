@@ -16,6 +16,9 @@
 
 using std::size_t;
 
+extern "C" void bh_apply_asm(const double* sw, const double* I,
+                             const double* Q, double* out, size_t nfft);
+
 // ---- Blackman-Harris constants (from src/fourier_transforms.cpp) ----
 static const double bh_kx = 1.9688861870585801;
 static const double bh_k0 = 0.35875;
@@ -171,6 +174,22 @@ void bh_window_t2(const double* i_data, const double* q_data, double* out_data,
     }
 }
 
+// T3: shared precomputed window, assembly apply kernel, single core.
+void bh_window_t3(const double* i_data, const double* q_data, double* out_data,
+                  size_t in_stride, size_t navg, size_t nfft) {
+    assert(in_stride == 1 && "T3 asm path assumes unit stride");
+    static thread_local std::vector<double> sw;
+    sw.resize(nfft);
+    gen_scaled_window(sw.data(), nfft);
+    const size_t in_row_stride = nfft * in_stride;
+    const size_t out_row_stride = nfft * 2;
+    for (size_t k = 0; k < navg; ++k) {
+        bh_apply_asm(sw.data(), i_data + k * in_row_stride,
+                     q_data + k * in_row_stride, out_data + k * out_row_stride,
+                     nfft);
+    }
+}
+
 int main() {
     const size_t in_stride = 1;
     struct Tier { const char* name; window_fn fn; };
@@ -178,6 +197,7 @@ int main() {
         {"T0 baseline", bh_window_t0},
         {"T1 no-trig ", bh_window_t1},
         {"T2 avx-intr", bh_window_t2},
+        {"T3 asm-1core", bh_window_t3},
     };
 
     // Anchor T0 against the independent reference on a small case.
