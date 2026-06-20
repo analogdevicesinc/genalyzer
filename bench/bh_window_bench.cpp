@@ -116,6 +116,9 @@ void gen_scaled_window(double* sw, size_t nfft) {
 // T1: precompute scaled window once, then scalar apply across all navg rows.
 void bh_window_t1(const double* i_data, const double* q_data, double* out_data,
                   size_t in_stride, size_t navg, size_t nfft) {
+    // Scratch buffer reused only to avoid reallocation; the window is
+    // regenerated every call by design (we measure per-call generate+apply
+    // cost, as the library does). NOT a cross-call cache.
     static thread_local std::vector<double> sw;
     sw.resize(nfft);
     gen_scaled_window(sw.data(), nfft);
@@ -170,6 +173,26 @@ int main() {
             t.fn(I.data(), Q.data(), got.data(), in_stride, navg, nfft);
             double e = max_abs_err(ref.data(), got.data(), ref.size());
             std::printf("correctness: %s max-abs-err = %.3e -> %s\n",
+                        t.name, e, e < 1e-9 ? "PASS" : "FAIL");
+            if (!(e < 1e-9)) return 1;
+        }
+    }
+
+    // Correctness (renorm coverage): nfft not a multiple of 1024 exercises the
+    // phasor renormalization branch and its partial tail.
+    {
+        const size_t nfft = 3000, navg = 1;
+        std::mt19937_64 rng(99);
+        std::uniform_real_distribution<double> dist(-1.0, 1.0);
+        std::vector<double> I(nfft * navg), Q(nfft * navg);
+        for (size_t n = 0; n < I.size(); ++n) { I[n] = dist(rng); Q[n] = dist(rng); }
+        std::vector<double> ref(nfft * navg * 2), got(nfft * navg * 2);
+        bh_window_t0(I.data(), Q.data(), ref.data(), in_stride, navg, nfft);
+        for (const Tier& t : tiers) {
+            std::fill(got.begin(), got.end(), 0.0);
+            t.fn(I.data(), Q.data(), got.data(), in_stride, navg, nfft);
+            double e = max_abs_err(ref.data(), got.data(), ref.size());
+            std::printf("renorm-cov:  %s max-abs-err = %.3e -> %s\n",
                         t.name, e, e < 1e-9 ? "PASS" : "FAIL");
             if (!(e < 1e-9)) return 1;
         }
