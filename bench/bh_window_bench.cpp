@@ -248,6 +248,26 @@ void bh_window_t4(const double* i_data, const double* q_data, double* out_data,
     }
 }
 
+// Best Msamples/s over repeated runs totaling >= min_sec (warm-up discarded).
+double bench_msps(window_fn fn, const double* I, const double* Q, double* out,
+                  size_t in_stride, size_t navg, size_t nfft, double min_sec) {
+    fn(I, Q, out, in_stride, navg, nfft);  // warm-up
+    using clk = std::chrono::steady_clock;
+    double best = 0.0, elapsed = 0.0;
+    auto t0 = clk::now();
+    const double samples = (double)nfft * (double)navg;
+    while (elapsed < min_sec) {
+        auto a = clk::now();
+        fn(I, Q, out, in_stride, navg, nfft);
+        auto b = clk::now();
+        double dt = std::chrono::duration<double>(b - a).count();
+        double msps = samples / dt / 1e6;
+        if (msps > best) best = msps;
+        elapsed = std::chrono::duration<double>(b - t0).count();
+    }
+    return best;
+}
+
 int main() {
     const size_t in_stride = 1;
     struct Tier { const char* name; window_fn fn; };
@@ -312,6 +332,36 @@ int main() {
                         t.name, e, e < 1e-9 ? "PASS" : "FAIL");
             if (!(e < 1e-9)) return 1;
         }
+    }
+
+    // ---- Timing sweep ----
+    struct Cfg { size_t nfft, navg; };
+    Cfg cfgs[] = {
+        {4096, 1}, {4096, 8},
+        {65536, 1}, {65536, 8},
+        {1048576, 1}, {1048576, 8},
+    };
+    std::printf("\n%-12s %9s %6s %12s %10s %12s\n",
+                "tier", "nfft", "navg", "Msamples/s", "speedup", "max-abs-err");
+    std::mt19937_64 rng(2024);
+    std::uniform_real_distribution<double> dist(-1.0, 1.0);
+    for (const Cfg& c : cfgs) {
+        std::vector<double> I(c.nfft * c.navg), Q(c.nfft * c.navg);
+        for (size_t n = 0; n < I.size(); ++n) { I[n] = dist(rng); Q[n] = dist(rng); }
+        std::vector<double> ref(c.nfft * c.navg * 2), got(c.nfft * c.navg * 2);
+        bh_window_t0(I.data(), Q.data(), ref.data(), in_stride, c.navg, c.nfft);
+        double base_msps = 0.0;
+        for (const Tier& t : tiers) {
+            std::fill(got.begin(), got.end(), 0.0);
+            t.fn(I.data(), Q.data(), got.data(), in_stride, c.navg, c.nfft);
+            double e = max_abs_err(ref.data(), got.data(), ref.size());
+            double msps = bench_msps(t.fn, I.data(), Q.data(), got.data(),
+                                     in_stride, c.navg, c.nfft, 0.5);
+            if (&t == &tiers[0]) base_msps = msps;
+            std::printf("%-12s %9zu %6zu %12.1f %9.2fx %12.2e\n",
+                        t.name, c.nfft, c.navg, msps, msps / base_msps, e);
+        }
+        std::printf("\n");
     }
     return 0;
 }
