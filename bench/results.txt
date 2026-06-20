@@ -1,3 +1,4 @@
+# Generated 2026-06-19 on Xeon E5-1650 @ 3.20GHz (AVX-256, no FMA), g++ 13.3, build.sh flags: -O3 -mavx -std=c++17 -pthread
 anchor: T0 vs ref max-abs-err = 0.000e+00 -> PASS
 correctness: T0 baseline max-abs-err = 0.000e+00 -> PASS
 correctness: T1 no-trig  max-abs-err = 3.531e-14 -> PASS
