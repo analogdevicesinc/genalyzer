@@ -7,13 +7,12 @@ Python wrapper for Genalyzer Library (genalyzer_plus_plus)
 """
 
 import ctypes as _ctypes
-import os as _os
-import sys as _sys
-from ctypes.util import find_library as _find_library
 from enum import IntEnum as _IntEnum
 
 import numpy as _np
 from numpy.ctypeslib import ndpointer as _ndptr
+
+from ._libloader import load_genalyzer_library as _load_genalyzer_library
 
 _c_bool = _ctypes.c_bool
 _c_char_p = _ctypes.c_char_p
@@ -38,19 +37,9 @@ _ndptr_u32_1d = _ndptr(dtype=_np.uint32, ndim=1)
 _ndptr_u64_1d = _ndptr(dtype=_np.uint64, ndim=1)
 del _ndptr
 
-_module_dir = _os.path.dirname(__file__)
-if "linux" == _sys.platform:
-    _libpath = _find_library("genalyzer")
-elif "win32" == _sys.platform:
-    _libpath = _find_library("libgenalyzer.dll")
-else:
-    raise Exception(f"Platform '{_sys.platform}' is not supported.")
+_lib, _libpath = _load_genalyzer_library()
 
-if _libpath is None:
-    raise OSError(2, "Could not find genalyzer C library")
-_lib = _ctypes.cdll.LoadLibrary(_libpath)
-
-del _find_library, _os, _sys
+del _load_genalyzer_library
 
 _lib.gn_set_string_termination(True)
 

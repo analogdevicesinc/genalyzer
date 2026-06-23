@@ -13,6 +13,7 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 option(BUILD_DOC "Generate documentation" OFF)
 option(BUILD_TESTS_EXAMPLES "Build tests and examples" OFF)
 option(COVERAGE "Enable coverage tracing when testing" OFF)
+option(GENALYZER_NATIVE_OPTIMIZATIONS "Enable host-specific native CPU optimizations" OFF)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -24,8 +25,10 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(CMAKE_CXX_FLAGS
         "${CMAKE_CXX_FLAGS} -std=gnu++17 -fext-numeric-literals")
-    set(CMAKE_CXX_FLAGS_RELEASE
-        "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+    if(GENALYZER_NATIVE_OPTIMIZATIONS)
+      set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
+    endif()
     # If GCC is older than 8.0.0, enable experimental filesystem
     execute_process(
       COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)

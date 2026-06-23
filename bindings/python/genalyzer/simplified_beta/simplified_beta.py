@@ -23,19 +23,13 @@ from ctypes import (
     Structure,
     c_void_p,
     c_char_p,
-    CDLL,
 )
-from platform import system as _system
-from ctypes.util import find_library
-import os
 
-if "Windows" in _system():
-    _libgen = "libgenalyzer.dll"
-else:
-    # Non-windows, possibly Posix system
-    _libgen = "genalyzer"
+from genalyzer._libloader import load_genalyzer_library as _load_genalyzer_library
 
-_libgen = CDLL(find_library(_libgen), use_errno=True, use_last_error=True)
+_libgen, _libgen_path = _load_genalyzer_library(use_errno=True, use_last_error=True)
+
+del _load_genalyzer_library
 
 
 class _GNConfig(Structure):

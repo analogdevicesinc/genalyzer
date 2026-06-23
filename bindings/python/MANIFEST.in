@@ -1,6 +1,15 @@
 include README.md
+include LICENSE
+include LICENSE_ADIBSD
+include THIRD_PARTY_LICENSES.md
+include dependencies/LICENSE_pytest-reporter-html1
+include genalyzer/*.dll
+include genalyzer/*.dylib
+include genalyzer/*.so
+include genalyzer/*.so.*
 include genalyzer/pytest/templates/genalyzer/*
 include genalyzer/pytest/templates/genalyzer/icons/*
+recursive-include tools *.py *.ps1
 
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
