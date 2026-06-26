@@ -4,12 +4,15 @@
 """Tests for MCP histogram tools."""
 
 import sys
-import pytest
+
 import numpy as np
+import pytest
 
 pytestmark = [
     pytest.mark.genalyzer,
-    pytest.mark.skipif(sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"),
+    pytest.mark.skipif(
+        sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"
+    ),
 ]
 
 
@@ -44,6 +47,7 @@ class TestAnalyzeHistogram:
 
     def test_analyze_histogram_with_plot(self, synthetic_ramp):
         from pathlib import Path
+
         from genalyzer.mcp.histogram import analyze_histogram
 
         result = analyze_histogram(

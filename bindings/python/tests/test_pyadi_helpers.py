@@ -1,17 +1,19 @@
 """Tests for pyadi_helpers module"""
 
-import pytest
-
 from importlib.util import find_spec
 
+import pytest
+
 if find_spec("adi") is not None and find_spec("iio") is not None:
+    import os
+
     import adi
     import iio
     import numpy as np
-    import genalyzer as gn
-    import os
 
-    URI=os.getenv("URI", "ip:192.168.86.35")
+    import genalyzer as gn
+
+    URI = os.getenv("URI", "ip:192.168.86.35")
 
     skip_pyadi_iio = False
 else:
@@ -23,6 +25,7 @@ else:
 def test_fft_analysis_pyadi(channels):
 
     import time
+
     #
     # Setup Example parameters
     #
@@ -55,7 +58,7 @@ def test_fft_analysis_pyadi(channels):
     time.sleep(2)
 
     # Acquisition and processing
-    for i in range(16):
+    for _ in range(16):
         x = sdr.rx()
 
     fft_cplx, fft_db, fft_freq_out = gn.pai.fft(sdr, x, navg, window)
@@ -105,7 +108,7 @@ def test_fft_analysis_pyadi(channels):
         "A:phase",
         "-3A:mag_dbc",
     ]:
-        print("{:20s}{:20.6f}".format(k, results[k]))
+        print(f"{k:20s}{results[k]:20.6f}")
     print("{:20s}{:20s}".format("Carrier", carrier))
     print("{:20s}{:20s}".format("MaxSpur", maxspur))
 
@@ -154,4 +157,3 @@ def test_fft_analysis_pyadi(channels):
                 )
             )
         pl.show()
-

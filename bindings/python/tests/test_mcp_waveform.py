@@ -4,12 +4,15 @@
 """Tests for MCP waveform (time-domain) tools."""
 
 import sys
-import pytest
+
 import numpy as np
+import pytest
 
 pytestmark = [
     pytest.mark.genalyzer,
-    pytest.mark.skipif(sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"),
+    pytest.mark.skipif(
+        sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"
+    ),
 ]
 
 

@@ -78,6 +78,9 @@ collect_ignore_glob = ["tests/reports/samples/*"]
 [tool.ruff]
 line-length = 88
 target-version = "py39"
+# Sample modules are intentional pytest-report fixtures (deliberate failures,
+# warnings, reruns) and must not be linted or reformatted.
+extend-exclude = ["tests/reports/samples"]
 
 [tool.ruff.lint]
 select = [
@@ -123,5 +126,16 @@ invalid-parameter-default = "ignore"
 invalid-return-type = "ignore"
 not-iterable = "ignore"
 unresolved-reference = "ignore"
+unresolved-attribute = "ignore"
+unsupported-operator = "ignore"
+
+# Tests exercise the dynamically-typed ctypes/library surface, which produces
+# the same false positives ty flags on the library subpackages above.
+[[tool.ty.overrides]]
+include = ["tests/**"]
+[tool.ty.overrides.rules]
+invalid-assignment = "ignore"
+invalid-argument-type = "ignore"
+not-iterable = "ignore"
 unresolved-attribute = "ignore"
 unsupported-operator = "ignore"

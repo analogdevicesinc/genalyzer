@@ -1,12 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 # Ported from https://github.com/christiansandberg/pytest-reporter-html1
-import re
 import os
+import re
 
 import pytest
 from bs4 import BeautifulSoup
-
 
 pytest_plugins = ["pytester"]
 
@@ -37,7 +36,7 @@ def test_sample_report(args, testdir, pytestconfig):
 
     testdir.copy_example(os.path.join(file_location, "samples"))
 
-    report = "{}/report/{}".format(pytestconfig.rootdir, args[0])
+    report = f"{pytestconfig.rootdir}/report/{args[0]}"
     result = testdir.runpytest(
         *args[1:], "--doctest-glob", "sample_*.txt", "--report=" + report
     )

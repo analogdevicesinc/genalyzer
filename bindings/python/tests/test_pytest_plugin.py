@@ -1,12 +1,13 @@
 import numpy as np
-import genalyzer as gn
-
 import plotly.graph_objects as go
 
+import genalyzer as gn
+
 try:
-    import plotly.express as px
     import numpy as np
     import pandas as pd
+    import plotly.express as px
+
     HAS_NUMPY_PANDAS = True
 except ImportError:
     HAS_NUMPY_PANDAS = False
@@ -24,7 +25,6 @@ def test_smoke(gn_plot_manager):
     #
     # Setup
     #
-    plot = True
     navg = 2
     nfft = 1024 * 16
     fs = 1e9
@@ -75,7 +75,7 @@ def test_smoke(gn_plot_manager):
 
     gn_plot_manager.gn_plot_fft_single_tone(
         data=xwf,
-        full_scale=2**(qres),
+        full_scale=2 ** (qres),
         sample_rate=fs,
         tone_frequency=freq,
         ssb_rest=3,
@@ -126,7 +126,7 @@ def test_smoke(gn_plot_manager):
         "A:phase",
         "-3A:mag_dbc",
     ]:
-        print("{:20s}{:20.6f}".format(k, results[k]))
+        print(f"{k:20s}{results[k]:20.6f}")
     print("{:20s}{:20s}".format("Carrier", carrier))
     print("{:20s}{:20s}".format("MaxSpur", maxspur))
 
@@ -181,6 +181,7 @@ def test_smoke(gn_plot_manager):
 
     # Save to html
     import mpld3
+
     html_str = mpld3.fig_to_html(fig)
     gn_plot_manager.add_plot_html(html_str, name="FFT Analysis (mpld3)")
 
@@ -189,21 +190,22 @@ def test_smoke(gn_plot_manager):
 
     gn_plot_manager.add_plot_img_file(filename, name="FFT Analysis")
 
+
 def test_basic_scatter_plot(gn_plot_manager):
     """Test with basic scatter plot using simple lists."""
     x_values = [1, 2, 3, 4, 5]
     y_values = [2, 5, 3, 8, 7]
 
-    fig = go.Figure(data=go.Scatter(
-        x=x_values,
-        y=y_values,
-        mode='markers',
-        marker=dict(size=10, color='blue')  # Make markers visible
-    ))
+    fig = go.Figure(
+        data=go.Scatter(
+            x=x_values,
+            y=y_values,
+            mode="markers",
+            marker=dict(size=10, color="blue"),  # Make markers visible
+        )
+    )
     fig.update_layout(
-        title="Basic Scatter Plot",
-        xaxis_title="X Values",
-        yaxis_title="Y Values"
+        title="Basic Scatter Plot", xaxis_title="X Values", yaxis_title="Y Values"
     )
     gn_plot_manager.add_plot(fig, name="Simple Scatter")
 

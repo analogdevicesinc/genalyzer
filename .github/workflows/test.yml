@@ -106,6 +106,8 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           path-to-lcov: build/main_coverage.info
+          flag-name: c
+          parallel: true
 
   TestCMacOS:
     runs-on: macos-latest
@@ -151,9 +153,27 @@ jobs:
       - name: Test
         run: |
           cd bindings/python
-          pip install ".[tools,pytest,mcp]"
-          python -m pytest -vs tests
+          pip install -e ".[tools,pytest,mcp]"
+          python -m pytest -vs --cov=genalyzer --cov-report=xml --cov-report=term tests
           for f in examples/*.py; do python "$f"; done
+
+      - name: Upload Python coverage to Coveralls
+        if: matrix.python-version == '3.12'
+        uses: coverallsapp/github-action@v2
+        with:
+          file: bindings/python/coverage.xml
+          format: cobertura
+          flag-name: python
+          parallel: true
+
+  CoverallsFinish:
+    needs: [CoverageTest, TestPython]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Finalize Coveralls parallel build
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel-finished: true
 
   Lint:
     runs-on: ubuntu-24.04
@@ -176,10 +196,10 @@ jobs:
       - name: Ruff lint and format
         run: |
           cd bindings/python
-          ruff check genalyzer/
-          ruff format --check genalyzer/
+          ruff check genalyzer/ tests/
+          ruff format --check genalyzer/ tests/
 
       - name: Type check
         run: |
           cd bindings/python
-          ty check genalyzer/
+          ty check genalyzer/ tests/
