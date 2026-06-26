@@ -1,4 +1,10 @@
-import os, glob, json, pytest, genalyzer
+import glob
+import json
+import os
+
+import pytest
+
+import genalyzer
 
 try:
     import genalyzer.helpers.WaveformGen
@@ -132,10 +138,7 @@ def test_fft(filename):
 def test_get_fa_results(filename):
     with open(filename) as f:
         data = json.load(f)
-        if data["num_tones"] == 1:
-            freq_list = [data["freq"]]
-        else:
-            freq_list = data["freq"]
+        freq_list = [data["freq"]] if data["num_tones"] == 1 else data["freq"]
 
         qwfi = data["test_vecq_i"]
         qwfi = [int(i) for i in qwfi]
@@ -144,11 +147,15 @@ def test_get_fa_results(filename):
         c = genalyzer.simplified_beta.simplified_beta.config_fftz(
             data["npts"], data["qres"], data["navg"], data["nfft"], data["win"] - 1
         )
-        fft_out_i, fft_out_q = genalyzer.simplified_beta.simplified_beta.fftz(qwfi, qwfq, c)
+        fft_out_i, fft_out_q = genalyzer.simplified_beta.simplified_beta.fftz(
+            qwfi, qwfq, c
+        )
         fft_out = [val for pair in zip(fft_out_i, fft_out_q) for val in pair]
         genalyzer.simplified_beta.simplified_beta.config_set_sample_rate(data["fs"], c)
         genalyzer.simplified_beta.simplified_beta.config_fa(freq_list[0], c)
-        fa_results = genalyzer.simplified_beta.simplified_beta.get_fa_results(fft_out, c)
+        fa_results = genalyzer.simplified_beta.simplified_beta.get_fa_results(
+            fft_out, c
+        )
         genalyzer.simplified_beta.simplified_beta.config_free(c)
         assert bool(fa_results), "the dict is non empty"
 
@@ -157,10 +164,7 @@ def test_get_fa_results(filename):
 def test_get_fa_single_result(filename):
     with open(filename) as f:
         data = json.load(f)
-        if data["num_tones"] == 1:
-            freq_list = [data["freq"]]
-        else:
-            freq_list = data["freq"]
+        freq_list = [data["freq"]] if data["num_tones"] == 1 else data["freq"]
 
         qwfi = data["test_vecq_i"]
         qwfi = [int(i) for i in qwfi]
@@ -207,7 +211,9 @@ def test_get_wfa_results(filename):
         assert bool(wfa_results), "the dict is non empty"
 
 
-@pytest.mark.skipif(genalyzer.helpers.WaveformGen is None, reason="WaveformGen not available")
+@pytest.mark.skipif(
+    genalyzer.helpers.WaveformGen is None, reason="WaveformGen not available"
+)
 @pytest.mark.parametrize("filename", test_gen_wave_data)
 def test_gen_wf_data(filename):
     with open(filename) as f:

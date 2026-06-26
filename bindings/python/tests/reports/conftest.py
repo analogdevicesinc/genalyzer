@@ -1,4 +1,5 @@
 import pytest
+
 from genalyzer.pytest.plugin import _plot_manager
 
 

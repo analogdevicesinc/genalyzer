@@ -5,13 +5,14 @@
 
 import sys
 
-import pytest
 import numpy as np
-
+import pytest
 
 pytestmark = [
     pytest.mark.genalyzer,
-    pytest.mark.skipif(sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"),
+    pytest.mark.skipif(
+        sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"
+    ),
 ]
 
 
@@ -19,7 +20,14 @@ pytestmark = [
 def mcp_server():
     """Create and return the MCP server instance with all tools registered."""
     # Import every domain module so @mcp.tool() decorators register.
-    from genalyzer.mcp import fourier, generators, histogram, linearity, quantize, waveform  # noqa: F401
+    from genalyzer.mcp import (
+        fourier,
+        generators,
+        histogram,
+        linearity,
+        quantize,
+        waveform,
+    )
     from genalyzer.mcp.server import mcp
 
     return mcp
@@ -70,8 +78,9 @@ class TestServerRegistration:
         assert mcp_server.name == "genalyzer"
 
     def test_import_from_new_location(self):
-        from genalyzer.mcp.server import mcp as new_mcp
         from genalyzer.mcp.server import main as new_main
+        from genalyzer.mcp.server import mcp as new_mcp
+
         assert new_mcp.name == "genalyzer"
         assert callable(new_main)
 
@@ -124,7 +133,7 @@ class TestAnalyzeSpectrum:
         assert "error" in result
 
     def test_analyze_spectrum_synthetic(self, tmp_path):
-        from genalyzer.mcp_server import generate_test_tone, analyze_spectrum
+        from genalyzer.mcp_server import analyze_spectrum, generate_test_tone
 
         # Generate a synthetic tone
         tone_path = str(tmp_path / "tone.npy")
@@ -165,6 +174,7 @@ class TestAnalyzeSpectrum:
 
     def test_analyze_spectrum_plot_opt_in(self, tmp_path):
         from pathlib import Path
+
         from genalyzer.mcp_server import analyze_spectrum, generate_test_tone
 
         tone_path = str(tmp_path / "tone.npy")
@@ -187,7 +197,7 @@ class TestComputeFFT:
     """Test the compute_fft tool."""
 
     def test_compute_fft_output(self, tmp_path):
-        from genalyzer.mcp_server import generate_test_tone, compute_fft
+        from genalyzer.mcp_server import compute_fft, generate_test_tone
 
         tone_path = str(tmp_path / "tone.npy")
         generate_test_tone(
@@ -214,7 +224,7 @@ class TestGetFAMetrics:
     """Test the get_fa_metrics tool."""
 
     def test_get_fa_metrics_keys(self, tmp_path):
-        from genalyzer.mcp_server import generate_test_tone, compute_fft, get_fa_metrics
+        from genalyzer.mcp_server import compute_fft, generate_test_tone, get_fa_metrics
 
         tone_path = str(tmp_path / "tone.npy")
         generate_test_tone(

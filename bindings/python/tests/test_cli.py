@@ -11,7 +11,10 @@ from click.testing import CliRunner
 
 pytestmark = [
     pytest.mark.genalyzer,
-    pytest.mark.skipif(sys.version_info < (3, 10), reason="CLI wraps MCP tools which require Python 3.10+"),
+    pytest.mark.skipif(
+        sys.version_info < (3, 10),
+        reason="CLI wraps MCP tools which require Python 3.10+",
+    ),
 ]
 
 
@@ -23,19 +26,26 @@ def runner():
 class TestStructure:
     def test_cli_importable(self):
         from genalyzer.cli.main import cli
+
         assert cli.name == "cli" or cli.name == "genalyzer"
 
     def test_version(self, runner):
         from genalyzer.cli.main import cli
+
         result = runner.invoke(cli, ["--version"])
         assert result.exit_code == 0
-        assert "genalyzer" in result.output.lower() or any(c.isdigit() for c in result.output)
+        assert "genalyzer" in result.output.lower() or any(
+            c.isdigit() for c in result.output
+        )
 
     def test_tools_lists_sixteen_names(self, runner):
         from genalyzer.cli.main import cli
+
         result = runner.invoke(cli, ["tools"])
         assert result.exit_code == 0
-        names = [line.strip() for line in result.output.strip().splitlines() if line.strip()]
+        names = [
+            line.strip() for line in result.output.strip().splitlines() if line.strip()
+        ]
         assert len(names) == 16
         for expected in ("generate_test_tone", "analyze_spectrum", "analyze_waveform"):
             assert expected in names
@@ -44,13 +54,16 @@ class TestStructure:
 class TestBuilder:
     def test_translate_int_required(self):
         import inspect
+
         from genalyzer.cli._builder import _translate
 
         def _fn(x: int):
             pass
+
         param = inspect.signature(_fn).parameters["x"]
         click_type, required, default, is_flag = _translate(param)
         import click as _click
+
         assert click_type is _click.INT
         assert required is True
         assert default is None
@@ -58,13 +71,16 @@ class TestBuilder:
 
     def test_translate_float_with_default(self):
         import inspect
+
         from genalyzer.cli._builder import _translate
 
         def _fn(x: float = 1.5):
             pass
+
         param = inspect.signature(_fn).parameters["x"]
         click_type, required, default, is_flag = _translate(param)
         import click as _click
+
         assert click_type is _click.FLOAT
         assert required is False
         assert default == 1.5
@@ -72,23 +88,28 @@ class TestBuilder:
 
     def test_translate_str(self):
         import inspect
+
         from genalyzer.cli._builder import _translate
 
         def _fn(x: str = "hello"):
             pass
+
         param = inspect.signature(_fn).parameters["x"]
-        click_type, required, default, is_flag = _translate(param)
+        click_type, _required, default, is_flag = _translate(param)
         import click as _click
+
         assert click_type is _click.STRING
         assert default == "hello"
         assert is_flag is False
 
     def test_translate_bool_becomes_flag(self):
         import inspect
+
         from genalyzer.cli._builder import _translate
 
         def _fn(plot: bool = False):
             pass
+
         param = inspect.signature(_fn).parameters["plot"]
         _click_type, _required, default, is_flag = _translate(param)
         assert is_flag is True
@@ -96,13 +117,16 @@ class TestBuilder:
 
     def test_translate_optional_int(self):
         import inspect
+
         from genalyzer.cli._builder import _translate
 
         def _fn(nfft: int | None = None):
             pass
+
         param = inspect.signature(_fn).parameters["nfft"]
         click_type, required, default, is_flag = _translate(param)
         import click as _click
+
         assert click_type is _click.INT
         assert required is False
         assert default is None
@@ -110,16 +134,19 @@ class TestBuilder:
 
     def test_translate_unsupported_raises(self):
         import inspect
+
         from genalyzer.cli._builder import _translate
 
         def _fn(x: list[int]):
             pass
+
         param = inspect.signature(_fn).parameters["x"]
         with pytest.raises(ValueError, match="unsupported annotation"):
             _translate(param)
 
     def test_json_default_numpy_scalar(self):
         import numpy as np
+
         from genalyzer.cli._builder import _json_default
 
         assert _json_default(np.float64(1.5)) == 1.5
@@ -127,12 +154,14 @@ class TestBuilder:
 
     def test_json_default_numpy_array(self):
         import numpy as np
+
         from genalyzer.cli._builder import _json_default
 
         assert _json_default(np.array([1.0, 2.0])) == [1.0, 2.0]
 
     def test_json_default_falls_back_to_str(self):
         from pathlib import Path
+
         from genalyzer.cli._builder import _json_default
 
         assert _json_default(Path("/tmp/x")) == "/tmp/x"
@@ -140,11 +169,15 @@ class TestBuilder:
     def test_click_from_tool_roundtrip(self, runner):
         from genalyzer.cli._builder import click_from_tool
 
-        def sample(a: int, b: float = 1.0, c: str | None = None, plot: bool = False) -> dict:
+        def sample(
+            a: int, b: float = 1.0, c: str | None = None, plot: bool = False
+        ) -> dict:
             return {"a": a, "b": b, "c": c, "plot": plot}
 
         cmd = click_from_tool(sample, "sample")
-        result = runner.invoke(cmd, ["--a", "3", "--b", "2.5", "--c", "hi", "--plot", "--compact"])
+        result = runner.invoke(
+            cmd, ["--a", "3", "--b", "2.5", "--c", "hi", "--plot", "--compact"]
+        )
         assert result.exit_code == 0, result.output
         data = json.loads(result.output.strip())
         assert data == {"a": 3, "b": 2.5, "c": "hi", "plot": True}
@@ -231,23 +264,32 @@ class TestRegistration:
 
         for group, sub, _mcp_name in expected:
             cmd_path = [group, sub] if group else [sub]
-            result = runner.invoke(cli, cmd_path + ["--help"])
-            assert result.exit_code == 0, f"Missing command: genalyzer {' '.join(cmd_path)}\n{result.output}"
+            result = runner.invoke(cli, [*cmd_path, "--help"])
+            assert result.exit_code == 0, (
+                f"Missing command: genalyzer {' '.join(cmd_path)}\n{result.output}"
+            )
 
 
 class TestSmokePerGroup:
     def test_generators_test_tone(self, runner, tmp_path):
         from genalyzer.cli.main import cli
+
         out = str(tmp_path / "tone.npy")
         result = runner.invoke(
             cli,
             [
-                "generators", "test-tone",
-                "--num-points", "1024",
-                "--sample-rate", "250e6",
-                "--tone-freq", "30e6",
-                "--amplitude", "0.9",
-                "--output-path", out,
+                "generators",
+                "test-tone",
+                "--num-points",
+                "1024",
+                "--sample-rate",
+                "250e6",
+                "--tone-freq",
+                "30e6",
+                "--amplitude",
+                "0.9",
+                "--output-path",
+                out,
                 "--compact",
             ],
         )
@@ -257,6 +299,7 @@ class TestSmokePerGroup:
 
     def test_quantize(self, runner, synthetic_ramp, tmp_path):
         import numpy as np
+
         from genalyzer.cli.main import cli
 
         # Convert int32 ramp to float (gn.quantize requires float input)
@@ -270,10 +313,14 @@ class TestSmokePerGroup:
             cli,
             [
                 "quantize",
-                "--npy-path", float_path,
-                "--bits", "12",
-                "--fullscale", "2.0",
-                "--output-path", out,
+                "--npy-path",
+                float_path,
+                "--bits",
+                "12",
+                "--fullscale",
+                "2.0",
+                "--output-path",
+                out,
                 "--compact",
             ],
         )
@@ -284,14 +331,20 @@ class TestSmokePerGroup:
 
     def test_fourier_analyze(self, runner, synthetic_tone):
         from genalyzer.cli.main import cli
+
         result = runner.invoke(
             cli,
             [
-                "fourier", "analyze",
-                "--npy-path", synthetic_tone["path"],
-                "--sample-rate", str(synthetic_tone["sample_rate"]),
-                "--window", "blackman_harris",
-                "--ssb", "3",
+                "fourier",
+                "analyze",
+                "--npy-path",
+                synthetic_tone["path"],
+                "--sample-rate",
+                str(synthetic_tone["sample_rate"]),
+                "--window",
+                "blackman_harris",
+                "--ssb",
+                "3",
                 "--compact",
             ],
         )
@@ -302,12 +355,16 @@ class TestSmokePerGroup:
 
     def test_histogram_analyze(self, runner, synthetic_ramp):
         from genalyzer.cli.main import cli
+
         result = runner.invoke(
             cli,
             [
-                "histogram", "analyze",
-                "--npy-path", synthetic_ramp["path"],
-                "--nbits", str(synthetic_ramp["nbits"]),
+                "histogram",
+                "analyze",
+                "--npy-path",
+                synthetic_ramp["path"],
+                "--nbits",
+                str(synthetic_ramp["nbits"]),
                 "--compact",
             ],
         )
@@ -317,13 +374,18 @@ class TestSmokePerGroup:
 
     def test_linearity_analyze_dnl(self, runner, synthetic_ramp):
         from genalyzer.cli.main import cli
+
         result = runner.invoke(
             cli,
             [
-                "linearity", "analyze-dnl",
-                "--npy-path", synthetic_ramp["path"],
-                "--nbits", str(synthetic_ramp["nbits"]),
-                "--signal-type", "ramp",
+                "linearity",
+                "analyze-dnl",
+                "--npy-path",
+                synthetic_ramp["path"],
+                "--nbits",
+                str(synthetic_ramp["nbits"]),
+                "--signal-type",
+                "ramp",
                 "--compact",
             ],
         )
@@ -333,6 +395,7 @@ class TestSmokePerGroup:
 
     def test_waveform_stats(self, runner, synthetic_tone):
         from genalyzer.cli.main import cli
+
         result = runner.invoke(
             cli,
             ["waveform", "stats", "--npy-path", synthetic_tone["path"], "--compact"],
@@ -346,6 +409,7 @@ class TestSmokePerGroup:
 class TestOutputModes:
     def test_default_is_pretty_printed(self, runner, synthetic_tone):
         from genalyzer.cli.main import cli
+
         result = runner.invoke(
             cli,
             ["waveform", "stats", "--npy-path", synthetic_tone["path"]],
@@ -356,6 +420,7 @@ class TestOutputModes:
 
     def test_compact_is_single_line(self, runner, synthetic_tone):
         from genalyzer.cli.main import cli
+
         result = runner.invoke(
             cli,
             ["waveform", "stats", "--npy-path", synthetic_tone["path"], "--compact"],
@@ -367,13 +432,17 @@ class TestOutputModes:
 
     def test_tool_error_exits_zero_with_error_key(self, runner, tmp_path):
         from genalyzer.cli.main import cli
+
         missing = str(tmp_path / "does_not_exist.npy")
         result = runner.invoke(
             cli,
             [
-                "fourier", "analyze",
-                "--npy-path", missing,
-                "--sample-rate", "250e6",
+                "fourier",
+                "analyze",
+                "--npy-path",
+                missing,
+                "--sample-rate",
+                "250e6",
                 "--compact",
             ],
         )
@@ -385,6 +454,7 @@ class TestOutputModes:
 
     def test_click_arg_error_exits_two(self, runner):
         from genalyzer.cli.main import cli
+
         # Missing required --npy-path
         result = runner.invoke(cli, ["fourier", "analyze", "--sample-rate", "250e6"])
         assert result.exit_code == 2
@@ -399,12 +469,18 @@ class TestEndToEnd:
         r1 = runner.invoke(
             cli,
             [
-                "generators", "real-tone",
-                "--num-points", "8192",
-                "--sample-rate", "250e6",
-                "--tone-freq", "30e6",
-                "--amplitude", "0.9",
-                "--output-path", tone_out,
+                "generators",
+                "real-tone",
+                "--num-points",
+                "8192",
+                "--sample-rate",
+                "250e6",
+                "--tone-freq",
+                "30e6",
+                "--amplitude",
+                "0.9",
+                "--output-path",
+                tone_out,
                 "--compact",
             ],
         )
@@ -416,10 +492,14 @@ class TestEndToEnd:
             cli,
             [
                 "quantize",
-                "--npy-path", tone_path,
-                "--bits", "12",
-                "--fullscale", "2.0",
-                "--output-path", q_out,
+                "--npy-path",
+                tone_path,
+                "--bits",
+                "12",
+                "--fullscale",
+                "2.0",
+                "--output-path",
+                q_out,
                 "--compact",
             ],
         )
@@ -429,15 +509,22 @@ class TestEndToEnd:
         r3 = runner.invoke(
             cli,
             [
-                "fourier", "analyze",
-                "--npy-path", q_path,
-                "--sample-rate", "250e6",
-                "--window", "blackman_harris",
-                "--ssb", "3",
+                "fourier",
+                "analyze",
+                "--npy-path",
+                q_path,
+                "--sample-rate",
+                "250e6",
+                "--window",
+                "blackman_harris",
+                "--ssb",
+                "3",
                 "--compact",
             ],
         )
         assert r3.exit_code == 0, r3.output
         analysis = json.loads(r3.output.strip())
         assert "error" not in analysis, analysis
-        assert 11.5 < analysis["enob"] < 12.5, f"ENOB out of envelope: {analysis['enob']}"
+        assert 11.5 < analysis["enob"] < 12.5, (
+            f"ENOB out of envelope: {analysis['enob']}"
+        )

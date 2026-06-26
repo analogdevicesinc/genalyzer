@@ -75,9 +75,18 @@ repository = "https://github.com/analogdevicesinc/genalyzer"
 [tool.pytest.ini_options]
 collect_ignore_glob = ["tests/reports/samples/*"]
 
+[tool.coverage.run]
+source = ["genalyzer"]
+# Store paths relative to bindings/python so Coveralls can map them back to the
+# repo via base-path (the package is installed editable in CI).
+relative_files = true
+
 [tool.ruff]
 line-length = 88
 target-version = "py39"
+# Intentional demo files for the pytest HTML reporter (failing/warning tests,
+# unusual patterns); also excluded from pytest collection above.
+extend-exclude = ["tests/reports/samples"]
 
 [tool.ruff.lint]
 select = [
@@ -111,11 +120,15 @@ quote-style = "double"
 [tool.ty.environment]
 python-version = "3.9"
 
+[tool.ty.src]
+# Intentional demo files for the pytest HTML reporter (see ruff extend-exclude).
+exclude = ["tests/reports/samples"]
+
 [tool.ty.rules]
 unresolved-import = "ignore"  # third-party deps not always installed
 
 [[tool.ty.overrides]]
-include = ["genalyzer/simplified_beta/**", "genalyzer/helpers/**", "genalyzer/pytest/**", "genalyzer/cli/**"]
+include = ["genalyzer/simplified_beta/**", "genalyzer/helpers/**", "genalyzer/pytest/**", "genalyzer/cli/**", "tests/**"]
 [tool.ty.overrides.rules]
 invalid-assignment = "ignore"
 invalid-argument-type = "ignore"

@@ -27,7 +27,9 @@ def synthetic_ramp(tmp_path):
     nbits = 12
     levels = 1 << nbits
     samples_per_code = 64
-    codes = np.repeat(np.arange(-levels // 2, levels // 2), samples_per_code).astype(np.int32)
+    codes = np.repeat(np.arange(-levels // 2, levels // 2), samples_per_code).astype(
+        np.int32
+    )
     path = str(tmp_path / "ramp.npy")
     np.save(path, codes)
     return {"path": path, "nbits": nbits}

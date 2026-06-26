@@ -4,12 +4,15 @@
 """Tests for MCP DNL/INL tools."""
 
 import sys
-import pytest
+
 import numpy as np
+import pytest
 
 pytestmark = [
     pytest.mark.genalyzer,
-    pytest.mark.skipif(sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"),
+    pytest.mark.skipif(
+        sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"
+    ),
 ]
 
 
@@ -73,6 +76,7 @@ class TestAnalyzeDNL:
 
     def test_analyze_dnl_with_plot(self, synthetic_ramp):
         from pathlib import Path
+
         from genalyzer.mcp.linearity import analyze_dnl
 
         result = analyze_dnl(
@@ -98,6 +102,7 @@ class TestAnalyzeINL:
 
     def test_analyze_inl_with_plot(self, synthetic_ramp):
         from pathlib import Path
+
         from genalyzer.mcp.linearity import analyze_inl
 
         result = analyze_inl(

@@ -11,7 +11,9 @@ import pytest
 
 pytestmark = [
     pytest.mark.genalyzer,
-    pytest.mark.skipif(sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"),
+    pytest.mark.skipif(
+        sys.version_info < (3, 10), reason="fastmcp requires Python 3.10+"
+    ),
 ]
 
 
@@ -66,7 +68,9 @@ def test_hardware_capture_shape(tmp_path):
     assert "error" not in result, result
     assert result["sfdr"] > 40.0
     # "A:freq" is the detected fundamental frequency; "fbin" is the bin width in Hz
-    assert abs(result["results"].get("A:freq", 0) - tone_freq) < sample_rate / num_points
+    assert (
+        abs(result["results"].get("A:freq", 0) - tone_freq) < sample_rate / num_points
+    )
 
 
 def test_automation_shape(tmp_path):
