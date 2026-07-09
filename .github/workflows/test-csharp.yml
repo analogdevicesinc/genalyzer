@@ -59,6 +59,11 @@ jobs:
             6.0.x
             9.0.x
 
+      - name: Set up MSVC developer command prompt
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
       # FFTW is the native library's only third-party dependency. Mirror the
       # setup used by the C test job (test-win.yml): fetch the prebuilt DLLs and
       # generate MSVC import libraries from the .def files.
@@ -74,10 +79,8 @@ jobs:
           rm fftw.zip
 
       - name: Generate FFTW import libraries
-        shell: cmd
         run: |
           cd deps\fftw3
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           lib /def:libfftw3-3.def
           lib /def:libfftw3f-3.def
           lib /def:libfftw3l-3.def
@@ -85,16 +88,16 @@ jobs:
       - name: Build native genalyzer.dll
         run: |
           $ErrorActionPreference = "Stop"
-          cmake . -DFFTW_INCLUDE_DIRS="deps\fftw3" -DFFTW_LIBRARIES="$env:GITHUB_WORKSPACE\deps\fftw3\libfftw3-3.lib" -G "Visual Studio 17 2022" -A x64
+          cmake . -DFFTW_INCLUDE_DIRS="deps\fftw3" -DFFTW_LIBRARIES="$env:GITHUB_WORKSPACE\deps\fftw3\libfftw3-3.lib" -G Ninja -DCMAKE_BUILD_TYPE=Release
           if ($LASTEXITCODE -ne 0) { exit 1 }
-          cmake --build . --config Release --target genalyzer
+          cmake --build . --target genalyzer
           if ($LASTEXITCODE -ne 0) { exit 1 }
           # Stage libgenalyzer.dll together with its FFTW runtime DLLs so both the
           # managed resolver (GENALYZER_LIB_PATH) and the native loader (PATH,
           # for the transitive FFTW dependency) can find everything. The native
           # library keeps the "lib" prefix on Windows (OUTPUT_NAME libgenalyzer).
           mkdir native_libs
-          cp bindings\c\src\Release\libgenalyzer.dll native_libs\
+          cp bindings\c\src\libgenalyzer.dll native_libs\
           cp deps\fftw3\*.dll native_libs\
           echo "GENALYZER_LIB_PATH=$env:GITHUB_WORKSPACE\native_libs" >> $env:GITHUB_ENV
           echo "$env:GITHUB_WORKSPACE\native_libs" >> $env:GITHUB_PATH

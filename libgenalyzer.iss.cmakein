@@ -56,10 +56,10 @@ Source: "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC
 ; assemblies are placed in per-framework subfolders because all three builds
 ; share the file name Genalyzer.dll and cannot coexist in a single directory.
 Source: "D:\a\genalyzer\genalyzer\bindings\csharp\nupkg\Genalyzer*.nupkg"; DestDir: "{sys}"; Check: Is64BitInstallMode
-Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\Release\net4.7\Genalyzer.dll"; DestDir: "{sys}\Genalyzer\net4.7"; Check: Is64BitInstallMode
-Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\Release\net4.7\Genalyzer.xml"; DestDir: "{sys}\Genalyzer\net4.7"; Check: Is64BitInstallMode
-Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\Release\net6.0\Genalyzer.dll"; DestDir: "{sys}\Genalyzer\net6.0"; Check: Is64BitInstallMode
-Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\Release\net6.0\Genalyzer.xml"; DestDir: "{sys}\Genalyzer\net6.0"; Check: Is64BitInstallMode
-Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\Release\net9.0\Genalyzer.dll"; DestDir: "{sys}\Genalyzer\net9.0"; Check: Is64BitInstallMode
-Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\Release\net9.0\Genalyzer.xml"; DestDir: "{sys}\Genalyzer\net9.0"; Check: Is64BitInstallMode
+Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\x64\Release\net4.7\Genalyzer.dll"; DestDir: "{sys}\Genalyzer\net4.7"; Check: Is64BitInstallMode
+Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\x64\Release\net4.7\Genalyzer.xml"; DestDir: "{sys}\Genalyzer\net4.7"; Check: Is64BitInstallMode
+Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\x64\Release\net6.0\Genalyzer.dll"; DestDir: "{sys}\Genalyzer\net6.0"; Check: Is64BitInstallMode
+Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\x64\Release\net6.0\Genalyzer.xml"; DestDir: "{sys}\Genalyzer\net6.0"; Check: Is64BitInstallMode
+Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\x64\Release\net9.0\Genalyzer.dll"; DestDir: "{sys}\Genalyzer\net9.0"; Check: Is64BitInstallMode
+Source: "D:\a\genalyzer\genalyzer\bindings\csharp\Genalyzer\bin\x64\Release\net9.0\Genalyzer.xml"; DestDir: "{sys}\Genalyzer\net9.0"; Check: Is64BitInstallMode
 
