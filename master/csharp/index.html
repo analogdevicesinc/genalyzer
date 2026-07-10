@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Genalyzer ships managed .NET (C#) bindings that wrap the native C ABI with a thin, zero-dependency P/Invoke layer. The library multi-targets net9.0, net6.0, and net4.7, and mirrors the same analysis domains exposed by the C and Python bindings." name="description" />
+
+    <title>C# Bindings &#8212; Genalyzer v0.1.4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=d3f78147" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxcontrib_d2.css?v=1153e9da" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/genalyzer_overrides.css?v=37089ffb" />
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="../_static/app.umd.js?v=26d0298f"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="icon" href="../_static/genalyzer_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Pytest Integration" href="../pytest/index.html" />
+    <link rel="prev" title="pyadi-iio Interface Helpers" href="../python/pyadi.html" />
+   
+  
+  
+  
+  <meta name="repository" content="Genalyzer">
+  <meta name="version" content="">
+  
+    <meta name="page_source_suffix" content=".md">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        
+        <a id="logo" href="../index.html">
+          <div>Genalyzer</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root/>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">C# Bindings</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#locating-the-native-library">Locating the native library</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#public-api-surface">Public API surface</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="../index.html">
+      <img class="only-light" src="../_static/genalyzer_logo.png"/>
+      <img class="only-dark" src="../_static/genalyzer_logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root/>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Contents:</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis.html">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis_ssb.html">Windowing and Single Side Bins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_simplified.html">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1"/><div class="collapse"><a class="reference internal" href="../python/genalyzer.html">Python Bindings</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1-1" id="toctree-collapse-1-1"/><div class="collapse"><a class="reference internal" href="../python/pygenalyzer.html">pygenalizer</a><label for="toctree-collapse-1-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l3"><a class="reference internal" href="../python/enumerations.html">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_analysis.html">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_configuration.html">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_transforms.html">Fourier Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/waveforms.html">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/signal_processing.html">Signal Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pygenalyzer.simplified.html">pygenalizer.simplified (Beta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pyadi.html">pyadi-iio Interface Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">C# Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pytest/index.html">Pytest Integration</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-2" id="toctree-collapse-2"/><div class="collapse"><a class="reference internal" href="../mcp/index.html">MCP Server</a><label for="toctree-collapse-2"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mcp/workflows.html">Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mcp/reference.html">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linting.html">Code Quality Tools</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb empty"><ol></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="c-bindings">
+<h1>C# Bindings<a class="headerlink" href="#c-bindings" title="Link to this heading"></a></h1>
+<p>Genalyzer ships managed <strong>.NET (C#) bindings</strong> that wrap the native C ABI with a
+thin, zero-dependency P/Invoke layer. The library multi-targets <code class="docutils literal notranslate"><span class="pre">net9.0</span></code>,
+<code class="docutils literal notranslate"><span class="pre">net6.0</span></code>, and <code class="docutils literal notranslate"><span class="pre">net4.7</span></code>, and mirrors the same analysis domains exposed by the C
+and Python bindings.</p>
+<p>The binding sources live in
+<a class="icon link reference external" href="https://github.com/analogdevicesinc/genalyzer/tree/main/bindings/csharp" target="_blank"><code class="docutils literal notranslate"><span class="pre">bindings/csharp</span></code></a>;
+see that directory’s <code class="docutils literal notranslate"><span class="pre">README.md</span></code> for the full reference.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>The managed assembly requires the native <code class="docutils literal notranslate"><span class="pre">libgenalyzer</span></code> shared library at
+runtime. Build it from the repository root (see <a class="reference internal" href="../setup.html"><span class="std std-doc">Installation</span></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DBUILD_SHARED_LIBS<span class="o">=</span>ON<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>genalyzer
+</pre></div>
+</div>
+<p>Then build the binding either with the .NET SDK directly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>bindings/csharp
+dotnet<span class="w"> </span>build<span class="w"> </span>Genalyzer/Genalyzer.csproj<span class="w"> </span>-c<span class="w"> </span>Release
+</pre></div>
+</div>
+<p>or through CMake (off by default; auto-skipped when no <code class="docutils literal notranslate"><span class="pre">dotnet</span></code> SDK is present):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DBUILD_CSHARP_BINDING<span class="o">=</span>ON
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>csharp_binding
+</pre></div>
+</div>
+</section>
+<section id="locating-the-native-library">
+<h2>Locating the native library<a class="headerlink" href="#locating-the-native-library" title="Link to this heading"></a></h2>
+<p>On <code class="docutils literal notranslate"><span class="pre">net6.0</span></code>+ the binding installs a <code class="docutils literal notranslate"><span class="pre">DllImportResolver</span></code> that finds
+<code class="docutils literal notranslate"><span class="pre">libgenalyzer</span></code> by probing, in order:</p>
+<ol class="arabic simple">
+<li><p>the <strong><code class="docutils literal notranslate"><span class="pre">GENALYZER_LIB_PATH</span></code></strong> environment variable (a library file or a
+directory containing it),</p></li>
+<li><p>the application base directory (next to <code class="docutils literal notranslate"><span class="pre">Genalyzer.dll</span></code>),</p></li>
+<li><p>the OS loader path (<code class="docutils literal notranslate"><span class="pre">PATH</span></code> / <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> / <code class="docutils literal notranslate"><span class="pre">DYLD_LIBRARY_PATH</span></code>).</p></li>
+</ol>
+<p>A failure throws one actionable <code class="docutils literal notranslate"><span class="pre">DllNotFoundException</span></code> listing the paths tried.
+For an in-tree build:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">GENALYZER_LIB_PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/build/bindings/c/src&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On the <code class="docutils literal notranslate"><span class="pre">net4.7</span></code> target, .NET Framework lacks <code class="docutils literal notranslate"><span class="pre">NativeLibrary</span></code>, so the resolver is
+compiled out. There the library must be on the OS loader path or next to the
+assembly; <code class="docutils literal notranslate"><span class="pre">GENALYZER_LIB_PATH</span></code> is not honored.</p>
+</div>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">Genalyzer</span><span class="p">;</span>
+
+<span class="n">ApiUtilities</span><span class="p">.</span><span class="n">Initialize</span><span class="p">();</span>
+
+<span class="c1">// Time-domain generation and analysis.</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">wave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Waveforms</span><span class="p">.</span><span class="n">Sin</span><span class="p">(</span><span class="mi">8192</span><span class="p">,</span><span class="w"> </span><span class="n">fs</span><span class="p">:</span><span class="w"> </span><span class="mf">8192.0</span><span class="p">,</span><span class="w"> </span><span class="n">ampl</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">freq</span><span class="p">:</span><span class="w"> </span><span class="mf">64.0</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Waveforms</span><span class="p">.</span><span class="n">WfAnalysis</span><span class="p">(</span><span class="n">wave</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;max={stats[&quot;</span><span class="n">max</span><span class="s">&quot;]:F3}  rms={stats[&quot;</span><span class="n">rms</span><span class="s">&quot;]:F3}&quot;</span><span class="p">);</span>
+
+<span class="c1">// Simplified-beta spectral analysis.</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">var</span><span class="w"> </span><span class="n">cfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GenalyzerConfig</span><span class="p">();</span>
+<span class="n">cfg</span><span class="p">.</span><span class="n">ConfigGenTone</span><span class="p">(</span><span class="n">ToneType</span><span class="p">.</span><span class="n">ComplexExp</span><span class="p">,</span><span class="w"> </span><span class="mi">16384</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="n">_000_000</span><span class="mf">.0</span><span class="p">,</span>
+<span class="w">    </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">300</span><span class="n">_000</span><span class="mf">.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mf">0.9</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mf">0.0</span><span class="w"> </span><span class="p">});</span>
+<span class="n">cfg</span><span class="p">.</span><span class="n">ConfigQuantize</span><span class="p">(</span><span class="mi">16384</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span>
+<span class="n">cfg</span><span class="p">.</span><span class="n">ConfigFftz</span><span class="p">(</span><span class="mi">16384</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">16384</span><span class="p">,</span><span class="w"> </span><span class="n">Window</span><span class="p">.</span><span class="n">NoWindow</span><span class="p">);</span>
+<span class="n">cfg</span><span class="p">.</span><span class="n">SetSampleRate</span><span class="p">(</span><span class="mi">3</span><span class="n">_000_000</span><span class="mf">.0</span><span class="p">);</span>
+<span class="n">cfg</span><span class="p">.</span><span class="n">ConfigFa</span><span class="p">(</span><span class="mi">300</span><span class="n">_000</span><span class="mf">.0</span><span class="p">);</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">GenComplexTone</span><span class="p">();</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">fft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">Fftz</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">Quantize</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">Quantize</span><span class="p">(</span><span class="n">q</span><span class="p">));</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;SFDR = {cfg.GetFaSingleResult(fft, &quot;</span><span class="n">sfdr</span><span class="s">&quot;):F2} dB&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>More runnable samples are in
+<a class="icon link reference external" href="https://github.com/analogdevicesinc/genalyzer/tree/main/bindings/csharp/examples" target="_blank"><code class="docutils literal notranslate"><span class="pre">bindings/csharp/examples</span></code></a>.</p>
+</section>
+<section id="public-api-surface">
+<h2>Public API surface<a class="headerlink" href="#public-api-surface" title="Link to this heading"></a></h2>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Waveforms</span></code></p></td>
+<td><p>Generate (<code class="docutils literal notranslate"><span class="pre">Sin</span></code>, <code class="docutils literal notranslate"><span class="pre">Cos</span></code>, <code class="docutils literal notranslate"><span class="pre">Ramp</span></code>, <code class="docutils literal notranslate"><span class="pre">Gaussian</span></code>) and analyze time-domain waveforms</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FourierTransforms</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Fft</span></code> / <code class="docutils literal notranslate"><span class="pre">Rfft</span></code> of real and complex data</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FourierAnalysis</span></code></p></td>
+<td><p>Object-based spectral analysis: configure, analyze, query results</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GenalyzerConfig</span></code></p></td>
+<td><p>Simplified-beta one-object configure → generate → quantize → FFT → analyze flow</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ArrayOps</span></code></p></td>
+<td><p>Element-wise array math (abs, angle, dB, norm)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SignalProcessing</span></code></p></td>
+<td><p>Quantization</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CodeDensity</span></code></p></td>
+<td><p>Histogram, DNL, INL</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Manager</span></code></p></td>
+<td><p>Lifetime of named native objects</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ApiUtilities</span></code></p></td>
+<td><p>Version, error state, enum lookup, initialization</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>XML doc-comments are emitted (<code class="docutils literal notranslate"><span class="pre">GenerateDocumentationFile</span></code>) for IDE IntelliSense.</p>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
+<p>The xUnit suite (<code class="docutils literal notranslate"><span class="pre">bindings/csharp/tests</span></code>, targeting <code class="docutils literal notranslate"><span class="pre">net6.0</span></code> and <code class="docutils literal notranslate"><span class="pre">net9.0</span></code>) runs via:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>bindings/csharp
+<span class="nb">export</span><span class="w"> </span><span class="nv">GENALYZER_LIB_PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/../../build/bindings/c/src&quot;</span>
+dotnet<span class="w"> </span><span class="nb">test</span><span class="w"> </span>tests/Genalyzer.Tests.csproj
+</pre></div>
+</div>
+<p>It is also registered with CTest (<code class="docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-R</span> <span class="pre">csharp_tests</span></code>) when configured with
+<code class="docutils literal notranslate"><span class="pre">-DBUILD_CSHARP_BINDING=ON</span> <span class="pre">-DBUILD_TESTS_EXAMPLES=ON</span></code>, and runs in CI on Linux
+and Windows.</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../python/pyadi.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">pyadi-iio Interface Helpers</a>
+    <a href="../pytest/index.html" title="Next document (Alt+Shift+RightArrow)" class="next">Pytest Integration</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2024-2026, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>
