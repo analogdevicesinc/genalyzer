@@ -13,12 +13,13 @@ available to the installed package. FFTW is distributed under the GNU General
 Public License unless a separate commercial FFTW license has been obtained.
 
 Because the default wheel build links against FFTW, binary wheels produced by
-that configuration should be treated as **GPL-2.0-or-later** distributions. The
-ADI BSD license option described by this project applies only when the native
-library is built with FFTW under a separate compatible license, or with another
-FFT implementation/license arrangement that permits use under the ADI BSD terms.
+that configuration are **GPL-2.0-or-later** distributions. Their wheel metadata
+selects that license explicitly. The ADI BSD license option described by this
+project applies only when the native library is built with FFTW under a separate
+compatible commercial license, or with another FFT implementation/license
+arrangement that permits use under the ADI BSD terms.
 
-Do not publish default FFTW-linked wheels as ADI-BSD-only artifacts.
+Do not relabel or publish the CI-built FFTW-linked wheels as ADI-BSD artifacts.
 
 ## FFTW
 
@@ -50,7 +51,8 @@ The genalyzer source tree contains both license texts at the repository root:
 - `LICENSE`: GNU General Public License, version 2
 - `LICENSE_ADIBSD`: ADI BSD-style license
 
-The package metadata declares `ADI BSD OR GPL-2.0-or-later` because the project
-supports both licensing modes depending on how the native library is built and
-which FFTW license applies. For default wheels that link against GPL FFTW, use
-the GPL-2.0-or-later path.
+The repository source supports both licensing modes depending on how the native
+library is built and which FFTW license applies. The Python distribution metadata
+selects GPL-2.0-or-later because the default platform wheels link against and
+bundle GPL FFTW. A separately produced build using the ADI BSD option must carry
+different metadata and must not include GPL FFTW.

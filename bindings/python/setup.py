@@ -5,6 +5,14 @@
 
 from setuptools import setup
 from setuptools.command.bdist_wheel import bdist_wheel
+from setuptools.dist import Distribution
+
+
+class BinaryDistribution(Distribution):
+    """Install package data into platlib so wheel repair tools can process it."""
+
+    def has_ext_modules(self):
+        return True
 
 
 class BinaryWheel(bdist_wheel):
@@ -15,4 +23,7 @@ class BinaryWheel(bdist_wheel):
         self.root_is_pure = False
 
 
-setup(cmdclass={"bdist_wheel": BinaryWheel})
+setup(
+    cmdclass={"bdist_wheel": BinaryWheel},
+    distclass=BinaryDistribution,
+)

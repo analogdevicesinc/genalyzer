@@ -1,4 +1,4 @@
-name: PyPI Deploy
+name: Build and Publish Python Distributions
 
 on: [push, pull_request]
 
@@ -25,8 +25,8 @@ jobs:
           name: genalyzer-sdist
           path: bindings/python/dist/*.tar.gz
 
-  BuildWheels:
-    name: Build wheels on ${{ matrix.os }}
+  BuildFFTWheels:
+    name: FFTW wheels / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build platform wheels
+      - name: Build and test GPL FFTW wheel variants
         uses: pypa/cibuildwheel@v2.23.3
         with:
           package-dir: bindings/python
@@ -49,7 +49,7 @@ jobs:
           path: wheelhouse/*.whl
 
   PublishPyPI:
-    needs: [BuildSDist, BuildWheels]
+    needs: [BuildSDist, BuildFFTWheels]
     runs-on: ubuntu-22.04
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     permissions:

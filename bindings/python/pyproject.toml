@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=70.1"]
+requires = ["setuptools>=77.0.3"]
 build-backend = "setuptools.build_meta"
 
 
@@ -8,7 +8,7 @@ name = "genalyzer"
 version = "0.1.4"
 dynamic = ["readme"]
 description = "Python bindings for genalyzer converter analysis library"
-license = "LicenseRef-ADIBSD OR GPL-2.0-or-later"
+license = "GPL-2.0-or-later"
 license-files = [
     "LICENSE",
     "LICENSE_ADIBSD",
@@ -83,8 +83,8 @@ genalyzer = [
 [tool.cibuildwheel]
 build = "cp39-* cp310-* cp311-* cp312-* cp313-*"
 skip = ["*-musllinux*", "*-manylinux_i686", "*-win32"]
-before-build = "python {project}/tools/cibw_build_native.py"
-test-command = "python -m pytest {project}/tests/test_wheel_smoke.py"
+before-build = "python {project}/bindings/python/tools/cibw_build_native.py"
+test-command = "python -m pytest -p no:genalyzer -v {project}/bindings/python/tests/test_wheel_smoke.py"
 test-requires = ["pytest"]
 
 [tool.cibuildwheel.linux]
@@ -97,7 +97,7 @@ before-all = "brew install fftw"
 repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
 [tool.cibuildwheel.windows]
-before-all = "powershell -ExecutionPolicy Bypass -File {project}\\tools\\cibw_install_fftw_windows.ps1"
+before-all = "powershell -ExecutionPolicy Bypass -File {project}\\bindings\\python\\tools\\cibw_install_fftw_windows.ps1"
 repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
 
 [project.urls]
