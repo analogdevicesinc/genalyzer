@@ -1,0 +1,2 @@
+include README.md LICENSE FFTW_COPYING THIRD_PARTY_LICENSES.md FFTW_SOURCE.md
+include genalyzer_fftw/*.dll genalyzer_fftw/*.dylib genalyzer_fftw/*.so genalyzer_fftw/*.so.*

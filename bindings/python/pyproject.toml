@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=40.6.0"]
+requires = ["setuptools>=77.0.3"]
 build-backend = "setuptools.build_meta"
 
 
@@ -8,7 +8,13 @@ name = "genalyzer"
 version = "0.1.4"
 dynamic = ["readme"]
 description = "Python bindings for genalyzer converter analysis library"
-license = {text = "ADI BSD OR GPL-2.0-or-later"}
+license = "LicenseRef-ADIBSD OR GPL-2.0-or-later"
+license-files = [
+    "LICENSE",
+    "LICENSE_ADIBSD",
+    "THIRD_PARTY_LICENSES.md",
+    "dependencies/LICENSE_pytest-reporter-html1",
+]
 classifiers = [
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
@@ -49,6 +55,7 @@ genalyzer-mcp = "genalyzer.mcp.server:main"
 cli = ["click"]
 mcp = ["fastmcp; python_version>='3.10'", "numpy", "click"]
 tools = ["scipy"]
+fftw = ["genalyzer-fftw==0.1.4"]
 pytest = [
     "pytest >= 6.2",
     "pytest-reporter >= 0.4.0",
@@ -65,7 +72,10 @@ pytest = [
 genalyzer = "genalyzer.pytest.plugin"
 
 [tool.setuptools.package-data]
-genalyzer = ["genalyzer/pytest/templates/genalyzer/*"]
+genalyzer = [
+    "pytest/templates/genalyzer/*",
+    "pytest/templates/genalyzer/icons/*",
+]
 
 [project.urls]
 homepage = "https://analogdevicesinc.github.io/genalyzer/"

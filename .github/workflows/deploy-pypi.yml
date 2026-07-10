@@ -1,9 +1,12 @@
-name: PyPI Deploy
+name: Build and Publish Python Distributions
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
-  PyPIDeploy:
+  BuildSDist:
     runs-on: ubuntu-22.04
 
     steps:
@@ -13,21 +16,62 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Build pure Python API wheel and source distribution
         run: |
-          bash ./.github/scripts/install_dependencies.sh USER
-          bash ./.github/scripts/install_genalyzer.sh
-          sudo rm -rf build
-          pip install setuptools wheel twine build
-
-      - name: Update to dev version and build test release
-        run: |
+          python -m pip install --upgrade build
           cd bindings/python
           python -m build
-          
-      - uses: pypa/gh-action-pypi-publish@release/v1
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+
+      - name: Upload source distribution
+        uses: actions/upload-artifact@v4
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_TOKEN }}
-          packages-dir: ./bindings/python/dist
+          name: genalyzer-sdist
+          path: bindings/python/dist/*
+
+  BuildFFTWheels:
+    name: FFTW wheels / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, macos-15-intel, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MSVC developer environment
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Build and test GPL FFTW wheel variants
+        uses: pypa/cibuildwheel@v2.23.3
+        with:
+          package-dir: bindings/python-fftw
+          output-dir: wheelhouse
+
+      - name: Upload platform wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: genalyzer-fftw-wheels-${{ matrix.os }}
+          path: wheelhouse/*.whl
+
+  PublishPyPI:
+    needs: [BuildSDist, BuildFFTWheels]
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Download distributions
+        uses: actions/download-artifact@v4
+        with:
+          pattern: genalyzer-*
+          path: dist
+          merge-multiple: true
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist

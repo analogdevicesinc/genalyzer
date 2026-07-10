@@ -32,12 +32,15 @@ target_include_directories(genalyzer_plus_plus PUBLIC ../include)
 set_target_properties(genalyzer_plus_plus PROPERTIES
   VERSION ${CMAKE_PROJECT_VERSION}
   SOVERSION ${CMAKE_PROJECT_VERSION_MAJOR}
-  FRAMEWORK TRUE
   PUBLIC_HEADER "${HEADER_LIST}"
   CXX_STANDARD 17
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF
 )
+
+if(APPLE AND GENALYZER_BUILD_FRAMEWORKS)
+  set_target_properties(genalyzer_plus_plus PROPERTIES FRAMEWORK TRUE)
+endif()
 
 set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib"
   CACHE PATH "Installation directory for libraries")
