@@ -5,21 +5,19 @@ by `genalyzer` Python distributions. It is intended to ship with source and whee
 distributions so downstream users can identify the effective license obligations
 for the artifact they installed.
 
-## Binary wheels built by the default cibuildwheel configuration
+## Optional FFTW runtime distribution
 
-The default cibuildwheel configuration in this source tree builds `libgenalyzer`
-against FFTW and repairs the wheel so required native runtime libraries are
-available to the installed package. FFTW is distributed under the GNU General
-Public License unless a separate commercial FFTW license has been obtained.
+The `genalyzer` distribution contains the Python API and does not bundle FFTW.
+Users can install the separately named `genalyzer-fftw` runtime with
+`pip install "genalyzer[fftw]"`. That platform wheel owns the uniquely named
+`genalyzer_fftw` resource package and does not overwrite files from `genalyzer`.
 
-Because the default wheel build links against FFTW, binary wheels produced by
-that configuration are **GPL-2.0-or-later** distributions. Their wheel metadata
-selects that license explicitly. The ADI BSD license option described by this
-project applies only when the native library is built with FFTW under a separate
-compatible commercial license, or with another FFT implementation/license
-arrangement that permits use under the ADI BSD terms.
+Because that optional runtime links against FFTW, `genalyzer-fftw` is a
+**GPL-2.0-or-later** distribution and selects that license explicitly. The main
+`genalyzer` API distribution retains the source project's
+`LicenseRef-ADIBSD OR GPL-2.0-or-later` expression.
 
-Do not relabel or publish the CI-built FFTW-linked wheels as ADI-BSD artifacts.
+Do not relabel or publish `genalyzer-fftw` wheels as ADI-BSD artifacts.
 
 ## FFTW
 
@@ -52,7 +50,6 @@ The genalyzer source tree contains both license texts at the repository root:
 - `LICENSE_ADIBSD`: ADI BSD-style license
 
 The repository source supports both licensing modes depending on how the native
-library is built and which FFTW license applies. The Python distribution metadata
-selects GPL-2.0-or-later because the default platform wheels link against and
-bundle GPL FFTW. A separately produced build using the ADI BSD option must carry
-different metadata and must not include GPL FFTW.
+library is built and which FFTW license applies. The separately named runtime distribution selects GPL-2.0-or-later because it
+links against and bundles GPL FFTW. A commercial runtime must use another
+distribution identity and must carry metadata matching its actual license.

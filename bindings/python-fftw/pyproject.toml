@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "genalyzer-fftw"
+version = "0.1.4"
+description = "GPL FFTW-enabled native runtime for genalyzer"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "GPL-2.0-or-later"
+license-files = ["LICENSE", "FFTW_COPYING", "THIRD_PARTY_LICENSES.md", "FFTW_SOURCE.md"]
+dependencies = ["genalyzer==0.1.4"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["genalyzer_fftw*"]
+
+[tool.setuptools.package-data]
+genalyzer_fftw = ["*.dll", "*.dylib", "*.so", "*.so.*", ".dylibs/*"]
+
+[tool.cibuildwheel]
+build = "cp39-*"
+skip = ["*-musllinux*", "*-manylinux_i686", "*-win32"]
+before-build = "python {project}/bindings/python/tools/cibw_build_native.py"
+test-command = "python -m pip install --force-reinstall {project}/bindings/python && python -m pytest -p no:genalyzer -v {project}/bindings/python-fftw/tests/test_wheel_smoke.py"
+test-requires = ["pytest", "numpy"]
+
+
+[tool.cibuildwheel.linux]
+manylinux-x86_64-image = "manylinux_2_28"
+before-all = "yum install -y fftw-devel || dnf install -y fftw-devel || microdnf install -y fftw-devel"
+repair-wheel-command = "auditwheel repair -w {dest_dir} {wheel}"
+
+[tool.cibuildwheel.macos]
+before-all = "bash {project}/bindings/python/tools/cibw_install_fftw_macos.sh"
+environment = { MACOSX_DEPLOYMENT_TARGET = "10.15" }
+repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+
+[tool.cibuildwheel.windows]
+before-all = "python -m pip install delvewheel && powershell -ExecutionPolicy Bypass -File {project}\\bindings\\python\\tools\\cibw_install_fftw_windows.ps1"
+repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"

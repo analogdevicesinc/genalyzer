@@ -14,7 +14,7 @@ from pathlib import Path
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = PACKAGE_ROOT.parents[1]
-PACKAGE_DIR = PACKAGE_ROOT / "genalyzer"
+PACKAGE_DIR = REPO_ROOT / "bindings" / "python-fftw" / "genalyzer_fftw"
 
 
 def _run(command: list[str], **kwargs) -> None:
@@ -129,7 +129,7 @@ def _stage_outputs(build_dir: Path) -> None:
 
     print("Staged native libraries:")
     for path in copied:
-        print(f"  {path.relative_to(PACKAGE_ROOT)}")
+        print(f"  {path.relative_to(REPO_ROOT)}")
 
 
 def main() -> None:

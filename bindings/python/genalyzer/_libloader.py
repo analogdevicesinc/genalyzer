@@ -12,7 +12,7 @@ from ctypes.util import find_library
 from importlib import resources
 from pathlib import Path
 
-_PACKAGE_NAME = "genalyzer"
+_RUNTIME_PACKAGE_NAME = "genalyzer_fftw"
 _DLL_DIRECTORY_HANDLES: list[object] = []
 
 
@@ -29,7 +29,10 @@ def _platform_library_names() -> tuple[str, ...]:
 def bundled_library_path() -> str | None:
     """Return the bundled native library path, if present in the package."""
 
-    package_dir = Path(str(resources.files(_PACKAGE_NAME)))
+    try:
+        package_dir = Path(str(resources.files(_RUNTIME_PACKAGE_NAME)))
+    except ModuleNotFoundError:
+        return None
     for library_name in _platform_library_names():
         library_path = package_dir / library_name
         if library_path.is_file():
@@ -58,7 +61,7 @@ def find_genalyzer_library() -> str:
         raise OSError(
             2,
             "Could not find genalyzer C library. "
-            f"Searched for bundled {searched} in the genalyzer package and "
+            f"Searched for bundled {searched} in the genalyzer-fftw runtime and "
             "then the system library path.",
         )
     return library_path
