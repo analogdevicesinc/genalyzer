@@ -86,6 +86,16 @@ jobs:
         shell: powershell
         run: .\.github\scripts\update_win_installer.ps1 -IssFilePath "$env:GITHUB_WORKSPACE\build-win\libgenalyzer.iss"
 
+      # Build the managed assemblies (all target frameworks) and the NuGet
+      # package so the installer's [Files] section can bundle them.
+      - name: Build and pack C# binding
+        run: |
+          $ErrorActionPreference = "Stop"
+          dotnet build bindings/csharp/Genalyzer/Genalyzer.csproj -c Release --nologo
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          dotnet pack bindings/csharp/Genalyzer/Genalyzer.csproj -c Release -o bindings/csharp/nupkg --nologo
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
       - name: Build installer
         run: |
           "C:\Program Files (x86)\Inno Setup 6\iscc.exe" "build-win\libgenalyzer.iss"

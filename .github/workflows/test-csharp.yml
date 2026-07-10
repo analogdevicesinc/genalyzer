@@ -1,0 +1,116 @@
+name: C# Binding
+
+on: [push, pull_request]
+
+jobs:
+  TestCSharpLinux:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install native build dependencies
+        run: |
+          bash ./.github/scripts/install_dependencies.sh
+
+      - name: Set up .NET SDKs
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            6.0.x
+            9.0.x
+
+      # Build the native shared library that the managed binding P/Invokes into.
+      # The C# tests run in this same job/runner so the locally built library
+      # (compiled with -march=native) matches the host ISA.
+      - name: Build native libgenalyzer
+        run: |
+          mkdir -p build
+          cd build
+          cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release ..
+          make -j4 genalyzer
+          echo "GENALYZER_LIB_PATH=$GITHUB_WORKSPACE/build/bindings/c/src" >> "$GITHUB_ENV"
+
+      # net4.7 is not built here: on Linux it needs .NET Framework reference
+      # assemblies. The net4.7 target is built on the Windows job instead; the
+      # modern TFMs (net6.0, net9.0) are built and tested here.
+      - name: Build C# binding (net6.0, net9.0)
+        working-directory: bindings/csharp
+        run: |
+          dotnet build Genalyzer/Genalyzer.csproj -c Release -f net6.0 --nologo
+          dotnet build Genalyzer/Genalyzer.csproj -c Release -f net9.0 --nologo
+
+      - name: Run C# tests
+        working-directory: bindings/csharp
+        run: |
+          dotnet test tests/Genalyzer.Tests.csproj -c Release -f net6.0 --nologo
+          dotnet test tests/Genalyzer.Tests.csproj -c Release -f net9.0 --nologo
+
+  TestCSharpWindows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET SDKs
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            6.0.x
+            9.0.x
+
+      - name: Set up MSVC developer command prompt
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      # FFTW is the native library's only third-party dependency. Mirror the
+      # setup used by the C test job (test-win.yml): fetch the prebuilt DLLs and
+      # generate MSVC import libraries from the .def files.
+      - name: Install FFTW
+        run: |
+          choco install --no-progress -y wget
+          mkdir deps
+          cd deps
+          mkdir fftw3
+          cd fftw3
+          wget https://fftw.org/pub/fftw/fftw-3.3.5-dll64.zip -q -O fftw.zip
+          7z x -y fftw.zip
+          rm fftw.zip
+
+      - name: Generate FFTW import libraries
+        run: |
+          cd deps\fftw3
+          lib /def:libfftw3-3.def
+          lib /def:libfftw3f-3.def
+          lib /def:libfftw3l-3.def
+
+      - name: Build native genalyzer.dll
+        run: |
+          $ErrorActionPreference = "Stop"
+          cmake . -DFFTW_INCLUDE_DIRS="deps\fftw3" -DFFTW_LIBRARIES="$env:GITHUB_WORKSPACE\deps\fftw3\libfftw3-3.lib" -G Ninja -DCMAKE_BUILD_TYPE=Release
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          cmake --build . --target genalyzer
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          # Stage libgenalyzer.dll together with its FFTW runtime DLLs so both the
+          # managed resolver (GENALYZER_LIB_PATH) and the native loader (PATH,
+          # for the transitive FFTW dependency) can find everything. The native
+          # library keeps the "lib" prefix on Windows (OUTPUT_NAME libgenalyzer).
+          mkdir native_libs
+          cp bindings\c\src\libgenalyzer.dll native_libs\
+          cp deps\fftw3\*.dll native_libs\
+          echo "GENALYZER_LIB_PATH=$env:GITHUB_WORKSPACE\native_libs" >> $env:GITHUB_ENV
+          echo "$env:GITHUB_WORKSPACE\native_libs" >> $env:GITHUB_PATH
+
+      # Windows can build every target framework, including net4.7 (which the
+      # Linux job cannot), so build the full library here.
+      - name: Build C# binding (all target frameworks)
+        working-directory: bindings/csharp
+        run: |
+          dotnet build Genalyzer/Genalyzer.csproj -c Release --nologo
+
+      - name: Run C# tests
+        working-directory: bindings/csharp
+        run: |
+          dotnet test tests/Genalyzer.Tests.csproj -c Release -f net6.0 --nologo
+          dotnet test tests/Genalyzer.Tests.csproj -c Release -f net9.0 --nologo

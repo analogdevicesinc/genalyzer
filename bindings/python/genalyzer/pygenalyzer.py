@@ -7,6 +7,9 @@ Python wrapper for Genalyzer Library (genalyzer_plus_plus)
 """
 
 import ctypes as _ctypes
+import os as _os
+import sys as _sys
+from ctypes.util import find_library as _find_library
 from enum import IntEnum as _IntEnum
 
 import numpy as _np

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net6.0;net4.7</TargetFrameworks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>13</LangVersion>
+    <DefineConstants Condition="$([MSBuild]::IsOSPlatform('Windows'))">$(DefineConstants);_WINDOWS</DefineConstants>
+    <AssemblyName>Genalyzer</AssemblyName>
+    <RootNamespace>Genalyzer</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <Version>0.1.2</Version>
+    <Authors>Analog Devices, Inc.</Authors>
+    <Description>C# bindings for the Genalyzer DSP library.</Description>
+    <Copyright>Copyright (C) 2024-2025 Analog Devices, Inc.</Copyright>
+    <PackageLicenseExpression>GPL-2.0-or-later</PackageLicenseExpression>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+  </PropertyGroup>
+
+</Project>
