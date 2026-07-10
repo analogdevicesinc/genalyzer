@@ -61,9 +61,7 @@ def _cmake_configure_args(build_dir: Path) -> list[str]:
         args.extend(
             [
                 "-G",
-                "Visual Studio 17 2022",
-                "-A",
-                "x64",
+                "Ninja",
                 f"-DFFTW_INCLUDE_DIRS={fftw_dir}",
                 f"-DFFTW_LIBRARIES={fftw_dir / 'libfftw3-3.lib'}",
             ]
@@ -94,7 +92,8 @@ def _cmake_env() -> dict[str, str]:
 def _stage_outputs(build_dir: Path) -> None:
     if sys.platform == "win32":
         candidates = [
-            build_dir / "bindings" / "c" / "src" / "Release" / "libgenalyzer.dll"
+            build_dir / "bindings" / "c" / "src" / "libgenalyzer.dll",
+            build_dir / "bindings" / "c" / "src" / "Release" / "libgenalyzer.dll",
         ]
     elif sys.platform == "darwin":
         candidates = sorted(
