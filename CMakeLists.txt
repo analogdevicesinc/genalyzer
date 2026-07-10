@@ -14,6 +14,7 @@ option(BUILD_DOC "Generate documentation" OFF)
 option(BUILD_TESTS_EXAMPLES "Build tests and examples" OFF)
 option(COVERAGE "Enable coverage tracing when testing" OFF)
 option(GENALYZER_NATIVE_OPTIMIZATIONS "Enable host-specific native CPU optimizations" OFF)
+option(GENALYZER_BUILD_FRAMEWORKS "Build Apple framework bundles" ON)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)

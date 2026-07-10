@@ -14,18 +14,17 @@ if (-not (Test-Path (Join-Path $FftwDir "libfftw3-3.lib"))) {
     Expand-Archive -Force $ZipPath -DestinationPath $FftwDir
     Remove-Item $ZipPath
 
-    $VcVarsCandidates = @(
-        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat",
-        "C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvars64.bat",
-        "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat",
-        "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-    )
-    $VcVars = $VcVarsCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
-    if (-not $VcVars) {
-        throw "Could not find Visual Studio vcvars64.bat"
+    $LibExe = Get-Command lib.exe -ErrorAction SilentlyContinue
+    if (-not $LibExe) {
+        throw "lib.exe is not available; initialize an x64 MSVC developer environment first"
     }
 
-    cmd /c "`"$VcVars`" && cd /d `"$FftwDir`" && lib /def:libfftw3-3.def && lib /def:libfftw3f-3.def && lib /def:libfftw3l-3.def"
+    foreach ($Name in @("libfftw3-3", "libfftw3f-3", "libfftw3l-3")) {
+        & $LibExe.Source /machine:x64 "/def:$FftwDir\$Name.def" "/out:$FftwDir\$Name.lib"
+        if ($LASTEXITCODE -ne 0) {
+            throw "lib.exe failed to create $Name.lib"
+        }
+    }
 }
 
 Write-Host "FFTW staged in $FftwDir"

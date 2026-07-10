@@ -53,6 +53,7 @@ def _cmake_configure_args(build_dir: Path) -> list[str]:
         str(build_dir),
         "-DCMAKE_BUILD_TYPE=Release",
         "-DBUILD_TESTS_EXAMPLES=OFF",
+        "-DGENALYZER_BUILD_FRAMEWORKS=OFF",
     ]
 
     if sys.platform == "win32":
