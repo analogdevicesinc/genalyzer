@@ -24,15 +24,18 @@ mkdir -p "$artifact_dir"
 package="$artifact_dir/libgenalyzer-${package_version}-macos-$(uname -m).pkg"
 /usr/bin/pkgbuild \
     --root "$stage_dir" \
+    --scripts .github/scripts/macos_package_scripts \
     --identifier com.analogdevices.genalyzer \
     --version "$package_version" \
     --install-location / \
     "$package"
+cp .github/scripts/macos_package_README.txt "$artifact_dir/README.txt"
 
 pkgutil --check-signature "$package" || true
 rm -rf "$RUNNER_TEMP/genalyzer-package"
 pkgutil --expand "$package" "$RUNNER_TEMP/genalyzer-package"
 find "$RUNNER_TEMP/genalyzer-package" -type f -print
+test -x "$RUNNER_TEMP/genalyzer-package/Scripts/preinstall"
 sudo installer -pkg "$package" -target /
 
 package_id=$(pkgutil --pkgs | grep -m 1 '^com\.analogdevices\.genalyzer')
@@ -41,7 +44,14 @@ pkgutil --files "$package_id"
 test -f /usr/local/include/cgenalyzer.h
 test -f /usr/local/share/licenses/genalyzer/LICENSE
 PKG_CONFIG_PATH=/usr/local/lib/pkgconfig pkg-config --modversion libgenalyzer
-otool -L /usr/local/lib/libgenalyzer.dylib
+dylib_dependencies=$(otool -L /usr/local/lib/libgenalyzer.dylib)
+printf '%s\n' "$dylib_dependencies"
+grep -Fq '/opt/homebrew/opt/fftw/lib/libfftw3.3.dylib' \
+    <<<"$dylib_dependencies"
+if grep -Eq 'libfftw3(f|l|_threads|_omp)' <<<"$dylib_dependencies"; then
+    printf 'unexpected FFTW runtime dependency\n' >&2
+    exit 1
+fi
 
 smoke_dir=$(mktemp -d)
 trap 'rm -rf "$smoke_dir"' EXIT
