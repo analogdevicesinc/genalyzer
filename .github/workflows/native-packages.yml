@@ -62,7 +62,7 @@ jobs:
 
   macos-package:
     name: macOS package
-    runs-on: macos-latest
+    runs-on: macos-15
 
     steps:
       - uses: actions/checkout@v7

@@ -32,7 +32,7 @@ package="$artifact_dir/libgenalyzer-${package_version}-macos-$(uname -m).pkg"
 pkgutil --check-signature "$package" || true
 rm -rf "$RUNNER_TEMP/genalyzer-package"
 pkgutil --expand "$package" "$RUNNER_TEMP/genalyzer-package"
-find "$RUNNER_TEMP/genalyzer-package" -maxdepth 3 -type f -print
+find "$RUNNER_TEMP/genalyzer-package" -type f -print
 sudo installer -pkg "$package" -target /
 
 package_id=$(pkgutil --pkgs | grep -m 1 '^com\.analogdevices\.genalyzer')
@@ -41,6 +41,7 @@ pkgutil --files "$package_id"
 test -f /usr/local/include/cgenalyzer.h
 test -f /usr/local/share/licenses/genalyzer/LICENSE
 PKG_CONFIG_PATH=/usr/local/lib/pkgconfig pkg-config --modversion libgenalyzer
+otool -L /usr/local/lib/libgenalyzer.dylib
 
 smoke_dir=$(mktemp -d)
 trap 'rm -rf "$smoke_dir"' EXIT
@@ -49,5 +50,5 @@ PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
     -DEXPECTED_VERSION="\"$package_version\"" \
     $(PKG_CONFIG_PATH=/usr/local/lib/pkgconfig pkg-config --cflags --libs libgenalyzer) \
     -o "$smoke_dir/package-smoke"
-(cd "$smoke_dir" && DYLD_LIBRARY_PATH=/usr/local/lib ./package-smoke)
+(cd "$smoke_dir" && ./package-smoke)
 file "$package"
