@@ -129,6 +129,4 @@ set(CPACK_RPM_PACKAGE_LICENSE "GPL-2.0-or-later")
 set(CPACK_RPM_PACKAGE_GROUP "System Environment/Libraries")
 set(CPACK_RPM_PACKAGE_AUTOREQ ON)
 
-set(CPACK_PRODUCTBUILD_IDENTIFIER "com.analogdevices.genalyzer")
-
 include(CPack)

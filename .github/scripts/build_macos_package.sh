@@ -4,6 +4,7 @@ set -euo pipefail
 distro=macos
 build_dir="build-package-${distro}"
 artifact_dir="artifacts/${distro}"
+stage_dir="${RUNNER_TEMP}/genalyzer-package-root"
 rm -rf "$build_dir" "$artifact_dir"
 
 cmake -S . -B "$build_dir" -G Ninja \
@@ -13,20 +14,26 @@ cmake -S . -B "$build_dir" -G Ninja \
     -DGENALYZER_NATIVE_OPTIMIZATIONS=OFF \
     -DGENALYZER_PACKAGE_DISTRO="$distro"
 cmake --build "$build_dir" --parallel 2
-cpack --config "$build_dir/CPackConfig.cmake" -G productbuild \
-    -B "$artifact_dir"
 package_version=$(sed -n 's/^set(CPACK_PACKAGE_VERSION "\(.*\)")/\1/p' \
     "$build_dir/CPackConfig.cmake")
 [[ -n "$package_version" ]]
 
-shopt -s nullglob
-packages=("$artifact_dir"/*.pkg)
-[[ ${#packages[@]} -eq 1 ]]
-pkgutil --check-signature "${packages[0]}" || true
+rm -rf "$stage_dir"
+DESTDIR="$stage_dir" cmake --install "$build_dir"
+mkdir -p "$artifact_dir"
+package="$artifact_dir/libgenalyzer-${package_version}-macos-$(uname -m).pkg"
+/usr/bin/pkgbuild \
+    --root "$stage_dir" \
+    --identifier com.analogdevices.genalyzer \
+    --version "$package_version" \
+    --install-location / \
+    "$package"
+
+pkgutil --check-signature "$package" || true
 rm -rf "$RUNNER_TEMP/genalyzer-package"
-pkgutil --expand "${packages[0]}" "$RUNNER_TEMP/genalyzer-package"
+pkgutil --expand "$package" "$RUNNER_TEMP/genalyzer-package"
 find "$RUNNER_TEMP/genalyzer-package" -maxdepth 3 -type f -print
-sudo installer -pkg "${packages[0]}" -target /
+sudo installer -pkg "$package" -target /
 
 package_id=$(pkgutil --pkgs | grep -m 1 '^com\.analogdevices\.genalyzer')
 test -n "$package_id"
@@ -43,4 +50,4 @@ PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
     $(PKG_CONFIG_PATH=/usr/local/lib/pkgconfig pkg-config --cflags --libs libgenalyzer) \
     -o "$smoke_dir/package-smoke"
 (cd "$smoke_dir" && DYLD_LIBRARY_PATH=/usr/local/lib ./package-smoke)
-file "${packages[0]}"
+file "$package"
