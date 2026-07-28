@@ -104,6 +104,9 @@ endif()
 
 install(FILES LICENSE LICENSE_ADIBSD
         DESTINATION ${CMAKE_INSTALL_DATADIR}/licenses/genalyzer)
+install(FILES LICENSE
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/libgenalyzer
+        RENAME copyright)
 
 # productbuild only accepts installer resources with .txt, .rtf, .rtfd, or
 # .html extensions. Keep the canonical LICENSE filename in the installed
@@ -115,6 +118,8 @@ set(CPACK_PACKAGE_VENDOR "Analog Devices, Inc.")
 set(CPACK_PACKAGE_CONTACT "Analog Devices, Inc. <support@analog.com>")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
     "DSP library for data-converter RF performance analysis")
+set(CPACK_PACKAGE_DESCRIPTION
+    "Genalyzer is a C/C++ library for analyzing data-converter waveforms, code density, Fourier transforms, and RF performance.")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/analogdevicesinc/genalyzer")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME

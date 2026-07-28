@@ -77,5 +77,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: libgenalyzer-macos
-          path: artifacts/macos/*.pkg
+          path: |
+            artifacts/macos/*.pkg
+            artifacts/macos/README.txt
           if-no-files-found: error
