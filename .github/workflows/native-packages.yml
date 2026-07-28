@@ -1,0 +1,77 @@
+name: Native packages
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux-packages:
+    name: ${{ matrix.name }} package
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Debian 12
+            image: debian:12
+            generator: DEB
+            distro: debian12
+            extension: deb
+          - name: Ubuntu 22.04
+            image: ubuntu:22.04
+            generator: DEB
+            distro: ubuntu22.04
+            extension: deb
+          - name: Ubuntu 24.04
+            image: ubuntu:24.04
+            generator: DEB
+            distro: ubuntu24.04
+            extension: deb
+          - name: Fedora 42 RPM
+            image: fedora:42
+            generator: RPM
+            distro: fedora42
+            extension: rpm
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build, install, and test package
+        run: |
+          docker run --rm \
+            --volume "$PWD:/workspace" \
+            --workdir /workspace \
+            "${{ matrix.image }}" \
+            bash .github/scripts/build_linux_package.sh \
+              "${{ matrix.generator }}" "${{ matrix.distro }}"
+
+      - name: Upload native package
+        uses: actions/upload-artifact@v4
+        with:
+          name: libgenalyzer-${{ matrix.distro }}
+          path: artifacts/${{ matrix.distro }}/*.${{ matrix.extension }}
+          if-no-files-found: error
+
+  macos-package:
+    name: macOS package
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: brew install cmake fftw ninja pkg-config
+
+      - name: Build, install, and test package
+        run: bash .github/scripts/build_macos_package.sh
+
+      - name: Upload native package
+        uses: actions/upload-artifact@v4
+        with:
+          name: libgenalyzer-macos
+          path: artifacts/macos/*.pkg
+          if-no-files-found: error
