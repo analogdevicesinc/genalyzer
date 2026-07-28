@@ -1,6 +1,11 @@
 file(GLOB HEADER_LIST CONFIGURE_DEPENDS
   "${PROJECT_SOURCE_DIR}/include/*.hpp")
 
+configure_file(
+  "${PROJECT_SOURCE_DIR}/include/version.h.in"
+  "${PROJECT_BINARY_DIR}/include/version.h"
+  @ONLY)
+
 add_definitions(-DEXPORT_API)
 
 add_library(genalyzer_plus_plus STATIC
@@ -27,7 +32,9 @@ add_library(genalyzer_plus_plus STATIC
 set_property(TARGET genalyzer_plus_plus PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 # We need this directory, and users of our library will need it too
-target_include_directories(genalyzer_plus_plus PUBLIC ../include)
+target_include_directories(genalyzer_plus_plus
+  PUBLIC ../include
+  PRIVATE "${PROJECT_BINARY_DIR}/include")
 
 set_target_properties(genalyzer_plus_plus PROPERTIES
   VERSION ${CMAKE_PROJECT_VERSION}
@@ -42,9 +49,6 @@ if(APPLE AND GENALYZER_BUILD_FRAMEWORKS)
   set_target_properties(genalyzer_plus_plus PROPERTIES FRAMEWORK TRUE)
 endif()
 
-set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib"
-  CACHE PATH "Installation directory for libraries")
-
 if(APPLE)
   find_package(PkgConfig)
   pkg_check_modules(FFTW3 REQUIRED fftw3)
@@ -56,10 +60,8 @@ if(APPLE OR WIN32)
 endif()
 
 install(TARGETS genalyzer_plus_plus
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
-  RUNTIME DESTINATION bin
-  FRAMEWORK DESTINATION lib
-  PUBLIC_HEADER DESTINATION include)
-
-include(GNUInstallDirs)
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

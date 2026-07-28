@@ -4,6 +4,8 @@ project(
   VERSION 0.1.4
   LANGUAGES CXX C)
 
+include(GNUInstallDirs)
+
 set(BUILD_SHARED_LIBS
     ON
     CACHE BOOL "Build shared libraries")
@@ -16,6 +18,8 @@ option(BUILD_CSHARP_BINDING "Build the C# (.NET) binding" OFF)
 option(COVERAGE "Enable coverage tracing when testing" OFF)
 option(GENALYZER_NATIVE_OPTIMIZATIONS "Enable host-specific native CPU optimizations" OFF)
 option(GENALYZER_BUILD_FRAMEWORKS "Build Apple framework bundles" ON)
+set(GENALYZER_PACKAGE_DISTRO "${CMAKE_SYSTEM_NAME}"
+    CACHE STRING "Distribution label included in native package filenames")
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -98,4 +102,28 @@ if(WIN32)
   configure_file(libgenalyzer.iss.cmakein ${CMAKE_CURRENT_BINARY_DIR}/libgenalyzer.iss @ONLY)
 endif()
 
-install(TARGETS genalyzer DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(FILES LICENSE LICENSE_ADIBSD
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/licenses/genalyzer)
+
+set(CPACK_PACKAGE_NAME "libgenalyzer")
+set(CPACK_PACKAGE_VENDOR "Analog Devices, Inc.")
+set(CPACK_PACKAGE_CONTACT "Analog Devices, Inc. <support@analog.com>")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
+    "DSP library for data-converter RF performance analysis")
+set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/analogdevicesinc/genalyzer")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+set(CPACK_PACKAGE_FILE_NAME
+    "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${GENALYZER_PACKAGE_DISTRO}-${CMAKE_SYSTEM_PROCESSOR}")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_PACKAGING_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+
+set(CPACK_DEBIAN_PACKAGE_SECTION "libs")
+set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+
+set(CPACK_RPM_PACKAGE_LICENSE "GPL-2.0-or-later")
+set(CPACK_RPM_PACKAGE_GROUP "System Environment/Libraries")
+set(CPACK_RPM_PACKAGE_AUTOREQ ON)
+
+set(CPACK_PRODUCTBUILD_IDENTIFIER "com.analogdevices.genalyzer")
+
+include(CPack)
