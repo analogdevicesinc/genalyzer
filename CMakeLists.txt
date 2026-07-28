@@ -105,6 +105,11 @@ endif()
 install(FILES LICENSE LICENSE_ADIBSD
         DESTINATION ${CMAKE_INSTALL_DATADIR}/licenses/genalyzer)
 
+# productbuild only accepts installer resources with .txt, .rtf, .rtfd, or
+# .html extensions. Keep the canonical LICENSE filename in the installed
+# package while giving CPack an extension-bearing copy for its UI resource.
+configure_file(LICENSE "${CMAKE_CURRENT_BINARY_DIR}/LICENSE.txt" COPYONLY)
+
 set(CPACK_PACKAGE_NAME "libgenalyzer")
 set(CPACK_PACKAGE_VENDOR "Analog Devices, Inc.")
 set(CPACK_PACKAGE_CONTACT "Analog Devices, Inc. <support@analog.com>")
@@ -114,7 +119,7 @@ set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/analogdevicesinc/genalyzer")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${GENALYZER_PACKAGE_DISTRO}-${CMAKE_SYSTEM_PROCESSOR}")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_BINARY_DIR}/LICENSE.txt")
 set(CPACK_PACKAGING_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
 set(CPACK_DEBIAN_PACKAGE_SECTION "libs")
