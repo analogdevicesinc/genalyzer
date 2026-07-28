@@ -35,6 +35,12 @@ set_target_properties(genalyzer PROPERTIES
   CXX_EXTENSIONS OFF
 )
 
+if(APPLE)
+  set_target_properties(genalyzer PROPERTIES
+                                        INSTALL_NAME_DIR
+                                        "${CMAKE_INSTALL_FULL_LIBDIR}")
+endif()
+
 if(APPLE AND GENALYZER_BUILD_FRAMEWORKS)
   set_target_properties(genalyzer PROPERTIES FRAMEWORK TRUE)
 endif()
