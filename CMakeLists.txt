@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13.4)
 project(
   genalyzer
-  VERSION 0.1.4
+  VERSION 0.1.5
   LANGUAGES CXX C)
 
 include(GNUInstallDirs)
