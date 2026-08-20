@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="Genalyzer provides a genalyzer command that mirrors every MCP tool as a grouped subcommand. It is the simpler surface for AI clients and scripted pipelines that prefer plain stdio + JSON over the MCP protocol." name="description" />
 
-    <title>CLI &#8212; Genalyzer v0.1.4 documentation</title>
+    <title>CLI &#8212; Genalyzer v0.1.5 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=d3f78147" />
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=fb8972a4" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="_static/sphinxcontrib_d2.css?v=1153e9da" />
@@ -78,10 +78,10 @@
     </div>
     <div id="right">
       <span>
-        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
         <div class="vertical-divider"></div>
         
-        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
         
         <a id="logo" href="index.html">
           <div>Genalyzer</div>
@@ -1020,10 +1020,10 @@ scope-style PNG of the first 10_000 samples next to the input file.</p>
 <span class="w">    </span>--num-points<span class="w"> </span><span class="m">8192</span><span class="w"> </span>--sample-rate<span class="w"> </span>250e6<span class="w"> </span>--tone-freq<span class="w"> </span>30e6<span class="w"> </span>--amplitude<span class="w"> </span><span class="m">0</span>.9<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--compact<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.output_path<span class="k">)</span>
 
-<span class="nv">Q</span><span class="o">=</span><span class="k">$(</span>genalyzer<span class="w"> </span>quantize<span class="w"> </span>--npy-path<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TONE</span><span class="s2">&quot;</span><span class="w"> </span>--bits<span class="w"> </span><span class="m">12</span><span class="w"> </span>--fullscale<span class="w"> </span><span class="m">2</span>.0<span class="w"> </span>--compact<span class="w"> </span><span class="se">\</span>
+<span class="nv">Q</span><span class="o">=</span><span class="k">$(</span>genalyzer<span class="w"> </span>quantize<span class="w"> </span>--npy-path<span class="w"> </span><span class="s2">"</span><span class="nv">$TONE</span><span class="s2">"</span><span class="w"> </span>--bits<span class="w"> </span><span class="m">12</span><span class="w"> </span>--fullscale<span class="w"> </span><span class="m">2</span>.0<span class="w"> </span>--compact<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.output_path<span class="k">)</span>
 
-genalyzer<span class="w"> </span>fourier<span class="w"> </span>analyze<span class="w"> </span>--npy-path<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$Q</span><span class="s2">&quot;</span><span class="w"> </span>--sample-rate<span class="w"> </span>250e6<span class="w"> </span><span class="se">\</span>
+genalyzer<span class="w"> </span>fourier<span class="w"> </span>analyze<span class="w"> </span>--npy-path<span class="w"> </span><span class="s2">"</span><span class="nv">$Q</span><span class="s2">"</span><span class="w"> </span>--sample-rate<span class="w"> </span>250e6<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--window<span class="w"> </span>blackman_harris<span class="w"> </span>--ssb<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
@@ -1043,10 +1043,10 @@ genalyzer<span class="w"> </span>fourier<span class="w"> </span>analyze<span cla
 <h3>Sweep in a pipeline<a class="headerlink" href="#sweep-in-a-pipeline" title="Link to this heading"></a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>10e6<span class="w"> </span>30e6<span class="w"> </span>60e6<span class="w"> </span>90e6<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">    </span><span class="nv">TONE</span><span class="o">=</span><span class="k">$(</span>genalyzer<span class="w"> </span>generators<span class="w"> </span>test-tone<span class="w"> </span>--num-points<span class="w"> </span><span class="m">8192</span><span class="w"> </span>--sample-rate<span class="w"> </span>250e6<span class="w"> </span><span class="se">\</span>
-<span class="w">           </span>--tone-freq<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="w"> </span>--amplitude<span class="w"> </span><span class="m">0</span>.9<span class="w"> </span>--compact<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.output_path<span class="k">)</span>
-<span class="w">    </span>genalyzer<span class="w"> </span>fourier<span class="w"> </span>analyze<span class="w"> </span>--npy-path<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TONE</span><span class="s2">&quot;</span><span class="w"> </span>--sample-rate<span class="w"> </span>250e6<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>--tone-freq<span class="w"> </span><span class="s2">"</span><span class="nv">$f</span><span class="s2">"</span><span class="w"> </span>--amplitude<span class="w"> </span><span class="m">0</span>.9<span class="w"> </span>--compact<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.output_path<span class="k">)</span>
+<span class="w">    </span>genalyzer<span class="w"> </span>fourier<span class="w"> </span>analyze<span class="w"> </span>--npy-path<span class="w"> </span><span class="s2">"</span><span class="nv">$TONE</span><span class="s2">"</span><span class="w"> </span>--sample-rate<span class="w"> </span>250e6<span class="w"> </span><span class="se">\</span>
 <span class="w">        </span>--window<span class="w"> </span>blackman_harris<span class="w"> </span>--ssb<span class="w"> </span><span class="m">3</span><span class="w"> </span>--compact<span class="w"> </span><span class="se">\</span>
-<span class="w">        </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">&quot;{tone_freq: </span><span class="nv">$f</span><span class="s2">, sfdr, snr}&quot;</span>
+<span class="w">        </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">"{tone_freq: </span><span class="nv">$f</span><span class="s2">, sfdr, snr}"</span>
 <span class="k">done</span>
 </pre></div>
 </div>

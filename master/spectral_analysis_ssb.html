@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="In this tutorial, we study a common scenario that arises when spectral analysis is compromised due to leakage. We will then look at two ways to address this problem: applying a non-rectangular window function before computing the FFT and appropriately configuring the number of single side bins within Genalyzer. The waveform we analyze will be a 375 KHz complex sinusoidal tone sampled at 4 MSPS. The only impairment in this waveform will be quantization noise. At the end of this tutorial, the reader will have gained an understanding on how to select the number of single side bins for the signal component in a test, in order to compute performance metrics such as SFDR, FSNR, SNR, NSD etc. This tutorial follows the discussion on spectral analysis. So, please read that page first to become familiar with the workflow of Genalyzer." name="description" />
 
-    <title>Windowing and Single Side Bins &#8212; Genalyzer v0.1.4 documentation</title>
+    <title>Windowing and Single Side Bins &#8212; Genalyzer v0.1.5 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=d3f78147" />
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=fb8972a4" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="_static/sphinxcontrib_d2.css?v=1153e9da" />
@@ -78,10 +78,10 @@
     </div>
     <div id="right">
       <span>
-        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
         <div class="vertical-divider"></div>
         
-        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
         
         <a id="logo" href="index.html">
           <div>Genalyzer</div>
@@ -1191,10 +1191,10 @@ Content on this topic
 <p>Consequently, we configure the DC component also to consider more than one bin in calculating the performance metrics.</p>
 <p>In <a class="icon link reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis2.py" target="_blank">leakage and spectral-analysis example</a> Python script, it is done by the following lines of code, where a <em>test</em> if created first followed by associating various <em>components</em> to this <em>test</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fourier analysis configuration</span>
-<span class="n">test_label</span> <span class="o">=</span> <span class="s2">&quot;fa&quot;</span>
+<span class="n">test_label</span> <span class="o">=</span> <span class="s2">"fa"</span>
 <span class="n">gn</span><span class="o">.</span><span class="n">fa_create</span><span class="p">(</span><span class="n">test_label</span><span class="p">)</span>
 
-<span class="n">signal_component_label</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span>
+<span class="n">signal_component_label</span> <span class="o">=</span> <span class="s1">'A'</span>
 <span class="n">ssb_fund</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># number of single-side bins for the signal component</span>
 <span class="n">ssb_dc</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># number of single-side bins for the DC-component</span>
 <span class="n">gn</span><span class="o">.</span><span class="n">fa_max_tone</span><span class="p">(</span><span class="n">test_label</span><span class="p">,</span> <span class="n">signal_component_label</span><span class="p">,</span> <span class="n">gn</span><span class="o">.</span><span class="n">FaCompTag</span><span class="o">.</span><span class="n">SIGNAL</span><span class="p">,</span> <span class="n">ssb_fund</span><span class="p">)</span>

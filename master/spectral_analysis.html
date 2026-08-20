@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="In this tutorial, we will use Genalyzer to conduct spectral analysis of a waveform. The waveform we analyze will be a 300 KHz complex sinusoidal tone sampled at 3 MSPS. The only impairment in this waveform will be quantization noise. At the end of this tutorial, the reader will have gained an understanding on how to utilize Genalyzer to compute various RF performance metrics such as SFDR, FSNR, SNR, NSD etc." name="description" />
 
-    <title>Spectral Analysis &#8212; Genalyzer v0.1.4 documentation</title>
+    <title>Spectral Analysis &#8212; Genalyzer v0.1.5 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=d3f78147" />
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=fb8972a4" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="_static/sphinxcontrib_d2.css?v=1153e9da" />
@@ -78,10 +78,10 @@
     </div>
     <div id="right">
       <span>
-        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
         <div class="vertical-divider"></div>
         
-        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
         
         <a id="logo" href="index.html">
           <div>Genalyzer</div>
@@ -1799,7 +1799,7 @@ Content on this topic
 <h4>Create a <em>test</em><a class="headerlink" href="#create-a-test" title="Link to this heading"></a></h4>
 <p>In the <a class="icon link reference external" href="https://github.com/analogdevicesinc/genalyzer/blob/main/bindings/python/examples/gn_doc_spectral_analysis1.py" target="_blank">spectral-analysis example</a> Python script, to create a <em>test</em>, we called <a class="reference internal" href="python/fourier_configuration.html#genalyzer.fa_create" title="genalyzer.fa_create"><span class="xref myst py py-func"><code class="docutils literal notranslate"><span class="pre">fa_create()</span></code></span></a> as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fourier analysis configuration</span>
-<span class="n">test_label</span> <span class="o">=</span> <span class="s2">&quot;fa&quot;</span>
+<span class="n">test_label</span> <span class="o">=</span> <span class="s2">"fa"</span>
 <span class="n">gn</span><span class="o">.</span><span class="n">fa_create</span><span class="p">(</span><span class="n">test_label</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1813,9 +1813,9 @@ Content on this topic
 <h4>Add a <em>component</em> to a <em>test</em><a class="headerlink" href="#add-a-component-to-a-test" title="Link to this heading"></a></h4>
 <p>The next step is to identify a tone, give it a label, tag it with a component tag, and add it to the <em>test</em> being run. In this working example, we will consider only the signal tone for illustration purposes. We pick the label, <code class="docutils literal notranslate"><span class="pre">A</span></code> for the signal component and associate it with the test labeled <code class="docutils literal notranslate"><span class="pre">fa</span></code> from above. To do this, call <a class="reference internal" href="python/fourier_configuration.html#genalyzer.fa_max_tone" title="genalyzer.fa_max_tone"><span class="xref myst py py-func"><code class="docutils literal notranslate"><span class="pre">fa_max_tone()</span></code></span></a> as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fourier analysis configuration</span>
-<span class="n">test_label</span> <span class="o">=</span> <span class="s2">&quot;fa&quot;</span>
+<span class="n">test_label</span> <span class="o">=</span> <span class="s2">"fa"</span>
 <span class="n">gn</span><span class="o">.</span><span class="n">fa_create</span><span class="p">(</span><span class="n">test_label</span><span class="p">)</span>
-<span class="n">signal_component_label</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span>
+<span class="n">signal_component_label</span> <span class="o">=</span> <span class="s1">'A'</span>
 <span class="n">gn</span><span class="o">.</span><span class="n">fa_max_tone</span><span class="p">(</span><span class="n">test_label</span><span class="p">,</span> <span class="n">signal_component_label</span><span class="p">,</span> <span class="n">gn</span><span class="o">.</span><span class="n">FaCompTag</span><span class="o">.</span><span class="n">SIGNAL</span><span class="p">,</span> <span class="n">ssb_fund</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2215,149 +2215,149 @@ Content on this topic
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">+----------------+</span>
 <span class="go">results dictionary</span>
 <span class="go">+----------------+</span>
-<span class="go">{&#39;-2A:ffinal&#39;: -600000.0,</span>
-<span class="go"> &#39;-2A:freq&#39;: -600000.0,</span>
-<span class="go"> &#39;-2A:fwavg&#39;: 0.0,</span>
-<span class="go"> &#39;-2A:i1&#39;: 24000.0,</span>
-<span class="go"> &#39;-2A:i2&#39;: 24000.0,</span>
-<span class="go"> &#39;-2A:inband&#39;: 1.0,</span>
-<span class="go"> &#39;-2A:mag&#39;: 1.0406152385295209e-05,</span>
-<span class="go"> &#39;-2A:mag_dbc&#39;: -98.65417884167778,</span>
-<span class="go"> &#39;-2A:mag_dbfs&#39;: -99.654196373704,</span>
-<span class="go"> &#39;-2A:nbins&#39;: 1.0,</span>
-<span class="go"> &#39;-2A:orderindex&#39;: 4.0,</span>
-<span class="go"> &#39;-2A:phase&#39;: -0.9269628993478889,</span>
-<span class="go"> &#39;-2A:phase_c&#39;: -0.9269652814760975,</span>
-<span class="go"> &#39;-2A:tag&#39;: 2.0,</span>
-<span class="go"> &#39;-3A:ffinal&#39;: -900000.0,</span>
-<span class="go"> &#39;-3A:freq&#39;: -900000.0,</span>
-<span class="go"> &#39;-3A:fwavg&#39;: 0.0,</span>
-<span class="go"> &#39;-3A:i1&#39;: 21000.0,</span>
-<span class="go"> &#39;-3A:i2&#39;: 21000.0,</span>
-<span class="go"> &#39;-3A:inband&#39;: 1.0,</span>
-<span class="go"> &#39;-3A:mag&#39;: 6.016169853525572e-06,</span>
-<span class="go"> &#39;-3A:mag_dbc&#39;: -103.41358068555886,</span>
-<span class="go"> &#39;-3A:mag_dbfs&#39;: -104.41359821758508,</span>
-<span class="go"> &#39;-3A:nbins&#39;: 1.0,</span>
-<span class="go"> &#39;-3A:orderindex&#39;: 5.0,</span>
-<span class="go"> &#39;-3A:phase&#39;: 2.094523867798375,</span>
-<span class="go"> &#39;-3A:phase_c&#39;: 2.0945214856701666,</span>
-<span class="go"> &#39;-3A:tag&#39;: 2.0,</span>
-<span class="go"> &#39;-A:ffinal&#39;: -300000.0,</span>
-<span class="go"> &#39;-A:freq&#39;: -300000.0,</span>
-<span class="go"> &#39;-A:fwavg&#39;: 0.0,</span>
-<span class="go"> &#39;-A:i1&#39;: 27000.0,</span>
-<span class="go"> &#39;-A:i2&#39;: 27000.0,</span>
-<span class="go"> &#39;-A:inband&#39;: 1.0,</span>
-<span class="go"> &#39;-A:mag&#39;: 1.4259315029324203e-05,</span>
-<span class="go"> &#39;-A:mag_dbc&#39;: -95.91800918925517,</span>
-<span class="go"> &#39;-A:mag_dbfs&#39;: -96.9180267212814,</span>
-<span class="go"> &#39;-A:nbins&#39;: 1.0,</span>
-<span class="go"> &#39;-A:orderindex&#39;: 2.0,</span>
-<span class="go"> &#39;-A:phase&#39;: -1.0654410825386686,</span>
-<span class="go"> &#39;-A:phase_c&#39;: -1.0654434646668773,</span>
-<span class="go"> &#39;-A:tag&#39;: 2.0,</span>
-<span class="go"> &#39;2A:ffinal&#39;: 600000.0,</span>
-<span class="go"> &#39;2A:freq&#39;: 600000.0,</span>
-<span class="go"> &#39;2A:fwavg&#39;: 0.0,</span>
-<span class="go"> &#39;2A:i1&#39;: 6000.0,</span>
-<span class="go"> &#39;2A:i2&#39;: 6000.0,</span>
-<span class="go"> &#39;2A:inband&#39;: 1.0,</span>
-<span class="go"> &#39;2A:mag&#39;: 7.461346264425087e-06,</span>
-<span class="go"> &#39;2A:mag_dbc&#39;: -101.54363856607857,</span>
-<span class="go"> &#39;2A:mag_dbfs&#39;: -102.54365609810476,</span>
-<span class="go"> &#39;2A:nbins&#39;: 1.0,</span>
-<span class="go"> &#39;2A:orderindex&#39;: 3.0,</span>
-<span class="go"> &#39;2A:phase&#39;: 1.1796502560980227,</span>
-<span class="go"> &#39;2A:phase_c&#39;: 1.179647873969814,</span>
-<span class="go"> &#39;2A:tag&#39;: 2.0,</span>
-<span class="go"> &#39;A:ffinal&#39;: 300000.0,</span>
-<span class="go"> &#39;A:freq&#39;: 300000.0,</span>
-<span class="go"> &#39;A:fwavg&#39;: 0.0,</span>
-<span class="go"> &#39;A:i1&#39;: 3000.0,</span>
-<span class="go"> &#39;A:i2&#39;: 3000.0,</span>
-<span class="go"> &#39;A:inband&#39;: 1.0,</span>
-<span class="go"> &#39;A:mag&#39;: 0.8912491391908985,</span>
-<span class="go"> &#39;A:mag_dbc&#39;: 0.0,</span>
-<span class="go"> &#39;A:mag_dbfs&#39;: -1.0000175320262066,</span>
-<span class="go"> &#39;A:nbins&#39;: 1.0,</span>
-<span class="go"> &#39;A:orderindex&#39;: 1.0,</span>
-<span class="go"> &#39;A:phase&#39;: 2.3821282085798884e-06,</span>
-<span class="go"> &#39;A:phase_c&#39;: 0.0,</span>
-<span class="go"> &#39;A:tag&#39;: 1.0,</span>
-<span class="go"> &#39;ab_i1&#39;: 0.0,</span>
-<span class="go"> &#39;ab_i2&#39;: 29999.0,</span>
-<span class="go"> &#39;ab_nbins&#39;: 30000.0,</span>
-<span class="go"> &#39;ab_rss&#39;: 0.891250360126791,</span>
-<span class="go"> &#39;ab_width&#39;: 3000000.0,</span>
-<span class="go"> &#39;abn&#39;: -101.6440166036007,</span>
-<span class="go"> &#39;analysistype&#39;: 1.0,</span>
-<span class="go"> &#39;carrierindex&#39;: 1.0,</span>
-<span class="go"> &#39;clk_nbins&#39;: 0.0,</span>
-<span class="go"> &#39;clk_rss&#39;: 0.0,</span>
-<span class="go"> &#39;datasize&#39;: 30000.0,</span>
-<span class="go"> &#39;dc:ffinal&#39;: 0.0,</span>
-<span class="go"> &#39;dc:freq&#39;: 0.0,</span>
-<span class="go"> &#39;dc:fwavg&#39;: 0.0,</span>
-<span class="go"> &#39;dc:i1&#39;: 0.0,</span>
-<span class="go"> &#39;dc:i2&#39;: 0.0,</span>
-<span class="go"> &#39;dc:inband&#39;: 1.0,</span>
-<span class="go"> &#39;dc:mag&#39;: 0.00034894329171477126,</span>
-<span class="go"> &#39;dc:mag_dbc&#39;: -68.14488539563568,</span>
-<span class="go"> &#39;dc:mag_dbfs&#39;: -69.1449029276619,</span>
-<span class="go"> &#39;dc:nbins&#39;: 1.0,</span>
-<span class="go"> &#39;dc:orderindex&#39;: 0.0,</span>
-<span class="go"> &#39;dc:phase&#39;: -2.3326100677671495,</span>
-<span class="go"> &#39;dc:phase_c&#39;: -2.332612449895358,</span>
-<span class="go"> &#39;dc:tag&#39;: 0.0,</span>
-<span class="go"> &#39;dist_nbins&#39;: 4.0,</span>
-<span class="go"> &#39;dist_rss&#39;: 2.0086862879892827e-05,</span>
-<span class="go"> &#39;fbin&#39;: 100.0,</span>
-<span class="go"> &#39;fdata&#39;: 3000000.0,</span>
-<span class="go"> &#39;fsample&#39;: 3000000.0,</span>
-<span class="go"> &#39;fshift&#39;: 0.0,</span>
-<span class="go"> &#39;fsnr&#39;: 56.873672732238376,</span>
-<span class="go"> &#39;hd_nbins&#39;: 4.0,</span>
-<span class="go"> &#39;hd_rss&#39;: 2.0086862879892827e-05,</span>
-<span class="go"> &#39;ilgt_nbins&#39;: 0.0,</span>
-<span class="go"> &#39;ilgt_rss&#39;: 0.0,</span>
-<span class="go"> &#39;ilos_nbins&#39;: 0.0,</span>
-<span class="go"> &#39;ilos_rss&#39;: 0.0,</span>
-<span class="go"> &#39;ilv_nbins&#39;: 0.0,</span>
-<span class="go"> &#39;ilv_rss&#39;: 0.0,</span>
-<span class="go"> &#39;imd_nbins&#39;: 0.0,</span>
-<span class="go"> &#39;imd_rss&#39;: 0.0,</span>
-<span class="go"> &#39;maxspurindex&#39;: 6.0,</span>
-<span class="go"> &#39;nad_nbins&#39;: 29998.0,</span>
-<span class="go"> &#39;nad_rss&#39;: 0.0014333723144579046,</span>
-<span class="go"> &#39;nfft&#39;: 30000.0,</span>
-<span class="go"> &#39;noise_nbins&#39;: 29994.0,</span>
-<span class="go"> &#39;noise_rss&#39;: 0.0014332315618189736,</span>
-<span class="go"> &#39;nsd&#39;: -121.64488527943499,</span>
-<span class="go"> &#39;sfdr&#39;: 90.30795361676347,</span>
-<span class="go"> &#39;signal_nbins&#39;: 1.0,</span>
-<span class="go"> &#39;signal_rss&#39;: 0.8912491391908985,</span>
-<span class="go"> &#39;signaltype&#39;: 1.0,</span>
-<span class="go"> &#39;sinad&#39;: 55.87280223137394,</span>
-<span class="go"> &#39;snr&#39;: 55.87365520021216,</span>
-<span class="go"> &#39;thd_nbins&#39;: 4.0,</span>
-<span class="go"> &#39;thd_rss&#39;: 2.0086862879892827e-05,</span>
-<span class="go"> &#39;userdist_nbins&#39;: 0.0,</span>
-<span class="go"> &#39;userdist_rss&#39;: 0.0,</span>
-<span class="go"> &#39;wo:ffinal&#39;: 1164100.0,</span>
-<span class="go"> &#39;wo:freq&#39;: 1164100.0,</span>
-<span class="go"> &#39;wo:fwavg&#39;: 0.0,</span>
-<span class="go"> &#39;wo:i1&#39;: 11641.0,</span>
-<span class="go"> &#39;wo:i2&#39;: 11641.0,</span>
-<span class="go"> &#39;wo:inband&#39;: 1.0,</span>
-<span class="go"> &#39;wo:mag&#39;: 2.7202037974481932e-05,</span>
-<span class="go"> &#39;wo:mag_dbc&#39;: -90.30795361676347,</span>
-<span class="go"> &#39;wo:mag_dbfs&#39;: -91.30797114878968,</span>
-<span class="go"> &#39;wo:nbins&#39;: 1.0,</span>
-<span class="go"> &#39;wo:orderindex&#39;: 6.0,</span>
-<span class="go"> &#39;wo:phase&#39;: -2.1560142655481678,</span>
-<span class="go"> &#39;wo:phase_c&#39;: -2.1560166476763762,</span>
-<span class="go"> &#39;wo:tag&#39;: 8.0}</span>
+<span class="go">{'-2A:ffinal': -600000.0,</span>
+<span class="go"> '-2A:freq': -600000.0,</span>
+<span class="go"> '-2A:fwavg': 0.0,</span>
+<span class="go"> '-2A:i1': 24000.0,</span>
+<span class="go"> '-2A:i2': 24000.0,</span>
+<span class="go"> '-2A:inband': 1.0,</span>
+<span class="go"> '-2A:mag': 1.0406152385295209e-05,</span>
+<span class="go"> '-2A:mag_dbc': -98.65417884167778,</span>
+<span class="go"> '-2A:mag_dbfs': -99.654196373704,</span>
+<span class="go"> '-2A:nbins': 1.0,</span>
+<span class="go"> '-2A:orderindex': 4.0,</span>
+<span class="go"> '-2A:phase': -0.9269628993478889,</span>
+<span class="go"> '-2A:phase_c': -0.9269652814760975,</span>
+<span class="go"> '-2A:tag': 2.0,</span>
+<span class="go"> '-3A:ffinal': -900000.0,</span>
+<span class="go"> '-3A:freq': -900000.0,</span>
+<span class="go"> '-3A:fwavg': 0.0,</span>
+<span class="go"> '-3A:i1': 21000.0,</span>
+<span class="go"> '-3A:i2': 21000.0,</span>
+<span class="go"> '-3A:inband': 1.0,</span>
+<span class="go"> '-3A:mag': 6.016169853525572e-06,</span>
+<span class="go"> '-3A:mag_dbc': -103.41358068555886,</span>
+<span class="go"> '-3A:mag_dbfs': -104.41359821758508,</span>
+<span class="go"> '-3A:nbins': 1.0,</span>
+<span class="go"> '-3A:orderindex': 5.0,</span>
+<span class="go"> '-3A:phase': 2.094523867798375,</span>
+<span class="go"> '-3A:phase_c': 2.0945214856701666,</span>
+<span class="go"> '-3A:tag': 2.0,</span>
+<span class="go"> '-A:ffinal': -300000.0,</span>
+<span class="go"> '-A:freq': -300000.0,</span>
+<span class="go"> '-A:fwavg': 0.0,</span>
+<span class="go"> '-A:i1': 27000.0,</span>
+<span class="go"> '-A:i2': 27000.0,</span>
+<span class="go"> '-A:inband': 1.0,</span>
+<span class="go"> '-A:mag': 1.4259315029324203e-05,</span>
+<span class="go"> '-A:mag_dbc': -95.91800918925517,</span>
+<span class="go"> '-A:mag_dbfs': -96.9180267212814,</span>
+<span class="go"> '-A:nbins': 1.0,</span>
+<span class="go"> '-A:orderindex': 2.0,</span>
+<span class="go"> '-A:phase': -1.0654410825386686,</span>
+<span class="go"> '-A:phase_c': -1.0654434646668773,</span>
+<span class="go"> '-A:tag': 2.0,</span>
+<span class="go"> '2A:ffinal': 600000.0,</span>
+<span class="go"> '2A:freq': 600000.0,</span>
+<span class="go"> '2A:fwavg': 0.0,</span>
+<span class="go"> '2A:i1': 6000.0,</span>
+<span class="go"> '2A:i2': 6000.0,</span>
+<span class="go"> '2A:inband': 1.0,</span>
+<span class="go"> '2A:mag': 7.461346264425087e-06,</span>
+<span class="go"> '2A:mag_dbc': -101.54363856607857,</span>
+<span class="go"> '2A:mag_dbfs': -102.54365609810476,</span>
+<span class="go"> '2A:nbins': 1.0,</span>
+<span class="go"> '2A:orderindex': 3.0,</span>
+<span class="go"> '2A:phase': 1.1796502560980227,</span>
+<span class="go"> '2A:phase_c': 1.179647873969814,</span>
+<span class="go"> '2A:tag': 2.0,</span>
+<span class="go"> 'A:ffinal': 300000.0,</span>
+<span class="go"> 'A:freq': 300000.0,</span>
+<span class="go"> 'A:fwavg': 0.0,</span>
+<span class="go"> 'A:i1': 3000.0,</span>
+<span class="go"> 'A:i2': 3000.0,</span>
+<span class="go"> 'A:inband': 1.0,</span>
+<span class="go"> 'A:mag': 0.8912491391908985,</span>
+<span class="go"> 'A:mag_dbc': 0.0,</span>
+<span class="go"> 'A:mag_dbfs': -1.0000175320262066,</span>
+<span class="go"> 'A:nbins': 1.0,</span>
+<span class="go"> 'A:orderindex': 1.0,</span>
+<span class="go"> 'A:phase': 2.3821282085798884e-06,</span>
+<span class="go"> 'A:phase_c': 0.0,</span>
+<span class="go"> 'A:tag': 1.0,</span>
+<span class="go"> 'ab_i1': 0.0,</span>
+<span class="go"> 'ab_i2': 29999.0,</span>
+<span class="go"> 'ab_nbins': 30000.0,</span>
+<span class="go"> 'ab_rss': 0.891250360126791,</span>
+<span class="go"> 'ab_width': 3000000.0,</span>
+<span class="go"> 'abn': -101.6440166036007,</span>
+<span class="go"> 'analysistype': 1.0,</span>
+<span class="go"> 'carrierindex': 1.0,</span>
+<span class="go"> 'clk_nbins': 0.0,</span>
+<span class="go"> 'clk_rss': 0.0,</span>
+<span class="go"> 'datasize': 30000.0,</span>
+<span class="go"> 'dc:ffinal': 0.0,</span>
+<span class="go"> 'dc:freq': 0.0,</span>
+<span class="go"> 'dc:fwavg': 0.0,</span>
+<span class="go"> 'dc:i1': 0.0,</span>
+<span class="go"> 'dc:i2': 0.0,</span>
+<span class="go"> 'dc:inband': 1.0,</span>
+<span class="go"> 'dc:mag': 0.00034894329171477126,</span>
+<span class="go"> 'dc:mag_dbc': -68.14488539563568,</span>
+<span class="go"> 'dc:mag_dbfs': -69.1449029276619,</span>
+<span class="go"> 'dc:nbins': 1.0,</span>
+<span class="go"> 'dc:orderindex': 0.0,</span>
+<span class="go"> 'dc:phase': -2.3326100677671495,</span>
+<span class="go"> 'dc:phase_c': -2.332612449895358,</span>
+<span class="go"> 'dc:tag': 0.0,</span>
+<span class="go"> 'dist_nbins': 4.0,</span>
+<span class="go"> 'dist_rss': 2.0086862879892827e-05,</span>
+<span class="go"> 'fbin': 100.0,</span>
+<span class="go"> 'fdata': 3000000.0,</span>
+<span class="go"> 'fsample': 3000000.0,</span>
+<span class="go"> 'fshift': 0.0,</span>
+<span class="go"> 'fsnr': 56.873672732238376,</span>
+<span class="go"> 'hd_nbins': 4.0,</span>
+<span class="go"> 'hd_rss': 2.0086862879892827e-05,</span>
+<span class="go"> 'ilgt_nbins': 0.0,</span>
+<span class="go"> 'ilgt_rss': 0.0,</span>
+<span class="go"> 'ilos_nbins': 0.0,</span>
+<span class="go"> 'ilos_rss': 0.0,</span>
+<span class="go"> 'ilv_nbins': 0.0,</span>
+<span class="go"> 'ilv_rss': 0.0,</span>
+<span class="go"> 'imd_nbins': 0.0,</span>
+<span class="go"> 'imd_rss': 0.0,</span>
+<span class="go"> 'maxspurindex': 6.0,</span>
+<span class="go"> 'nad_nbins': 29998.0,</span>
+<span class="go"> 'nad_rss': 0.0014333723144579046,</span>
+<span class="go"> 'nfft': 30000.0,</span>
+<span class="go"> 'noise_nbins': 29994.0,</span>
+<span class="go"> 'noise_rss': 0.0014332315618189736,</span>
+<span class="go"> 'nsd': -121.64488527943499,</span>
+<span class="go"> 'sfdr': 90.30795361676347,</span>
+<span class="go"> 'signal_nbins': 1.0,</span>
+<span class="go"> 'signal_rss': 0.8912491391908985,</span>
+<span class="go"> 'signaltype': 1.0,</span>
+<span class="go"> 'sinad': 55.87280223137394,</span>
+<span class="go"> 'snr': 55.87365520021216,</span>
+<span class="go"> 'thd_nbins': 4.0,</span>
+<span class="go"> 'thd_rss': 2.0086862879892827e-05,</span>
+<span class="go"> 'userdist_nbins': 0.0,</span>
+<span class="go"> 'userdist_rss': 0.0,</span>
+<span class="go"> 'wo:ffinal': 1164100.0,</span>
+<span class="go"> 'wo:freq': 1164100.0,</span>
+<span class="go"> 'wo:fwavg': 0.0,</span>
+<span class="go"> 'wo:i1': 11641.0,</span>
+<span class="go"> 'wo:i2': 11641.0,</span>
+<span class="go"> 'wo:inband': 1.0,</span>
+<span class="go"> 'wo:mag': 2.7202037974481932e-05,</span>
+<span class="go"> 'wo:mag_dbc': -90.30795361676347,</span>
+<span class="go"> 'wo:mag_dbfs': -91.30797114878968,</span>
+<span class="go"> 'wo:nbins': 1.0,</span>
+<span class="go"> 'wo:orderindex': 6.0,</span>
+<span class="go"> 'wo:phase': -2.1560142655481678,</span>
+<span class="go"> 'wo:phase_c': -2.1560166476763762,</span>
+<span class="go"> 'wo:tag': 8.0}</span>
 </pre></div>
 </div>
 </div>

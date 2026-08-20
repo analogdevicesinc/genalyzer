@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="Genalyzer ships managed .NET (C#) bindings that wrap the native C ABI with a thin, zero-dependency P/Invoke layer. The library multi-targets net9.0, net6.0, and net4.7, and mirrors the same analysis domains exposed by the C and Python bindings." name="description" />
 
-    <title>C# Bindings &#8212; Genalyzer v0.1.4 documentation</title>
+    <title>C# Bindings &#8212; Genalyzer v0.1.5 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=d3f78147" />
+    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=fb8972a4" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinxcontrib_d2.css?v=1153e9da" />
@@ -78,10 +78,10 @@
     </div>
     <div id="right">
       <span>
-        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
         <div class="vertical-divider"></div>
         
-        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
         
         <a id="logo" href="../index.html">
           <div>Genalyzer</div>
@@ -226,7 +226,7 @@ directory containing it),</p></li>
 </ol>
 <p>A failure throws one actionable <code class="docutils literal notranslate"><span class="pre">DllNotFoundException</span></code> listing the paths tried.
 For an in-tree build:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">GENALYZER_LIB_PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/build/bindings/c/src&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">GENALYZER_LIB_PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/build/bindings/c/src"</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -246,7 +246,7 @@ assembly; <code class="docutils literal notranslate"><span class="pre">GENALYZER
 <span class="c1">// Time-domain generation and analysis.</span>
 <span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">wave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Waveforms</span><span class="p">.</span><span class="n">Sin</span><span class="p">(</span><span class="mi">8192</span><span class="p">,</span><span class="w"> </span><span class="n">fs</span><span class="p">:</span><span class="w"> </span><span class="mf">8192.0</span><span class="p">,</span><span class="w"> </span><span class="n">ampl</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">freq</span><span class="p">:</span><span class="w"> </span><span class="mf">64.0</span><span class="p">);</span>
 <span class="kt">var</span><span class="w"> </span><span class="n">stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Waveforms</span><span class="p">.</span><span class="n">WfAnalysis</span><span class="p">(</span><span class="n">wave</span><span class="p">);</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;max={stats[&quot;</span><span class="n">max</span><span class="s">&quot;]:F3}  rms={stats[&quot;</span><span class="n">rms</span><span class="s">&quot;]:F3}&quot;</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"max={stats["</span><span class="n">max</span><span class="s">"]:F3}  rms={stats["</span><span class="n">rms</span><span class="s">"]:F3}"</span><span class="p">);</span>
 
 <span class="c1">// Simplified-beta spectral analysis.</span>
 <span class="k">using</span><span class="w"> </span><span class="nn">var</span><span class="w"> </span><span class="n">cfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GenalyzerConfig</span><span class="p">();</span>
@@ -259,7 +259,7 @@ assembly; <code class="docutils literal notranslate"><span class="pre">GENALYZER
 
 <span class="kt">var</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">GenComplexTone</span><span class="p">();</span>
 <span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">fft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">Fftz</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">Quantize</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">Quantize</span><span class="p">(</span><span class="n">q</span><span class="p">));</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;SFDR = {cfg.GetFaSingleResult(fft, &quot;</span><span class="n">sfdr</span><span class="s">&quot;):F2} dB&quot;</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"SFDR = {cfg.GetFaSingleResult(fft, "</span><span class="n">sfdr</span><span class="s">"):F2} dB"</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>More runnable samples are in
@@ -311,7 +311,7 @@ assembly; <code class="docutils literal notranslate"><span class="pre">GENALYZER
 <h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
 <p>The xUnit suite (<code class="docutils literal notranslate"><span class="pre">bindings/csharp/tests</span></code>, targeting <code class="docutils literal notranslate"><span class="pre">net6.0</span></code> and <code class="docutils literal notranslate"><span class="pre">net9.0</span></code>) runs via:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>bindings/csharp
-<span class="nb">export</span><span class="w"> </span><span class="nv">GENALYZER_LIB_PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/../../build/bindings/c/src&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GENALYZER_LIB_PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/../../build/bindings/c/src"</span>
 dotnet<span class="w"> </span><span class="nb">test</span><span class="w"> </span>tests/Genalyzer.Tests.csproj
 </pre></div>
 </div>
