@@ -55,7 +55,7 @@ jobs:
           name: genalyzer-fftw-wheels-${{ matrix.os }}
           path: wheelhouse/*.whl
 
-  PublishPyPI:
+  PublishPyPIBase:
     needs: [BuildSDist, BuildFFTWheels]
     runs-on: ubuntu-22.04
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
@@ -64,14 +64,34 @@ jobs:
       id-token: write
 
     steps:
-      - name: Download distributions
+      - name: Download genalyzer distributions
         uses: actions/download-artifact@v4
         with:
-          pattern: genalyzer-*
-          path: dist
-          merge-multiple: true
+          name: genalyzer-sdist
+          path: dist-genalyzer
 
-      - name: Publish to PyPI
+      - name: Publish genalyzer to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: dist
+          packages-dir: dist-genalyzer
+
+  PublishPyPIFFTW:
+    needs: [PublishPyPIBase]
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Download genalyzer-fftw wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: genalyzer-fftw-wheels-*
+          path: dist-genalyzer-fftw
+          merge-multiple: true
+
+      - name: Publish genalyzer-fftw to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist-genalyzer-fftw
