@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genalyzer-fftw"
-version = "0.1.5"
+version = "0.1.6"
 description = "GPL FFTW-enabled native runtime for genalyzer"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "GPL-2.0-or-later"
 license-files = ["LICENSE", "FFTW_COPYING", "THIRD_PARTY_LICENSES.md", "FFTW_SOURCE.md"]
-dependencies = ["genalyzer==0.1.5"]
+dependencies = ["genalyzer==0.1.6"]
 classifiers = [
   "Intended Audience :: Developers",
   "Programming Language :: Python :: 3",
@@ -28,6 +28,7 @@ genalyzer_fftw = ["*.dll", "*.dylib", "*.so", "*.so.*", ".dylibs/*"]
 build = "cp39-*"
 skip = ["*-musllinux*", "*-manylinux_i686", "*-win32"]
 before-build = "python {project}/bindings/python/tools/cibw_build_native.py"
+before-test = "python -m pip install --force-reinstall {project}/bindings/python"
 test-command = "python -m pip install --force-reinstall {project}/bindings/python && python -m pytest -p no:genalyzer -v {project}/bindings/python-fftw/tests/test_wheel_smoke.py"
 test-requires = ["pytest", "numpy"]
 
