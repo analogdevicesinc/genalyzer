@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genalyzer-fftw"
-version = "0.1.6"
+version = "0.1.7"
 description = "GPL FFTW-enabled native runtime for genalyzer"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "GPL-2.0-or-later"
 license-files = ["LICENSE", "FFTW_COPYING", "THIRD_PARTY_LICENSES.md", "FFTW_SOURCE.md"]
-dependencies = ["genalyzer==0.1.6"]
+dependencies = ["genalyzer==0.1.7"]
 classifiers = [
   "Intended Audience :: Developers",
   "Programming Language :: Python :: 3",
