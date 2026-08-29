@@ -1,0 +1,50 @@
+# Generated 2026-06-19 on Xeon E5-1650 @ 3.20GHz (AVX-256, no FMA), g++ 13.3, build.sh flags: -O3 -mavx -std=c++17 -pthread
+anchor: T0 vs ref max-abs-err = 0.000e+00 -> PASS
+correctness: T0 baseline max-abs-err = 0.000e+00 -> PASS
+correctness: T1 no-trig  max-abs-err = 3.531e-14 -> PASS
+correctness: T2 avx-intr max-abs-err = 3.531e-14 -> PASS
+correctness: T3 asm-1core max-abs-err = 3.531e-14 -> PASS
+correctness: T4 asm-6core max-abs-err = 3.531e-14 -> PASS
+renorm-cov:  T0 baseline max-abs-err = 0.000e+00 -> PASS
+renorm-cov:  T1 no-trig  max-abs-err = 5.604e-14 -> PASS
+renorm-cov:  T2 avx-intr max-abs-err = 5.604e-14 -> PASS
+renorm-cov:  T3 asm-1core max-abs-err = 5.604e-14 -> PASS
+renorm-cov:  T4 asm-6core max-abs-err = 5.604e-14 -> PASS
+
+tier              nfft   navg   Msamples/s    speedup  max-abs-err
+T0 baseline       4096      1         16.0      1.00x     0.00e+00
+T1 no-trig        4096      1        153.1      9.59x     3.60e-14
+T2 avx-intr       4096      1        154.3      9.66x     3.60e-14
+T3 asm-1core      4096      1        155.2      9.71x     3.60e-14
+T4 asm-6core      4096      1         17.5      1.10x     3.60e-14
+
+T0 baseline       4096      8         97.0      1.00x     0.00e+00
+T1 no-trig        4096      8        487.2      5.02x     3.61e-14
+T2 avx-intr       4096      8        488.2      5.04x     3.61e-14
+T3 asm-1core      4096      8        491.3      5.07x     3.61e-14
+T4 asm-6core      4096      8        219.0      2.26x     3.61e-14
+
+T0 baseline      65536      1         18.7      1.00x     0.00e+00
+T1 no-trig       65536      1        149.3      8.00x     3.35e-14
+T2 avx-intr      65536      1        149.3      7.99x     3.35e-14
+T3 asm-1core     65536      1        149.7      8.01x     3.35e-14
+T4 asm-6core     65536      1        112.3      6.01x     3.35e-14
+
+T0 baseline      65536      8         46.4      1.00x     0.00e+00
+T1 no-trig       65536      8        315.5      6.80x     3.55e-14
+T2 avx-intr      65536      8        304.8      6.57x     3.55e-14
+T3 asm-1core     65536      8        310.8      6.70x     3.55e-14
+T4 asm-6core     65536      8        478.3     10.31x     3.55e-14
+
+T0 baseline    1048576      1         15.5      1.00x     0.00e+00
+T1 no-trig     1048576      1        122.6      7.93x     5.67e-14
+T2 avx-intr    1048576      1        122.6      7.93x     5.67e-14
+T3 asm-1core   1048576      1        122.1      7.90x     5.67e-14
+T4 asm-6core   1048576      1        139.8      9.04x     5.67e-14
+
+T0 baseline    1048576      8         46.5      1.00x     0.00e+00
+T1 no-trig     1048576      8        273.4      5.88x     5.79e-14
+T2 avx-intr    1048576      8        269.6      5.80x     5.79e-14
+T3 asm-1core   1048576      8        271.3      5.84x     5.79e-14
+T4 asm-6core   1048576      8        473.6     10.19x     5.79e-14
+
