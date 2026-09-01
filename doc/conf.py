@@ -24,6 +24,7 @@ gen_pages()
 # -- Project information -----------------------------------------------------
 
 project = "Genalyzer"
+repository = "genalyzer"
 copyright = "2024-2026, Analog Devices, Inc."
 author = "Analog Devices, Inc."
 
