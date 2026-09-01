@@ -26,7 +26,7 @@ set(SPHINX_BUILD ${CMAKE_CURRENT_BINARY_DIR}/sphinx)
 set(SPHINX_INDEX_FILE ${SPHINX_BUILD}/index.html)
 
 add_custom_command(OUTPUT ${SPHINX_INDEX_FILE}
-                  COMMAND ${SPHINX_EXECUTABLE} -b html
+                  COMMAND ${SPHINX_EXECUTABLE} -b dirhtml
                   # Tell Breathe where to find the Doxygen output
                   -Dbreathe_projects.Genalyzer=${DOXYGEN_OUTPUT_DIR}/xml
                   ${SPHINX_SOURCE} ${SPHINX_BUILD}
