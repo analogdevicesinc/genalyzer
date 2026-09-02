@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Specifies the binary encoding format of ADC output codes." name="description" />
+
+    <title>Enumerations &#8212; Genalyzer v0.1.6 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/app.min.css?v=fb8972a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxcontrib_d2.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <script src="../../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="../../_static/app.umd.js?v=8c78863f"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="icon" href="../../_static/genalyzer_favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Fourier Analysis" href="../fourier_analysis/" />
+    <link rel="prev" title="pygenalizer" href="../pygenalyzer/" />
+   
+  
+  
+  
+  <meta name="repository" content="genalyzer">
+  <meta name="version" content="">
+  
+    <meta name="page_source_suffix" content=".rst">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
+        
+        <a id="logo" href="../../">
+          <div>Genalyzer</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="../../index.html" class="current">Genalyzer</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">Enumerations</a><ul>
+<li><a class="reference internal" href="#genalyzer.CodeFormat"><code class="docutils literal notranslate"><span class="pre">CodeFormat()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.DnlSignal"><code class="docutils literal notranslate"><span class="pre">DnlSignal()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.FaCompTag"><code class="docutils literal notranslate"><span class="pre">FaCompTag()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.FaSsb"><code class="docutils literal notranslate"><span class="pre">FaSsb()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.FreqAxisFormat"><code class="docutils literal notranslate"><span class="pre">FreqAxisFormat()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.FreqAxisType"><code class="docutils literal notranslate"><span class="pre">FreqAxisType()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.InlLineFit"><code class="docutils literal notranslate"><span class="pre">InlLineFit()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.RfftScale"><code class="docutils literal notranslate"><span class="pre">RfftScale()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.Window"><code class="docutils literal notranslate"><span class="pre">Window()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="../../">
+      <img class="only-light" src="../../_static/genalyzer_logo.png"/>
+      <img class="only-dark" src="../../_static/genalyzer_logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../index.html" class="current">Genalyzer</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Contents:</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spectral_analysis/">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spectral_analysis_ssb/">Windowing and Single Side Bins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/">C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_simplified/">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../genalyzer/">Python Bindings</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1-1" id="toctree-collapse-1-1" checked=""/><div class="collapse"><a class="reference internal" href="../pygenalyzer/">pygenalizer</a><label for="toctree-collapse-1-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fourier_analysis/">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fourier_configuration/">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fourier_transforms/">Fourier Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../waveforms/">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../signal_processing/">Signal Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pygenalyzer.simplified/">pygenalizer.simplified (Beta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyadi/">pyadi-iio Interface Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../csharp/">C# Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pytest/">Pytest Integration</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-2" id="toctree-collapse-2"/><div class="collapse"><a class="reference internal" href="../../mcp/">MCP Server</a><label for="toctree-collapse-2"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../mcp/workflows/">Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mcp/reference/">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/">CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linting/">Code Quality Tools</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb"><ol><li><a href="../genalyzer/">Python Bindings</a></li><li><a href="../pygenalyzer/">pygenalizer</a></li></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="enumerations">
+<h1>Enumerations<a class="headerlink" href="#enumerations" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.CodeFormat">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">CodeFormat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.CodeFormat" title="Link to this definition"></a></dt>
+<dd><p>Specifies the binary encoding format of ADC output codes.</p>
+<dl>
+<dt>Attributes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">OFFSET_BINARY</span></code> : Offset Binary (unsigned, zero at midscale)</p>
+<p><code class="docutils literal notranslate"><span class="pre">TWOS_COMPLEMENT</span></code> : Two’s Complement (signed, zero at midscale)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.DnlSignal">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">DnlSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.DnlSignal" title="Link to this definition"></a></dt>
+<dd><p>Specifies the type of stimulus signal used when computing DNL.</p>
+<p>The computation method differs between ramp and tone (sinusoidal) stimulus
+because each produces a different expected probability density function.</p>
+<dl>
+<dt>Attributes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">RAMP</span></code> : Ramp (linear) stimulus signal</p>
+<p><code class="docutils literal notranslate"><span class="pre">TONE</span></code> : Tone (sinusoidal) stimulus signal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.FaCompTag">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">FaCompTag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.FaCompTag" title="Link to this definition"></a></dt>
+<dd><p>Enumerates Fourier analysis component tags</p>
+<dl>
+<dt>Attributes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">DC</span></code> : DC component (always Bin 0)</p>
+<p><code class="docutils literal notranslate"><span class="pre">SIGNAL</span></code> : Signal component</p>
+<p><code class="docutils literal notranslate"><span class="pre">HD</span></code> : Harmonic distortion</p>
+<p><code class="docutils literal notranslate"><span class="pre">IMD</span></code> : Intermodulation distortion</p>
+<p><code class="docutils literal notranslate"><span class="pre">ILOS</span></code> : Interleaving offset component</p>
+<p><code class="docutils literal notranslate"><span class="pre">ILGT</span></code> : Interleaving gain/timing/BW component</p>
+<p><code class="docutils literal notranslate"><span class="pre">CLK</span></code> : Clock component</p>
+<p><code class="docutils literal notranslate"><span class="pre">USERDIST</span></code> : User-designated distortion</p>
+<p><code class="docutils literal notranslate"><span class="pre">NOISE</span></code> : Noise component (e.g. WorstOther)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.FaSsb">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">FaSsb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.FaSsb" title="Link to this definition"></a></dt>
+<dd><p>Enumerates the component categories for which the number of single side bins (SSB) can be set</p>
+<dl>
+<dt>Attributes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">DEFAULT</span></code> : Default SSB (applies to auto-generated components)</p>
+<p><code class="docutils literal notranslate"><span class="pre">DC</span></code> : SSB for DC component</p>
+<p><code class="docutils literal notranslate"><span class="pre">SIGNAL</span></code> : SSB for Signal components</p>
+<p><code class="docutils literal notranslate"><span class="pre">WO</span></code> : SSB for WorstOther components</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.FreqAxisFormat">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">FreqAxisFormat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.FreqAxisFormat" title="Link to this definition"></a></dt>
+<dd><p>Enumerates frequency axis formats</p>
+<dl>
+<dt>Attributes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">BINS</span></code> : FFT bin indices (0, 1, 2, …)</p>
+<p><code class="docutils literal notranslate"><span class="pre">FREQ</span></code> : Frequency in Hz</p>
+<p><code class="docutils literal notranslate"><span class="pre">NORM</span></code> : Normalized frequency (cycles per sample)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.FreqAxisType">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">FreqAxisType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.FreqAxisType" title="Link to this definition"></a></dt>
+<dd><p>Enumerates frequency axis types</p>
+<dl>
+<dt>Attributes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">DC_CENTER</span></code> : DC centered, e.g. [-fs/2, fs/2) (complex FFT only)</p>
+<p><code class="docutils literal notranslate"><span class="pre">DC_LEFT</span></code> : DC on left, e.g. [0, fs) (complex FFT only)</p>
+<p><code class="docutils literal notranslate"><span class="pre">REAL</span></code> : Real axis, e.g. [0, fs/2] (real FFT only)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.InlLineFit">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">InlLineFit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.InlLineFit" title="Link to this definition"></a></dt>
+<dd><p>Specifies the line-fitting method used when computing INL.</p>
+<dl>
+<dt>Attributes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">BEST_FIT</span></code> : Least-squares best fit line</p>
+<p><code class="docutils literal notranslate"><span class="pre">END_FIT</span></code> : Line through the first and last points</p>
+<p><code class="docutils literal notranslate"><span class="pre">NO_FIT</span></code> : No line fitting; raw cumulative sum of DNL</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.RfftScale">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">RfftScale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.RfftScale" title="Link to this definition"></a></dt>
+<dd><p>Specifies the dBFS scaling convention for real FFT output.</p>
+<dl>
+<dt>Attributes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">DBFS_DC</span></code> : dBFS relative to a full-scale DC signal; a full-scale sinusoid measures -3.01 dBFS</p>
+<p><code class="docutils literal notranslate"><span class="pre">DBFS_SIN</span></code> : dBFS relative to a full-scale sinusoid; a full-scale sinusoid measures 0 dBFS</p>
+<p><code class="docutils literal notranslate"><span class="pre">NATIVE</span></code> : Native scaling; a full-scale sinusoid measures -6.02 dBFS</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.Window">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">Window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.Window" title="Link to this definition"></a></dt>
+<dd><p>Specifies the window function applied before FFT computation.</p>
+<p>Windowing reduces spectral leakage for non-coherently sampled signals.</p>
+<dl>
+<dt>Attributes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">BLACKMAN_HARRIS</span></code> : 4-term Blackman-Harris window, excellent sidelobe suppression</p>
+<p><code class="docutils literal notranslate"><span class="pre">HANN</span></code> : Hann (Hanning) window, good general-purpose choice</p>
+<p><code class="docutils literal notranslate"><span class="pre">NO_WINDOW</span></code> : Rectangular window (no windowing), use only with coherent sampling</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../pygenalyzer/" title="Previous document (Alt+Shift+LeftArrow)" class="prev">pygenalizer</a>
+    <a href="../fourier_analysis/" title="Next document (Alt+Shift+RightArrow)" class="next">Fourier Analysis</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2024-2026, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; Genalyzer v0.1.6 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=fb8972a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxcontrib_d2.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="../_static/app.umd.js?v=8c78863f"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="icon" href="../_static/genalyzer_favicon.png"/>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="../search/" />
+   
+  
+  
+  
+  <meta name="repository" content="genalyzer">
+  <meta name="version" content="">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
+        
+        <a id="logo" href="../">
+          <div>Genalyzer</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="../index.html" class="current">Genalyzer</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="../">
+      <img class="only-light" src="../_static/genalyzer_logo.png"/>
+      <img class="only-dark" src="../_static/genalyzer_logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../index.html" class="current">Genalyzer</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Contents:</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis/">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis_ssb/">Windowing and Single Side Bins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/">C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_simplified/">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1"/><div class="collapse"><a class="reference internal" href="../python/genalyzer/">Python Bindings</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1-1" id="toctree-collapse-1-1"/><div class="collapse"><a class="reference internal" href="../python/pygenalyzer/">pygenalizer</a><label for="toctree-collapse-1-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l3"><a class="reference internal" href="../python/enumerations/">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_analysis/">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_configuration/">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_transforms/">Fourier Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/waveforms/">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/signal_processing/">Signal Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pygenalyzer.simplified/">pygenalizer.simplified (Beta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pyadi/">pyadi-iio Interface Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../csharp/">C# Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pytest/">Pytest Integration</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-2" id="toctree-collapse-2"/><div class="collapse"><a class="reference internal" href="../mcp/">MCP Server</a><label for="toctree-collapse-2"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mcp/workflows/">Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mcp/reference/">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linting/">Code Quality Tools</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb empty"><ol></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#Symbols"><strong>Symbols</strong></a>
+ | <a href="#A"><strong>A</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ 
+</div>
+<h2 id="Symbols">Symbols</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    --amplitude
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-amplitude">genalyzer-generators-real-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-amplitude">genalyzer-generators-test-tone command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --bits
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-bits">genalyzer-quantize command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --code-format
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-code-format">genalyzer-histogram-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-code-format">genalyzer-histogram-compute command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-code-format">genalyzer-linearity-analyze-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-code-format">genalyzer-linearity-analyze-inl command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --compact
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-compact">genalyzer-fourier-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-compact">genalyzer-fourier-fa-metrics command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-compact">genalyzer-fourier-fft command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-compact">genalyzer-generators-gaussian-noise command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-compact">genalyzer-generators-ramp command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-compact">genalyzer-generators-real-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-compact">genalyzer-generators-test-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-compact">genalyzer-histogram-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-compact">genalyzer-histogram-compute command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-compact">genalyzer-linearity-analyze-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-compact">genalyzer-linearity-analyze-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-compact">genalyzer-linearity-compute-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-compact">genalyzer-linearity-compute-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-compact">genalyzer-quantize command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-compact">genalyzer-waveform-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-stats-compact">genalyzer-waveform-stats command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --dnl-npy-path
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-dnl-npy-path">genalyzer-linearity-compute-inl command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --fft-npy-path
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-fft-npy-path">genalyzer-fourier-fa-metrics command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --fit
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-fit">genalyzer-linearity-analyze-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-fit">genalyzer-linearity-compute-inl command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --fullscale
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-fullscale">genalyzer-quantize command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --hist-npy-path
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-hist-npy-path">genalyzer-linearity-compute-dnl command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --max-harmonics
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-max-harmonics">genalyzer-fourier-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-max-harmonics">genalyzer-fourier-fa-metrics command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --mean
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-mean">genalyzer-generators-gaussian-noise command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --nbits
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-nbits">genalyzer-histogram-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-nbits">genalyzer-histogram-compute command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-nbits">genalyzer-linearity-analyze-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-nbits">genalyzer-linearity-analyze-inl command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --nfft
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-nfft">genalyzer-fourier-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-nfft">genalyzer-fourier-fft command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --no-plot
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-plot">genalyzer-fourier-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-plot">genalyzer-histogram-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-plot">genalyzer-linearity-analyze-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-plot">genalyzer-linearity-analyze-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-plot">genalyzer-waveform-analyze command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --noise
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-noise">genalyzer-quantize command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --npy-path
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-npy-path">genalyzer-fourier-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-npy-path">genalyzer-fourier-fft command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-npy-path">genalyzer-histogram-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-npy-path">genalyzer-histogram-compute command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-npy-path">genalyzer-linearity-analyze-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-npy-path">genalyzer-linearity-analyze-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-npy-path">genalyzer-quantize command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-npy-path">genalyzer-waveform-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-stats-npy-path">genalyzer-waveform-stats command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --num-points
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-num-points">genalyzer-generators-gaussian-noise command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-num-points">genalyzer-generators-ramp command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-num-points">genalyzer-generators-real-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-num-points">genalyzer-generators-test-tone command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    --num-tones
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-num-tones">genalyzer-fourier-analyze command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --output-path
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-output-path">genalyzer-fourier-fft command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-output-path">genalyzer-generators-gaussian-noise command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-output-path">genalyzer-generators-ramp command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-output-path">genalyzer-generators-real-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-output-path">genalyzer-generators-test-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-output-path">genalyzer-histogram-compute command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-output-path">genalyzer-linearity-compute-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-output-path">genalyzer-linearity-compute-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-output-path">genalyzer-quantize command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --phase
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-phase">genalyzer-generators-real-tone command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --plot
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-plot">genalyzer-fourier-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-plot">genalyzer-histogram-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-plot">genalyzer-linearity-analyze-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-plot">genalyzer-linearity-analyze-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-plot">genalyzer-waveform-analyze command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --pretty
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-compact">genalyzer-fourier-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-compact">genalyzer-fourier-fa-metrics command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-compact">genalyzer-fourier-fft command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-compact">genalyzer-generators-gaussian-noise command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-compact">genalyzer-generators-ramp command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-compact">genalyzer-generators-real-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-compact">genalyzer-generators-test-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-compact">genalyzer-histogram-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-compact">genalyzer-histogram-compute command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-compact">genalyzer-linearity-analyze-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-compact">genalyzer-linearity-analyze-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-compact">genalyzer-linearity-compute-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-compact">genalyzer-linearity-compute-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-compact">genalyzer-quantize command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-compact">genalyzer-waveform-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-stats-compact">genalyzer-waveform-stats command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --sample-rate
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-sample-rate">genalyzer-fourier-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-sample-rate">genalyzer-fourier-fa-metrics command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-sample-rate">genalyzer-fourier-fft command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-sample-rate">genalyzer-generators-real-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-sample-rate">genalyzer-generators-test-tone command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --seed
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-seed">genalyzer-generators-gaussian-noise command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --signal-type
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-signal-type">genalyzer-linearity-analyze-dnl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-signal-type">genalyzer-linearity-analyze-inl command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-signal-type">genalyzer-linearity-compute-dnl command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --ssb
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-ssb">genalyzer-fourier-analyze command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --start
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-start">genalyzer-generators-ramp command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --std
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-std">genalyzer-generators-gaussian-noise command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --stop
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-stop">genalyzer-generators-ramp command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --tone-freq
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-tone-freq">genalyzer-fourier-fa-metrics command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-tone-freq">genalyzer-generators-real-tone command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-tone-freq">genalyzer-generators-test-tone command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --version
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-version">genalyzer command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --window
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-window">genalyzer-fourier-analyze command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --wo
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-wo">genalyzer-fourier-analyze command line option</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-wo">genalyzer-fourier-fa-metrics command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../pytest/#genalyzer.pytest.plots.add_plot">add_plot() (in module genalyzer.pytest.plots)</a>
+</li>
+      <li><a href="../pytest/#genalyzer.pytest.plots.add_plot_html">add_plot_html() (in module genalyzer.pytest.plots)</a>
+</li>
+      <li><a href="../pytest/#genalyzer.pytest.plots.add_plot_img_file">add_plot_img_file() (in module genalyzer.pytest.plots)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.linearity.analyze_dnl">analyze_dnl() (in module genalyzer.mcp.linearity)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../mcp/reference/#genalyzer.mcp.histogram.analyze_histogram">analyze_histogram() (in module genalyzer.mcp.histogram)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.linearity.analyze_inl">analyze_inl() (in module genalyzer.mcp.linearity)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.fourier.analyze_spectrum">analyze_spectrum() (in module genalyzer.mcp.fourier)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.waveform.analyze_waveform">analyze_waveform() (in module genalyzer.mcp.waveform)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/enumerations/#genalyzer.CodeFormat">CodeFormat() (in module genalyzer)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.linearity.compute_dnl">compute_dnl() (in module genalyzer.mcp.linearity)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.fourier.compute_fft">compute_fft() (in module genalyzer.mcp.fourier)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.histogram.compute_histogram">compute_histogram() (in module genalyzer.mcp.histogram)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.linearity.compute_inl">compute_inl() (in module genalyzer.mcp.linearity)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.waveform.compute_waveform_stats">compute_waveform_stats() (in module genalyzer.mcp.waveform)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_code_format">config_code_format() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_fa">config_fa() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_fa_auto">config_fa_auto() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_fftz">config_fftz() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_free">config_free() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_gen_ramp">config_gen_ramp() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_gen_tone">config_gen_tone() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_histz_nla">config_histz_nla() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_quantize">config_quantize() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.config_set_sample_rate">config_set_sample_rate() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/waveforms/#genalyzer.cos">cos() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/enumerations/#genalyzer.DnlSignal">DnlSignal() (in module genalyzer)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/signal_processing/#genalyzer.downsample">downsample() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_analysis_band">fa_analysis_band() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_clk">fa_clk() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_conv_offset">fa_conv_offset() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_create">fa_create() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_dc">fa_dc() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_fdata">fa_fdata() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_fixed_tone">fa_fixed_tone() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_fsample">fa_fsample() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_fshift">fa_fshift() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_fund_images">fa_fund_images() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_hd">fa_hd() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_ilv">fa_ilv() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_imd">fa_imd() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_load">fa_load() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_max_tone">fa_max_tone() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_preview">fa_preview() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_quad_errors">fa_quad_errors() (in module genalyzer)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_remove_comp">fa_remove_comp() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_reset">fa_reset() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_ssb">fa_ssb() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_ssb_dc">fa_ssb_dc() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_ssb_def">fa_ssb_def() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_ssb_wo">fa_ssb_wo() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_var">fa_var() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_configuration/#genalyzer.fa_wo">fa_wo() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/enumerations/#genalyzer.FaCompTag">FaCompTag() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/enumerations/#genalyzer.FaSsb">FaSsb() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/fourier_transforms/#genalyzer.fft">fft() (in module genalyzer)</a>
+
+      <ul>
+        <li><a href="../python/pyadi/#genalyzer.pai.fft">(in module genalyzer.pai)</a>
+</li>
+      </ul></li>
+      <li><a href="../python/fourier_analysis/#genalyzer.fft_analysis">fft_analysis() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.fftz">fftz() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/enumerations/#genalyzer.FreqAxisFormat">FreqAxisFormat() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/enumerations/#genalyzer.FreqAxisType">FreqAxisType() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/signal_processing/#genalyzer.fshift">fshift() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/waveforms/#genalyzer.gaussian">gaussian() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.gen_complex_tone">gen_complex_tone() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_cosine_wave">gen_cosine_wave() (genalyzer.simplified_beta.simplified_beta.WaveformGen method)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_pwm_wave">gen_pwm_wave() (genalyzer.simplified_beta.simplified_beta.WaveformGen method)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.gen_ramp">gen_ramp() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.gen_real_tone">gen_real_tone() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_sine_wave">gen_sine_wave() (genalyzer.simplified_beta.simplified_beta.WaveformGen method)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_square_wave">gen_square_wave() (genalyzer.simplified_beta.simplified_beta.WaveformGen method)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_triangular_wave">gen_triangular_wave() (genalyzer.simplified_beta.simplified_beta.WaveformGen method)</a>
+</li>
+      <li>
+    genalyzer command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-version">--version</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-fourier-analyze command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-max-harmonics">--max-harmonics</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-nfft">--nfft</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-plot">--no-plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-npy-path">--npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-num-tones">--num-tones</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-plot">--plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-sample-rate">--sample-rate</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-ssb">--ssb</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-window">--window</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-analyze-wo">--wo</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-fourier-fa-metrics command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-fft-npy-path">--fft-npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-max-harmonics">--max-harmonics</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-sample-rate">--sample-rate</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-tone-freq">--tone-freq</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fa-metrics-wo">--wo</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-fourier-fft command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-nfft">--nfft</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-npy-path">--npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-output-path">--output-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-fourier-fft-sample-rate">--sample-rate</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-generators-gaussian-noise command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-mean">--mean</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-num-points">--num-points</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-output-path">--output-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-seed">--seed</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-gaussian-noise-std">--std</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-generators-ramp command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-num-points">--num-points</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-output-path">--output-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-start">--start</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-ramp-stop">--stop</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-generators-real-tone command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-amplitude">--amplitude</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-num-points">--num-points</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-output-path">--output-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-phase">--phase</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-sample-rate">--sample-rate</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-real-tone-tone-freq">--tone-freq</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-generators-test-tone command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-amplitude">--amplitude</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-num-points">--num-points</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-output-path">--output-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-sample-rate">--sample-rate</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-generators-test-tone-tone-freq">--tone-freq</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-histogram-analyze command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-code-format">--code-format</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-nbits">--nbits</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-plot">--no-plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-npy-path">--npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-plot">--plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-analyze-compact">--pretty</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-histogram-compute command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-code-format">--code-format</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-nbits">--nbits</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-npy-path">--npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-output-path">--output-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-histogram-compute-compact">--pretty</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-linearity-analyze-dnl command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-code-format">--code-format</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-nbits">--nbits</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-plot">--no-plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-npy-path">--npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-plot">--plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-dnl-signal-type">--signal-type</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-linearity-analyze-inl command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-code-format">--code-format</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-fit">--fit</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-nbits">--nbits</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-plot">--no-plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-npy-path">--npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-plot">--plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-analyze-inl-signal-type">--signal-type</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-linearity-compute-dnl command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-hist-npy-path">--hist-npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-output-path">--output-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-compact">--pretty</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-dnl-signal-type">--signal-type</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-linearity-compute-inl command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-dnl-npy-path">--dnl-npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-fit">--fit</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-output-path">--output-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-linearity-compute-inl-compact">--pretty</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-quantize command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-bits">--bits</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-fullscale">--fullscale</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-noise">--noise</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-npy-path">--npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-output-path">--output-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-quantize-compact">--pretty</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-waveform-analyze command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-plot">--no-plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-npy-path">--npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-plot">--plot</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-analyze-compact">--pretty</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer-waveform-stats command line option
+
+      <ul>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-stats-compact">--compact</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-stats-npy-path">--npy-path</a>
+</li>
+        <li><a href="../cli/#cmdoption-genalyzer-waveform-stats-compact">--pretty</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer.mcp.fourier
+
+      <ul>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.fourier">module</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer.mcp.generators
+
+      <ul>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.generators">module</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer.mcp.histogram
+
+      <ul>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.histogram">module</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer.mcp.io
+
+      <ul>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.io">module</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer.mcp.linearity
+
+      <ul>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.linearity">module</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer.mcp.quantize
+
+      <ul>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.quantize">module</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer.mcp.waveform
+
+      <ul>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.waveform">module</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer.pytest.plots
+
+      <ul>
+        <li><a href="../pytest/#module-genalyzer.pytest.plots">module</a>
+</li>
+      </ul></li>
+      <li>
+    genalyzer.simplified_beta.simplified_beta
+
+      <ul>
+        <li><a href="../python/pygenalyzer.simplified/#module-genalyzer.simplified_beta.simplified_beta">module</a>
+</li>
+      </ul></li>
+      <li><a href="../reference_cpp/#_CPPv414genalyzer_impl">genalyzer_impl (C++ type)</a>, <a href="../reference_cpp/#_CPPv414genalyzer_impl">[1]</a>, <a href="../reference_cpp/#_CPPv414genalyzer_impl">[2]</a>, <a href="../reference_cpp/#_CPPv414genalyzer_impl">[3]</a>, <a href="../reference_cpp/#_CPPv414genalyzer_impl">[4]</a>, <a href="../reference_cpp/#_CPPv414genalyzer_impl">[5]</a>, <a href="../reference_cpp/#_CPPv414genalyzer_impl">[6]</a>, <a href="../reference_cpp/#_CPPv414genalyzer_impl">[7]</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl3absEPK6real_t6size_tP6real_t6size_t">genalyzer_impl::abs (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl5aliasE6real_t6real_t12FreqAxisType">genalyzer_impl::alias (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12AnalysisTypeE">genalyzer_impl::AnalysisType (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12AnalysisType3DNLE">genalyzer_impl::AnalysisType::DNL (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12AnalysisType7FourierE">genalyzer_impl::AnalysisType::Fourier (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12AnalysisType9HistogramE">genalyzer_impl::AnalysisType::Histogram (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12AnalysisType3INLE">genalyzer_impl::AnalysisType::INL (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12AnalysisType8WaveformE">genalyzer_impl::AnalysisType::Waveform (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl5angleEPK6real_t6size_tP6real_t6size_t">genalyzer_impl::angle (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9code_axisEP6real_t6size_ti10CodeFormat">genalyzer_impl::code_axis (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10code_axisxEP6real_t6size_t7int64_t7int64_t">genalyzer_impl::code_axisx (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl17code_density_sizeEi10CodeFormat">genalyzer_impl::code_density_size (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl18code_densityx_sizeE7int64_t7int64_t">genalyzer_impl::code_densityx_size (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10CodeFormatE">genalyzer_impl::CodeFormat (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10CodeFormat12OffsetBinaryE">genalyzer_impl::CodeFormat::OffsetBinary (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10CodeFormat14TwosComplementE">genalyzer_impl::CodeFormat::TwosComplement (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8coherentE6size_t6real_t6real_t">genalyzer_impl::coherent (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl3cosEP6real_t6size_t6real_t6real_t6real_t6real_t6real_t6real_t">genalyzer_impl::cos (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl2dbEPK6real_t6size_tP6real_t6size_t">genalyzer_impl::db (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl4db10EPK6real_t6size_tP6real_t6size_t">genalyzer_impl::db10 (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl4db20EPK6real_t6size_tP6real_t6size_t">genalyzer_impl::db20 (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl3dnlEP6real_t6size_tPK8uint64_t6size_t9DnlSignal">genalyzer_impl::dnl (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12dnl_analysisEPK6real_t6size_t">genalyzer_impl::dnl_analysis (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl25dnl_analysis_ordered_keysEv">genalyzer_impl::dnl_analysis_ordered_keys (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9DnlSignalE">genalyzer_impl::DnlSignal (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9DnlSignal4RampE">genalyzer_impl::DnlSignal::Ramp (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9DnlSignal4ToneE">genalyzer_impl::DnlSignal::Tone (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4I0EN14genalyzer_impl10downsampleEvPK1T6size_tP1T6size_tib">genalyzer_impl::downsample (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl15downsample_sizeE6size_tib">genalyzer_impl::downsample_size (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTagE">genalyzer_impl::FACompTag (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTag3CLKE">genalyzer_impl::FACompTag::CLK (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTag2DCE">genalyzer_impl::FACompTag::DC (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTag2HDE">genalyzer_impl::FACompTag::HD (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTag4ILGTE">genalyzer_impl::FACompTag::ILGT (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTag4ILOSE">genalyzer_impl::FACompTag::ILOS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTag3IMDE">genalyzer_impl::FACompTag::IMD (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTag5NoiseE">genalyzer_impl::FACompTag::Noise (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTag6SignalE">genalyzer_impl::FACompTag::Signal (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9FACompTag8UserDistE">genalyzer_impl::FACompTag::UserDist (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10FACompTypeE">genalyzer_impl::FACompType (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10FACompType2DCE">genalyzer_impl::FACompType::DC (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10FACompType9FixedToneE">genalyzer_impl::FACompType::FixedTone (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10FACompType7MaxToneE">genalyzer_impl::FACompType::MaxTone (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10FACompType6WOToneE">genalyzer_impl::FACompType::WOTone (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResultE">genalyzer_impl::FAResult (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult8__SIZE__E">genalyzer_impl::FAResult::__SIZE__ (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult5AB_I1E">genalyzer_impl::FAResult::AB_I1 (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult5AB_I2E">genalyzer_impl::FAResult::AB_I2 (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult8AB_NBinsE">genalyzer_impl::FAResult::AB_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult6AB_RSSE">genalyzer_impl::FAResult::AB_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult8AB_WidthE">genalyzer_impl::FAResult::AB_Width (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult3ABNE">genalyzer_impl::FAResult::ABN (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult12AnalysisTypeE">genalyzer_impl::FAResult::AnalysisType (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult12CarrierIndexE">genalyzer_impl::FAResult::CarrierIndex (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult9CLK_NBinsE">genalyzer_impl::FAResult::CLK_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult7CLK_RSSE">genalyzer_impl::FAResult::CLK_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult8DataSizeE">genalyzer_impl::FAResult::DataSize (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult10Dist_NBinsE">genalyzer_impl::FAResult::Dist_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult8Dist_RSSE">genalyzer_impl::FAResult::Dist_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult4FBinE">genalyzer_impl::FAResult::FBin (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult5FDataE">genalyzer_impl::FAResult::FData (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult7FSampleE">genalyzer_impl::FAResult::FSample (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult6FShiftE">genalyzer_impl::FAResult::FShift (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult4FSNRE">genalyzer_impl::FAResult::FSNR (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult8HD_NBinsE">genalyzer_impl::FAResult::HD_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult6HD_RSSE">genalyzer_impl::FAResult::HD_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult10ILGT_NBinsE">genalyzer_impl::FAResult::ILGT_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult8ILGT_RSSE">genalyzer_impl::FAResult::ILGT_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult10ILOS_NBinsE">genalyzer_impl::FAResult::ILOS_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult8ILOS_RSSE">genalyzer_impl::FAResult::ILOS_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult9ILV_NBinsE">genalyzer_impl::FAResult::ILV_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult7ILV_RSSE">genalyzer_impl::FAResult::ILV_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult9IMD_NBinsE">genalyzer_impl::FAResult::IMD_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult7IMD_RSSE">genalyzer_impl::FAResult::IMD_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult12MaxSpurIndexE">genalyzer_impl::FAResult::MaxSpurIndex (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult9NAD_NBinsE">genalyzer_impl::FAResult::NAD_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult7NAD_RSSE">genalyzer_impl::FAResult::NAD_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult4NFFTE">genalyzer_impl::FAResult::NFFT (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult11Noise_NBinsE">genalyzer_impl::FAResult::Noise_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult9Noise_RSSE">genalyzer_impl::FAResult::Noise_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult3NSDE">genalyzer_impl::FAResult::NSD (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult4SFDRE">genalyzer_impl::FAResult::SFDR (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult12Signal_NBinsE">genalyzer_impl::FAResult::Signal_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult10Signal_RSSE">genalyzer_impl::FAResult::Signal_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult10SignalTypeE">genalyzer_impl::FAResult::SignalType (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult5SINADE">genalyzer_impl::FAResult::SINAD (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult3SNRE">genalyzer_impl::FAResult::SNR (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult9THD_NBinsE">genalyzer_impl::FAResult::THD_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult7THD_RSSE">genalyzer_impl::FAResult::THD_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult14UserDist_NBinsE">genalyzer_impl::FAResult::UserDist_NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FAResult12UserDist_RSSE">genalyzer_impl::FAResult::UserDist_RSS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl5FASsbE">genalyzer_impl::FASsb (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl5FASsb2DCE">genalyzer_impl::FASsb::DC (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl5FASsb7DefaultE">genalyzer_impl::FASsb::Default (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl5FASsb6SignalE">genalyzer_impl::FASsb::Signal (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl5FASsb2WOE">genalyzer_impl::FASsb::WO (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResultE">genalyzer_impl::FAToneResult (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult8__SIZE__E">genalyzer_impl::FAToneResult::__SIZE__ (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult6FFinalE">genalyzer_impl::FAToneResult::FFinal (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult4FreqE">genalyzer_impl::FAToneResult::Freq (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult5FWAvgE">genalyzer_impl::FAToneResult::FWAvg (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult2I1E">genalyzer_impl::FAToneResult::I1 (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult2I2E">genalyzer_impl::FAToneResult::I2 (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult6InBandE">genalyzer_impl::FAToneResult::InBand (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult3MagE">genalyzer_impl::FAToneResult::Mag (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult7Mag_dBcE">genalyzer_impl::FAToneResult::Mag_dBc (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult8Mag_dBFSE">genalyzer_impl::FAToneResult::Mag_dBFS (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult5NBinsE">genalyzer_impl::FAToneResult::NBins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult10OrderIndexE">genalyzer_impl::FAToneResult::OrderIndex (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult5PhaseE">genalyzer_impl::FAToneResult::Phase (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult7Phase_cE">genalyzer_impl::FAToneResult::Phase_c (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FAToneResult3TagE">genalyzer_impl::FAToneResult::Tag (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4I0EN14genalyzer_impl3fftEvPK1T6size_tPK1T6size_tP6real_t6size_ti6size_t6size_t6Window10CodeFormat">genalyzer_impl::fft (C++ function)</a>, <a href="../reference_cpp/#_CPPv4N14genalyzer_impl3fftEPK6real_t6size_tPK6real_t6size_tP6real_t6size_t6size_t6size_t6Window">[1]</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8fft_sizeE6size_t6size_tR6size_tR6size_t">genalyzer_impl::fft_size (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8fftshiftEPK6real_t6size_tP6real_t6size_t">genalyzer_impl::fftshift (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysisE">genalyzer_impl::fourier_analysis (C++ class)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis9ab_centerEv">genalyzer_impl::fourier_analysis::ab_center (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis8ab_widthEv">genalyzer_impl::fourier_analysis::ab_width (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis14add_fixed_toneERK5str_t9FACompTagRK5str_ti">genalyzer_impl::fourier_analysis::add_fixed_tone (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis12add_max_toneERK5str_t9FACompTagRK5str_tRK5str_ti">genalyzer_impl::fourier_analysis::add_max_tone (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis7analyzeEPK6real_tK6size_tK6size_t12FreqAxisType">genalyzer_impl::fourier_analysis::analyze (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis3clkEv">genalyzer_impl::fourier_analysis::clk (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis12clk_as_noiseE">genalyzer_impl::fourier_analysis::clk_as_noise (C++ member)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis6createEv">genalyzer_impl::fourier_analysis::create (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis10dc_as_distE">genalyzer_impl::fourier_analysis::dc_as_dist (C++ member)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis14en_conv_offsetE">genalyzer_impl::fourier_analysis::en_conv_offset (C++ member)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis14en_fund_imagesE">genalyzer_impl::fourier_analysis::en_fund_images (C++ member)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis14en_quad_errorsE">genalyzer_impl::fourier_analysis::en_quad_errors (C++ member)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis5fdataEv">genalyzer_impl::fourier_analysis::fdata (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis7fsampleEv">genalyzer_impl::fourier_analysis::fsample (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis6fshiftEv">genalyzer_impl::fourier_analysis::fshift (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis2hdEv">genalyzer_impl::fourier_analysis::hd (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis3ilvEv">genalyzer_impl::fourier_analysis::ilv (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis12ilv_as_noiseE">genalyzer_impl::fourier_analysis::ilv_as_noise (C++ member)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis3imdEv">genalyzer_impl::fourier_analysis::imd (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis12is_availableERK5str_t">genalyzer_impl::fourier_analysis::is_available (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis7is_compERK5str_t">genalyzer_impl::fourier_analysis::is_comp (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis11is_reservedERK5str_t">genalyzer_impl::fourier_analysis::is_reserved (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis8is_validERK5str_t">genalyzer_impl::fourier_analysis::is_valid (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis6is_varERK5str_t">genalyzer_impl::fourier_analysis::is_var (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis4loadERK5str_t">genalyzer_impl::fourier_analysis::load (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis7previewEb">genalyzer_impl::fourier_analysis::preview (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis11remove_compERK5str_t">genalyzer_impl::fourier_analysis::remove_comp (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis5resetEv">genalyzer_impl::fourier_analysis::reset (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis12results_sizeE6size_t6size_t">genalyzer_impl::fourier_analysis::results_size (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis17set_analysis_bandERK5str_tRK5str_t">genalyzer_impl::fourier_analysis::set_analysis_band (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis7set_clkERKNSt3setIiEE">genalyzer_impl::fourier_analysis::set_clk (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis9set_fdataERK5str_t">genalyzer_impl::fourier_analysis::set_fdata (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis11set_fsampleERK5str_t">genalyzer_impl::fourier_analysis::set_fsample (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis10set_fshiftERK5str_t">genalyzer_impl::fourier_analysis::set_fshift (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis6set_hdEi">genalyzer_impl::fourier_analysis::set_hd (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis7set_ilvERKNSt3setIiEE">genalyzer_impl::fourier_analysis::set_ilv (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis7set_imdEi">genalyzer_impl::fourier_analysis::set_imd (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis7set_ssbE5FASsbi">genalyzer_impl::fourier_analysis::set_ssb (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis7set_varERK5str_t6real_t">genalyzer_impl::fourier_analysis::set_var (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl16fourier_analysis6set_woEi">genalyzer_impl::fourier_analysis::set_wo (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis3ssbE5FASsb">genalyzer_impl::fourier_analysis::ssb (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4NK14genalyzer_impl16fourier_analysis2woEv">genalyzer_impl::fourier_analysis::wo (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FPFormatE">genalyzer_impl::FPFormat (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FPFormat4AutoE">genalyzer_impl::FPFormat::Auto (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FPFormat3EngE">genalyzer_impl::FPFormat::Eng (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FPFormat3FixE">genalyzer_impl::FPFormat::Fix (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8FPFormat3SciE">genalyzer_impl::FPFormat::Sci (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9freq_axisEP6real_t6size_t6size_t12FreqAxisType6real_t14FreqAxisFormat">genalyzer_impl::freq_axis (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl14freq_axis_sizeE6size_t12FreqAxisType">genalyzer_impl::freq_axis_size (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl14FreqAxisFormatE">genalyzer_impl::FreqAxisFormat (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl14FreqAxisFormat4BinsE">genalyzer_impl::FreqAxisFormat::Bins (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl14FreqAxisFormat4FreqE">genalyzer_impl::FreqAxisFormat::Freq (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl14FreqAxisFormat4NormE">genalyzer_impl::FreqAxisFormat::Norm (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FreqAxisTypeE">genalyzer_impl::FreqAxisType (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FreqAxisType8DcCenterE">genalyzer_impl::FreqAxisType::DcCenter (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FreqAxisType6DcLeftE">genalyzer_impl::FreqAxisType::DcLeft (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12FreqAxisType4RealE">genalyzer_impl::FreqAxisType::Real (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4I0EN14genalyzer_impl6fshiftEvPK1T6size_tPK1T6size_tP1T6size_ti6real_t6real_t10CodeFormat">genalyzer_impl::fshift (C++ function)</a>, <a href="../reference_cpp/#_CPPv4N14genalyzer_impl6fshiftEPK6real_t6size_tPK6real_t6size_tP6real_t6size_t6real_t6real_t">[1]</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl11fshift_sizeE6size_t6size_t">genalyzer_impl::fshift_size (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl8gaussianEP6real_t6size_t6real_t6real_t">genalyzer_impl::gaussian (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4I0EN14genalyzer_impl4histEvP8uint64_t6size_tPK1T6size_ti10CodeFormatb">genalyzer_impl::hist (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl13hist_analysisEPK8uint64_t6size_t">genalyzer_impl::hist_analysis (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl26hist_analysis_ordered_keysEv">genalyzer_impl::hist_analysis_ordered_keys (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4I0EN14genalyzer_impl5histxEvP8uint64_t6size_tPK1T6size_t7int64_t7int64_tb">genalyzer_impl::histx (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9ifftshiftEPK6real_t6size_tP6real_t6size_t">genalyzer_impl::ifftshift (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl3inlEP6real_t6size_tPK6real_t6size_t10InlLineFit">genalyzer_impl::inl (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl12inl_analysisEPK6real_t6size_t">genalyzer_impl::inl_analysis (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl25inl_analysis_ordered_keysEv">genalyzer_impl::inl_analysis_ordered_keys (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10InlLineFitE">genalyzer_impl::InlLineFit (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10InlLineFit7BestFitE">genalyzer_impl::InlLineFit::BestFit (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10InlLineFit6EndFitE">genalyzer_impl::InlLineFit::EndFit (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10InlLineFit5NoFitE">genalyzer_impl::InlLineFit::NoFit (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7managerE">genalyzer_impl::manager (C++ type)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager10add_objectERK5str_tN6object7pointerEb">genalyzer_impl::manager::add_object (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager5clearEv">genalyzer_impl::manager::clear (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager8containsERK5str_tb">genalyzer_impl::manager::contains (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager5equalERK5str_tRK5str_t">genalyzer_impl::manager::equal (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager28get_filename_from_object_keyERK5str_t5str_t">genalyzer_impl::manager::get_filename_from_object_key (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager10get_objectERK5str_t">genalyzer_impl::manager::get_object (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager11key_patternE">genalyzer_impl::manager::key_pattern (C++ member)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager6removeERK5str_t">genalyzer_impl::manager::remove (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager4saveERK5str_tRK5str_t">genalyzer_impl::manager::save (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager4sizeEv">genalyzer_impl::manager::size (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager9to_stringERK5str_t">genalyzer_impl::manager::to_string (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager4typeERK5str_t">genalyzer_impl::manager::type (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7manager8type_strERK5str_t">genalyzer_impl::manager::type_str (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl4normEPK6real_t6size_tP6real_t6size_t">genalyzer_impl::norm (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4I0EN14genalyzer_impl9normalizeEvPK1T6size_tP6real_t6size_ti10CodeFormat">genalyzer_impl::normalize (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10ObjectTypeE">genalyzer_impl::ObjectType (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl10ObjectType15FourierAnalysisE">genalyzer_impl::ObjectType::FourierAnalysis (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl7polyvalEPK6real_t6size_tP6real_t6size_tPK6real_t6size_t">genalyzer_impl::polyval (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4I0EN14genalyzer_impl8quantizeEvPK6real_t6size_tP1T6size_t6real_ti6real_t10CodeFormat">genalyzer_impl::quantize (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl4rampEP6real_t6size_t6real_t6real_t6real_t">genalyzer_impl::ramp (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4I0EN14genalyzer_impl4rfftEvPK1T6size_tP6real_t6size_ti6size_t6size_t6Window10CodeFormat9RfftScale">genalyzer_impl::rfft (C++ function)</a>, <a href="../reference_cpp/#_CPPv4N14genalyzer_impl4rfftEPK6real_t6size_tP6real_t6size_t6size_t6size_t6Window9RfftScale">[1]</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9rfft_sizeE6size_tR6size_tR6size_t">genalyzer_impl::rfft_size (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9RfftScaleE">genalyzer_impl::RfftScale (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9RfftScale6DbfsDcE">genalyzer_impl::RfftScale::DbfsDc (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9RfftScale7DbfsSinE">genalyzer_impl::RfftScale::DbfsSin (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl9RfftScale6NativeE">genalyzer_impl::RfftScale::Native (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl3sinEP6real_t6size_t6real_t6real_t6real_t6real_t6real_t6real_t">genalyzer_impl::sin (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4I0EN14genalyzer_impl11wf_analysisENSt3mapI5str_t6real_tEEPK1T6size_t">genalyzer_impl::wf_analysis (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl24wf_analysis_ordered_keysEv">genalyzer_impl::wf_analysis_ordered_keys (C++ function)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl6WindowE">genalyzer_impl::Window (C++ enum)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl6Window14BlackmanHarrisE">genalyzer_impl::Window::BlackmanHarris (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl6Window4HannE">genalyzer_impl::Window::Hann (C++ enumerator)</a>
+</li>
+      <li><a href="../reference_cpp/#_CPPv4N14genalyzer_impl6Window8NoWindowE">genalyzer_impl::Window::NoWindow (C++ enumerator)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.generators.generate_gaussian_noise">generate_gaussian_noise() (in module genalyzer.mcp.generators)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.generators.generate_ramp">generate_ramp() (in module genalyzer.mcp.generators)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.generators.generate_real_tone">generate_real_tone() (in module genalyzer.mcp.generators)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.generators.generate_test_tone">generate_test_tone() (in module genalyzer.mcp.generators)</a>
+</li>
+      <li><a href="../mcp/reference/#genalyzer.mcp.fourier.get_fa_metrics">get_fa_metrics() (in module genalyzer.mcp.fourier)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.get_fa_results">get_fa_results() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.get_fa_single_result">get_fa_single_result() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.get_ha_results">get_ha_results() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.get_wfa_results">get_wfa_results() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      <li><a href="../reference/#_CPPv46gn_absPd6size_tPKd6size_t">gn_abs (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv48gn_aliasPddd14GnFreqAxisType">gn_alias (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv429gn_analysis_results_key_sizesP6size_t6size_t14GnAnalysisType">gn_analysis_results_key_sizes (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv424gn_analysis_results_sizeP6size_t14GnAnalysisType">gn_analysis_results_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv48gn_anglePd6size_tPKd6size_t">gn_angle (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv412gn_code_axisPd6size_ti12GnCodeFormat">gn_code_axis (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_code_axisxPd6size_t7int64_t7int64_t">gn_code_axisx (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv420gn_code_density_sizeP6size_ti12GnCodeFormat">gn_code_density_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv421gn_code_densityx_sizeP6size_t7int64_t7int64_t">gn_code_densityx_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_coherentPd6size_tdd">gn_coherent (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv412gn_config_fadP9gn_config">gn_config_fa (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv417gn_config_fa_auto7uint8_tP9gn_config">gn_config_fa_auto (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv414gn_config_fftz6size_ti6size_t6size_t8GnWindowP9gn_config">gn_config_fftz (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv414gn_config_freeP9gn_config">gn_config_free (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv418gn_config_gen_ramp6size_tddP9gn_config">gn_config_gen_ramp (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv418gn_config_gen_tone9tone_type6size_td6size_tPdPdPdP9gn_config">gn_config_gen_tone (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv431gn_config_get_code_density_sizeP6size_tP9gn_config">gn_config_get_code_density_size (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv418gn_config_get_nfftP6size_tP9gn_config">gn_config_get_nfft (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv418gn_config_get_nptsP6size_tP9gn_config">gn_config_get_npts (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv425gn_config_get_sample_ratePdP9gn_config">gn_config_get_sample_rate (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv419gn_config_histz_nla6size_tiP9gn_config">gn_config_histz_nla (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv418gn_config_quantize6size_tdidP9gn_config">gn_config_quantize (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv425gn_config_set_code_format12GnCodeFormatP9gn_config">gn_config_set_code_format (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv423gn_config_set_data_ratedP9gn_config">gn_config_set_data_rate (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv430gn_config_set_dnla_signal_type11GnDnlSignalP9gn_config">gn_config_set_dnla_signal_type (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv422gn_config_set_fft_navg6size_tP9gn_config">gn_config_set_fft_navg (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv417gn_config_set_fsrdP9gn_config">gn_config_set_fsr (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv422gn_config_set_inla_fit12GnInlLineFitP9gn_config">gn_config_set_inla_fit (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv428gn_config_set_max_harm_orderiP9gn_config">gn_config_set_max_harm_order (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv418gn_config_set_nfft6size_tP9gn_config">gn_config_set_nfft (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv423gn_config_set_noise_rmsdP9gn_config">gn_config_set_noise_rms (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv418gn_config_set_npts6size_tP9gn_config">gn_config_set_npts (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv423gn_config_set_num_tones6size_tP9gn_config">gn_config_set_num_tones (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv418gn_config_set_qresiP9gn_config">gn_config_set_qres (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv424gn_config_set_ramp_startdP9gn_config">gn_config_set_ramp_start (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv423gn_config_set_ramp_stopdP9gn_config">gn_config_set_ramp_stop (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv425gn_config_set_sample_ratedP9gn_config">gn_config_set_sample_rate (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv424gn_config_set_shift_freqdP9gn_config">gn_config_set_shift_freq (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv422gn_config_set_ssb_fundiP9gn_config">gn_config_set_ssb_fund (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv422gn_config_set_ssb_restiP9gn_config">gn_config_set_ssb_rest (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv423gn_config_set_tone_amplPdP9gn_config">gn_config_set_tone_ampl (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv423gn_config_set_tone_freqPdP9gn_config">gn_config_set_tone_freq (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv424gn_config_set_tone_phasePdP9gn_config">gn_config_set_tone_phase (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv419gn_config_set_ttype9tone_typeP9gn_config">gn_config_set_ttype (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv417gn_config_set_win8GnWindowP9gn_config">gn_config_set_win (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv46gn_cosPd6size_tdddddd">gn_cos (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv45gn_dbPd6size_tPKd6size_t">gn_db (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv47gn_db10Pd6size_tPKd6size_t">gn_db10 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv47gn_db20Pd6size_tPKd6size_t">gn_db20 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv46gn_dnlPd6size_tPK8uint64_t6size_t11GnDnlSignal">gn_dnl (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv415gn_dnl_analysisPPc6size_tPd6size_tPKd6size_t">gn_dnl_analysis (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv47gn_dnlzPPdP6size_tPK8uint64_tP9gn_config">gn_dnlz (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_downsamplePd6size_tPKd6size_tib">gn_downsample (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv415gn_downsample16P7int16_t6size_tPK7int16_t6size_tib">gn_downsample16 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv415gn_downsample32P7int32_t6size_tPK7int32_t6size_tib">gn_downsample32 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv415gn_downsample64P7int64_t6size_tPK7int64_t6size_tib">gn_downsample64 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv418gn_downsample_sizeP6size_t6size_tib">gn_downsample_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_enum_valuePiPKcPKc">gn_enum_value (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_error_checkPb">gn_error_check (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_error_clearv">gn_error_clear (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv415gn_error_stringPc6size_t">gn_error_string (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv419gn_fa_analysis_bandPKcdd">gn_fa_analysis_band (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv421gn_fa_analysis_band_ePKcPKcPKc">gn_fa_analysis_band_e (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_fa_clkPKcPKi6size_tb">gn_fa_clk (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv417gn_fa_conv_offsetPKcb">gn_fa_conv_offset (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv412gn_fa_createPKc">gn_fa_create (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv48gn_fa_dcPKcb">gn_fa_dc (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_fa_fdataPKcd">gn_fa_fdata (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_fa_fdata_ePKcPKc">gn_fa_fdata_e (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv416gn_fa_fixed_tonePKcPKc11GnFACompTagdi">gn_fa_fixed_tone (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv418gn_fa_fixed_tone_ePKcPKc11GnFACompTagPKci">gn_fa_fixed_tone_e (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_fa_fsamplePKcd">gn_fa_fsample (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv415gn_fa_fsample_ePKcPKc">gn_fa_fsample_e (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv412gn_fa_fshiftPKcd">gn_fa_fshift (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_fa_fshift_ePKcPKc">gn_fa_fshift_e (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv417gn_fa_fund_imagesPKcb">gn_fa_fund_images (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv48gn_fa_hdPKci">gn_fa_hd (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_fa_ilvPKcPKi6size_tb">gn_fa_ilv (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_fa_imdPKci">gn_fa_imd (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv410gn_fa_loadPc6size_tPKcPKc">gn_fa_load (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv419gn_fa_load_key_sizeP6size_tPKcPKc">gn_fa_load_key_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_fa_max_tonePKcPKc11GnFACompTagi">gn_fa_max_tone (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_fa_previewPc6size_tPKcb">gn_fa_preview (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv418gn_fa_preview_sizeP6size_tPKcb">gn_fa_preview_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv417gn_fa_quad_errorsPKcb">gn_fa_quad_errors (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv417gn_fa_remove_compPKcPKc">gn_fa_remove_comp (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_fa_resetPKc">gn_fa_reset (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv412gn_fa_resultPdPPKc6size_tPKd6size_tPKc">gn_fa_result (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv419gn_fa_result_stringPc6size_tPPKc6size_tPKd6size_tPKc">gn_fa_result_string (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv424gn_fa_result_string_sizeP6size_tPPKc6size_tPKd6size_tPKc">gn_fa_result_string_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_fa_ssbPKc7GnFASsbi">gn_fa_ssb (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_fa_varPKcPKcd">gn_fa_var (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv48gn_fa_woPKci">gn_fa_wo (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv46gn_fftPd6size_tPKd6size_tPKd6size_t6size_t6size_t8GnWindow">gn_fft (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv48gn_fft16Pd6size_tPK7int16_t6size_tPK7int16_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat">gn_fft16 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv48gn_fft32Pd6size_tPK7int32_t6size_tPK7int32_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat">gn_fft32 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv48gn_fft64Pd6size_tPK7int64_t6size_tPK7int64_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat">gn_fft64 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv415gn_fft_analysisPPc6size_tPd6size_tPKcPKd6size_t6size_t14GnFreqAxisType">gn_fft_analysis (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv433gn_fft_analysis_results_key_sizesP6size_t6size_tPKc6size_t6size_t">gn_fft_analysis_results_key_sizes (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv428gn_fft_analysis_results_sizeP6size_tPKc6size_t6size_t">gn_fft_analysis_results_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv422gn_fft_analysis_selectPd6size_tPKcPPKc6size_tPKd6size_t6size_t14GnFreqAxisType">gn_fft_analysis_select (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv422gn_fft_analysis_singlePdPKcPKcPKd6size_t6size_t14GnFreqAxisType">gn_fft_analysis_single (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_fft_sizeP6size_t6size_t6size_t6size_t6size_t">gn_fft_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_fftshiftPd6size_tPKd6size_t">gn_fftshift (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv412gn_freq_axisPd6size_t6size_t14GnFreqAxisTyped16GnFreqAxisFormat">gn_freq_axis (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv417gn_freq_axis_sizeP6size_t6size_t14GnFreqAxisType">gn_freq_axis_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_fshiftPd6size_tPKd6size_tPKd6size_tdd">gn_fshift (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_fshift16P7int16_t6size_tPK7int16_t6size_tPK7int16_t6size_tidd12GnCodeFormat">gn_fshift16 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_fshift32P7int32_t6size_tPK7int32_t6size_tPK7int32_t6size_tidd12GnCodeFormat">gn_fshift32 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_fshift64P7int64_t6size_tPK7int64_t6size_tPK7int64_t6size_tidd12GnCodeFormat">gn_fshift64 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_fshift_sizeP6size_t6size_t6size_t">gn_fshift_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_gaussianPd6size_tdd">gn_gaussian (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv419gn_gen_complex_tonePPdPPdP9gn_config">gn_gen_complex_tone (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv411gn_gen_rampPPdP9gn_config">gn_gen_ramp (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv416gn_gen_real_tonePPdP9gn_config">gn_gen_real_tone (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv419gn_get_dnla_resultsPPPcPPdP6size_tPKdP9gn_config">gn_get_dnla_results (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv417gn_get_fa_resultsPPPcPPdP6size_tPdP9gn_config">gn_get_fa_results (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv423gn_get_fa_single_resultPdPKcPdP9gn_config">gn_get_fa_single_result (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv417gn_get_ha_resultsPPPcPPdP6size_tPK8uint64_tP9gn_config">gn_get_ha_results (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv419gn_get_inla_resultsPPPcPPdP6size_tPKdP9gn_config">gn_get_inla_results (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv418gn_get_wfa_resultsPPPcPPdP6size_tPK7int32_tP9gn_config">gn_get_wfa_results (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_hist16P8uint64_t6size_tPK7int16_t6size_ti12GnCodeFormatb">gn_hist16 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_hist32P8uint64_t6size_tPK7int32_t6size_ti12GnCodeFormatb">gn_hist32 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_hist64P8uint64_t6size_tPK7int64_t6size_ti12GnCodeFormatb">gn_hist64 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv416gn_hist_analysisPPc6size_tPd6size_tPK8uint64_t6size_t">gn_hist_analysis (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv410gn_histx16P8uint64_t6size_tPK7int16_t6size_t7int64_t7int64_tb">gn_histx16 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv410gn_histx32P8uint64_t6size_tPK7int32_t6size_t7int64_t7int64_tb">gn_histx32 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv410gn_histx64P8uint64_t6size_tPK7int64_t6size_t7int64_t7int64_tb">gn_histx64 (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv48gn_histzPP8uint64_tP6size_tPK7int32_tP9gn_config">gn_histz (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv412gn_ifftshiftPd6size_tPKd6size_t">gn_ifftshift (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv46gn_inlPd6size_tPKd6size_t12GnInlLineFit">gn_inl (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv415gn_inl_analysisPPc6size_tPd6size_tPKd6size_t">gn_inl_analysis (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv47gn_inlzPPdP6size_tPKdP9gn_config">gn_inlz (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv412gn_mgr_clearv">gn_mgr_clear (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_mgr_comparePbPKcPKc">gn_mgr_compare (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv415gn_mgr_containsPbPKc">gn_mgr_contains (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_mgr_removePKc">gn_mgr_remove (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_mgr_savePc6size_tPKcPKc">gn_mgr_save (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv425gn_mgr_save_filename_sizeP6size_tPKcPKc">gn_mgr_save_filename_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_mgr_sizeP6size_t">gn_mgr_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv416gn_mgr_to_stringPc6size_tPKc">gn_mgr_to_string (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv421gn_mgr_to_string_sizeP6size_tPKc">gn_mgr_to_string_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv411gn_mgr_typePc6size_tPKc">gn_mgr_type (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv416gn_mgr_type_sizeP6size_tPKc">gn_mgr_type_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv47gn_normPd6size_tPKd6size_t">gn_norm (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_normalize16Pd6size_tPK7int16_t6size_ti12GnCodeFormat">gn_normalize16 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_normalize32Pd6size_tPK7int32_t6size_ti12GnCodeFormat">gn_normalize32 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_normalize64Pd6size_tPK7int64_t6size_ti12GnCodeFormat">gn_normalize64 (C++ function)</a>
+</li>
+      <li><a href="../pytest/#genalyzer.pytest.plots.gn_plot_fft_single_tone">gn_plot_fft_single_tone() (in module genalyzer.pytest.plots)</a>
+</li>
+      <li><a href="../reference/#_CPPv410gn_polyvalPd6size_tPKd6size_tPKd6size_t">gn_polyval (C++ function)</a>
+</li>
+      <li><a href="../reference_simplified/#_CPPv411gn_quantizePP7int32_tPKdP9gn_config">gn_quantize (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_quantize16P7int16_t6size_tPKd6size_tdid12GnCodeFormat">gn_quantize16 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_quantize32P7int32_t6size_tPKd6size_tdid12GnCodeFormat">gn_quantize32 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv413gn_quantize64P7int64_t6size_tPKd6size_tdid12GnCodeFormat">gn_quantize64 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv47gn_rampPd6size_tddd">gn_ramp (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv47gn_rfftPd6size_tPKd6size_t6size_t6size_t8GnWindow11GnRfftScale">gn_rfft (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_rfft16Pd6size_tPK7int16_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat11GnRfftScale">gn_rfft16 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_rfft32Pd6size_tPK7int32_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat11GnRfftScale">gn_rfft32 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv49gn_rfft64Pd6size_tPK7int64_t6size_ti6size_t6size_t8GnWindow12GnCodeFormat11GnRfftScale">gn_rfft64 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv412gn_rfft_sizeP6size_t6size_t6size_t6size_t">gn_rfft_size (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv425gn_set_string_terminationb">gn_set_string_termination (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv46gn_sinPd6size_tdddddd">gn_sin (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv417gn_version_stringPc6size_t">gn_version_string (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv414gn_wf_analysisPPc6size_tPd6size_tPKd6size_t">gn_wf_analysis (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv416gn_wf_analysis16PPc6size_tPd6size_tPK7int16_t6size_t">gn_wf_analysis16 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv416gn_wf_analysis32PPc6size_tPd6size_tPK7int32_t6size_t">gn_wf_analysis32 (C++ function)</a>
+</li>
+      <li><a href="../reference/#_CPPv416gn_wf_analysis64PPc6size_tPd6size_tPK7int64_t6size_t">gn_wf_analysis64 (C++ function)</a>
+</li>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.GNConfig">GNConfig (class in genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.histz">histz() (in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/enumerations/#genalyzer.InlLineFit">InlLineFit() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../mcp/reference/#genalyzer.mcp.io.load_array">load_array() (in module genalyzer.mcp.io)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.fourier">genalyzer.mcp.fourier</a>
+</li>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.generators">genalyzer.mcp.generators</a>
+</li>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.histogram">genalyzer.mcp.histogram</a>
+</li>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.io">genalyzer.mcp.io</a>
+</li>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.linearity">genalyzer.mcp.linearity</a>
+</li>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.quantize">genalyzer.mcp.quantize</a>
+</li>
+        <li><a href="../mcp/reference/#module-genalyzer.mcp.waveform">genalyzer.mcp.waveform</a>
+</li>
+        <li><a href="../pytest/#module-genalyzer.pytest.plots">genalyzer.pytest.plots</a>
+</li>
+        <li><a href="../python/pygenalyzer.simplified/#module-genalyzer.simplified_beta.simplified_beta">genalyzer.simplified_beta.simplified_beta</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/signal_processing/#genalyzer.normalize">normalize() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/signal_processing/#genalyzer.polyval">polyval() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/signal_processing/#genalyzer.quantize">quantize() (in module genalyzer)</a>
+
+      <ul>
+        <li><a href="../mcp/reference/#genalyzer.mcp.quantize.quantize">(in module genalyzer.mcp.quantize)</a>
+</li>
+        <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.quantize">(in module genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/signal_processing/#genalyzer.quantize16">quantize16() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/signal_processing/#genalyzer.quantize32">quantize32() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/signal_processing/#genalyzer.quantize64">quantize64() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/waveforms/#genalyzer.ramp">ramp() (in module genalyzer)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/fourier_transforms/#genalyzer.rfft">rfft() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/enumerations/#genalyzer.RfftScale">RfftScale() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../mcp/reference/#genalyzer.mcp.io.save_array">save_array() (in module genalyzer.mcp.io)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/waveforms/#genalyzer.sin">sin() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.WaveformGen.v_max">v_max (genalyzer.simplified_beta.simplified_beta.WaveformGen property)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.WaveformGen.v_min">v_min (genalyzer.simplified_beta.simplified_beta.WaveformGen property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/pygenalyzer.simplified/#genalyzer.simplified_beta.simplified_beta.WaveformGen">WaveformGen (class in genalyzer.simplified_beta.simplified_beta)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../python/waveforms/#genalyzer.wf_analysis">wf_analysis() (in module genalyzer)</a>
+</li>
+      <li><a href="../python/enumerations/#genalyzer.Window">Window() (in module genalyzer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <div></div>
+    <div></div>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2024-2026, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Generate a cosine waveform sampled at rate fs." name="description" />
+
+    <title>Waveforms &#8212; Genalyzer v0.1.6 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/app.min.css?v=fb8972a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxcontrib_d2.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <script src="../../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="../../_static/app.umd.js?v=8c78863f"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="icon" href="../../_static/genalyzer_favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Signal Processing" href="../signal_processing/" />
+    <link rel="prev" title="Fourier Transforms" href="../fourier_transforms/" />
+   
+  
+  
+  
+  <meta name="repository" content="genalyzer">
+  <meta name="version" content="">
+  
+    <meta name="page_source_suffix" content=".rst">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
+        
+        <a id="logo" href="../../">
+          <div>Genalyzer</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="../../index.html" class="current">Genalyzer</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">Waveforms</a><ul>
+<li><a class="reference internal" href="#genalyzer.cos"><code class="docutils literal notranslate"><span class="pre">cos()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.ramp"><code class="docutils literal notranslate"><span class="pre">ramp()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.sin"><code class="docutils literal notranslate"><span class="pre">sin()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.wf_analysis"><code class="docutils literal notranslate"><span class="pre">wf_analysis()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="../../">
+      <img class="only-light" src="../../_static/genalyzer_logo.png"/>
+      <img class="only-dark" src="../../_static/genalyzer_logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../index.html" class="current">Genalyzer</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Contents:</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spectral_analysis/">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spectral_analysis_ssb/">Windowing and Single Side Bins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/">C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_simplified/">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../genalyzer/">Python Bindings</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1-1" id="toctree-collapse-1-1" checked=""/><div class="collapse"><a class="reference internal" href="../pygenalyzer/">pygenalizer</a><label for="toctree-collapse-1-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../enumerations/">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fourier_analysis/">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fourier_configuration/">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fourier_transforms/">Fourier Transforms</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../signal_processing/">Signal Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pygenalyzer.simplified/">pygenalizer.simplified (Beta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyadi/">pyadi-iio Interface Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../csharp/">C# Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pytest/">Pytest Integration</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-2" id="toctree-collapse-2"/><div class="collapse"><a class="reference internal" href="../../mcp/">MCP Server</a><label for="toctree-collapse-2"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../mcp/workflows/">Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mcp/reference/">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/">CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linting/">Code Quality Tools</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb"><ol><li><a href="../genalyzer/">Python Bindings</a></li><li><a href="../pygenalyzer/">pygenalizer</a></li></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="waveforms">
+<h1>Waveforms<a class="headerlink" href="#waveforms" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.cos">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsamples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ampl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">td</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.cos" title="Link to this definition"></a></dt>
+<dd><p>Generate a cosine waveform sampled at rate fs.</p>
+<p>The waveform is: ampl * cos(2*pi*freq*(t + td) + phase), where
+t = [0, 1/fs, 2/fs, …]. Time delay td shifts the waveform in time.
+If tj &gt; 0, random Gaussian aperture jitter is added to each sampling
+instant to model clock jitter.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">nsamples</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of samples to generate</p>
+<p><code class="docutils literal notranslate"><span class="pre">fs</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Sample rate in S/s</p>
+<p><code class="docutils literal notranslate"><span class="pre">ampl</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Amplitude</p>
+<p><code class="docutils literal notranslate"><span class="pre">freq</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Signal frequency in Hz</p>
+<p><code class="docutils literal notranslate"><span class="pre">phase</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Phase offset in radians (default: 0.0)</p>
+<p><code class="docutils literal notranslate"><span class="pre">td</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Time delay in seconds (default: 0.0)</p>
+<p><code class="docutils literal notranslate"><span class="pre">tj</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : RMS aperture jitter in seconds (default: 0.0)</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> array of cosine waveform samples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.gaussian">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsamples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.gaussian" title="Link to this definition"></a></dt>
+<dd><p>Generate an array of Gaussian (normally distributed) random samples.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">nsamples</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of samples to generate</p>
+<p><code class="docutils literal notranslate"><span class="pre">mean</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Mean of the distribution</p>
+<p><code class="docutils literal notranslate"><span class="pre">sd</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Standard deviation of the distribution</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> array of Gaussian random samples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.ramp">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">ramp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsamples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.ramp" title="Link to this definition"></a></dt>
+<dd><p>Generate a linear ramp waveform from start to stop with midpoint sampling.</p>
+<p>Each sample is placed at the center of its step. If noise &gt; 0, Gaussian
+noise with the specified RMS level is added.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">nsamples</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of samples to generate</p>
+<p><code class="docutils literal notranslate"><span class="pre">start</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Start value</p>
+<p><code class="docutils literal notranslate"><span class="pre">stop</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Stop value</p>
+<p><code class="docutils literal notranslate"><span class="pre">noise</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : RMS level of Gaussian noise to add (0 for no noise)</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> array of ramp waveform samples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.sin">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsamples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ampl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">td</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.sin" title="Link to this definition"></a></dt>
+<dd><p>Generate a sine waveform sampled at rate fs.</p>
+<p>The waveform is: ampl * sin(2*pi*freq*(t + td) + phase), where
+t = [0, 1/fs, 2/fs, …]. Time delay td shifts the waveform in time.
+If tj &gt; 0, random Gaussian aperture jitter is added to each sampling
+instant to model clock jitter.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">nsamples</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) : Number of samples to generate</p>
+<p><code class="docutils literal notranslate"><span class="pre">fs</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Sample rate in S/s</p>
+<p><code class="docutils literal notranslate"><span class="pre">ampl</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Amplitude</p>
+<p><code class="docutils literal notranslate"><span class="pre">freq</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Signal frequency in Hz</p>
+<p><code class="docutils literal notranslate"><span class="pre">phase</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Phase offset in radians (default: 0.0)</p>
+<p><code class="docutils literal notranslate"><span class="pre">td</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : Time delay in seconds (default: 0.0)</p>
+<p><code class="docutils literal notranslate"><span class="pre">tj</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>) : RMS aperture jitter in seconds (default: 0.0)</p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">out</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : <code class="docutils literal notranslate"><span class="pre">float64</span></code> array of sine waveform samples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.wf_analysis">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.</span></span><span class="sig-name descname"><span class="pre">wf_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.wf_analysis" title="Link to this definition"></a></dt>
+<dd><p>Compute time-domain statistics of a waveform.</p>
+<p>Computes min, max, mid, range, average, RMS, and AC-RMS values.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) : Input array of type <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, or <code class="docutils literal notranslate"><span class="pre">int64</span></code></p>
+</dd>
+<dt>Returns:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">results</span></code> (<code class="docutils literal notranslate"><span class="pre">dict</span></code>) : Dictionary containing all waveform analysis results</p>
+</dd>
+<dt>Notes:</dt><dd><p>Every Key:Value pair in the dictionary is <code class="docutils literal notranslate"><span class="pre">str</span></code>:<code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
+<dl>
+<dt>The dictionary contains the following keys:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">signaltype</span></code> : Signal type: 0=Real, 1=Complex</p>
+<p><code class="docutils literal notranslate"><span class="pre">min</span></code> : Minumum value</p>
+<p><code class="docutils literal notranslate"><span class="pre">max</span></code> : Maximum value</p>
+<p><code class="docutils literal notranslate"><span class="pre">mid</span></code> : Middle value ((max + min) / 2)</p>
+<p><code class="docutils literal notranslate"><span class="pre">range</span></code> : Range (max - min)</p>
+<p><code class="docutils literal notranslate"><span class="pre">avg</span></code> : Average value</p>
+<p><code class="docutils literal notranslate"><span class="pre">rms</span></code> : RMS value</p>
+<p><code class="docutils literal notranslate"><span class="pre">rmsac</span></code> : RMS value with DC removed</p>
+<p><code class="docutils literal notranslate"><span class="pre">min_index</span></code> : Index of first occurence of minimum value</p>
+<p><code class="docutils literal notranslate"><span class="pre">max_index</span></code> : Index of first occurence of maximum value</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../fourier_transforms/" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Fourier Transforms</a>
+    <a href="../signal_processing/" title="Next document (Alt+Shift+RightArrow)" class="next">Signal Processing</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2024-2026, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

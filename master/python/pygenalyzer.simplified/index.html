@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Bases: object" name="description" />
+
+    <title>pygenalizer.simplified (Beta) &#8212; Genalyzer v0.1.6 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/app.min.css?v=fb8972a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxcontrib_d2.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <script src="../../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="../../_static/app.umd.js?v=8c78863f"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="icon" href="../../_static/genalyzer_favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="pyadi-iio Interface Helpers" href="../pyadi/" />
+    <link rel="prev" title="Signal Processing" href="../signal_processing/" />
+   
+  
+  
+  
+  <meta name="repository" content="genalyzer">
+  <meta name="version" content="">
+  
+    <meta name="page_source_suffix" content=".rst">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
+        
+        <a id="logo" href="../../">
+          <div>Genalyzer</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="../../index.html" class="current">Genalyzer</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">pygenalizer.simplified (Beta)</a><ul>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig"><code class="docutils literal notranslate"><span class="pre">GNConfig</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen"><code class="docutils literal notranslate"><span class="pre">WaveformGen</span></code></a><ul>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_cosine_wave"><code class="docutils literal notranslate"><span class="pre">WaveformGen.gen_cosine_wave()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_pwm_wave"><code class="docutils literal notranslate"><span class="pre">WaveformGen.gen_pwm_wave()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_sine_wave"><code class="docutils literal notranslate"><span class="pre">WaveformGen.gen_sine_wave()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_square_wave"><code class="docutils literal notranslate"><span class="pre">WaveformGen.gen_square_wave()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_triangular_wave"><code class="docutils literal notranslate"><span class="pre">WaveformGen.gen_triangular_wave()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.v_max"><code class="docutils literal notranslate"><span class="pre">WaveformGen.v_max</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.v_min"><code class="docutils literal notranslate"><span class="pre">WaveformGen.v_min</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_code_format"><code class="docutils literal notranslate"><span class="pre">config_code_format()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_fa"><code class="docutils literal notranslate"><span class="pre">config_fa()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_fa_auto"><code class="docutils literal notranslate"><span class="pre">config_fa_auto()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_fftz"><code class="docutils literal notranslate"><span class="pre">config_fftz()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_free"><code class="docutils literal notranslate"><span class="pre">config_free()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_gen_ramp"><code class="docutils literal notranslate"><span class="pre">config_gen_ramp()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_gen_tone"><code class="docutils literal notranslate"><span class="pre">config_gen_tone()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_histz_nla"><code class="docutils literal notranslate"><span class="pre">config_histz_nla()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_quantize"><code class="docutils literal notranslate"><span class="pre">config_quantize()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.config_set_sample_rate"><code class="docutils literal notranslate"><span class="pre">config_set_sample_rate()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.fftz"><code class="docutils literal notranslate"><span class="pre">fftz()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.gen_complex_tone"><code class="docutils literal notranslate"><span class="pre">gen_complex_tone()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.gen_ramp"><code class="docutils literal notranslate"><span class="pre">gen_ramp()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.gen_real_tone"><code class="docutils literal notranslate"><span class="pre">gen_real_tone()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.get_fa_results"><code class="docutils literal notranslate"><span class="pre">get_fa_results()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.get_fa_single_result"><code class="docutils literal notranslate"><span class="pre">get_fa_single_result()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.get_ha_results"><code class="docutils literal notranslate"><span class="pre">get_ha_results()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.get_wfa_results"><code class="docutils literal notranslate"><span class="pre">get_wfa_results()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.histz"><code class="docutils literal notranslate"><span class="pre">histz()</span></code></a></li>
+<li><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.quantize"><code class="docutils literal notranslate"><span class="pre">quantize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="../../">
+      <img class="only-light" src="../../_static/genalyzer_logo.png"/>
+      <img class="only-dark" src="../../_static/genalyzer_logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../index.html" class="current">Genalyzer</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Contents:</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spectral_analysis/">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spectral_analysis_ssb/">Windowing and Single Side Bins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/">C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_simplified/">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../genalyzer/">Python Bindings</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1-1" id="toctree-collapse-1-1"/><div class="collapse"><a class="reference internal" href="../pygenalyzer/">pygenalizer</a><label for="toctree-collapse-1-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l3"><a class="reference internal" href="../enumerations/">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fourier_analysis/">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fourier_configuration/">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fourier_transforms/">Fourier Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../waveforms/">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../signal_processing/">Signal Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pygenalizer.simplified (Beta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyadi/">pyadi-iio Interface Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../csharp/">C# Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pytest/">Pytest Integration</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-2" id="toctree-collapse-2"/><div class="collapse"><a class="reference internal" href="../../mcp/">MCP Server</a><label for="toctree-collapse-2"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../mcp/workflows/">Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mcp/reference/">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/">CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linting/">Code Quality Tools</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb"><ol><li><a href="../genalyzer/">Python Bindings</a></li></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="module-genalyzer.simplified_beta.simplified_beta">
+<span id="pygenalizer-simplified-beta"></span><h1>pygenalizer.simplified (Beta)<a class="headerlink" href="#module-genalyzer.simplified_beta.simplified_beta" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.GNConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">GNConfig</span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Configuration structure to handle library state</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.WaveformGen">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">WaveformGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_fmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_ref_n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_ref_p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Waveform data generation for transmit devices</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_cosine_wave">
+<span class="sig-name descname"><span class="pre">gen_cosine_wave</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_cosine_wave" title="Link to this definition"></a></dt>
+<dd><p>Generate cosine wave data</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_pwm_wave">
+<span class="sig-name descname"><span class="pre">gen_pwm_wave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duty_cycle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_pwm_wave" title="Link to this definition"></a></dt>
+<dd><p>Generate pwm wave data</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">duty_cycle</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>): Duty cycle required. Must be in between 0 and 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_sine_wave">
+<span class="sig-name descname"><span class="pre">gen_sine_wave</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_sine_wave" title="Link to this definition"></a></dt>
+<dd><p>Generate sine wave data</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_square_wave">
+<span class="sig-name descname"><span class="pre">gen_square_wave</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_square_wave" title="Link to this definition"></a></dt>
+<dd><p>Generate square wave data</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_triangular_wave">
+<span class="sig-name descname"><span class="pre">gen_triangular_wave</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.gen_triangular_wave" title="Link to this definition"></a></dt>
+<dd><p>Generate triangular wave data</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Waveform as list of ints</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.WaveformGen.v_max">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">v_max</span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.v_max" title="Link to this definition"></a></dt>
+<dd><p>Upper required voltage limit</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.WaveformGen.v_min">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">v_min</span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.WaveformGen.v_min" title="Link to this definition"></a></dt>
+<dd><p>Lower required voltage limit</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_code_format">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_code_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_code_format" title="Link to this definition"></a></dt>
+<dd><p>Configure code format.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">code_format</span></code>: code format (Offset binary, Twos complement)</p>
+<p><code class="docutils literal notranslate"><span class="pre">c</span></code>: GNConfig object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_fa">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_fa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_tone_freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_fa" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_fa_auto">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_fa_auto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ssb_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_fa_auto" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_fftz">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_fftz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qres</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">navg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_fftz" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_free">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_free</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_free" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_gen_ramp">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_gen_ramp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ramp_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ramp_stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_gen_ramp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_gen_tone">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_gen_tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_tones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tone_freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tone_ampl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tone_phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_gen_tone" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_histz_nla">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_histz_nla</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qres</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_histz_nla" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_quantize">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_quantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fsr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qres</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qnoise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_quantize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.config_set_sample_rate">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">config_set_sample_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.config_set_sample_rate" title="Link to this definition"></a></dt>
+<dd><p>Set sample rate.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">sample_rate</span></code>: Sample rate in Hz</p>
+<p><code class="docutils literal notranslate"><span class="pre">c</span></code>: GNConfig object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.fftz">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">fftz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_qwfi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_qwfq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.fftz" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.gen_complex_tone">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">gen_complex_tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.gen_complex_tone" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.gen_ramp">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">gen_ramp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.gen_ramp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.gen_real_tone">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">gen_real_tone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.gen_real_tone" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.get_fa_results">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">get_fa_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fft_ilv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.get_fa_results" title="Link to this definition"></a></dt>
+<dd><p>Get Fourier analysis results.</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">fixed_tone_freq</span></code>: fixed tone frequency</p>
+<p><code class="docutils literal notranslate"><span class="pre">c</span></code>: GNConfig object</p>
+</dd>
+<dt>Returns:</dt><dd><p>Results as dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.get_fa_single_result">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">get_fa_single_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fft_ilv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.get_fa_single_result" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.get_ha_results">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">get_ha_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hist_in</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.get_ha_results" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.get_wfa_results">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">get_wfa_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_qwf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.get_wfa_results" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.histz">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">histz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_qwf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.histz" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="genalyzer.simplified_beta.simplified_beta.quantize">
+<span class="sig-prename descclassname"><span class="pre">genalyzer.simplified_beta.simplified_beta.</span></span><span class="sig-name descname"><span class="pre">quantize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_awf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#genalyzer.simplified_beta.simplified_beta.GNConfig" title="genalyzer.simplified_beta.simplified_beta.GNConfig"><span class="pre">GNConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#genalyzer.simplified_beta.simplified_beta.quantize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../signal_processing/" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Signal Processing</a>
+    <a href="../pyadi/" title="Next document (Alt+Shift+RightArrow)" class="next">pyadi-iio Interface Helpers</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2024-2026, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

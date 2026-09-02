@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="We provide an installer for Windows. You can download it from the releases page. There are installers built for each main branch commit. These are downloadable from the Actions of each commit." name="description" />
+
+    <title>Installation &#8212; Genalyzer v0.1.6 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=fb8972a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxcontrib_d2.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="../_static/app.umd.js?v=8c78863f"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="icon" href="../_static/genalyzer_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Spectral Analysis" href="../spectral_analysis/" />
+    <link rel="prev" title="Introduction" href="../introduction/" />
+   
+  
+  
+  
+  <meta name="repository" content="genalyzer">
+  <meta name="version" content="">
+  
+    <meta name="page_source_suffix" content=".md">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
+        
+        <a id="logo" href="../">
+          <div>Genalyzer</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="../index.html" class="current">Genalyzer</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+<li><a class="reference internal" href="#linux-macos">Linux/macOS</a><ul>
+<li><a class="reference internal" href="#core-dependencies">Core Dependencies</a></li>
+<li><a class="reference internal" href="#get-the-source-code">Get the source code</a></li>
+<li><a class="reference internal" href="#optional-python-dependencies">(Optional) Python Dependencies</a></li>
+<li><a class="reference internal" href="#optional-documentation-dependencies">(Optional) Documentation Dependencies</a></li>
+<li><a class="reference internal" href="#build">Build</a><ul>
+<li><a class="reference internal" href="#cmake-options">CMake Options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="../">
+      <img class="only-light" src="../_static/genalyzer_logo.png"/>
+      <img class="only-dark" src="../_static/genalyzer_logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../index.html" class="current">Genalyzer</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Contents:</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis/">Spectral Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectral_analysis_ssb/">Windowing and Single Side Bins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/">C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_simplified/">(Beta) Simplified API Reference</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1"/><div class="collapse"><a class="reference internal" href="../python/genalyzer/">Python Bindings</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1-1" id="toctree-collapse-1-1"/><div class="collapse"><a class="reference internal" href="../python/pygenalyzer/">pygenalizer</a><label for="toctree-collapse-1-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l3"><a class="reference internal" href="../python/enumerations/">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_analysis/">Fourier Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_configuration/">Fourier Analysis Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/fourier_transforms/">Fourier Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/waveforms/">Waveforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/signal_processing/">Signal Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pygenalyzer.simplified/">pygenalizer.simplified (Beta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pyadi/">pyadi-iio Interface Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../csharp/">C# Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pytest/">Pytest Integration</a></li>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-2" id="toctree-collapse-2"/><div class="collapse"><a class="reference internal" href="../mcp/">MCP Server</a><label for="toctree-collapse-2"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mcp/workflows/">Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mcp/reference/">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linting/">Code Quality Tools</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb empty"><ol></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<section id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Link to this heading"></a></h2>
+<p>We provide an installer for Windows. You can download it from the <a class="icon link reference external" href="https://github.com/analogdevicesinc/genalyzer/releases" target="_blank">releases page</a>. There are installers built for each main branch commit. These are downloadable from the <a class="icon link reference external" href="https://github.com/analogdevicesinc/genalyzer/actions/workflows/test-win.yml" target="_blank">Actions</a> of each commit.</p>
+</section>
+<section id="linux-macos">
+<h2>Linux/macOS<a class="headerlink" href="#linux-macos" title="Link to this heading"></a></h2>
+<p>For now we do not provide binaries for Linux or macOS. You can build the library from source. Here is the process for Ubuntu/macOS. If you are using another distribution, you will need to adapt the commands. Please send a PR if you have the commands for another distribution.</p>
+<section id="core-dependencies">
+<h3>Core Dependencies<a class="headerlink" href="#core-dependencies" title="Link to this heading"></a></h3>
+<div class="tab-set docutils">
+<input checked="True" class="tab-input" id="tab-set--0-input--1" name="tab-set--0" type="radio" /><label class="tab-label" for="tab-set--0-input--1">Ubuntu</label><div class="tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>libfftw3-dev<span class="w"> </span>git
+</pre></div>
+</div>
+</div>
+<input class="tab-input" id="tab-set--0-input--2" name="tab-set--0" type="radio" /><label class="tab-label" for="tab-set--0-input--2">macOS</label><div class="tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>cmake<span class="w"> </span>fftw
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="get-the-source-code">
+<h3>Get the source code<a class="headerlink" href="#get-the-source-code" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/analogdevicesinc/genalyzer.git
+<span class="nb">cd</span><span class="w"> </span>genalyzer
+</pre></div>
+</div>
+</section>
+<section id="optional-python-dependencies">
+<h3>(Optional) Python Dependencies<a class="headerlink" href="#optional-python-dependencies" title="Link to this heading"></a></h3>
+<div class="tab-set docutils">
+<input checked="True" class="tab-input" id="tab-set--1-input--1" name="tab-set--1" type="radio" /><label class="tab-label" for="tab-set--1-input--1">Ubuntu</label><div class="tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip
+sudo<span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>numpy
+</pre></div>
+</div>
+</div>
+<input class="tab-input" id="tab-set--1-input--2" name="tab-set--1" type="radio" /><label class="tab-label" for="tab-set--1-input--2">macOS</label><div class="tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>numpy
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="optional-documentation-dependencies">
+<h3>(Optional) Documentation Dependencies<a class="headerlink" href="#optional-documentation-dependencies" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements_doc.txt
+</pre></div>
+</div>
+</section>
+<section id="build">
+<h3>Build<a class="headerlink" href="#build" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
+make
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<section id="cmake-options">
+<h4>CMake Options<a class="headerlink" href="#cmake-options" title="Link to this heading"></a></h4>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BUILD_DOC</span></code></p></td>
+<td><p>Build the documentation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BUILD_TESTS_EXAMPLES</span></code></p></td>
+<td><p>Build the tests and examples</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">COVERAGE</span></code></p></td>
+<td><p>Enable coverage tracing when testing</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../introduction/" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Introduction</a>
+    <a href="../spectral_analysis/" title="Next document (Alt+Shift+RightArrow)" class="next">Spectral Analysis</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2024-2026, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>
