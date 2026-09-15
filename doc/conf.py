@@ -23,6 +23,7 @@ gen_pages()
 
 # -- Project information -----------------------------------------------------
 
+repository = "genalyzer"
 project = "Genalyzer"
 repository = "genalyzer"
 copyright = "2024-2026, Analog Devices, Inc."
